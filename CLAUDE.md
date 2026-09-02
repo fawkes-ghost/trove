@@ -24,7 +24,8 @@ PR so the other is updated the same day.
    Code: £250 per month credit card cap, self-set limits, account suspension and closure,
    GamCare and GambleAware signposting.
 3. **Copy conventions.** Full stops on headlines. No exclamation marks. No em or en
-   dashes; use commas, colons and full stops. Sentence case everywhere, including
+   dashes; use commas, colons and full stops. Typographic apostrophes and quotes
+   (’ “ ”), never straight ones. Sentence case everywhere, including
    buttons. "Entries" not "tickets". "Founding friends" not "members". "Escape" not
    stay, holiday, vacation. Draws are named by destination and never numbered, in copy,
    routes, filenames and commit messages. No countdown timers, no "win now", no

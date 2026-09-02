@@ -71,6 +71,7 @@ body:has([data-hero]) .site-header {
 /* The logo moment. A blocking script in the root layout sets data-moment="play" before
    first paint on a fresh visit to the home page; components/hero/LogoMoment.tsx then
    animates and clears it. Without the attribute the page is the still version. */
+html[data-moment="play"] .site-header,
 html[data-moment="play"] .header-icon,
 html[data-moment="play"] .hero-poster,
 html[data-moment="play"] [data-hero-line] {

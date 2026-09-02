@@ -13,7 +13,7 @@ export function Hero() {
   const venueLine =
     escape.venue.name && escape.venue.permissionGranted
       ? `A long weekend at ${escape.venue.name}.`
-      : "A long weekend at one of England's finest country houses.";
+      : "A long weekend at one of England’s finest country houses.";
 
   const sweetener = `${sentenceCase(numberWord(escape.nights))} nights, breakfast, and ${gbp(escape.prize.cash)} in cash. A ${gbp(escape.prize.value)} prize.`;
 
@@ -40,7 +40,7 @@ export function Hero() {
           <h1 data-hero-line className="display text-[2.5rem] md:text-[4.25rem]">
             {venueLine}
           </h1>
-          <p data-hero-line className="text-lg text-accent md:text-xl">
+          <p data-hero-line className="text-lg md:text-xl">
             For you and your favourite person.
           </p>
           <p data-hero-line className="text-base md:text-lg">

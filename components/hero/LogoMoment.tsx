@@ -37,6 +37,7 @@ export function LogoMoment({ iconSvg }: { iconSvg: string }) {
     const backdrop = backdropRef.current;
     const disc = tile?.querySelector('circle');
     const seat = document.querySelector<HTMLElement>('.header-icon');
+    const header = document.querySelector<HTMLElement>('.site-header');
     const poster = document.querySelector<HTMLElement>('.hero-poster');
     const lines = Array.from(document.querySelectorAll<HTMLElement>('[data-hero-line]'));
     if (!tile || !backdrop || !disc || !seat) {
@@ -75,6 +76,8 @@ export function LogoMoment({ iconSvg }: { iconSvg: string }) {
     tl.to(tile, { x: dx, y: dy, scale, duration: 0.5, ease: 'power2.inOut' }, 0.9);
     tl.to(tile, { color: snow, duration: 0.4 }, 0.95);
     tl.to(disc, { fill: ink, duration: 0.4 }, 0.95);
+    // The wordmark and menu arrive with the tile.
+    if (header) tl.to(header, { opacity: 1, duration: 0.5 }, 1.25);
     // The five lines settle in order.
     tl.to(lines, { opacity: 1, y: 0, duration: 0.5, stagger: 0.08 }, 1.2);
 
