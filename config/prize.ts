@@ -67,6 +67,10 @@ export type Escape = {
   theme: {
     accent: string;                 // one accent per escape, drawn from the destination in season
   };
+  media: {
+    poster: string | null;          // first frame of the film, shown on first paint and under reduced motion
+    loop: string | null;            // silent looping film; null falls back to the gradient
+  };
   entry: {
     price: Money;                   // single entry
     bundles: EntryBundle[];         // must keep the cap multiple above economics.capMultipleMinimum
@@ -105,6 +109,11 @@ export const escape: Escape = {
     ],
   },
   theme: { accent: '#D9455F' },     // rosehip, Hampshire in winter; provisional until the design plan is signed off
+  media: {
+    poster: '/media/hero-poster.jpg', // first visible frame of the loop below (frame zero is black), extracted once and committed
+    // Serengeti placeholder, to be replaced by the Hampshire film once footage is licensed. Not the venue.
+    loop: 'https://uvnhwgbqmwzzdvxxdgzm.supabase.co/storage/v1/object/public/media/hero-montage-desktop-v2-web-v3.mp4',
+  },
   entry: {
     price: 5,
     bundles: [

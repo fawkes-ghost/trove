@@ -43,11 +43,12 @@ escape; the words say exactly what it is and where the money goes.
 | `--snow` | `#F2F3EF` | Page background. Cool, not cream |
 | `--ink` | `#101214` | Text, the icon tile, primary button |
 | `--moss` | `#3F5A3A` | Secondary surfaces, the charity section, footer |
-| `--accent` | from `escape.theme.accent` | The button, the ledger figure, one line of the hero. Hampshire winter: rosehip `#D9455F` |
+| `--accent` | from `escape.theme.accent` | The ledger figure and buttons outside the hero. Never in the hero, where the button is snow with ink text. Hampshire winter: rosehip `#D9455F` |
 | `--film` | media only | Warm winter grade: low sun, long shadows, breath in the air, no midday blue |
 
-Rules: the accent appears at most three times per viewport. Colour lives in the accent
-and the film; surfaces stay snow, ink and moss. No gradient washes on chrome.
+Rules: the accent appears at most three times per viewport and never in the hero, where
+the film carries all the colour and the text and button are snow. Colour lives in the
+accent and the film; surfaces stay snow, ink and moss. No gradient washes on chrome.
 
 ### Type (provisional until the founder's references are in)
 
@@ -73,23 +74,28 @@ final positions, no sequence.
 +------------------------------------------------------------------+
 | [icon][Trove]                                            [ menu ] |
 |                                                                    |
-|   FILM (full bleed, silent, seamless loop, scrim rising from base) |
+|   FILM (full bleed, silent, seamless loop, heavy scrim so snow     |
+|   text reads over any frame; poster on first paint)                |
 |                                                                    |
-|   Your chance to win                         kicker, sans, muted   |
-|   A long weekend at one of                   display, snow on film |
-|   England's finest country houses.                                 |
-|   For you and your favourite person.         sans, one line accent |
+|                     Your chance to win               kicker, sans  |
+|                A long weekend at one of              display, snow |
+|             England’s finest country houses.         centred       |
 |   Three nights, breakfast, and £1,300 in cash. A £4,000 prize.     |
-|   One winner is guaranteed. Entries are capped at 3,000.  chip     |
-|   [ Join the waitlist ]                      accent fill, ink text |
-|   Fifteen pence in every pound goes to       sans 14, snow         |
-|   Hampshire's countryside and communities.                         |
+|      [ One winner is guaranteed. Entries are capped at 3,000. ]    |
+|                     [ Join the waitlist ]            snow fill,    |
+|                                                      ink text      |
+|        Fifteen pence in every pound goes to community              |
+|        and countryside causes in Hampshire.          sans 14, snow |
 |                                                                    |
 |                        ( scroll )            the scroll button     |
 |  18+. UK residents. Free postal entry, identical odds, same cap.   |
 |  Significant conditions.                     mono 11, strip        |
 +------------------------------------------------------------------+
 ```
+
+One centred column, in this order: kicker, headline, sweetener with the cash line, trust
+chip, button, the charity line beneath the button. Everything in snow over the film under
+a heavy scrim. The accent does not appear in the hero.
 
 Every figure in that wireframe is illustrative and is rendered from config. The venue is
 not named until `venue.permissionGranted` is true; until then "one of England's finest
