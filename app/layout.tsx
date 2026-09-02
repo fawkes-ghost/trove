@@ -6,6 +6,8 @@ import { escape } from '@/config/prize';
 import { Header } from '@/components/site/Header';
 import { Footer } from '@/components/site/Footer';
 import { SmoothScroll } from '@/components/motion/SmoothScroll';
+import { ConsentBanner } from '@/components/consent/ConsentBanner';
+import { Analytics } from '@/components/consent/Analytics';
 import './globals.css';
 
 const fraunces = Fraunces({
@@ -54,6 +56,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <Header />
         {children}
         <Footer />
+        <ConsentBanner />
+        <Analytics />
       </body>
     </html>
   );
