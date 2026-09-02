@@ -1,7 +1,11 @@
 import type { Metadata } from 'next';
 import type { CSSProperties, ReactNode } from 'react';
+import Script from 'next/script';
 import { Fraunces, Geist, Geist_Mono } from 'next/font/google';
 import { escape } from '@/config/prize';
+import { Header } from '@/components/site/Header';
+import { Footer } from '@/components/site/Footer';
+import { SmoothScroll } from '@/components/motion/SmoothScroll';
 import './globals.css';
 
 const fraunces = Fraunces({
@@ -31,6 +35,10 @@ export const metadata: Metadata = {
 // The accent is one per escape and comes from config, never from a stylesheet.
 const accent = { '--accent': escape.theme.accent } as CSSProperties;
 
+// Decides before first paint whether the logo moment plays: fresh session, home page,
+// motion allowed. Runs in the head so nothing flashes either way.
+const momentGate = `try{if(location.pathname==="/"&&!matchMedia("(prefers-reduced-motion: reduce)").matches&&!sessionStorage.getItem("trove:logo-moment")){document.documentElement.dataset.moment="play"}}catch(e){}`;
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
@@ -38,7 +46,15 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       style={accent}
       className={`${fraunces.variable} ${geistSans.variable} ${geistMono.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <Script id="moment-gate" strategy="beforeInteractive">
+          {momentGate}
+        </Script>
+        <SmoothScroll />
+        <Header />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }

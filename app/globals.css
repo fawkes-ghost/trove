@@ -6,6 +6,7 @@
   --ink: #101214;
   --moss: #3F5A3A;
   --accent: var(--ink);
+  --hairline: 1px;
 }
 
 @theme inline {
@@ -25,7 +26,18 @@ html {
 
 body {
   font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Display type: Fraunces on the soft optical axis. Headlines ragged left, tight leading. */
+.display {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-variation-settings: "SOFT" 100, "opsz" 144;
+  letter-spacing: -0.015em;
+  line-height: 1.02;
+  text-wrap: pretty;
 }
 
 /* Inline brand marks size to their wrapper; see components/brand/Marks.tsx. */
@@ -37,6 +49,53 @@ body {
   display: block;
   height: 100%;
   width: auto;
+}
+/* The icon disc: snow by default, ink when the tile is on a film or ink surface (the inverse). Scoped to the icon so the wordmark o stays currentColor. */
+.brand-icon > svg circle {
+  fill: var(--disc, var(--snow));
+}
+.on-film {
+  color: var(--snow);
+  --disc: var(--ink);
+}
+
+/* The header sits over the hero on the home page and reads snow on film there. */
+.site-header {
+  color: var(--ink);
+}
+body:has([data-hero]) .site-header {
+  color: var(--snow);
+  --disc: var(--ink);
+}
+
+/* The logo moment. A blocking script in the root layout sets data-moment="play" before
+   first paint on a fresh visit to the home page; components/hero/LogoMoment.tsx then
+   animates and clears it. Without the attribute the page is the still version. */
+html[data-moment="play"] .header-icon,
+html[data-moment="play"] .hero-poster,
+html[data-moment="play"] [data-hero-line] {
+  opacity: 0;
+}
+html[data-moment="play"] [data-hero-line] {
+  transform: translateY(14px);
+}
+.curtain {
+  display: none;
+}
+html[data-moment="play"] .curtain {
+  display: block;
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
 
 /* Reduced motion: every moment has a still version. See lib/reduced-motion.ts. */

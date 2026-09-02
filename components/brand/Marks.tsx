@@ -12,7 +12,7 @@ type MarkProps = { height?: number; className?: string };
 export function Icon({ height = 28, className }: MarkProps) {
   return (
     <span
-      className={['brand-mark', className].filter(Boolean).join(' ')}
+      className={['brand-mark brand-icon', className].filter(Boolean).join(' ')}
       style={{ height }}
       dangerouslySetInnerHTML={{ __html: readMark('icon.svg') }}
     />

@@ -30,7 +30,7 @@ export const compliance = {
   },
   noRollover: true,                 // "One winner is guaranteed" is only sayable while this is true
   closeRule: 'cap-or-longstop' as const, // never publish a closing date and then extend it
-  significantConditionsPath: '/terms', // one click from every promotional surface (CAP 8.17)
+  significantConditionsPath: '/legal/significant-conditions', // one click from every promotional surface (CAP 8.17)
   dcmsVoluntaryCode: {
     creditCardMonthlyCap: 250,      // GBP
     selfSetLimits: true,
