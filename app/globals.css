@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+/* Palette. --accent is set on <html> in app/layout.tsx from escape.theme.accent. */
+:root {
+  --snow: #F2F3EF;
+  --ink: #101214;
+  --moss: #3F5A3A;
+  --accent: var(--ink);
+}
+
+@theme inline {
+  --color-snow: var(--snow);
+  --color-ink: var(--ink);
+  --color-moss: var(--moss);
+  --color-accent: var(--accent);
+  --font-serif: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+html {
+  background: var(--snow);
+  color: var(--ink);
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Inline brand marks size to their wrapper; see components/brand/Marks.tsx. */
+.brand-mark {
+  display: inline-block;
+  line-height: 0;
+}
+.brand-mark > svg {
+  display: block;
+  height: 100%;
+  width: auto;
+}
+
+/* Reduced motion: every moment has a still version. See lib/reduced-motion.ts. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
