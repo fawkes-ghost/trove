@@ -55,7 +55,7 @@ export function Hero({ escape = hampshire, moment = true }: { escape?: Escape; m
         <ScrollButton targetId="ledger" />
       </div>
 
-      <div className="row-start-5 border-t border-snow/20 px-6 py-3 md:px-10">
+      <div className="hero-strip row-start-5 border-t border-snow/20 px-6 py-3 md:px-10">
         <ComplianceStrip />
       </div>
     </section>
