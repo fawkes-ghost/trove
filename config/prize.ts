@@ -146,6 +146,13 @@ export function worstCaseOdds(e: Escape = escape): string {
   return `1 in ${e.cap.toLocaleString('en-GB')}`;
 }
 
+// Worst-case odds for a number of entries: the share of a full cap those entries hold,
+// written as "1 in N" and rounded to the nearest whole number.
+export function oddsForEntries(entries: number, e: Escape = escape): string {
+  const held = Math.min(Math.max(Math.round(entries), 1), e.cap);
+  return `1 in ${Math.round(e.cap / held).toLocaleString('en-GB')}`;
+}
+
 export function blendedEntryPrice(e: Escape = escape, mixAtBundle = 0.5): Money {
   // Planning blend: half of paid entries bought singly, half via the largest bundle.
   const top = e.entry.bundles[e.entry.bundles.length - 1];
