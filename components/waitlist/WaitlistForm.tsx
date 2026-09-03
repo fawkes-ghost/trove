@@ -67,12 +67,14 @@ export function WaitlistForm() {
       });
       const result: { success?: boolean; message?: string; error?: string } = await response.json().catch(() => ({}));
 
-      if (response.status === 400) {
-        setStatus('invalid');
+      // The function answers 400 for both a bad email and a failed token check; it names which.
+      const failedChallenge = /verification/i.test(result.error ?? '');
+      if (response.status === 403 || (response.status === 400 && failedChallenge)) {
+        setStatus('challenge');
         return;
       }
-      if (response.status === 403) {
-        setStatus('challenge');
+      if (response.status === 400) {
+        setStatus('invalid');
         return;
       }
       if (!response.ok || !result.success) {
