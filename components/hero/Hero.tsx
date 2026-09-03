@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
-import { compliance, escape } from '@/config/prize';
+import { compliance, escape as hampshire, type Escape } from '@/config/prize';
 import { count, gbp, numberWord, sentenceCase } from '@/lib/format';
 import { ComplianceStrip } from '@/components/site/ComplianceStrip';
 import { HeroFilm } from './HeroFilm';
@@ -11,7 +11,7 @@ import { WaitlistLink } from './WaitlistLink';
 // One centred column over the film: kicker, headline, sweetener, chip, button, the charity
 // line. Snow on a heavy scrim; the accent does not appear in the hero. Every figure is read
 // from config and the venue is unnamed until permission exists.
-export function Hero() {
+export function Hero({ escape = hampshire, moment = true }: { escape?: Escape; moment?: boolean }) {
   const venueLine =
     escape.venue.name && escape.venue.permissionGranted
       ? `A long weekend at ${escape.venue.name}.`
@@ -25,8 +25,8 @@ export function Hero() {
 
   return (
     <section data-hero className="relative isolate grid min-h-svh grid-rows-[1fr_auto_1fr_auto_auto] text-snow">
-      <LogoMoment iconSvg={iconSvg} />
-      <HeroFilm />
+      {moment ? <LogoMoment iconSvg={iconSvg} /> : null}
+      <HeroFilm media={escape.media} />
 
       <div className="row-start-2 px-6 pt-24 pb-8 md:px-10">
         <div className="mx-auto flex max-w-[44rem] flex-col items-center gap-5 text-center">
