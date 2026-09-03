@@ -3,9 +3,6 @@ import type { CSSProperties, ReactNode } from 'react';
 import Script from 'next/script';
 import { Fraunces, Geist, Geist_Mono } from 'next/font/google';
 import { escape } from '@/config/prize';
-import { Header } from '@/components/site/Header';
-import { Footer } from '@/components/site/Footer';
-import { SmoothScroll } from '@/components/motion/SmoothScroll';
 import { ConsentBanner } from '@/components/consent/ConsentBanner';
 import { Analytics } from '@/components/consent/Analytics';
 import './globals.css';
@@ -41,6 +38,8 @@ const accent = { '--accent': escape.theme.accent } as CSSProperties;
 // motion allowed. Runs in the head so nothing flashes either way.
 const momentGate = `try{if(location.pathname==="/"&&!matchMedia("(prefers-reduced-motion: reduce)").matches&&!sessionStorage.getItem("trove:logo-moment")){document.documentElement.dataset.moment="play"}}catch(e){}`;
 
+// Html, fonts, consent and analytics only. The header, menu and footer live in
+// app/(site)/layout.tsx so the holding and enter pages can render without them.
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
@@ -52,10 +51,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <Script id="moment-gate" strategy="beforeInteractive">
           {momentGate}
         </Script>
-        <SmoothScroll />
-        <Header />
         {children}
-        <Footer />
         <ConsentBanner />
         <Analytics />
       </body>

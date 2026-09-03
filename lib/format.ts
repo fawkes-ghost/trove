@@ -14,7 +14,7 @@ export function count(value: number): string {
   return value.toLocaleString('en-GB');
 }
 
-const words = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
+const words = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'];
 
 // Small numbers as words for prose ("three nights"); larger numbers stay numerals.
 export function numberWord(value: number): string {
