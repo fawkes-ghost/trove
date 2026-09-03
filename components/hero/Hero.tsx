@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { compliance, escape } from '@/config/prize';
@@ -7,6 +6,7 @@ import { ComplianceStrip } from '@/components/site/ComplianceStrip';
 import { HeroFilm } from './HeroFilm';
 import { LogoMoment } from './LogoMoment';
 import { ScrollButton } from './ScrollButton';
+import { WaitlistLink } from './WaitlistLink';
 
 // One centred column over the film: kicker, headline, sweetener, chip, button, the charity
 // line. Snow on a heavy scrim; the accent does not appear in the hero. Every figure is read
@@ -17,7 +17,7 @@ export function Hero() {
       ? `A long weekend at ${escape.venue.name}.`
       : "A long weekend at one of England’s finest country houses.";
 
-  const sweetener = `${sentenceCase(numberWord(escape.nights))} nights, breakfast, and ${gbp(escape.prize.cash)} in cash. A ${gbp(escape.prize.value)} prize.`;
+  const sweetener = `${sentenceCase(numberWord(escape.nights))} nights for you and your favourite person, breakfast included, and ${gbp(escape.prize.cash)} in cash. A ${gbp(escape.prize.value)} prize.`;
 
   const chip = `${compliance.noRollover ? 'One winner is guaranteed. ' : ''}Entries are capped at ${count(escape.cap)}.`;
 
@@ -33,7 +33,7 @@ export function Hero() {
           <p data-hero-line className="text-sm font-medium text-snow/75">
             Your chance to win
           </p>
-          <h1 data-hero-line className="display text-[2.5rem] md:text-[4.25rem]">
+          <h1 data-hero-line className="display text-balance text-[2.5rem] md:text-[4.25rem]">
             {venueLine}
           </h1>
           <p data-hero-line className="text-base md:text-lg">
@@ -43,12 +43,9 @@ export function Hero() {
             {chip}
           </p>
           <div data-hero-line className="flex w-full flex-col items-center gap-4 md:w-auto">
-            <Link
-              href="#waitlist"
-              className="inline-flex w-full items-center justify-center bg-snow px-6 py-3.5 text-base font-medium text-ink md:w-auto"
-            >
+            <WaitlistLink className="inline-flex w-full items-center justify-center bg-snow px-6 py-3.5 text-base font-medium text-ink md:w-auto">
               Join the waitlist
-            </Link>
+            </WaitlistLink>
             <p className="text-sm text-snow/85">{escape.charity.localityStatement}</p>
           </div>
         </div>

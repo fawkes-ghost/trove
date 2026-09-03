@@ -37,7 +37,6 @@ body {
   font-variation-settings: "SOFT" 100, "opsz" 144;
   letter-spacing: -0.015em;
   line-height: 1.02;
-  text-wrap: pretty;
 }
 
 /* Inline brand marks size to their wrapper; see components/brand/Marks.tsx. */
