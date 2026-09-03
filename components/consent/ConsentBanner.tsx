@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { readConsent, writeConsent, type Consent } from '@/lib/consent';
 
@@ -8,10 +8,35 @@ import { readConsent, writeConsent, type Consent } from '@/lib/consent';
 // accept; see components/consent/Analytics.tsx.
 export function ConsentBanner() {
   const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
     setOpen(readConsent() === null);
   }, []);
+
+  // While the banner is up, the page reserves its height at the bottom (see globals.css)
+  // so it never covers the compliance strip.
+  useEffect(() => {
+    const root = document.documentElement;
+    const node = ref.current;
+    const clear = () => {
+      root.style.removeProperty('--consent-h');
+      delete root.dataset.consent;
+    };
+    if (!open || !node) {
+      clear();
+      return;
+    }
+    root.dataset.consent = 'open';
+    const apply = () => root.style.setProperty('--consent-h', `${node.offsetHeight + 24}px`);
+    apply();
+    const observer = new ResizeObserver(apply);
+    observer.observe(node);
+    return () => {
+      observer.disconnect();
+      clear();
+    };
+  }, [open]);
 
   if (!open) return null;
 
@@ -22,6 +47,7 @@ export function ConsentBanner() {
 
   return (
     <aside
+      ref={ref}
       role="region"
       aria-label="Cookies"
       data-consent-banner
