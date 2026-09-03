@@ -1,35 +1,41 @@
 import { compliance, economics, escape, oddsForEntries, worstCaseOdds, type Escape } from '@/config/prize';
-import { count, gbp, numberWord } from '@/lib/format';
+import { count, numberWord, sentenceCase } from '@/lib/format';
 
-type Claim = { figure: string; sentence: string };
+type Claim = { lead: string; rest: string };
 
-// Five claims, each a figure from config with one sentence beneath it. A single column of
-// prose: the figure in Fraunces at display size, the sentence in Geist. No cards, no icons.
+// Five claims in a single column of prose. The opening clause of each is set in Fraunces
+// at display size, the rest in Geist beneath. Every figure is read from config or computed
+// from the cap. No cards, no icons, no grid.
 function claimsFor(e: Escape): Claim[] {
   const largest = e.entry.bundles[e.entry.bundles.length - 1];
   const pence = Math.round(economics.charityShareOfGross * 100);
-  return [
+  const claims: Claim[] = [
     {
-      figure: worstCaseOdds(e),
-      sentence: 'Your worst-case odds with one entry, if every entry in the cap is taken.',
+      lead: `${count(e.cap)} entries.`,
+      rest: 'That is the most that will ever be in this draw, paid and postal together.',
     },
     {
-      figure: count(e.cap),
-      sentence: `Entries in the cap, paid and postal together. When the cap is reached the draw closes${compliance.noRollover ? ', and one winner is guaranteed' : ''}.`,
-    },
-    {
-      figure: oddsForEntries(largest.entries, e),
-      sentence: `Your odds with ${numberWord(largest.entries)} entries. Fewer entries taken means better odds for everyone in the draw.`,
-    },
-    {
-      figure: gbp(e.prize.value),
-      sentence: `The prize: ${e.prize.description[0].charAt(0).toLowerCase()}${e.prize.description[0].slice(1)}, and ${gbp(e.prize.cash)} in cash paid to you.`,
-    },
-    {
-      figure: `${pence}p`,
-      sentence: `In every pound of entry sales goes to community and countryside causes in ${e.destination}.`,
+      lead: `${worstCaseOdds(e)}.`,
+      rest: `Your odds with one entry if every entry is taken. If the draw closes early, they are better. ${sentenceCase(numberWord(largest.entries))} entries are ${oddsForEntries(largest.entries, e)}.`,
     },
   ];
+  if (compliance.noRollover) {
+    claims.push({
+      lead: 'One winner is guaranteed.',
+      rest: 'The draw happens when the cap is reached or on the published longstop date, whichever comes first. No rollover, no extension.',
+    });
+  }
+  claims.push(
+    {
+      lead: 'Free entry by post, same odds, same cap.',
+      rest: 'A postcard counts exactly as a paid entry does.',
+    },
+    {
+      lead: `${sentenceCase(numberWord(pence))} pence in every pound goes to community and countryside causes in ${e.destination}.`,
+      rest: 'That is the point.',
+    },
+  );
+  return claims;
 }
 
 export function Proposition() {
@@ -37,12 +43,14 @@ export function Proposition() {
     <section id="proposition" className="scroll-mt-24 px-6 py-24 md:px-10 md:py-36">
       <div className="max-w-[40rem]">
         <h2 className="display text-balance text-[2rem] md:text-[2.75rem]">Your chance is real.</h2>
-        <p className="mt-6 text-lg">One prize, one winner, a cap on entries and the odds in plain sight.</p>
+        <p className="mt-6 text-lg">
+          Most prize draws don’t tell you how many entries they sell. We cap ours, publish the number, and never raise it.
+        </p>
         <div className="mt-14 flex flex-col gap-12 md:mt-20 md:gap-16">
           {claimsFor(escape).map((claim) => (
-            <div key={claim.figure}>
-              <p className="display text-[3rem] leading-none md:text-[4.5rem]">{claim.figure}</p>
-              <p className="mt-4 max-w-[34rem] text-lg text-ink/80">{claim.sentence}</p>
+            <div key={claim.lead}>
+              <p className="display text-balance text-[2.25rem] leading-[1.05] md:text-[3.25rem]">{claim.lead}</p>
+              <p className="mt-4 max-w-[34rem] text-lg text-ink/80">{claim.rest}</p>
             </div>
           ))}
         </div>
