@@ -1,14 +1,16 @@
 'use client';
 
 import { useState, type FormEvent } from 'react';
+import { Turnstile, TURNSTILE_SITE_KEY } from './Turnstile';
 
-type Status = 'idle' | 'sending' | 'ok' | 'duplicate' | 'invalid' | 'error';
+type Status = 'idle' | 'sending' | 'ok' | 'duplicate' | 'invalid' | 'error' | 'challenge';
 
 const messages: Record<Exclude<Status, 'idle' | 'sending'>, string> = {
   ok: 'You are on the list.',
   duplicate: 'You are already on the list.',
   invalid: 'That does not look like an email address.',
   error: 'We could not reach the list. Please try again in a moment.',
+  challenge: 'We could not confirm you are a person. Please try again.',
 };
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -16,18 +18,35 @@ const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 // A single email field and a button. Calls the existing waitlist-signup edge function
 // directly so the visitor's own address reaches it. The function and table are not
 // changed from this repo. The Resend confirmation is a stub in lib/email/resend.ts.
+//
+// Protection: a Cloudflare Turnstile token goes to the function as turnstile_token, and a
+// honeypot field named for bots to fill refuses the submit client-side when it has a
+// value. Without a site key configured the widget is skipped and the honeypot still holds.
 export function WaitlistForm() {
   const [status, setStatus] = useState<Status>('idle');
+  const [token, setToken] = useState<string | null>(null);
+  const [resetSignal, setResetSignal] = useState(0);
+  const protectedByTurnstile = TURNSTILE_SITE_KEY.length > 0;
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
-    const email = String(new FormData(form).get('email') ?? '')
+    const data = new FormData(form);
+
+    // Honeypot: people never see this field, so a value means a script filled it.
+    if (String(data.get('website') ?? '').length > 0) return;
+
+    const email = String(data.get('email') ?? '')
       .trim()
       .toLowerCase();
 
     if (!EMAIL.test(email)) {
       setStatus('invalid');
+      return;
+    }
+
+    if (protectedByTurnstile && !token) {
+      setStatus('challenge');
       return;
     }
 
@@ -44,19 +63,25 @@ export function WaitlistForm() {
       const response = await fetch(`${url}/functions/v1/waitlist-signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', apikey: key, Authorization: `Bearer ${key}` },
-        body: JSON.stringify({ email, source_channel: 'trove-home' }),
+        body: JSON.stringify({ email, source_channel: 'trove-home', turnstile_token: token }),
       });
-      const data: { success?: boolean; message?: string; error?: string } = await response.json().catch(() => ({}));
+      const result: { success?: boolean; message?: string; error?: string } = await response.json().catch(() => ({}));
 
+      // The function answers 400 for both a bad email and a failed token check; it names which.
+      const failedChallenge = /verification/i.test(result.error ?? '');
+      if (response.status === 403 || (response.status === 400 && failedChallenge)) {
+        setStatus('challenge');
+        return;
+      }
       if (response.status === 400) {
         setStatus('invalid');
         return;
       }
-      if (!response.ok || !data.success) {
+      if (!response.ok || !result.success) {
         setStatus('error');
         return;
       }
-      if (data.message === 'Already registered') {
+      if (result.message === 'Already registered') {
         setStatus('duplicate');
         return;
       }
@@ -65,6 +90,9 @@ export function WaitlistForm() {
       form.reset();
     } catch {
       setStatus('error');
+    } finally {
+      // A token is single use; ask the widget for a fresh one either way.
+      setResetSignal((n) => n + 1);
     }
   }
 
@@ -72,33 +100,52 @@ export function WaitlistForm() {
   const done = status === 'ok' || status === 'duplicate';
 
   return (
-    <form onSubmit={onSubmit} noValidate className="flex flex-col gap-3" data-waitlist-form>
+    <form onSubmit={onSubmit} noValidate className="relative flex flex-col gap-3" data-waitlist-form>
       {!done ? (
-        <div className="flex flex-col gap-3 md:flex-row">
-          <label htmlFor="waitlist-email" className="sr-only">
-            Email address
-          </label>
-          <input
-            id="waitlist-email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            inputMode="email"
-            placeholder="Your email address"
-            required
-            aria-invalid={status === 'invalid' || undefined}
-            aria-describedby="waitlist-status"
-            onChange={() => status !== 'idle' && setStatus('idle')}
-            className="h-12 w-full border border-ink/40 bg-snow px-4 text-base text-ink placeholder:text-ink/50 focus:border-ink focus:outline-none md:max-w-sm"
-          />
-          <button
-            type="submit"
-            disabled={status === 'sending'}
-            className="h-12 shrink-0 bg-accent px-6 text-base font-medium text-ink disabled:opacity-60"
-          >
-            {status === 'sending' ? 'Joining' : 'Join the waitlist'}
-          </button>
-        </div>
+        <>
+          <div className="flex flex-col gap-3 md:flex-row">
+            <label htmlFor="waitlist-email" className="sr-only">
+              Email address
+            </label>
+            <input
+              id="waitlist-email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              inputMode="email"
+              placeholder="Your email address"
+              required
+              aria-invalid={status === 'invalid' || undefined}
+              aria-describedby="waitlist-status"
+              onChange={() => status !== 'idle' && setStatus('idle')}
+              className="h-12 w-full border border-ink/40 bg-snow px-4 text-base text-ink placeholder:text-ink/50 focus:border-ink focus:outline-none md:max-w-sm"
+            />
+            <button
+              type="submit"
+              disabled={status === 'sending'}
+              className="h-12 shrink-0 bg-accent px-6 text-base font-medium text-ink disabled:opacity-60"
+            >
+              {status === 'sending' ? 'Joining' : 'Join the waitlist'}
+            </button>
+          </div>
+
+          {/* Honeypot. Off screen for people, present for scripts. Not display:none. */}
+          <div className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+            <label htmlFor="waitlist-website">Website</label>
+            <input id="waitlist-website" name="website" type="text" tabIndex={-1} autoComplete="off" defaultValue="" />
+          </div>
+
+          {protectedByTurnstile ? (
+            <Turnstile
+              onToken={(value) => {
+                setToken(value);
+                if (value && status === 'challenge') setStatus('idle');
+              }}
+              onError={() => setStatus('challenge')}
+              resetSignal={resetSignal}
+            />
+          ) : null}
+        </>
       ) : null}
       <p id="waitlist-status" role="status" aria-live="polite" data-waitlist-status className={`min-h-6 text-base ${done ? 'font-medium' : ''}`}>
         {message}
