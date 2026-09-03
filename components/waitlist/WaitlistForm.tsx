@@ -22,7 +22,8 @@ const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 // Protection: a Cloudflare Turnstile token goes to the function as turnstile_token, and a
 // honeypot field named for bots to fill refuses the submit client-side when it has a
 // value. Without a site key configured the widget is skipped and the honeypot still holds.
-export function WaitlistForm() {
+// sourceChannel names the surface the form sits on and is stored against the signup.
+export function WaitlistForm({ sourceChannel = 'trove-home' }: { sourceChannel?: string } = {}) {
   const [status, setStatus] = useState<Status>('idle');
   const [token, setToken] = useState<string | null>(null);
   const [resetSignal, setResetSignal] = useState(0);
@@ -69,7 +70,7 @@ export function WaitlistForm() {
       const response = await fetch(`${url}/functions/v1/waitlist-signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', apikey: key, Authorization: `Bearer ${key}` },
-        body: JSON.stringify({ email, source_channel: 'trove-home', turnstile_token: token }),
+        body: JSON.stringify({ email, source_channel: sourceChannel, turnstile_token: token }),
       });
       const result: { success?: boolean; message?: string; error?: string } = await response.json().catch(() => ({}));
 
