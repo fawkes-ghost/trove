@@ -74,6 +74,7 @@ export type Escape = {
   entry: {
     price: Money;                   // single entry
     bundles: EntryBundle[];         // must keep the cap multiple above economics.capMultipleMinimum
+    maxPerPerson: number;           // entries one person may hold in a draw, paid and postal together
   };
   cap: number;                      // entries, paid and postal together
   cadence: {
@@ -111,8 +112,10 @@ export const escape: Escape = {
   theme: { accent: '#D9455F' },     // rosehip, Hampshire in winter; provisional until the design plan is signed off
   media: {
     poster: '/media/hero-poster.jpg', // first visible frame of the loop below (frame zero is black), extracted once and committed
-    // Serengeti placeholder, to be replaced by the Hampshire film once footage is licensed. Not the venue.
-    loop: 'https://uvnhwgbqmwzzdvxxdgzm.supabase.co/storage/v1/object/public/media/hero-montage-desktop-v2-web-v3.mp4',
+    // Null until the Hampshire film is licensed; the poster and the gradient carry the hero.
+    // The Serengeti montage used while building lives at
+    // https://uvnhwgbqmwzzdvxxdgzm.supabase.co/storage/v1/object/public/media/hero-montage-desktop-v2-web-v3.mp4
+    loop: null,
   },
   entry: {
     price: 5,
@@ -121,6 +124,7 @@ export const escape: Escape = {
       { entries: 3, price: 14 },
       { entries: 5, price: 23 },
     ],
+    maxPerPerson: 100,              // a round spend ceiling at the single entry price
   },
   cap: 3000,
   cadence: { opens: null, longstop: null, longstopDays: 56 },
@@ -147,10 +151,15 @@ export function worstCaseOdds(e: Escape = escape): string {
 }
 
 // Worst-case odds for a number of entries: the share of a full cap those entries hold,
-// written as "1 in N" and rounded to the nearest whole number.
+// written as "1 in N". Rounded up, so published odds never overstate the chance.
 export function oddsForEntries(entries: number, e: Escape = escape): string {
   const held = Math.min(Math.max(Math.round(entries), 1), e.cap);
-  return `1 in ${Math.round(e.cap / held).toLocaleString('en-GB')}`;
+  return `1 in ${Math.ceil(e.cap / held).toLocaleString('en-GB')}`;
+}
+
+// The most one person can spend in a draw at the single entry price.
+export function spendCeiling(e: Escape = escape): Money {
+  return e.entry.maxPerPerson * e.entry.price;
 }
 
 export function blendedEntryPrice(e: Escape = escape, mixAtBundle = 0.5): Money {
@@ -197,5 +206,9 @@ export function assertEscape(e: Escape = escape): void {
   if (e.venue.name && !e.venue.permissionGranted) problems.push('venue named without written permission');
   if (e.charity.beneficiary) problems.push('charity named before counsel cleared the commercial participator agreement');
   if (/\b(draw|trove)\s*\d+/i.test(e.destination + e.slug)) problems.push('draws are named by destination, never numbered');
+  const largestBundle = Math.max(...e.entry.bundles.map((b) => b.entries));
+  if (e.entry.maxPerPerson < largestBundle) problems.push('per-person limit is below the largest bundle');
+  if (e.entry.maxPerPerson >= e.cap) problems.push('per-person limit must be below the cap');
+  if (spendCeiling(e) % 100 !== 0) problems.push(`per-person limit gives a spend ceiling of ${spendCeiling(e)}, not a round figure`);
   if (problems.length) throw new Error(`prize config: ${problems.join('; ')}`);
 }

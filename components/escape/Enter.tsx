@@ -30,7 +30,6 @@ export function Enter({ escape }: { escape: Escape }) {
               ) : (
                 <Link
                   href="/#waitlist"
-                  aria-disabled="true"
                   data-entry="waitlist"
                   className="inline-flex h-12 items-center justify-center border border-ink/40 px-6 text-base font-medium text-ink/70"
                 >

@@ -4,11 +4,12 @@ import { useId, useState } from 'react';
 import { oddsForEntries, type Escape } from '@/config/prize';
 import { count } from '@/lib/format';
 
-// The visitor sets a number of entries and sees the worst-case odds. Computed from config.
+// The visitor sets a number of entries, up to the per-person limit, and sees the worst-case
+// odds. Computed from config.
 export function OddsCalculator({ escape }: { escape: Escape }) {
   const [entries, setEntries] = useState(1);
   const id = useId();
-  const held = Math.min(Math.max(entries || 1, 1), escape.cap);
+  const held = Math.min(Math.max(entries || 1, 1), escape.entry.maxPerPerson);
 
   return (
     <div className="flex flex-col gap-4 md:flex-row md:items-end md:gap-8" data-odds-calculator>
@@ -21,7 +22,7 @@ export function OddsCalculator({ escape }: { escape: Escape }) {
           type="number"
           inputMode="numeric"
           min={1}
-          max={escape.cap}
+          max={escape.entry.maxPerPerson}
           step={1}
           value={entries}
           onChange={(event) => setEntries(Number(event.target.value))}

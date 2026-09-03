@@ -1,10 +1,10 @@
 import type { ReactNode } from 'react';
-import { compliance, economics, oddsForEntries, worstCaseOdds, type Escape } from '@/config/prize';
+import { compliance, economics, oddsForEntries, spendCeiling, worstCaseOdds, type Escape } from '@/config/prize';
 import { count, gbp, numberWord, sentenceCase } from '@/lib/format';
 
 type Question = { question: string; answer: ReactNode };
 
-// Nine questions answered plainly. Every figure is read from config or computed from it;
+// Ten questions answered plainly. Every figure is read from config or computed from it;
 // no number is typed in the copy.
 function questionsFor(escape: Escape): Question[] {
   const { prize } = escape;
@@ -84,6 +84,14 @@ function questionsFor(escape: Escape): Question[] {
       answer: (
         <p>
           {sentenceCase(numberWord(pence))} pence in every pound of entry sales goes to community and countryside causes in {escape.destination}. We name the partner as soon as the agreement is signed, and we publish what was given after every draw.
+        </p>
+      ),
+    },
+    {
+      question: 'Is there a limit on entries?',
+      answer: (
+        <p>
+          Yes. The most any one person can hold in a draw is {count(escape.entry.maxPerPerson)} entries, paid and postal together. At the single entry price that is a ceiling of {gbp(spendCeiling(escape))} in a draw.
         </p>
       ),
     },
