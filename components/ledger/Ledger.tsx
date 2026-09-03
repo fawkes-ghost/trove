@@ -1,12 +1,12 @@
 import Link from 'next/link';
-import { escape, worstCaseOdds } from '@/config/prize';
+import { escape as hampshire, worstCaseOdds, type Escape } from '@/config/prize';
 import { count } from '@/lib/format';
 import { freePostalRoute } from '@/lib/routes';
 import { TypedFigure } from './TypedFigure';
 
 // The honesty device. Entries against the cap while the escape is open; the cap and the
 // worst-case odds before that. Mono figures, room around them. Static data for now.
-export function Ledger({ entriesTaken = 0 }: { entriesTaken?: number }) {
+export function Ledger({ escape = hampshire, entriesTaken = 0 }: { escape?: Escape; entriesTaken?: number }) {
   const open = escape.status === 'open';
   return (
     <section id="ledger" className="scroll-mt-24 px-6 py-24 md:px-10 md:py-36">
