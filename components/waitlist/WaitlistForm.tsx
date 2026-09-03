@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
 import { Turnstile, TURNSTILE_SITE_KEY } from './Turnstile';
 
 type Status = 'idle' | 'sending' | 'ok' | 'duplicate' | 'invalid' | 'error' | 'challenge';
@@ -27,6 +27,12 @@ export function WaitlistForm() {
   const [token, setToken] = useState<string | null>(null);
   const [resetSignal, setResetSignal] = useState(0);
   const protectedByTurnstile = TURNSTILE_SITE_KEY.length > 0;
+
+  useEffect(() => {
+    if (!protectedByTurnstile) {
+      console.warn('Waitlist: NEXT_PUBLIC_TURNSTILE_SITE_KEY was empty at build time, so no widget renders and the function will refuse every submit.');
+    }
+  }, [protectedByTurnstile]);
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -67,14 +73,16 @@ export function WaitlistForm() {
       });
       const result: { success?: boolean; message?: string; error?: string } = await response.json().catch(() => ({}));
 
-      // The function answers 400 for both a bad email and a failed token check; it names which.
-      const failedChallenge = /verification/i.test(result.error ?? '');
-      if (response.status === 403 || (response.status === 400 && failedChallenge)) {
-        setStatus('challenge');
+      // The function answers 400 for a failed token check and for a bad email, and names
+      // which. The address was already checked here, so a 400 is the email only when the
+      // function says so; every other 400 and any 403 is the challenge.
+      const badEmail = /email/i.test(result.error ?? '');
+      if (response.status === 400 && badEmail) {
+        setStatus('invalid');
         return;
       }
-      if (response.status === 400) {
-        setStatus('invalid');
+      if (response.status === 400 || response.status === 403) {
+        setStatus('challenge');
         return;
       }
       if (!response.ok || !result.success) {
@@ -100,7 +108,7 @@ export function WaitlistForm() {
   const done = status === 'ok' || status === 'duplicate';
 
   return (
-    <form onSubmit={onSubmit} noValidate className="relative flex flex-col gap-3" data-waitlist-form>
+    <form onSubmit={onSubmit} noValidate className="relative flex flex-col gap-3" data-waitlist-form data-turnstile-key={protectedByTurnstile ? "set" : "missing"}>
       {!done ? (
         <>
           <div className="flex flex-col gap-3 md:flex-row">
