@@ -1,3 +1,11 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Privacy',
+  description: 'How Trove handles personal data.',
+  alternates: { canonical: '/legal/privacy' },
+};
+
 import { RoutePlaceholder } from '@/components/RoutePlaceholder';
 
 export default function Page() {
