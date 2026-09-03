@@ -2,6 +2,8 @@
 
 import { useEffect, useState, type FormEvent } from 'react';
 import { Turnstile, TURNSTILE_SITE_KEY } from './Turnstile';
+import { readAttribution } from '@/lib/attribution';
+import { trackEvent } from '@/lib/analytics';
 
 type Status = 'idle' | 'sending' | 'ok' | 'duplicate' | 'invalid' | 'error' | 'challenge';
 
@@ -70,7 +72,8 @@ export function WaitlistForm({ sourceChannel = 'trove-home' }: { sourceChannel?:
       const response = await fetch(`${url}/functions/v1/waitlist-signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', apikey: key, Authorization: `Bearer ${key}` },
-        body: JSON.stringify({ email, source_channel: sourceChannel, turnstile_token: token }),
+        // Attribution held in sessionStorage since the first page of the visit; sent only now.
+        body: JSON.stringify({ email, source_channel: sourceChannel, turnstile_token: token, ...readAttribution() }),
       });
       const result: { success?: boolean; message?: string; error?: string } = await response.json().catch(() => ({}));
 
@@ -97,6 +100,7 @@ export function WaitlistForm({ sourceChannel = 'trove-home' }: { sourceChannel?:
       // Resend confirmation goes here once the domain exists. See lib/email/resend.ts.
       setStatus('ok');
       form.reset();
+      trackEvent('waitlist_signup', { source_channel: sourceChannel });
     } catch {
       setStatus('error');
     } finally {

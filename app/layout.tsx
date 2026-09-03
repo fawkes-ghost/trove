@@ -5,6 +5,7 @@ import { Fraunces, Geist, Geist_Mono } from 'next/font/google';
 import { escape } from '@/config/prize';
 import { ConsentBanner } from '@/components/consent/ConsentBanner';
 import { Analytics } from '@/components/consent/Analytics';
+import { AttributionCapture } from '@/components/attribution/AttributionCapture';
 import './globals.css';
 
 const fraunces = Fraunces({
@@ -54,6 +55,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         {children}
         <ConsentBanner />
         <Analytics />
+        <AttributionCapture />
       </body>
     </html>
   );
