@@ -48,7 +48,7 @@ export default async function EscapePage({ params }: { params: Promise<{ slug: s
       <OddsLadder escape={item} />
       <Enter escape={item} />
       <PostalEntry escape={item} />
-      <Questions />
+      <Questions escape={item} />
       <section className="border-t border-ink/15 px-6 py-6 md:px-10">
         <ComplianceStrip className="text-ink/75" />
       </section>
