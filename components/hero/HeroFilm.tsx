@@ -1,12 +1,12 @@
-import { escape } from '@/config/prize';
+import { escape as hampshire, type Escape } from '@/config/prize';
 import { HeroLoop } from './HeroLoop';
 
 // The film layer behind the hero. Poster on first paint and under reduced motion, the
 // loop over it once it plays, the gradient only when config has neither. The scrim is
 // heavy so snow text reads over any frame. The wrapper keeps the hero-poster class the
 // logo moment fades in.
-export function HeroFilm() {
-  const { poster, loop } = escape.media;
+export function HeroFilm({ media = hampshire.media }: { media?: Escape['media'] }) {
+  const { poster, loop } = media;
   const source = loop ? 'loop' : poster ? 'poster' : 'gradient';
 
   return (
