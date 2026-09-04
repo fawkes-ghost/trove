@@ -207,6 +207,7 @@ export function assertEscape(e: Escape = escape): void {
   if (e.prize.cashAlternative >= e.prize.value) problems.push('cash alternative must be below the published prize value');
   if (e.venue.name && !e.venue.permissionGranted) problems.push('venue named without written permission');
   if (e.charity.beneficiary) problems.push('charity named before counsel cleared the commercial participator agreement');
+  if (e.status === 'open' && !(compliance.freePostalRoute.address ?? '').trim()) problems.push('entries cannot open without a live free postal route address');
   if (/\b(draw|trove)\s*\d+/i.test(e.destination + e.slug)) problems.push('draws are named by destination, never numbered');
   const largestBundle = Math.max(...e.entry.bundles.map((b) => b.entries));
   if (e.entry.maxPerPerson < largestBundle) problems.push('per-person limit is below the largest bundle');
