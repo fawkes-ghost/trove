@@ -46,7 +46,7 @@ export default function HowItWorksPage() {
           </Step>
           <Step number={3} title="You escape.">
             <p>
-              We tell the winner by email. They have {escape.prize.winnerResponseDays} days to respond, and {escape.prize.claimWindowDays} days from the draw to choose between the escape and a cash alternative of {gbp(escape.prize.cashAlternative)}. The stay can be taken within {escape.prize.stayValidMonths} months of the claim.
+              We tell the winner by email. They have {escape.prize.claimWindowDays} days from the draw to choose between the escape and a cash alternative of {gbp(escape.prize.cashAlternative)}. The stay can be taken within {escape.prize.stayValidMonths} months of the claim.
             </p>
           </Step>
         </ol>
