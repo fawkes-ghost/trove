@@ -7,6 +7,7 @@ import { gbp, numberWord, sentenceCase } from '@/lib/format';
 export const metadata: Metadata = {
   title: 'Escapes',
   description: 'Every Trove escape: open, coming and drawn. One prize per draw, a cap on entries, and fifteen pence in every pound to the destination.',
+  alternates: { canonical: '/escapes' },
 };
 
 // A vertical list, not a card grid. Each row: film still, destination, nights, prize value,
