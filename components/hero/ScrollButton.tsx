@@ -7,8 +7,15 @@ export function ScrollButton({ targetId }: { targetId: string }) {
   return (
     <button
       type="button"
-      onClick={() => scrollToId(targetId)}
-      aria-label="Scroll to the ledger"
+      onClick={() => {
+        // The section after the hero, whatever the page calls it.
+        const next = document.getElementById(targetId) ?? document.querySelector('[data-hero]')?.nextElementSibling;
+        if (next instanceof HTMLElement) {
+          if (!next.id) next.id = targetId;
+          scrollToId(next.id);
+        }
+      }}
+      aria-label="Scroll to the next section"
       className="flex h-11 w-11 items-center justify-center rounded-full bg-ink text-snow"
     >
       <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true">
