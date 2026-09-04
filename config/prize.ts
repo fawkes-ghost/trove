@@ -60,6 +60,7 @@ export type Escape = {
     cash: Money;                    // paid to the winner in cash; covers travel, dinners, the experience
     contingency: Money;             // seasonality and rate movement
     cashAlternative: Money;         // if the winner declines the stay; below value, published in terms
+    winnerResponseDays: number;     // days to answer the winner notification before the entry is redrawn
     claimWindowDays: number;        // winner must confirm stay or cash within this window
     stayValidMonths: number;        // from claim, subject to availability and stated blackout dates
     description: string[];          // factual components, no adjectives
@@ -102,6 +103,7 @@ export const escape: Escape = {
     cash: 1300,                     // published as cash; the winner spends it on dinners, a treatment, the chauffeur, or not
     contingency: 400,
     cashAlternative: 3000,
+    winnerResponseDays: 14,
     claimWindowDays: 90,
     stayValidMonths: 12,
     description: [

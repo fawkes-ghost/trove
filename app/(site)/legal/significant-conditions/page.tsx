@@ -1,4 +1,7 @@
 import type { Metadata } from 'next';
+import Document from '@/content/legal/significant-conditions.mdx';
+import { LegalDocument } from '@/components/legal/LegalDocument';
+import { headingsOf } from '@/lib/legal';
 
 export const metadata: Metadata = {
   title: 'Significant conditions',
@@ -6,8 +9,11 @@ export const metadata: Metadata = {
   alternates: { canonical: '/legal/significant-conditions' },
 };
 
-import { RoutePlaceholder } from '@/components/RoutePlaceholder';
-
+// The document lives in content/legal/significant-conditions.mdx and every figure in it comes from config.
 export default function Page() {
-  return <RoutePlaceholder route="/legal/significant-conditions" />;
+  return (
+    <LegalDocument title="Significant conditions." updated="Draft for solicitor review. Not yet in force." headings={headingsOf('significant-conditions.mdx')}>
+      <Document />
+    </LegalDocument>
+  );
 }
