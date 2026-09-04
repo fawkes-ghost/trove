@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { HeardAbout } from './HeardAbout';
 
 type Status = 'idle' | 'sending' | 'confirmed' | 'already' | 'expired' | 'invalid' | 'error';
 
@@ -73,6 +74,7 @@ export function ConfirmPlace() {
         <>
           <h1 className="display text-balance text-[2.5rem] md:text-[3.5rem]">You are a founding friend.</h1>
           <p className="mt-6 text-lg">Your place is confirmed. You will hear from us first when entries open.</p>
+          <HeardAbout token={token} />
         </>
       ) : null}
 
