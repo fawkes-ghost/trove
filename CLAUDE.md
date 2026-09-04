@@ -16,7 +16,7 @@ PR so the other is updated the same day.
    every hit. `assertEscape()` runs in `next.config` at build and must pass.
 2. **Compliance canon.** Free postal entry with identical odds inside the same cap.
    18+, UK residents. Significant conditions one click from every promotional surface
-   (link to `/terms`). Never publish a closing date and then extend it: the draw closes
+   (link to `/legal/significant-conditions`). Never publish a closing date and then extend it: the draw closes
    at the cap or the longstop, whichever is first, and the longstop is set once. No venue
    named and no venue footage used until `venue.permissionGranted` and
    `venue.footageLicensed` are true. No charity named until `charity.beneficiary` is set.
