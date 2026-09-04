@@ -3,6 +3,7 @@ import type { CSSProperties, ReactNode } from 'react';
 import Script from 'next/script';
 import { Fraunces, Geist, Geist_Mono } from 'next/font/google';
 import { escape } from '@/config/prize';
+import { siteUrl } from '@/lib/site';
 import { ConsentBanner } from '@/components/consent/ConsentBanner';
 import { Analytics } from '@/components/consent/Analytics';
 import { AttributionCapture } from '@/components/attribution/AttributionCapture';
@@ -28,8 +29,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Trove',
-  description: 'A UK luxury travel prize draw. One escape per draw.',
+  metadataBase: new URL(siteUrl),
+  title: { default: 'Trove', template: '%s · Trove' },
+  description: 'A UK luxury travel prize draw. One escape per draw, a cap on entries, published odds, and fifteen pence in every pound to the destination.',
+  alternates: { canonical: '/' },
+  openGraph: { siteName: 'Trove', type: 'website', locale: 'en_GB' },
+  twitter: { card: 'summary_large_image' },
 };
 
 // The accent is one per escape and comes from config, never from a stylesheet.

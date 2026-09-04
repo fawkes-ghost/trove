@@ -86,6 +86,21 @@ html[data-moment="play"] .curtain {
   display: block;
 }
 
+/* While the consent banner is up on narrow screens, the hero's compliance strip sticks
+   just above it and the page reserves its height at the foot, so nothing it must show is
+   covered. */
+@media (max-width: 899px) {
+  html[data-consent="open"] [data-hero] .hero-strip {
+    position: sticky;
+    bottom: var(--consent-h, 0px);
+    z-index: 5;
+    background: color-mix(in srgb, var(--ink) 85%, transparent);
+  }
+  html[data-consent="open"] body {
+    padding-bottom: var(--consent-h, 0px);
+  }
+}
+
 /* Lenis */
 html.lenis,
 html.lenis body {

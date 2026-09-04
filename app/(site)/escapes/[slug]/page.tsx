@@ -12,9 +12,10 @@ import { Enter } from '@/components/escape/Enter';
 import { PostalEntry } from '@/components/escape/PostalEntry';
 import { Questions } from '@/components/escape/Questions';
 import { EscapeJsonLd } from '@/components/escape/EscapeJsonLd';
+import { FaqJsonLd } from '@/components/escape/FaqJsonLd';
+import { siteUrl } from '@/lib/site';
 import { ComplianceStrip } from '@/components/site/ComplianceStrip';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://trovewild.com';
 
 export function generateStaticParams() {
   return escapes.map((item) => ({ slug: item.slug }));
@@ -24,9 +25,17 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const item = getEscape(slug);
   if (!item) return {};
+  const description = `${sentenceCase(numberWord(item.nights))} nights for two at ${venueLine(item)}, with ${gbp(item.prize.cash)} in cash. A ${gbp(item.prize.value)} prize. ${item.charity.localityStatement}`;
   return {
     title: `The ${item.destination} escape`,
-    description: `${sentenceCase(numberWord(item.nights))} nights for two at ${venueLine(item)}, with ${gbp(item.prize.cash)} in cash. A ${gbp(item.prize.value)} prize. ${item.charity.localityStatement}`,
+    description,
+    alternates: { canonical: `/escapes/${item.slug}` },
+    openGraph: {
+      title: `The ${item.destination} escape`,
+      description,
+      url: `/escapes/${item.slug}`,
+      ...(item.media.poster ? { images: [{ url: item.media.poster }] } : {}),
+    },
   };
 }
 
@@ -40,6 +49,7 @@ export default async function EscapePage({ params }: { params: Promise<{ slug: s
   return (
     <main>
       <EscapeJsonLd escape={item} url={`${siteUrl}/escapes/${item.slug}`} />
+      <FaqJsonLd escape={item} />
       <Hero escape={item} moment={false} />
       <Ledger escape={item} />
       <WhatYouWin escape={item} />

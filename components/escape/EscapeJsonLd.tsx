@@ -1,17 +1,18 @@
 import { compliance, oddsForEntries, type Escape } from '@/config/prize';
 import { numberWord, sentenceCase } from '@/lib/format';
-import { venueLine } from '@/lib/escapes';
 
 // Structured data for the escape as an Event with one Offer per bundle. Every value comes
-// from config. Dates appear only once they are set, and are never moved later.
+// from config. The venue is never named here. Dates appear only once they are set, and
+// are never moved later.
 export function EscapeJsonLd({ escape, url }: { escape: Escape; url: string }) {
   const availability = escape.status === 'open' ? 'https://schema.org/InStock' : 'https://schema.org/PreOrder';
   const data = {
     '@context': 'https://schema.org',
     '@type': 'Event',
     name: `The ${escape.destination} escape`,
-    description: `${escape.prize.description.join('. ')}. A stay at ${venueLine(escape)}. ${escape.charity.localityStatement}`,
+    description: `${escape.prize.description.join('. ')}. ${escape.charity.localityStatement}`,
     url,
+    ...(escape.media.poster ? { image: escape.media.poster } : {}),
     eventStatus: 'https://schema.org/EventScheduled',
     eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
     ...(escape.cadence.opens ? { startDate: escape.cadence.opens } : {}),
@@ -31,7 +32,7 @@ export function EscapeJsonLd({ escape, url }: { escape: Escape; url: string }) {
       priceCurrency: 'GBP',
       availability,
       url: `${url}#enter`,
-      eligibleRegion: { '@type': 'Country', name: escape.destination ? 'GB' : 'GB' },
+      eligibleRegion: { '@type': 'Country', name: 'GB' },
     })),
   };
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />;
