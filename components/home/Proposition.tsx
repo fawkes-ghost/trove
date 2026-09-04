@@ -1,7 +1,10 @@
+import Link from 'next/link';
 import { compliance, economics, escape, oddsForEntries, worstCaseOdds, type Escape } from '@/config/prize';
 import { count, numberWord, sentenceCase } from '@/lib/format';
 
-type Claim = { lead: string; rest: string };
+// A claim may link to where its figure lives on the open escape's page. The path is built
+// from config so it follows whichever escape is open.
+type Claim = { lead: string; rest: string; href?: string };
 
 // Five claims in a single column of prose. The opening clause of each is set in Fraunces
 // at display size, the rest in Geist beneath. Every figure is read from config or computed
@@ -13,10 +16,12 @@ function claimsFor(e: Escape): Claim[] {
     {
       lead: `${count(e.cap)} entries.`,
       rest: 'That is the most that will ever be in this draw, paid and postal together.',
+      href: `/escapes/${e.slug}#ledger`,
     },
     {
       lead: `${worstCaseOdds(e)}.`,
       rest: `Your odds with one entry if every entry is taken. If the draw closes early, they are better. ${sentenceCase(numberWord(largest.entries))} entries are ${oddsForEntries(largest.entries, e)}.`,
+      href: `/escapes/${e.slug}#odds`,
     },
   ];
   if (compliance.noRollover) {
@@ -47,12 +52,21 @@ export function Proposition() {
           Most prize draws don’t tell you how many entries they sell. We cap ours, publish the number, and never raise it.
         </p>
         <div className="mt-14 flex flex-col gap-12 md:mt-20 md:gap-16">
-          {claimsFor(escape).map((claim) => (
-            <div key={claim.lead}>
-              <p className="display text-balance text-[2.25rem] leading-[1.05] md:text-[3.25rem]">{claim.lead}</p>
-              <p className="mt-4 max-w-[34rem] text-lg text-ink/80">{claim.rest}</p>
-            </div>
-          ))}
+          {claimsFor(escape).map((claim) =>
+            claim.href ? (
+              <Link key={claim.lead} href={claim.href} className="group block" data-claim-link>
+                <p className="display text-balance text-[2.25rem] leading-[1.05] underline decoration-ink/30 decoration-1 underline-offset-8 group-hover:decoration-ink md:text-[3.25rem]">
+                  {claim.lead}
+                </p>
+                <p className="mt-4 max-w-[34rem] text-lg text-ink/80">{claim.rest}</p>
+              </Link>
+            ) : (
+              <div key={claim.lead}>
+                <p className="display text-balance text-[2.25rem] leading-[1.05] md:text-[3.25rem]">{claim.lead}</p>
+                <p className="mt-4 max-w-[34rem] text-lg text-ink/80">{claim.rest}</p>
+              </div>
+            ),
+          )}
         </div>
       </div>
     </section>
