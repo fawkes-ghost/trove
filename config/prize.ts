@@ -57,12 +57,14 @@ export type Escape = {
   prize: {
     value: Money;                   // the figure published as the prize value
     stayBudget: Money;              // booked stay, bought as a voucher at close
-    cash: Money;                    // paid to the winner in cash; covers travel, dinners, the experience
+    transport: Money;               // booked chauffeur transfers, not exchangeable for cash
+    cash: Money;                    // paid to the winner in cash, to spend as they choose
     contingency: Money;             // seasonality and rate movement
     cashAlternative: Money;         // if the winner declines the stay; below value, published in terms
     winnerResponseDays: number;     // days to answer the winner notification before the entry is redrawn
     claimWindowDays: number;        // winner must confirm stay or cash within this window
     stayValidMonths: number;        // from claim, subject to availability and stated blackout dates
+    stayWindow: string;             // the season the stay is valid in, stated in terms
     description: string[];          // factual components, no adjectives
   };
   theme: {
@@ -98,17 +100,20 @@ export const escape: Escape = {
   nights: 3,
   party: 2,
   prize: {
-    value: 4000,
-    stayBudget: 2300,               // 3 nights incl breakfast, VAT and 10% service, winter rate
-    cash: 1300,                     // published as cash; the winner spends it on dinners, a treatment, the chauffeur, or not
-    contingency: 400,
-    cashAlternative: 3000,
+    value: 6500,
+    stayBudget: 4550,               // 3 nights Chamber Room, Fri to Mon, priced at a Feb peak weekend incl breakfast, VAT and 10% service
+    transport: 1000,                // chauffeur-driven return transfers, booked by Trove
+    cash: 600,                      // published as cash, towards a treatment and dinner
+    contingency: 350,
+    cashAlternative: 4500,
     winnerResponseDays: 14,
     claimWindowDays: 90,
     stayValidMonths: 12,
+    stayWindow: 'Friday to Monday between November and March, excluding 20 December to 3 January, subject to availability',
     description: [
-      'Three nights for two, breakfast included',
-      '£1,300 in cash',
+      'Three nights for two in a suite, breakfast included',
+      'Chauffeur-driven transfers there and back',
+      '£600 in cash',
     ],
   },
   theme: { accent: '#D9455F' },     // rosehip, Hampshire in winter; provisional until the design plan is signed off
@@ -203,7 +208,7 @@ export function assertEscape(e: Escape = escape): void {
   if (capMultiple(e) < economics.capMultipleMinimum) problems.push(`cap multiple ${capMultiple(e).toFixed(2)}x is below ${economics.capMultipleMinimum}x`);
   const ratio = e.entry.price / e.prize.value;
   if (ratio < economics.entryPriceOfPrizeValue.min || ratio > economics.entryPriceOfPrizeValue.max) problems.push(`entry price is ${(ratio * 100).toFixed(2)}% of prize value`);
-  if (e.prize.stayBudget + e.prize.cash + e.prize.contingency > e.prize.value) problems.push('prize components exceed published prize value');
+  if (e.prize.stayBudget + e.prize.transport + e.prize.cash + e.prize.contingency > e.prize.value) problems.push('prize components exceed published prize value');
   if (e.prize.cashAlternative >= e.prize.value) problems.push('cash alternative must be below the published prize value');
   if (e.venue.name && !e.venue.permissionGranted) problems.push('venue named without written permission');
   if (e.charity.beneficiary) problems.push('charity named before counsel cleared the commercial participator agreement');

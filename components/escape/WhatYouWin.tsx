@@ -19,8 +19,11 @@ export function WhatYouWin({ escape }: { escape: Escape }) {
         </ul>
         <p className="mt-10 font-mono text-[1.75rem] leading-none text-accent md:text-[2.25rem]">{gbp(prize.cash)} in cash</p>
         <p className="mt-3 text-base text-ink/70">paid to the winner, to spend on the escape or not</p>
+        <p className="mt-8 text-base">
+          The transfers are booked and paid for by us. They are part of the escape and cannot be exchanged for cash.
+        </p>
         <p className="mt-10 text-base">
-          If the winner would rather not take the stay, a cash alternative of {gbp(prize.cashAlternative)} is paid instead, and the winner has {prize.claimWindowDays} days to choose, with the stay valid for {prize.stayValidMonths} months from the claim.{' '}
+          If the winner would rather not take the stay, a cash alternative of {gbp(prize.cashAlternative)} is paid instead, and the winner has {prize.claimWindowDays} days to choose, with the stay valid for {prize.stayValidMonths} months from the claim, {prize.stayWindow}.{' '}
           <Link href="/legal/terms" className="underline underline-offset-4">
             Terms
           </Link>
