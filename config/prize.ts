@@ -167,7 +167,7 @@ export function worstCaseOdds(e: Escape = escape): string {
 
 // Worst-case odds for a number of entries: the share of a full cap those entries hold,
 // written as "1 in N". Rounded up, so published odds never overstate the chance.
-export function oddsForEntries(entries: number, e: Escape = escape): string {
+export function oddsForEntries(entries: number, e: Pick<Escape, 'cap'> = escape): string {
   const held = Math.min(Math.max(Math.round(entries), 1), e.cap);
   return `1 in ${Math.ceil(e.cap / held).toLocaleString('en-GB')}`;
 }

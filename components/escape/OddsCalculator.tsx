@@ -1,15 +1,16 @@
 'use client';
 
 import { useId, useState } from 'react';
-import { oddsForEntries, type Escape } from '@/config/prize';
+import { oddsForEntries } from '@/config/prize';
 import { count } from '@/lib/format';
 
 // The visitor sets a number of entries, up to the per-person limit, and sees the worst-case
-// odds. Computed from config.
-export function OddsCalculator({ escape }: { escape: Escape }) {
+// odds. This is a client component, so it takes the two numbers it needs rather than the
+// config object: nothing else in config reaches the browser from here.
+export function OddsCalculator({ cap, maxPerPerson }: { cap: number; maxPerPerson: number }) {
   const [entries, setEntries] = useState(1);
   const id = useId();
-  const held = Math.min(Math.max(entries || 1, 1), escape.entry.maxPerPerson);
+  const held = Math.min(Math.max(entries || 1, 1), maxPerPerson);
 
   return (
     <div className="flex flex-col gap-4 md:flex-row md:items-end md:gap-8" data-odds-calculator>
@@ -22,7 +23,7 @@ export function OddsCalculator({ escape }: { escape: Escape }) {
           type="number"
           inputMode="numeric"
           min={1}
-          max={escape.entry.maxPerPerson}
+          max={maxPerPerson}
           step={1}
           value={entries}
           onChange={(event) => setEntries(Number(event.target.value))}
@@ -31,10 +32,10 @@ export function OddsCalculator({ escape }: { escape: Escape }) {
       </div>
       <p className="text-base">
         <span className="font-mono text-[1.75rem] leading-none md:text-[2rem]" data-odds-result>
-          {oddsForEntries(held, escape)}
+          {oddsForEntries(held, { cap })}
         </span>
         <span className="mt-2 block text-ink/70">
-          worst-case odds with {count(held)} {held === 1 ? 'entry' : 'entries'} of {count(escape.cap)}
+          worst-case odds with {count(held)} {held === 1 ? 'entry' : 'entries'} of {count(cap)}
         </span>
       </p>
     </div>
