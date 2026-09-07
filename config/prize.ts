@@ -4,6 +4,8 @@
 // Source of truth for the numbers: Notion, DRAW Headquarters, "19 CFO model and draw config".
 // Change a value here, update Notion in the same commit.
 
+import { gbp, numberWord, sentenceCase } from '../lib/format';
+
 export type Money = number; // GBP, whole pounds unless stated
 
 // ---------------------------------------------------------------------------
@@ -15,6 +17,7 @@ export const economics = {
   postalShareOfCap: { plan: 0.135, stress: 0.30 }, // free postal entries inside the same cap
   capMultipleMinimum: 3.0,          // cap x blended entry price must be >= 3x prize value
   entryPriceOfPrizeValue: { min: 0.001, max: 0.002 }, // hero entry ~0.1% to 0.2% of prize value
+  perPersonSpendCeiling: 500,       // GBP; maxPerPerson is the most entries that fit inside it at the single entry price
 } as const;
 
 // ---------------------------------------------------------------------------
@@ -57,13 +60,15 @@ export type Escape = {
   prize: {
     value: Money;                   // the figure published as the prize value
     stayBudget: Money;              // booked stay, bought as a voucher at close
-    cash: Money;                    // paid to the winner in cash; covers travel, dinners, the experience
+    transport: Money;               // booked chauffeur transfers, not exchangeable for cash
+    cash: Money;                    // paid to the winner in cash, to spend as they choose
     contingency: Money;             // seasonality and rate movement
     cashAlternative: Money;         // if the winner declines the stay; below value, published in terms
     winnerResponseDays: number;     // days to answer the winner notification before the entry is redrawn
     claimWindowDays: number;        // winner must confirm stay or cash within this window
     stayValidMonths: number;        // from claim, subject to availability and stated blackout dates
-    description: string[];          // factual components, no adjectives
+    stayWindow: string;             // the season the stay is valid in, stated in terms
+    description: string[];          // factual components, no adjectives, every figure derived
   };
   theme: {
     accent: string;                 // one accent per escape, drawn from the destination in season
@@ -91,24 +96,32 @@ export type Escape = {
   status: 'planning' | 'waitlist' | 'open' | 'closed' | 'drawn';
 };
 
+// Named once here so the description strings can restate them without a second literal.
+const hampshireNights = 3;
+const hampshireParty = 2;
+const hampshireCash: Money = 600;
+
 export const escape: Escape = {
   slug: 'hampshire',
   destination: 'Hampshire',
   venue: { name: null, permissionGranted: false, footageLicensed: false },
-  nights: 3,
-  party: 2,
+  nights: hampshireNights,
+  party: hampshireParty,
   prize: {
-    value: 4000,
-    stayBudget: 2300,               // 3 nights incl breakfast, VAT and 10% service, winter rate
-    cash: 1300,                     // published as cash; the winner spends it on dinners, a treatment, the chauffeur, or not
-    contingency: 400,
-    cashAlternative: 3000,
+    value: 6500,
+    stayBudget: 4550,               // 3 nights Chamber Room, Fri to Mon, priced at a Feb peak weekend incl breakfast, VAT and 10% service
+    transport: 1000,                // chauffeur-driven return transfers, booked by Trove
+    cash: hampshireCash,            // published as cash, towards a treatment and dinner
+    contingency: 350,
+    cashAlternative: 4500,
     winnerResponseDays: 14,
     claimWindowDays: 90,
     stayValidMonths: 12,
+    stayWindow: 'Friday to Monday between November and March, excluding 20 December to 3 January, subject to availability',
     description: [
-      'Three nights for two, breakfast included',
-      '£1,300 in cash',
+      `${sentenceCase(numberWord(hampshireNights))} nights for ${numberWord(hampshireParty)} in a suite, breakfast included`,
+      'Chauffeur-driven transfers there and back',
+      `${gbp(hampshireCash)} in cash`,
     ],
   },
   theme: { accent: '#D9455F' },     // rosehip, Hampshire in winter; provisional until the design plan is signed off
@@ -120,13 +133,13 @@ export const escape: Escape = {
     loop: null,
   },
   entry: {
-    price: 5,
+    price: 8,
     bundles: [
-      { entries: 1, price: 5 },
-      { entries: 3, price: 14 },
-      { entries: 5, price: 23 },
+      { entries: 1, price: 8 },
+      { entries: 3, price: 23 },
+      { entries: 5, price: 38 },
     ],
-    maxPerPerson: 100,              // a round spend ceiling at the single entry price
+    maxPerPerson: 62,               // the most entries inside economics.perPersonSpendCeiling at the single entry price
   },
   cap: 3000,
   cadence: { opens: null, longstop: null, longstopDays: 56 },
@@ -154,7 +167,7 @@ export function worstCaseOdds(e: Escape = escape): string {
 
 // Worst-case odds for a number of entries: the share of a full cap those entries hold,
 // written as "1 in N". Rounded up, so published odds never overstate the chance.
-export function oddsForEntries(entries: number, e: Escape = escape): string {
+export function oddsForEntries(entries: number, e: Pick<Escape, 'cap'> = escape): string {
   const held = Math.min(Math.max(Math.round(entries), 1), e.cap);
   return `1 in ${Math.ceil(e.cap / held).toLocaleString('en-GB')}`;
 }
@@ -203,7 +216,7 @@ export function assertEscape(e: Escape = escape): void {
   if (capMultiple(e) < economics.capMultipleMinimum) problems.push(`cap multiple ${capMultiple(e).toFixed(2)}x is below ${economics.capMultipleMinimum}x`);
   const ratio = e.entry.price / e.prize.value;
   if (ratio < economics.entryPriceOfPrizeValue.min || ratio > economics.entryPriceOfPrizeValue.max) problems.push(`entry price is ${(ratio * 100).toFixed(2)}% of prize value`);
-  if (e.prize.stayBudget + e.prize.cash + e.prize.contingency > e.prize.value) problems.push('prize components exceed published prize value');
+  if (e.prize.stayBudget + e.prize.transport + e.prize.cash + e.prize.contingency !== e.prize.value) problems.push('prize components must sum exactly to the published prize value');
   if (e.prize.cashAlternative >= e.prize.value) problems.push('cash alternative must be below the published prize value');
   if (e.venue.name && !e.venue.permissionGranted) problems.push('venue named without written permission');
   if (e.charity.beneficiary) problems.push('charity named before counsel cleared the commercial participator agreement');
@@ -212,6 +225,6 @@ export function assertEscape(e: Escape = escape): void {
   const largestBundle = Math.max(...e.entry.bundles.map((b) => b.entries));
   if (e.entry.maxPerPerson < largestBundle) problems.push('per-person limit is below the largest bundle');
   if (e.entry.maxPerPerson >= e.cap) problems.push('per-person limit must be below the cap');
-  if (spendCeiling(e) % 100 !== 0) problems.push(`per-person limit gives a spend ceiling of ${spendCeiling(e)}, not a round figure`);
+  if (e.entry.maxPerPerson !== Math.floor(economics.perPersonSpendCeiling / e.entry.price)) problems.push(`per-person limit must be the most entries inside the ${economics.perPersonSpendCeiling} spend ceiling, ${Math.floor(economics.perPersonSpendCeiling / e.entry.price)} at the current price`);
   if (problems.length) throw new Error(`prize config: ${problems.join('; ')}`);
 }

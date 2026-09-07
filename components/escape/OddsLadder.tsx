@@ -23,7 +23,7 @@ export function OddsLadder({ escape }: { escape: Escape }) {
           ))}
         </ol>
         <div className="mt-12 border-t border-ink/15 pt-8">
-          <OddsCalculator escape={escape} />
+          <OddsCalculator cap={escape.cap} maxPerPerson={escape.entry.maxPerPerson} />
         </div>
       </div>
     </section>

@@ -29,11 +29,11 @@ export function questionsFor(escape: Escape): Question[] {
     },
     {
       question: 'What exactly do I win?',
-      answer: `${prize.description.join('. ')}. The escape is for ${numberWord(escape.party)} people and the cash is paid to you to spend as you choose. The venue is named as soon as we have their written permission to do so.`,
+      answer: `${prize.description.join('. ')}. The escape is for ${numberWord(escape.party)} people. The transfers are booked and paid for by us and cannot be exchanged for cash; the cash is paid to you to spend as you choose. The venue is named as soon as we have their written permission to do so.`,
     },
     {
       question: 'What if I would rather have the cash?',
-      answer: `You can choose a cash alternative of ${gbp(prize.cashAlternative)} instead of the escape. You have ${prize.claimWindowDays} days from the draw to choose. The escape itself can be taken within ${prize.stayValidMonths} months, subject to availability and the blackout dates in the terms.`,
+      answer: `You can choose a cash alternative of ${gbp(prize.cashAlternative)} instead of the escape. You have ${prize.claimWindowDays} days from the draw to choose. The escape itself can be taken within ${prize.stayValidMonths} months, subject to availability.`,
     },
     {
       question: 'When does the draw close?',
