@@ -33,7 +33,7 @@ export function questionsFor(escape: Escape): Question[] {
     },
     {
       question: 'What if I would rather have the cash?',
-      answer: `You can choose a cash alternative of ${gbp(prize.cashAlternative)} instead of the escape. You have ${prize.claimWindowDays} days from the draw to choose. The escape itself can be taken within ${prize.stayValidMonths} months: ${prize.stayWindow}.`,
+      answer: `You can choose a cash alternative of ${gbp(prize.cashAlternative)} instead of the escape. You have ${prize.claimWindowDays} days from the draw to choose. The escape itself can be taken within ${prize.stayValidMonths} months, subject to availability.`,
     },
     {
       question: 'When does the draw close?',

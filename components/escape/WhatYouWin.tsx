@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import type { Escape } from '@/config/prize';
+import { compliance, type Escape } from '@/config/prize';
 import { gbp } from '@/lib/format';
 
 // The prize components from config, the cash line explicit, then the cash alternative and
@@ -23,9 +23,9 @@ export function WhatYouWin({ escape }: { escape: Escape }) {
           The transfers are booked and paid for by us. They are part of the escape and cannot be exchanged for cash.
         </p>
         <p className="mt-10 text-base">
-          If the winner would rather not take the stay, a cash alternative of {gbp(prize.cashAlternative)} is paid instead, and the winner has {prize.claimWindowDays} days to choose, with the stay valid for {prize.stayValidMonths} months from the claim, {prize.stayWindow}.{' '}
-          <Link href="/legal/terms" className="underline underline-offset-4">
-            Terms
+          If the winner would rather not take the stay, a cash alternative of {gbp(prize.cashAlternative)} is paid instead, and the winner has {prize.claimWindowDays} days to choose, with the stay valid for {prize.stayValidMonths} months from the claim, subject to availability.{' '}
+          <Link href={compliance.significantConditionsPath} className="underline underline-offset-4">
+            Significant conditions
           </Link>
           .
         </p>
