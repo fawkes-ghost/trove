@@ -11,6 +11,11 @@ export function Ledger({ escape = hampshire, entriesTaken = 0 }: { escape?: Esca
   return (
     <section id="ledger" className="scroll-mt-24 px-6 py-24 md:px-10 md:py-36">
       <h2 className="display text-[2rem] md:text-[2.75rem]">The ledger.</h2>
+      <p className="mt-6 max-w-[40rem] text-lg" data-answer>
+        {open
+          ? `${count(entriesTaken)} of ${count(escape.cap)} entries are taken, paid and postal together, and the worst-case odds are ${worstCaseOdds(escape)}.`
+          : `Entries are capped at ${count(escape.cap)}, paid and postal together, and the worst-case odds are ${worstCaseOdds(escape)}.`}
+      </p>
       <div className="mt-12 flex max-w-[52rem] flex-col gap-12 font-mono md:mt-16">
         {open ? (
           <div>

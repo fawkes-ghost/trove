@@ -13,7 +13,10 @@ export function Destination({ escape }: { escape: Escape }) {
       <div className="grid gap-12 md:grid-cols-2 md:gap-16">
         <div className="max-w-[40rem]">
           <h2 className="display text-balance text-[2rem] md:text-[2.75rem]">{escape.destination}.</h2>
-          <div className="mt-8 flex flex-col gap-5 text-lg">
+          <p className="mt-6 text-lg" data-answer>
+            This escape is {numberWord(escape.nights)} nights in {escape.destination}, at {venueLine(escape)}.
+          </p>
+          <div className="mt-6 flex flex-col gap-5 text-lg">
             <p>
               {escape.destination} in winter is a county of chalk streams and short days. The Test and the Itchen run clear and cold through water meadows that flood and freeze, and the downs above them are bare enough to see the shape of the land.
             </p>

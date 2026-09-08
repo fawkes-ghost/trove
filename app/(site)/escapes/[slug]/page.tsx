@@ -11,9 +11,7 @@ import { OddsLadder } from '@/components/escape/OddsLadder';
 import { Enter } from '@/components/escape/Enter';
 import { PostalEntry } from '@/components/escape/PostalEntry';
 import { Questions } from '@/components/escape/Questions';
-import { EscapeJsonLd } from '@/components/escape/EscapeJsonLd';
 import { FaqJsonLd } from '@/components/escape/FaqJsonLd';
-import { siteUrl } from '@/lib/site';
 import { ComplianceStrip } from '@/components/site/ComplianceStrip';
 
 
@@ -48,7 +46,6 @@ export default async function EscapePage({ params }: { params: Promise<{ slug: s
 
   return (
     <main>
-      <EscapeJsonLd escape={item} url={`${siteUrl}/escapes/${item.slug}`} />
       <FaqJsonLd escape={item} />
       <Hero escape={item} moment={false} />
       <Ledger escape={item} />

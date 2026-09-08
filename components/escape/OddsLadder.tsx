@@ -1,4 +1,4 @@
-import { oddsForEntries, type Escape } from '@/config/prize';
+import { oddsForEntries, worstCaseOdds, type Escape } from '@/config/prize';
 import { count, gbp, numberWord, sentenceCase } from '@/lib/format';
 import { OddsCalculator } from './OddsCalculator';
 
@@ -9,7 +9,10 @@ export function OddsLadder({ escape }: { escape: Escape }) {
     <section id="odds" className="border-t border-ink/15 px-6 py-24 md:px-10 md:py-32">
       <div className="max-w-[52rem]">
         <h2 className="display text-balance text-[2rem] md:text-[2.75rem]">The odds.</h2>
-        <p className="mt-6 max-w-[40rem] text-lg">
+        <p className="mt-6 max-w-[40rem] text-lg" data-answer>
+          Worst-case odds are {worstCaseOdds(escape)} with one entry{escape.entry.bundles.filter((b) => b.entries > 1).map((b) => `, ${oddsForEntries(b.entries, escape)} with ${numberWord(b.entries)}`).join('')}.
+        </p>
+        <p className="mt-4 max-w-[40rem] text-lg">
           Worst-case odds assume every one of the {count(escape.cap)} entries in the cap is taken. Fewer entries sold means better odds for everyone in the draw.
         </p>
         <ol className="mt-10 flex flex-col">

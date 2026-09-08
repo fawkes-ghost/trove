@@ -76,6 +76,7 @@ export type Escape = {
   };
   media: {
     poster: string | null;          // first frame of the film, shown on first paint and under reduced motion
+    posterAlt: string;              // what the poster shows, truthfully, for alt text
     loop: string | null;            // silent looping film; null falls back to the gradient
   };
   entry: {
@@ -128,6 +129,7 @@ export const escape: Escape = {
   theme: { accent: '#D9455F' },     // rosehip, Hampshire in winter; provisional until the design plan is signed off
   media: {
     poster: '/media/hero-poster.jpg', // first visible frame of the loop below (frame zero is black), extracted once and committed
+    posterAlt: 'A lion cub beside a lioness in long grass at dusk. A placeholder still until the Hampshire film is licensed.',
     // Null until the Hampshire film is licensed; the poster and the gradient carry the hero.
     // The Serengeti montage used while building lives at
     // https://uvnhwgbqmwzzdvxxdgzm.supabase.co/storage/v1/object/public/media/hero-montage-desktop-v2-web-v3.mp4

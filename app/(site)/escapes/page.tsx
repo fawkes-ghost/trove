@@ -22,7 +22,7 @@ export default function EscapesPage() {
             <Link href={`/escapes/${item.slug}`} className="grid gap-6 md:grid-cols-[18rem_1fr] md:gap-10">
               <div className="aspect-[4/3] w-full overflow-hidden bg-ink/10">
                 {item.media.poster ? (
-                  <img src={item.media.poster} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
+                  <img src={item.media.poster} alt={item.media.posterAlt} className="h-full w-full object-cover" loading="lazy" decoding="async" />
                 ) : (
                   <div className="h-full w-full bg-[linear-gradient(180deg,#4F4256_0%,#8E6A6A_34%,#D39A72_56%,#3B3631_80%,#1A1917_100%)]" />
                 )}

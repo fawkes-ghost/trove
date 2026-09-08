@@ -2,6 +2,9 @@ import Link from 'next/link';
 import { compliance, type Escape } from '@/config/prize';
 import { gbp } from '@/lib/format';
 
+// Lower-cases a leading letter so a component reads mid-sentence; a leading figure is left alone.
+const lowerFirstLetter = (line: string) => (/^[A-Za-z]/.test(line) ? line.charAt(0).toLowerCase() + line.slice(1) : line);
+
 // The prize components from config, the cash line explicit, then the cash alternative and
 // the claim window in one sentence with a link to the terms.
 export function WhatYouWin({ escape }: { escape: Escape }) {
@@ -10,6 +13,9 @@ export function WhatYouWin({ escape }: { escape: Escape }) {
     <section id="what-you-win" className="px-6 py-24 md:px-10 md:py-32">
       <div className="max-w-[40rem]">
         <h2 className="display text-balance text-[2rem] md:text-[2.75rem]">What you win.</h2>
+        <p className="mt-6 text-lg" data-answer>
+          You win {prize.description.map(lowerFirstLetter).join(', ')}: a {gbp(prize.value)} prize.
+        </p>
         <ul className="mt-10 flex flex-col gap-4 text-lg">
           {prize.description.map((line) => (
             <li key={line} className="border-t border-ink/15 pt-4">
