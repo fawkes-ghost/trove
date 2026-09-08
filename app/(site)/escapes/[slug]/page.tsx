@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { escapes, getEscape, venueLine } from '@/lib/escapes';
-import { gbp, numberWord, sentenceCase } from '@/lib/format';
+import { escapes, getEscape, prizeLine } from '@/lib/escapes';
 import { Hero } from '@/components/hero/Hero';
 import { WhatYouWin } from '@/components/escape/WhatYouWin';
 import { Destination } from '@/components/escape/Destination';
@@ -22,7 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const item = getEscape(slug);
   if (!item) return {};
-  const description = `${sentenceCase(numberWord(item.nights))} nights for two at ${venueLine(item)}, with ${gbp(item.prize.cash)} in cash. A ${gbp(item.prize.value)} prize. ${item.charity.localityStatement}`;
+  const description = `${prizeLine(item)} ${item.charity.localityStatement}`;
   return {
     title: `The ${item.destination} escape`,
     description,

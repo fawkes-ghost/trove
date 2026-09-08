@@ -25,7 +25,6 @@ export const t = {
   party: numberWord(escape.party),
   prizeValue: gbp(escape.prize.value),
   prizeCash: gbp(escape.prize.cash),
-  prizeTransport: gbp(escape.prize.transport),
   prizeDescription: escape.prize.description,
   cashAlternative: gbp(escape.prize.cashAlternative),
   winnerResponseDays: String(escape.prize.winnerResponseDays),
@@ -36,7 +35,8 @@ export const t = {
   charityPence: `${sentenceCase(numberWord(pence))} pence`,
   charityShare: `${pence} per cent`,
   beneficiary: escape.charity.beneficiary ?? 'a partner named once the agreement is signed',
-  localityStatement: escape.charity.localityStatement,
+  // The giving line in the pence form the legal documents keep; the site reads localityStatement.
+  givingLine: `${sentenceCase(numberWord(pence))} pence in every pound of entry sales goes to local charities protecting the ${escape.destination} countryside.`,
   postalAddress: compliance.freePostalRoute.address ?? 'the free entry address published on the free entry by post page once the registered office exists',
   creditCardMonthlyCap: gbp(compliance.dcmsVoluntaryCode.creditCardMonthlyCap),
   gamCare: signposting.GamCare,

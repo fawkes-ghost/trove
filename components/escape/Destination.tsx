@@ -8,7 +8,7 @@ import { venueLine } from '@/lib/escapes';
 // footage is licensed.
 export function Destination({ escape }: { escape: Escape }) {
   const named = Boolean(escape.venue.name && escape.venue.permissionGranted);
-  const label = `${escape.destination} countryside, licensed photograph`;
+  const label = `A licensed photograph of the ${escape.destination} countryside goes here.`;
 
   return (
     <section id="destination" className="border-t border-ink/15 px-6 py-24 md:px-10 md:py-32">
@@ -26,7 +26,7 @@ export function Destination({ escape }: { escape: Escape }) {
               The villages keep their pubs and their fires. Lunch takes the afternoon. Beech woods hold the last of the light until four, and the lanes empty once the dog walkers have gone home.
             </p>
             <p>
-              This escape is {numberWord(escape.nights)} nights at {venueLine(escape)}, with breakfast each morning, a chauffeur there and back, and {gbp(escape.prize.cash)} in cash in your pocket for dinners, a treatment, or nothing at all.
+              This escape is {numberWord(escape.nights)} nights at {venueLine(escape)}, with breakfast each morning and {gbp(escape.prize.cash)} in cash in your pocket for dinners, a treatment, or nothing at all.
               {named ? null : ' The house is named the moment we have its permission to name it.'}
             </p>
             {named && escape.venue.description ? <p>{escape.venue.description}</p> : null}

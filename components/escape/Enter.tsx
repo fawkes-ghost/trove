@@ -24,7 +24,7 @@ export function Enter({ escape }: { escape: Escape }) {
                 <p className="text-lg">
                   {sentenceCase(numberWord(bundle.entries))} {bundle.entries === 1 ? 'entry' : 'entries'} for {gbp(bundle.price)}.
                 </p>
-                <p className="mt-1 font-mono text-sm text-ink/70">{oddsForEntries(bundle.entries, escape)} worst case</p>
+                <p className="mt-1 font-mono text-sm text-ink/70">Worst-case odds of {oddsForEntries(bundle.entries, escape)}.</p>
               </div>
               {open ? (
                 <button type="button" className="h-12 bg-accent px-6 text-base font-medium text-ink" disabled>

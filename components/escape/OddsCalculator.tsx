@@ -35,7 +35,7 @@ export function OddsCalculator({ cap, maxPerPerson }: { cap: number; maxPerPerso
           {oddsForEntries(held, { cap })}
         </span>
         <span className="mt-2 block text-ink/70">
-          worst-case odds with {count(held)} {held === 1 ? 'entry' : 'entries'} of {count(cap)}
+          Those are your worst-case odds with {count(held)} {held === 1 ? 'entry' : 'entries'}, if all {count(cap)} are taken.
         </span>
       </p>
     </div>

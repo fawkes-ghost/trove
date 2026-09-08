@@ -6,13 +6,13 @@ import { freePostalRoute, significantConditions } from '@/lib/routes';
 export function ComplianceStrip({ className = '' }: { className?: string }) {
   return (
     <p className={`font-mono text-[11px] leading-relaxed ${className}`}>
-      {compliance.minimumAge}+. {compliance.residency} residents.{' '}
+      Open to {compliance.residency} residents aged {compliance.minimumAge} or over.{' '}
       <Link href={freePostalRoute} className="underline underline-offset-4">
-        Free postal entry
-      </Link>
-      , identical odds, same cap.{' '}
+        Free entry by post
+      </Link>{' '}
+      has identical odds inside the same cap. Read the{' '}
       <Link href={significantConditions} className="underline underline-offset-4">
-        Key terms
+        key terms
       </Link>
       .
     </p>

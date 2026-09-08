@@ -15,7 +15,7 @@ export function Ledger({ escape = hampshire, entriesTaken = 0 }: { escape?: Esca
       <p className="mt-6 font-mono text-[2.75rem] leading-none text-accent md:text-[4.5rem]">
         {open ? <TypedFigure text={`${count(entriesTaken)} of ${count(escape.cap)}`} /> : count(escape.cap)}
       </p>
-      <p className="mt-3 text-base text-ink/70">{open ? 'entries taken, paid and postal together' : 'entries in the cap, paid and postal together, never raised'}</p>
+      <p className="mt-3 text-base text-ink/70">{open ? 'That is how many entries are taken so far, paid and postal together.' : 'That is every entry there will ever be in this draw, paid and postal together.'}</p>
       <p className="mt-6 max-w-[40rem] text-base">
         Free postal entries count inside the same cap, with identical odds.{' '}
         <Link href={freePostalRoute} className="underline underline-offset-4">

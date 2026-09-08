@@ -78,7 +78,7 @@ export function LogoMoment({ iconSvg }: { iconSvg: string }) {
     tl.to(disc, { fill: ink, duration: 0.4 }, 0.95);
     // The wordmark and menu arrive with the tile.
     if (header) tl.to(header, { opacity: 1, duration: 0.5 }, 1.25);
-    // The five lines settle in order.
+    // The hero lines settle in order.
     tl.to(lines, { opacity: 1, y: 0, duration: 0.5, stagger: 0.08 }, 1.2);
 
     return () => {
