@@ -36,7 +36,7 @@ export function Enter({ escape }: { escape: Escape }) {
                   data-entry="waitlist"
                   className="inline-flex h-12 items-center justify-center border border-ink/40 px-6 text-base font-medium text-ink/70"
                 >
-                  Join the waitlist
+                  Secure your place
                 </Link>
               )}
             </li>

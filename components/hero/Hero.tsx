@@ -53,7 +53,7 @@ export function Hero({
           </p>
           <div data-hero-line className="flex w-full flex-col items-center gap-4 md:w-auto">
             <WaitlistLink className="inline-flex w-full items-center justify-center bg-snow px-6 py-3.5 text-base font-medium text-ink md:w-auto">
-              Join the waitlist
+              Secure your place
             </WaitlistLink>
             <p className="text-sm text-snow/85">Founding friends enter first, before the public.</p>
           </div>

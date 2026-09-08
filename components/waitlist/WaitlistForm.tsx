@@ -138,7 +138,7 @@ export function WaitlistForm({ sourceChannel = 'trove-home' }: { sourceChannel?:
               disabled={status === 'sending'}
               className="h-12 shrink-0 bg-accent px-6 text-base font-medium text-ink disabled:opacity-60"
             >
-              {status === 'sending' ? 'Joining' : 'Join the waitlist'}
+              {status === 'sending' ? 'Securing' : 'Secure your place'}
             </button>
           </div>
 
