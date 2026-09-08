@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { compliance, economics, escape, oddsForEntries, worstCaseOdds, type Escape } from '@/config/prize';
+import { compliance, escape, oddsForEntries, worstCaseOdds, type Escape } from '@/config/prize';
 import { count, numberWord, sentenceCase } from '@/lib/format';
 
 // A claim may link to where its figure lives on the open escape's page. The path is built
@@ -11,7 +11,6 @@ type Claim = { lead: string; rest: string; href?: string };
 // from the cap. No cards, no icons, no grid.
 function claimsFor(e: Escape): Claim[] {
   const largest = e.entry.bundles[e.entry.bundles.length - 1];
-  const pence = Math.round(economics.charityShareOfGross * 100);
   const claims: Claim[] = [
     {
       lead: `${count(e.cap)} entries.`,
@@ -36,7 +35,7 @@ function claimsFor(e: Escape): Claim[] {
       rest: 'A postcard counts exactly as a paid entry does.',
     },
     {
-      lead: `${sentenceCase(numberWord(pence))} pence in every pound goes to community and countryside causes in ${e.destination}.`,
+      lead: e.charity.localityStatement,
       rest: 'That is the point.',
     },
   );

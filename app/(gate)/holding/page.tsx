@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { compliance, economics, escape, worstCaseOdds } from '@/config/prize';
+import { compliance, escape, worstCaseOdds } from '@/config/prize';
 import { count, gbp, numberWord, sentenceCase } from '@/lib/format';
 import { venueLine } from '@/lib/escapes';
 import { gatePassphrase } from '@/lib/gate';
@@ -23,8 +23,7 @@ export const metadata: Metadata = {
 export default function HoldingPage() {
   if (!gatePassphrase()) notFound();
 
-  const pence = Math.round(economics.charityShareOfGross * 100);
-  const headline = `A UK prize draw for escapes. ${sentenceCase(numberWord(pence))} pence in every pound goes to community and countryside causes.`;
+  const headline = `A UK prize draw for escapes. ${escape.charity.localityStatement}`;
 
   const facts = [
     `${sentenceCase(numberWord(escape.nights))} nights for ${numberWord(escape.party)} at ${venueLine(escape)}, with ${gbp(escape.prize.cash)} in cash. A ${gbp(escape.prize.value)} prize.`,

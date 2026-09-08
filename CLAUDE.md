@@ -33,6 +33,9 @@ PR so the other is updated the same day.
    words carry the facts.
 4. **The logo is kept.** Wordmark and icon SVGs live in `public/brand/` and are used
    as inline SVG so they can animate. Do not redraw them.
+5. **Client components receive values, never the config object.** A client component
+   that takes `escape` serialises every config field into the page payload, including
+   fields not rendered in copy.
 
 ## Design direction (new, not frozen)
 

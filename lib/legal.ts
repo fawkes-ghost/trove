@@ -4,6 +4,7 @@ import { compliance, economics, escape, spendCeiling, worstCaseOdds } from '@/co
 import { count, gbp, numberWord, sentenceCase } from '@/lib/format';
 import { signposting } from '@/lib/routes';
 import { slug } from '@/lib/slug';
+import { contactEmail } from '@/lib/site';
 
 // Every figure the legal documents state, read from config. The MDX files import this and
 // never type a number.
@@ -40,7 +41,7 @@ export const t = {
   creditCardMonthlyCap: gbp(compliance.dcmsVoluntaryCode.creditCardMonthlyCap),
   gamCare: signposting.GamCare,
   gambleAware: signposting.GambleAware,
-  contactEmail: 'hello@trovewild.com',
+  contactEmail,
   promoter: 'Trove [promoter details to follow incorporation: company name, number and registered office]',
   significantConditionsPath: compliance.significantConditionsPath,
 };
