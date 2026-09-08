@@ -35,7 +35,7 @@ export function Hero({ escape = hampshire, moment = true, headline }: { escape?:
       <StickyCta />
       <HeroFilm media={escape.media} />
 
-      <div className="row-start-2 px-6 pt-24 pb-8 md:px-10">
+      <div className="relative z-30 row-start-2 px-6 pt-24 pb-8 md:px-10">
         <div className="mx-auto flex max-w-[44rem] flex-col items-center gap-5 text-center">
           <h1 data-hero-line className="display text-balance text-[2.5rem] md:text-[4.25rem]">
             {headline ?? venueLine}
@@ -55,7 +55,7 @@ export function Hero({ escape = hampshire, moment = true, headline }: { escape?:
         </div>
       </div>
 
-      <div className="hero-strip row-start-4 border-t border-snow/20 px-6 py-3 md:px-10">
+      <div className="hero-strip relative z-30 row-start-4 border-t border-snow/20 px-6 py-3 md:px-10">
         <ComplianceStrip />
       </div>
     </section>

@@ -67,23 +67,78 @@ body:has([data-hero]) .site-header {
   --disc: var(--ink);
 }
 
-/* The logo moment. A blocking script in the root layout sets data-moment="play" before
-   first paint on a fresh visit to the home page; components/hero/LogoMoment.tsx then
-   animates and clears it. Without the attribute the page is the still version. */
+/* The logo moment. The inline gate in the root layout sets data-moment="play" before
+   first paint on a fresh visit to the home page. The moment then runs here, in CSS, from
+   first paint: it needs no script and no film, and is over 900ms later whatever the
+   network is doing. When components/hero/LogoMoment.tsx hydrates it switches the
+   attribute to "js", which keeps the hidden start states but drops these animations, and
+   GSAP continues from the same elapsed time, adding the one thing CSS cannot do: docking
+   the tile to the header. Without the attribute the page is the still version. */
 html[data-moment="play"] .site-header,
 html[data-moment="play"] .header-icon,
 html[data-moment="play"] .hero-poster,
-html[data-moment="play"] [data-hero-line] {
+html[data-moment="play"] [data-hero-line],
+html[data-moment="js"] .site-header,
+html[data-moment="js"] .header-icon,
+html[data-moment="js"] .hero-poster,
+html[data-moment="js"] [data-hero-line] {
   opacity: 0;
 }
-html[data-moment="play"] [data-hero-line] {
+html[data-moment="play"] [data-hero-line],
+html[data-moment="js"] [data-hero-line] {
   transform: translateY(14px);
 }
 .curtain {
   display: none;
 }
-html[data-moment="play"] .curtain {
+html[data-moment="play"] .curtain,
+html[data-moment="js"] .curtain {
   display: block;
+}
+@keyframes trove-fade-in {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes trove-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes trove-rise {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes trove-disc {
+  to {
+    cy: 36px;
+  }
+}
+/* The same choreography as the GSAP timeline, as fractions of 900ms. */
+html[data-moment="play"] .curtain circle {
+  animation: trove-disc 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+html[data-moment="play"] .hero-poster {
+  animation: trove-fade-in 0.45s linear 0.14s both;
+}
+html[data-moment="play"] .curtain [data-curtain-backdrop] {
+  animation: trove-fade-out 0.32s ease-out 0.23s both;
+}
+html[data-moment="play"] [data-hero-line] {
+  animation: trove-rise 0.27s ease-out 0.45s both;
+}
+html[data-moment="play"] .site-header,
+html[data-moment="play"] .header-icon {
+  animation: trove-fade-in 0.27s ease-out 0.54s both;
+}
+/* Without script the tile cannot dock, so it hands over to the header icon by fading. */
+html[data-moment="play"] .curtain [data-curtain-tile] {
+  animation: trove-fade-out 0.24s ease-in 0.63s both;
+}
+html[data-moment="play"] .curtain {
+  pointer-events: none;
 }
 
 /* While the consent banner is up on narrow screens, the hero's compliance strip sticks
@@ -112,7 +167,6 @@ html[data-motion="full"] .hero-scrim {
 }
 .hero-poster {
   transform-origin: center;
-  will-change: transform;
 }
 [data-field-reveal] {
   transform-box: fill-box;
