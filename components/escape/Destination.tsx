@@ -2,8 +2,10 @@ import type { Escape } from '@/config/prize';
 import { gbp, numberWord } from '@/lib/format';
 import { venueLine } from '@/lib/escapes';
 
-// The destination in pictures and prose. The nights and the cash render from config; the
-// venue is unnamed until permission exists; no venue imagery until footage is licensed.
+// The destination in pictures and prose. The nights and the cash render from config. The
+// venue paragraph is gated on the server: until permissionGranted nothing from the venue
+// block reaches the HTML, and the county copy holds the section. No venue imagery until
+// footage is licensed.
 export function Destination({ escape }: { escape: Escape }) {
   const named = Boolean(escape.venue.name && escape.venue.permissionGranted);
   const label = `${escape.destination} countryside, licensed photograph`;
@@ -27,6 +29,7 @@ export function Destination({ escape }: { escape: Escape }) {
               This escape is {numberWord(escape.nights)} nights at {venueLine(escape)}, with breakfast each morning, a chauffeur there and back, and {gbp(escape.prize.cash)} in cash in your pocket for dinners, a treatment, or nothing at all.
               {named ? null : ' The house is named the moment we have its permission to name it.'}
             </p>
+            {named && escape.venue.description ? <p>{escape.venue.description}</p> : null}
             <p>Bring boots, a book and your favourite person. The county does the rest.</p>
           </div>
         </div>

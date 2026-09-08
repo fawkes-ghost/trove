@@ -1,9 +1,12 @@
 import type { NextConfig } from 'next';
 import createMDX from '@next/mdx';
-import { assertEscape } from './config/prize';
+import { assertEscape, unpublishedVenueTerms } from './config/prize';
+import { assertVenueUnpublished } from './lib/venue-guard';
 
-// Fails the build if config/prize.ts breaks the economics or the compliance canon.
+// Fails the build if config/prize.ts breaks the economics or the compliance canon, or if
+// the venue's name has leaked out of config before permission exists.
 assertEscape();
+assertVenueUnpublished(unpublishedVenueTerms, ['app', 'components', 'lib', 'content']);
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,

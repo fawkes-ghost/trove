@@ -128,10 +128,18 @@ with the ledger as the only "component". The one moment is the logo, which is ou
 
 Identical structure for every escape so the template is the product:
 
-1. Hero film and the five lines (as home).
-2. The ledger and the odds.
-3. What you win, with the cash line and the cash alternative sentence.
-4. The destination, in pictures and 150 words. Venue unnamed until permitted.
+1. Hero film. The headline is the destination ("Hampshire.") with the prize line beneath,
+   so it does not repeat the home hero.
+2. Your odds (`#odds`): the answer line, then "Not unlimited." with the entries count and
+   the cap (`#ledger`) and the postal parity line, then the ladder and the calculator.
+3. What you win: the three parts in a row, one still slot each labelled with the poster's
+   alt until stills land, the cash as the single accent figure and appearing once, and
+   "A cash alternative is available. Terms." with the amount in the terms and key terms.
+4. The destination, in pictures and 150 words. Venue unnamed until permitted. The house
+   paragraph is stored in `venue.description` and rendered on the server only when
+   `venue.permissionGranted` is true; before then nothing from the venue block reaches
+   the HTML, the payload or the metadata, and the build greps `app/`, `components/`,
+   `lib/` and `content/` for the venue's name.
 5. Where the money goes, with the locality statement.
 6. Enter: the bundles from config as three plain options, no strikethrough, no "best
    value" badge. Disabled and labelled "Join the waitlist" until the escape opens.
