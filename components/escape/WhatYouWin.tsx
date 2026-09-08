@@ -31,7 +31,7 @@ export function WhatYouWin({ escape }: { escape: Escape }) {
         <p className="mt-10 text-base">
           If the winner would rather not take the stay, a cash alternative of {gbp(prize.cashAlternative)} is paid instead, and the winner has {prize.claimWindowDays} days to choose, with the stay valid for {prize.stayValidMonths} months from the claim, subject to availability.{' '}
           <Link href={compliance.significantConditionsPath} className="underline underline-offset-4">
-            Significant conditions
+            Key terms
           </Link>
           .
         </p>
