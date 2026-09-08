@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { compliance, escape, worstCaseOdds } from '@/config/prize';
-import { count, gbp, numberWord, sentenceCase } from '@/lib/format';
-import { venueLine } from '@/lib/escapes';
+import { count } from '@/lib/format';
+import { prizeLine } from '@/lib/escapes';
 import { gatePassphrase } from '@/lib/gate';
 import { Icon, Wordmark } from '@/components/brand/Marks';
 import { ComplianceStrip } from '@/components/site/ComplianceStrip';
@@ -26,7 +26,7 @@ export default function HoldingPage() {
   const headline = `A UK prize draw for escapes. ${escape.charity.localityStatement}`;
 
   const facts = [
-    `${sentenceCase(numberWord(escape.nights))} nights for ${numberWord(escape.party)} at ${venueLine(escape)}, with ${gbp(escape.prize.cash)} in cash. A ${gbp(escape.prize.value)} prize.`,
+    prizeLine(escape),
     `Entries are capped at ${count(escape.cap)}, paid and postal together.`,
     `Worst-case odds of ${worstCaseOdds(escape)} with one entry.`,
     ...(compliance.noRollover ? ['One winner is guaranteed.'] : []),
@@ -42,7 +42,7 @@ export default function HoldingPage() {
 
       <div className="flex flex-col justify-center py-12 md:py-16">
         <div className="max-w-[40rem]">
-          <p className="text-sm font-medium text-ink/70">Your chance to win</p>
+          <p className="text-sm font-medium text-ink/70">Your chance to win an escape.</p>
           <h1 className="display mt-4 text-balance text-[2rem] md:text-[2.75rem]">{headline}</h1>
           <ul className="mt-8 flex flex-col" data-facts>
             {facts.map((fact) => (

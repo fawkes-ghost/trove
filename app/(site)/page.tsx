@@ -1,19 +1,20 @@
 import { Hero } from '@/components/hero/Hero';
-import { StatStrip } from '@/components/home/StatStrip';
+import { Mission } from '@/components/home/Mission';
+import { EscapeCard } from '@/components/home/EscapeCard';
 import { HowItWorks } from '@/components/home/HowItWorks';
-import { WhyTrove } from '@/components/home/WhyTrove';
 import { Waitlist } from '@/components/waitlist/Waitlist';
 import { WebSiteJsonLd } from '@/components/site/WebSiteJsonLd';
 
-// The ledger lives on the escape page. The home page states the facts in a strip.
+// The hero, the mission, the open escape as a card, how it works, the waitlist. The ledger
+// and the figures live on the escape page.
 export default function Home() {
   return (
     <main>
       <WebSiteJsonLd />
       <Hero />
-      <StatStrip />
+      <Mission />
+      <EscapeCard />
       <HowItWorks />
-      <WhyTrove />
       <Waitlist />
     </main>
   );

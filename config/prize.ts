@@ -4,7 +4,7 @@
 // Source of truth for the numbers: Notion, DRAW Headquarters, "19 CFO model and draw config".
 // Change a value here, update Notion in the same commit.
 
-import { gbp, numberWord, sentenceCase } from '../lib/format';
+import { gbp, numberWord, percent, sentenceCase } from '../lib/format';
 
 export type Money = number; // GBP, whole pounds unless stated
 
@@ -70,7 +70,7 @@ export type Escape = {
     claimWindowDays: number;        // winner must confirm stay or cash within this window
     stayValidMonths: number;        // from claim, subject to availability and stated blackout dates
     stayWindow: string;             // the season the stay is valid in, stated in terms
-    description: string[];          // factual components in order: the stay, the transfers, the cash; no adjectives, every figure derived
+    description: string[];          // factual components in order: the stay, then the cash; no adjectives, every figure derived
   };
   theme: {
     accent: string;                 // one accent per escape, drawn from the destination in season
@@ -106,7 +106,7 @@ export const unpublishedVenueTerms = ['Heckfield'] as const;
 // Named once here so the description strings can restate them without a second literal.
 const hampshireNights = 3;
 const hampshireParty = 2;
-const hampshireCash: Money = 600;
+const hampshireCash: Money = 1600;
 
 export const escape: Escape = {
   slug: 'hampshire',
@@ -124,8 +124,8 @@ export const escape: Escape = {
   prize: {
     value: 6500,
     stayBudget: 4550,               // 3 nights Chamber Room, Fri to Mon, priced at a Feb peak weekend incl breakfast, VAT and 10% service
-    transport: 1000,                // chauffeur-driven return transfers, booked by Trove
-    cash: hampshireCash,            // published as cash, towards a treatment and dinner
+    transport: 0,                   // no transfers in this escape; the winner travels as they choose
+    cash: hampshireCash,            // paid to the winner in cash, to spend on the escape or not
     contingency: 350,
     cashAlternative: 4500,
     winnerResponseDays: 14,
@@ -133,8 +133,7 @@ export const escape: Escape = {
     stayValidMonths: 12,
     stayWindow: 'Friday to Monday between November and March, excluding 20 December to 3 January, subject to availability',
     description: [
-      `${sentenceCase(numberWord(hampshireNights))} nights for ${numberWord(hampshireParty)} in a suite, breakfast included`,
-      'Chauffeur-driven transfers there and back',
+      `${sentenceCase(numberWord(hampshireNights))} nights for you and your plus one, breakfast included`,
       `${gbp(hampshireCash)} in cash`,
     ],
   },
@@ -161,7 +160,7 @@ export const escape: Escape = {
   charity: {
     shareOfGross: economics.charityShareOfGross,
     beneficiary: null,
-    localityStatement: 'Fifteen pence in every pound goes to local community causes connected to nature and the countryside in Hampshire.',
+    localityStatement: `${percent(economics.charityShareOfGross)} of every entry goes to local charities protecting the Hampshire countryside.`,
   },
   status: 'planning',
 };

@@ -1,15 +1,16 @@
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { compliance, escape as hampshire, type Escape } from '@/config/prize';
-import { count, gbp, numberWord, sentenceCase } from '@/lib/format';
+import { count } from '@/lib/format';
+import { prizeLine } from '@/lib/escapes';
 import { ComplianceStrip } from '@/components/site/ComplianceStrip';
 import { HeroFilm } from './HeroFilm';
 import { LogoMoment } from './LogoMoment';
 import { ScrollButton } from './ScrollButton';
 import { WaitlistLink } from './WaitlistLink';
 
-// One centred column over the film: kicker, headline, sweetener, chip, button, the charity
-// line. Snow on a heavy scrim; the accent does not appear in the hero. Every figure is read
+// One centred column over the film: headline, the prize line, chip, button, the founding
+// friends line. Snow on a heavy scrim; the accent does not appear in the hero. Every figure is read
 // from config and the venue is unnamed until permission exists. The escape page passes its
 // own headline (the destination) and scroll target so it does not repeat the home hero.
 export function Hero({
@@ -25,12 +26,12 @@ export function Hero({
 }) {
   const venueLine =
     escape.venue.name && escape.venue.permissionGranted
-      ? `A long weekend at ${escape.venue.name}.`
-      : "A long weekend at one of England’s finest country houses.";
+      ? `Win an escape to ${escape.venue.name}.`
+      : 'Win an escape to one of England’s finest country houses.';
 
-  const sweetener = `${sentenceCase(numberWord(escape.nights))} nights for ${numberWord(escape.party)} in a suite, chauffeur-driven, and ${gbp(escape.prize.cash)} in cash. A ${gbp(escape.prize.value)} prize.`;
+  const sweetener = prizeLine(escape);
 
-  const chip = `${compliance.noRollover ? 'One winner is guaranteed. ' : ''}Entries are capped at ${count(escape.cap)}.`;
+  const chip = `${compliance.noRollover ? 'One guaranteed winner. ' : ''}${count(escape.cap)} entries, never more.`;
 
   const iconSvg = readFileSync(path.join(process.cwd(), 'public', 'brand', 'icon.svg'), 'utf8');
 
@@ -41,9 +42,6 @@ export function Hero({
 
       <div className="row-start-2 px-6 pt-24 pb-8 md:px-10">
         <div className="mx-auto flex max-w-[44rem] flex-col items-center gap-5 text-center">
-          <p data-hero-line className="text-sm font-medium text-snow/75">
-            Your chance to win
-          </p>
           <h1 data-hero-line className="display text-balance text-[2.5rem] md:text-[4.25rem]">
             {headline ?? venueLine}
           </h1>
@@ -57,7 +55,7 @@ export function Hero({
             <WaitlistLink className="inline-flex w-full items-center justify-center bg-snow px-6 py-3.5 text-base font-medium text-ink md:w-auto">
               Join the waitlist
             </WaitlistLink>
-            <p className="text-sm text-snow/85">{escape.charity.localityStatement}</p>
+            <p className="text-sm text-snow/85">Founding friends enter first, before the public.</p>
           </div>
         </div>
       </div>

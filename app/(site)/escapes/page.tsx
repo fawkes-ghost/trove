@@ -1,12 +1,11 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { economics, worstCaseOdds } from '@/config/prize';
-import { escapes, statusLabel } from '@/lib/escapes';
-import { gbp, numberWord, sentenceCase } from '@/lib/format';
+import { escape, worstCaseOdds } from '@/config/prize';
+import { escapes, prizeLine, statusLabel } from '@/lib/escapes';
 
 export const metadata: Metadata = {
   title: 'Escapes',
-  description: `Every Trove escape: open, coming and drawn. One prize per draw, a cap on entries, and ${numberWord(Math.round(economics.charityShareOfGross * 100))} pence in every pound to the destination.`,
+  description: `Every Trove escape: open, coming and drawn. One prize per draw and a cap on entries. ${escape.charity.localityStatement}`,
   alternates: { canonical: '/escapes' },
 };
 
@@ -30,10 +29,8 @@ export default function EscapesPage() {
               <div className="flex flex-col gap-3">
                 <p className="font-mono text-[11px] text-ink/60">{statusLabel(item.status)}</p>
                 <h2 className="display text-[2rem] md:text-[2.5rem]">{item.destination}.</h2>
-                <p className="text-lg">
-                  {sentenceCase(numberWord(item.nights))} nights for two. A {gbp(item.prize.value)} prize.
-                </p>
-                <p className="font-mono text-base">{worstCaseOdds(item)} worst-case odds</p>
+                <p className="text-lg">{prizeLine(item)}</p>
+                <p className="font-mono text-base">Worst-case odds are {worstCaseOdds(item)} with one entry.</p>
                 <p className="text-base text-ink/70">{item.charity.localityStatement}</p>
               </div>
             </Link>

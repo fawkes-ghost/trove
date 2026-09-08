@@ -61,15 +61,15 @@ export default function HowItWorksPage() {
           <div className="mt-10 flex flex-col gap-10 font-mono">
             <div>
               <p className="text-[2.75rem] leading-none text-accent md:text-[4rem]">{count(escape.cap)}</p>
-              <p className="mt-3 font-sans text-base text-ink/70">entries in the cap for {escape.destination}, paid and postal together, and never raised</p>
+              <p className="mt-3 font-sans text-base text-ink/70">That is every entry there will ever be in the {escape.destination} draw, paid and postal together.</p>
             </div>
             <div>
               <p className="text-[2rem] leading-none md:text-[2.75rem]">{worstCaseOdds(escape)}</p>
-              <p className="mt-3 font-sans text-base text-ink/70">worst-case odds with one entry, if every entry is taken</p>
+              <p className="mt-3 font-sans text-base text-ink/70">Those are your worst-case odds with one entry, if every entry is taken.</p>
             </div>
             <div>
               <p className="text-[2rem] leading-none md:text-[2.75rem]">{oddsForEntries(largest.entries, escape)}</p>
-              <p className="mt-3 font-sans text-base text-ink/70">with {numberWord(largest.entries)} entries. Fewer entries taken means better odds for everyone in the draw</p>
+              <p className="mt-3 font-sans text-base text-ink/70">Those are your worst-case odds with {numberWord(largest.entries)} entries. Fewer entries taken means better odds for everyone in the draw.</p>
             </div>
           </div>
           <p className="mt-10 text-base">

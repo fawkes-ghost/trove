@@ -1,5 +1,5 @@
-import { compliance, economics, escape, oddsForEntries, spendCeiling, worstCaseOdds } from '@/config/prize';
-import { count, gbp, numberWord, sentenceCase } from '@/lib/format';
+import { compliance, escape, oddsForEntries, spendCeiling, worstCaseOdds } from '@/config/prize';
+import { count, gbp, numberWord } from '@/lib/format';
 import { venueLine } from '@/lib/escapes';
 import { gatePassphrase } from '@/lib/gate';
 import { contactEmail, siteUrl } from '@/lib/site';
@@ -12,14 +12,13 @@ export function GET() {
   if (gatePassphrase()) return new Response('Not yet.', { status: 404, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
 
   const e = escape;
-  const pence = Math.round(economics.charityShareOfGross * 100);
   const bundles = e.entry.bundles.map((b) => `${b.entries === 1 ? 'one entry' : `${numberWord(b.entries)} entries`} for ${gbp(b.price)} (worst-case odds ${oddsForEntries(b.entries, e)})`);
   const lines = [
     `# Trove`,
     ``,
     `> Trove is a UK luxury travel prize draw. One prize per draw, called an escape. ${e.charity.localityStatement}`,
     ``,
-    `Trove runs one escape at a time. Entries are capped and the cap is published and never raised. Every entry, paid or free by post, has identical odds. The draw closes when the cap is reached or on a longstop date set once when entries open, whichever comes first, and it is never extended.${compliance.noRollover ? ' One winner is guaranteed; there is no rollover.' : ''} ${sentenceCase(numberWord(pence))} pence in every pound of entry sales goes to local causes at the destination, and what was given is published after every draw.`,
+    `Trove runs one escape at a time. Entries are capped and the cap is published and never raised. Every entry, paid or free by post, has identical odds. The draw closes when the cap is reached or on a longstop date set once when entries open, whichever comes first, and it is never extended.${compliance.noRollover ? ' One winner is guaranteed; there is no rollover.' : ''} ${e.charity.localityStatement} What was given is published after every draw.`,
     ``,
     `## The current escape: ${e.destination}`,
     ``,
@@ -37,7 +36,7 @@ export function GET() {
     ``,
     `## Where the money goes`,
     ``,
-    `- ${e.charity.localityStatement} That is ${pence} per cent of gross entry sales.`,
+    `- ${e.charity.localityStatement}`,
     `- The partner is named once the agreement is signed. What was given is published after every draw.`,
     ``,
     `## Free entry by post`,

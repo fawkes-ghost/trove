@@ -77,16 +77,14 @@ final positions, no sequence.
 |   FILM (full bleed, silent, seamless loop, heavy scrim so snow     |
 |   text reads over any frame; poster on first paint)                |
 |                                                                    |
-|                     Your chance to win               kicker, sans  |
-|                A long weekend at one of              display, snow |
-|             England’s finest country houses.         centred       |
-|   Three nights for two in a suite, chauffeur-driven, and £600     |
-|   in cash. A £6,500 prize.                            sans, snow   |
-|      [ One winner is guaranteed. Entries are capped at 3,000. ]    |
+|              Win an escape to one of England’s       display, snow |
+|                 finest country houses.               centred       |
+|   Three nights for you and your plus one, and £1,600 in cash.     |
+|   A £6,500 prize.                                     sans, snow   |
+|         [ One guaranteed winner. 3,000 entries, never more. ]      |
 |                     [ Join the waitlist ]            snow fill,    |
 |                                                      ink text      |
-|        Fifteen pence in every pound goes to community              |
-|        and countryside causes in Hampshire.          sans 14, snow |
+|        Founding friends enter first, before the public.  sans 14   |
 |                                                                    |
 |                        ( scroll )            the scroll button     |
 |  18+. UK residents. Free postal entry, identical odds, same cap.   |
@@ -105,30 +103,26 @@ ink disc with a downward chevron, centred at the base of the hero, which scrolls
 next section on click.
 
 ### Below the hero, in order
-1. **The stat strip.** The draw in figures, mono, no borders or cards: the cap, the
-   worst-case odds, one winner, free by post, and the giving share as a percentage.
-   One-line captions. Each figure fades and rises 8px as it enters, once, GSAP
-   ScrollTrigger, nothing under reduced motion. One link beneath: "See the Hampshire
-   escape." to the escape page's odds anchor, destination from config.
-2. **How it works.** Three steps, because it is literally a sequence: enter, we draw,
+1. **The mission.** The founder's words from `lib/mission.ts`; the section renders nothing
+   until the copy is there.
+2. **The escape card.** The open escape: poster, destination, the prize line, the worst-case
+   odds and the link to its page. Everything from config, no motion.
+3. **How it works.** Three steps, because it is literally a sequence: enter, we draw,
    you escape. Postal route linked from step one.
-3. **Why Trove.** Two paragraphs from the founder's voice and one portrait or landscape.
 4. **Waitlist.** The form again, with the founding friends count if we choose to show it.
 5. Footer.
 
-The ledger, what you win and where the money goes live on the escape page only.
+The ledger, what you win and where the money goes live on the escape page only. The why
+page carries the founder's essay; the home mission does not duplicate it.
 
-Percent rule: figure surfaces (the strip) show the giving share as "15%"; prose surfaces
-keep "fifteen pence in every pound". Both read `charity.shareOfGross`.
+Giving line: every site surface reads `charity.localityStatement`, which states the share as
+a percentage. The terms and the key terms keep the pence form through `t.givingLine`.
 
 Link text: the significant conditions page is linked as "Key terms" everywhere; the full
 terms as "Terms". Routes and page content are unchanged.
 
-### Review against the generic default
-The default for this brief would be cream, a high-contrast serif, a terracotta accent and
-identical rounded cards. This plan uses a cool snow base, a soft variable serif, a
-per-escape accent chosen from the destination, and sections that are prose and pictures
-with the ledger as the only "component". The one moment is the logo, which is ours.
+Every caption is a full sentence that explains itself to a first-time visitor; the only
+bare labels are form labels, navigation and the footer's slot names.
 
 ## 3. The standard escape page (`/escapes/[slug]`)
 
@@ -138,8 +132,8 @@ Identical structure for every escape so the template is the product:
    so it does not repeat the home hero.
 2. Your odds (`#odds`): the answer line, then "Not unlimited." with the entries count and
    the cap (`#ledger`) and the postal parity line, then the ladder and the calculator.
-3. What you win: the three parts in a row, one still slot each labelled with the poster's
-   alt until stills land, the cash as the single accent figure and appearing once, and
+3. What you win: the stay and the cash side by side, one still slot each labelled with the
+   poster's alt until stills land, the cash as the single accent figure and appearing once, and
    "A cash alternative is available. Terms." with the amount in the terms and key terms.
 4. The destination, in pictures and 150 words. Venue unnamed until permitted. The house
    paragraph is stored in `venue.description` and rendered on the server only when

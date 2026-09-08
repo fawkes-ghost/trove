@@ -1,4 +1,5 @@
 import { escape, type Escape } from '@/config/prize';
+import { gbp, numberWord, sentenceCase } from '@/lib/format';
 
 // Every escape the site knows about. One hero escape at a time; the list grows with the
 // next destination. Draws are named by destination, never numbered.
@@ -8,18 +9,23 @@ export function getEscape(slug: string): Escape | null {
   return escapes.find((item) => item.slug === slug) ?? null;
 }
 
-// The word for the index and the page. Open, coming, or drawn.
+// The status as a sentence for the index. Open, drawn, closed, or coming.
 export function statusLabel(status: Escape['status']): string {
   switch (status) {
     case 'open':
-      return 'Open';
+      return 'Entries are open.';
     case 'drawn':
-      return 'Drawn';
+      return 'This escape has been drawn.';
     case 'closed':
-      return 'Closed';
+      return 'Entries have closed.';
     default:
-      return 'Coming';
+      return 'Entries open soon.';
   }
+}
+
+// The prize in one line, for the hero, the escape card and the holding page.
+export function prizeLine(e: Escape): string {
+  return `${sentenceCase(numberWord(e.nights))} nights for you and your plus one, and ${gbp(e.prize.cash)} in cash. A ${gbp(e.prize.value)} prize.`;
 }
 
 export function venueLine(e: Escape): string {
