@@ -1,7 +1,7 @@
 'use client';
 
 import { useId, useState } from 'react';
-import { oddsForEntries } from '@/config/prize';
+import { oddsForEntries } from '@/lib/odds';
 import { count } from '@/lib/format';
 
 // The visitor sets a number of entries, up to the per-person limit, and sees the worst-case

@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation';
 import { escapes, getEscape, venueLine } from '@/lib/escapes';
 import { gbp, numberWord, sentenceCase } from '@/lib/format';
 import { Hero } from '@/components/hero/Hero';
-import { Ledger } from '@/components/ledger/Ledger';
 import { WhatYouWin } from '@/components/escape/WhatYouWin';
 import { Destination } from '@/components/escape/Destination';
 import { WhereTheMoneyGoes } from '@/components/escape/WhereTheMoneyGoes';
@@ -38,7 +37,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 // The standard escape page. One template, every escape identical in form, driven entirely
-// by the Escape object.
+// by the Escape object. The ledger opens the odds section.
 export default async function EscapePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const item = getEscape(slug);
@@ -47,12 +46,11 @@ export default async function EscapePage({ params }: { params: Promise<{ slug: s
   return (
     <main>
       <FaqJsonLd escape={item} />
-      <Hero escape={item} moment={false} />
-      <Ledger escape={item} />
+      <Hero escape={item} moment={false} headline={`${item.destination}.`} scrollTarget="odds" />
+      <OddsLadder escape={item} />
       <WhatYouWin escape={item} />
       <Destination escape={item} />
       <WhereTheMoneyGoes escape={item} />
-      <OddsLadder escape={item} />
       <Enter escape={item} />
       <PostalEntry escape={item} />
       <Questions escape={item} />
