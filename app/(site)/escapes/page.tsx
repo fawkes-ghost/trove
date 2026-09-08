@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { worstCaseOdds } from '@/config/prize';
+import { economics, worstCaseOdds } from '@/config/prize';
 import { escapes, statusLabel } from '@/lib/escapes';
 import { gbp, numberWord, sentenceCase } from '@/lib/format';
 
 export const metadata: Metadata = {
   title: 'Escapes',
-  description: 'Every Trove escape: open, coming and drawn. One prize per draw, a cap on entries, and fifteen pence in every pound to the destination.',
+  description: `Every Trove escape: open, coming and drawn. One prize per draw, a cap on entries, and ${numberWord(Math.round(economics.charityShareOfGross * 100))} pence in every pound to the destination.`,
   alternates: { canonical: '/escapes' },
 };
 

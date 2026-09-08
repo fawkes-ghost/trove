@@ -18,6 +18,7 @@ export const economics = {
   capMultipleMinimum: 3.0,          // cap x blended entry price must be >= 3x prize value
   entryPriceOfPrizeValue: { min: 0.001, max: 0.002 }, // hero entry ~0.1% to 0.2% of prize value
   perPersonSpendCeiling: 500,       // GBP; maxPerPerson is the most entries that fit inside it at the single entry price
+  cashAlternativeFloor: 0.6,        // the cash alternative is never less than this share of the published prize value
 } as const;
 
 // ---------------------------------------------------------------------------
@@ -146,7 +147,7 @@ export const escape: Escape = {
   charity: {
     shareOfGross: economics.charityShareOfGross,
     beneficiary: null,
-    localityStatement: 'Fifteen pence in every pound goes to community and countryside causes in Hampshire.',
+    localityStatement: 'Fifteen pence in every pound goes to local community causes connected to nature and the countryside in Hampshire.',
   },
   status: 'planning',
 };
@@ -218,6 +219,7 @@ export function assertEscape(e: Escape = escape): void {
   if (ratio < economics.entryPriceOfPrizeValue.min || ratio > economics.entryPriceOfPrizeValue.max) problems.push(`entry price is ${(ratio * 100).toFixed(2)}% of prize value`);
   if (e.prize.stayBudget + e.prize.transport + e.prize.cash + e.prize.contingency !== e.prize.value) problems.push('prize components must sum exactly to the published prize value');
   if (e.prize.cashAlternative >= e.prize.value) problems.push('cash alternative must be below the published prize value');
+  if (e.prize.cashAlternative < economics.cashAlternativeFloor * e.prize.value) problems.push(`cash alternative is below the floor of ${Math.round(economics.cashAlternativeFloor * 100)}% of the prize value`);
   if (e.venue.name && !e.venue.permissionGranted) problems.push('venue named without written permission');
   if (e.charity.beneficiary) problems.push('charity named before counsel cleared the commercial participator agreement');
   if (e.status === 'open' && !(compliance.freePostalRoute.address ?? '').trim()) problems.push('entries cannot open without a live free postal route address');

@@ -1,4 +1,4 @@
-import { compliance, economics, oddsForEntries, spendCeiling, worstCaseOdds, type Escape } from '@/config/prize';
+import { compliance, oddsForEntries, spendCeiling, worstCaseOdds, type Escape } from '@/config/prize';
 import { count, gbp, numberWord, sentenceCase } from '@/lib/format';
 
 export type Question = { question: string; answer: string };
@@ -12,7 +12,6 @@ export function questionsFor(escape: Escape): Question[] {
   const bundleOdds = bundles
     .map((bundle, index) => `${index === 0 ? sentenceCase(numberWord(bundle.entries)) : numberWord(bundle.entries)} entries give you ${oddsForEntries(bundle.entries, escape)}`)
     .join(', and ');
-  const pence = Math.round(economics.charityShareOfGross * 100);
 
   return [
     {
@@ -45,7 +44,7 @@ export function questionsFor(escape: Escape): Question[] {
     },
     {
       question: 'Where does the money go?',
-      answer: `${sentenceCase(numberWord(pence))} pence in every pound of entry sales goes to community and countryside causes in ${escape.destination}. We name the partner as soon as the agreement is signed, and we publish what was given after every draw.`,
+      answer: `${escape.charity.localityStatement} We name the partner as soon as the agreement is signed, and we publish what was given after every draw.`,
     },
     {
       question: 'Is there a limit on entries?',

@@ -2,7 +2,10 @@ import type { Metadata } from 'next';
 import type { CSSProperties, ReactNode } from 'react';
 import Script from 'next/script';
 import { Fraunces, Geist, Geist_Mono } from 'next/font/google';
-import { escape } from '@/config/prize';
+import { economics, escape } from '@/config/prize';
+import { numberWord } from '@/lib/format';
+
+const charityPence = Math.round(economics.charityShareOfGross * 100);
 import { siteUrl } from '@/lib/site';
 import { ConsentBanner } from '@/components/consent/ConsentBanner';
 import { Analytics } from '@/components/consent/Analytics';
@@ -31,7 +34,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: { default: 'Trove', template: '%s · Trove' },
-  description: 'A UK luxury travel prize draw. One escape per draw, a cap on entries, published odds, and fifteen pence in every pound to the destination.',
+  description: `A UK luxury travel prize draw. One escape per draw, a cap on entries, published odds, and ${numberWord(charityPence)} pence in every pound to the destination.`,
   alternates: { canonical: '/' },
   openGraph: { siteName: 'Trove', type: 'website', locale: 'en_GB' },
   twitter: { card: 'summary_large_image' },
