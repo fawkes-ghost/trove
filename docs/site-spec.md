@@ -124,6 +124,37 @@ terms as "Terms". Routes and page content are unchanged.
 Every caption is a full sentence that explains itself to a first-time visitor; the only
 bare labels are form labels, navigation and the footer's slot names.
 
+### The motion system
+
+- **Choreography.** The logo moment first (900ms, docks to the header, completes at once on
+  any scroll). Only then does the hero pin engage. Never both at once.
+- **Pinned hero.** The film is pinned for a viewport and a half; the headline is there from
+  the start and the prize line, the chip and the call to action each arrive at a scroll
+  position (15 to 35%, 40 to 60%, 65 to 85%). The film scales 1.00 to 1.06 and the scrim
+  deepens across the pin. GSAP ScrollTrigger on the Lenis scroll. On release, normal flow.
+- **The field.** A server-rendered SVG of one mark per entry in the cap, 60 across on
+  desktop and 40 at 390px, one lit in the accent. It draws in over 800ms as it enters; as
+  the visitor scrolls on, the marks for the larger bundles light in sequence and the
+  matching ladder line comes to ink. `OddsField` takes values only (entries, cap, lit,
+  steps, maxLit, sold) and never the config object. `sold` is ready for the live ledger.
+  Copy beside it: the cap, "Never more. One of them is yours."
+- **Giving.** The same field with a hundred marks, the giving share of them turning moss
+  one after another, the locality statement beneath.
+- **Mission.** Each word comes from muted to ink as it is scrolled through.
+- **Escape card.** The still wipes in once as it enters.
+- **Form.** On success the disc rises inside the submit button, then "Check your email."
+  The same on the confirm page.
+- **Mobile bar.** Below 900px a single line, paper on ink, appears once the hero's call to
+  action has left the viewport and hides while the form is on screen.
+- **Reduced motion.** The inline gate leaves `data-motion` unset, so every act is in its
+  final state: no pin, no scrub, the poster instead of the film, the logo moment as a still.
+- **Escape page.** The field heads "Your odds." and the calculator lights as many marks as
+  it is given.
+
+The home order is now: hero, the field, the mission, giving, the escape card, how it works,
+the waitlist, footer. The scroll disc at the base of the hero is gone: a pinned hero that
+reveals on scroll is its own invitation.
+
 ## 3. The standard escape page (`/escapes/[slug]`)
 
 Identical structure for every escape so the template is the product:

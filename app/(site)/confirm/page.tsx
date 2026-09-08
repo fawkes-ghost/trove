@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { ConfirmPlace } from '@/components/confirm/ConfirmPlace';
+import { iconSource } from '@/components/brand/Marks';
 
 export const metadata: Metadata = {
   title: 'Confirm your place',
@@ -13,7 +14,7 @@ export default function ConfirmPage() {
   return (
     <main className="min-h-[70svh] px-6 pt-28 pb-24 md:px-10">
       <Suspense fallback={null}>
-        <ConfirmPlace />
+        <ConfirmPlace iconSvg={iconSource()} />
       </Suspense>
     </main>
   );

@@ -45,7 +45,7 @@ export default async function EscapePage({ params }: { params: Promise<{ slug: s
   return (
     <main>
       <FaqJsonLd escape={item} />
-      <Hero escape={item} moment={false} headline={`${item.destination}.`} scrollTarget="odds" />
+      <Hero escape={item} moment={false} headline={`${item.destination}.`} />
       <OddsLadder escape={item} />
       <WhatYouWin escape={item} />
       <Destination escape={item} />

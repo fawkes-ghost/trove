@@ -7,6 +7,11 @@ function readMark(file: string): string {
   return readFileSync(path.join(process.cwd(), 'public', 'brand', file), 'utf8');
 }
 
+// The icon's source, for components that need to animate the disc themselves.
+export function iconSource(): string {
+  return readMark('icon.svg');
+}
+
 type MarkProps = { height?: number; className?: string };
 
 export function Icon({ height = 28, className }: MarkProps) {

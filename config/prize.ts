@@ -141,10 +141,9 @@ export const escape: Escape = {
   media: {
     poster: '/media/hero-poster.jpg', // first visible frame of the loop below (frame zero is black), extracted once and committed
     posterAlt: 'A lion cub beside a lioness in long grass at dusk. A placeholder still until the Hampshire film is licensed.',
-    // Null until the Hampshire film is licensed; the poster and the gradient carry the hero.
-    // The Serengeti montage used while building lives at
-    // https://uvnhwgbqmwzzdvxxdgzm.supabase.co/storage/v1/object/public/media/hero-montage-desktop-v2-web-v3.mp4
-    loop: null,
+    // A placeholder montage while the site is behind the gate, replaced by the licensed
+    // Hampshire film before launch. The poster above is its first visible frame.
+    loop: 'https://uvnhwgbqmwzzdvxxdgzm.supabase.co/storage/v1/object/public/media/hero-montage-desktop-v2-web-v3.mp4',
   },
   entry: {
     price: 8,

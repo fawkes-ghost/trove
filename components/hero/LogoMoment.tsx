@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
+import { MOMENT_DONE } from '@/lib/motion';
 
 const SESSION_KEY = 'trove:logo-moment';
 
@@ -25,12 +26,15 @@ export function LogoMoment({ iconSvg }: { iconSvg: string }) {
     const root = document.documentElement;
     if (root.dataset.moment !== 'play') {
       setDone(true);
+      window.dispatchEvent(new Event(MOMENT_DONE));
       return;
     }
 
     const finish = () => {
       delete root.dataset.moment;
       setDone(true);
+      // The hero pin and anything else that waits for the moment starts here.
+      window.dispatchEvent(new Event(MOMENT_DONE));
     };
 
     try {
@@ -88,7 +92,7 @@ export function LogoMoment({ iconSvg }: { iconSvg: string }) {
     tl.to(disc, { fill: ink, duration: t(0.3) }, t(0.5));
     // The wordmark and menu arrive with the tile.
     if (header) tl.to(header, { opacity: 1, duration: t(0.3) }, t(0.6));
-    // The hero lines settle in order, the last landing as the tile docks.
+    // The headline settles as the tile docks; the other lines are the pin's to reveal.
     tl.to(lines, { opacity: 1, y: 0, duration: t(0.3), stagger: t(0.04) }, t(0.5));
 
     // Any movement before the dock completes the moment at once.

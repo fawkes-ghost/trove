@@ -1,16 +1,27 @@
 'use client';
 
-import { useId, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import { oddsForEntries } from '@/lib/odds';
 import { count } from '@/lib/format';
 
 // The visitor sets a number of entries, up to the per-person limit, and sees the worst-case
 // odds. This is a client component, so it takes the two numbers it needs rather than the
-// config object: nothing else in config reaches the browser from here.
-export function OddsCalculator({ cap, maxPerPerson }: { cap: number; maxPerPerson: number }) {
+// config object: nothing else in config reaches the browser from here. Given a field's id
+// it lights that many marks in it.
+export function OddsCalculator({ cap, maxPerPerson, fieldId }: { cap: number; maxPerPerson: number; fieldId?: string }) {
   const [entries, setEntries] = useState(1);
   const id = useId();
   const held = Math.min(Math.max(entries || 1, 1), maxPerPerson);
+
+  useEffect(() => {
+    if (!fieldId) return;
+    const field = document.getElementById(fieldId);
+    if (!field) return;
+    field.querySelectorAll<SVGElement>('.field-lit').forEach((mark) => {
+      if (Number(mark.dataset.mark) < held) mark.setAttribute('data-on', '');
+      else mark.removeAttribute('data-on');
+    });
+  }, [fieldId, held]);
 
   return (
     <div className="flex flex-col gap-4 md:flex-row md:items-end md:gap-8" data-odds-calculator>

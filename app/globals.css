@@ -101,6 +101,53 @@ html[data-moment="play"] .curtain {
   }
 }
 
+/* Motion start states. The inline gate sets data-motion="full" before first paint when
+   motion is allowed; without it every act is in its final state and nothing is hidden. */
+html[data-motion="full"] [data-hero-act] {
+  opacity: 0;
+  transform: translateY(24px);
+}
+html[data-motion="full"] .hero-scrim {
+  opacity: 0;
+}
+.hero-poster {
+  transform-origin: center;
+  will-change: transform;
+}
+[data-field-reveal] {
+  transform-box: fill-box;
+  transform-origin: top;
+}
+html[data-motion="full"] [data-field]:not([data-field-live]) [data-field-reveal] {
+  transform: scaleY(0);
+}
+.field-lit {
+  opacity: 0;
+  transform: scale(0.4);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+.field-lit[data-on] {
+  opacity: 1;
+  transform: scale(1);
+}
+html[data-motion="full"] [data-field]:not([data-field-live]) .field-lit {
+  opacity: 0;
+  transform: scale(0.4);
+}
+[data-ladder-step][data-active="no"] {
+  color: color-mix(in srgb, var(--ink) 40%, transparent);
+}
+html[data-motion="full"] [data-scrub-word] {
+  opacity: 0.25;
+}
+html[data-motion="full"] [data-wipe] {
+  clip-path: inset(0 100% 0 0);
+}
+
 /* Lenis */
 html.lenis,
 html.lenis body {

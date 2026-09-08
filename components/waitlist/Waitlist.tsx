@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { WaitlistForm } from './WaitlistForm';
+import { iconSource } from '@/components/brand/Marks';
 
 // The waitlist section. The only call to action until entries open.
 export function Waitlist() {
@@ -8,7 +9,7 @@ export function Waitlist() {
       <div className="max-w-[40rem]">
         <h2 className="display text-balance text-[2rem] md:text-[2.75rem]">Be a founding friend.</h2>
         <div className="mt-8">
-          <WaitlistForm />
+          <WaitlistForm iconSvg={iconSource()} />
         </div>
         <p className="mt-4 text-sm text-ink/70">
           Founding friends hear first when entries open. You can unsubscribe at any time.{' '}
