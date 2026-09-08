@@ -53,6 +53,7 @@ export type Escape = {
   destination: string;              // what the draw is called
   venue: {
     name: string | null;            // null until written permission from the venue exists
+    description: string | null;     // the house in a paragraph; stored here, rendered only when permissionGranted
     permissionGranted: boolean;
     footageLicensed: boolean;       // no venue footage until this is true
   };
@@ -69,7 +70,6 @@ export type Escape = {
     claimWindowDays: number;        // winner must confirm stay or cash within this window
     stayValidMonths: number;        // from claim, subject to availability and stated blackout dates
     stayWindow: string;             // the season the stay is valid in, stated in terms
-    venueDescription: string | null; // the founder's paragraph on the house; null until venue.permissionGranted
     description: string[];          // factual components in order: the stay, the transfers, the cash; no adjectives, every figure derived
   };
   theme: {
@@ -99,6 +99,10 @@ export type Escape = {
   status: 'planning' | 'waitlist' | 'open' | 'closed' | 'drawn';
 };
 
+// Words that identify the venue before permission exists. lib/venue-guard.ts fails the build
+// if any appears outside this file.
+export const unpublishedVenueTerms = ['Heckfield'] as const;
+
 // Named once here so the description strings can restate them without a second literal.
 const hampshireNights = 3;
 const hampshireParty = 2;
@@ -107,7 +111,14 @@ const hampshireCash: Money = 600;
 export const escape: Escape = {
   slug: 'hampshire',
   destination: 'Hampshire',
-  venue: { name: null, permissionGranted: false, footageLicensed: false },
+  venue: {
+    name: null,
+    // Held here until permission; the build fails if the house's name appears anywhere but this file.
+    description:
+      'Heckfield Place is a Georgian house on 438 acres of Hampshire woodland and water, an hour or so from London. Its owner spent the best part of a decade restoring it, and the rooms are furnished from his own collection: the chair you sit in was chosen by him, not by a hotel. There is a cinema, and every afternoon there is tea and cake in the drawing room. The estate farms biodynamically, and the kitchen at Marle cooks what the farm and the market garden produce that week. The copper beeches are older than the house, and the arborists will walk you round them. In the evening there is a fire in the Moon Bar. It is a house people who could go anywhere choose to come back to, and for three nights you are invited to live its countryside life as a guest. It is the reason Trove begins in Hampshire.',
+    permissionGranted: false,
+    footageLicensed: false,
+  },
   nights: hampshireNights,
   party: hampshireParty,
   prize: {
@@ -121,7 +132,6 @@ export const escape: Escape = {
     claimWindowDays: 90,
     stayValidMonths: 12,
     stayWindow: 'Friday to Monday between November and March, excluding 20 December to 3 January, subject to availability',
-    venueDescription: null,         // the founder supplies the copy once the house has given permission
     description: [
       `${sentenceCase(numberWord(hampshireNights))} nights for ${numberWord(hampshireParty)} in a suite, breakfast included`,
       'Chauffeur-driven transfers there and back',
@@ -170,12 +180,9 @@ export function worstCaseOdds(e: Escape = escape): string {
   return `1 in ${e.cap.toLocaleString('en-GB')}`;
 }
 
-// Worst-case odds for a number of entries: the share of a full cap those entries hold,
-// written as "1 in N". Rounded up, so published odds never overstate the chance.
-export function oddsForEntries(entries: number, e: Pick<Escape, 'cap'> = escape): string {
-  const held = Math.min(Math.max(Math.round(entries), 1), e.cap);
-  return `1 in ${Math.ceil(e.cap / held).toLocaleString('en-GB')}`;
-}
+// Worst-case odds for a number of entries live in lib/odds.ts, which imports nothing from
+// this file, so a client component can use them without pulling config into its bundle.
+export { oddsForEntries } from '../lib/odds';
 
 // The most one person can spend in a draw at the single entry price.
 export function spendCeiling(e: Escape = escape): Money {
@@ -225,7 +232,6 @@ export function assertEscape(e: Escape = escape): void {
   if (e.prize.cashAlternative >= e.prize.value) problems.push('cash alternative must be below the published prize value');
   if (e.prize.cashAlternative < economics.cashAlternativeFloor * e.prize.value) problems.push(`cash alternative is below the floor of ${Math.round(economics.cashAlternativeFloor * 100)}% of the prize value`);
   if (e.venue.name && !e.venue.permissionGranted) problems.push('venue named without written permission');
-  if (e.prize.venueDescription && !e.venue.permissionGranted) problems.push('venue described without written permission');
   if (e.charity.beneficiary) problems.push('charity named before counsel cleared the commercial participator agreement');
   if (e.status === 'open' && !(compliance.freePostalRoute.address ?? '').trim()) problems.push('entries cannot open without a live free postal route address');
   if (/\b(draw|trove)\s*\d+/i.test(e.destination + e.slug)) problems.push('draws are named by destination, never numbered');
