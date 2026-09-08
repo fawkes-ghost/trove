@@ -4,7 +4,7 @@ import { compliance, escape, worstCaseOdds } from '@/config/prize';
 import { count } from '@/lib/format';
 import { prizeLine } from '@/lib/escapes';
 import { gatePassphrase } from '@/lib/gate';
-import { Icon, Wordmark } from '@/components/brand/Marks';
+import { Icon, Wordmark, iconSource } from '@/components/brand/Marks';
 import { ComplianceStrip } from '@/components/site/ComplianceStrip';
 import { WaitlistForm } from '@/components/waitlist/WaitlistForm';
 
@@ -54,7 +54,7 @@ export default function HoldingPage() {
           <div className="mt-10 border-t border-ink/15 pt-8">
             <p className="text-lg font-medium">Be a founding friend.</p>
             <div className="mt-4">
-              <WaitlistForm sourceChannel="trove-holding" />
+              <WaitlistForm sourceChannel="trove-holding" iconSvg={iconSource()} />
             </div>
           </div>
         </div>

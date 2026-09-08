@@ -2,9 +2,12 @@ import { oddsForEntries, worstCaseOdds, type Escape } from '@/config/prize';
 import { count, gbp, numberWord, sentenceCase } from '@/lib/format';
 import { OddsCalculator } from './OddsCalculator';
 import { Ledger } from '@/components/ledger/Ledger';
+import { OddsField } from '@/components/field/OddsField';
+import { FieldMotion } from '@/components/field/FieldMotion';
 
-// The cap first, then each bundle with its own worst-case odds against it, odds before
-// price, and a small calculator. Every figure comes from config or is computed from it.
+// The field first, one mark per entry with one lit, then the cap, each bundle with its own
+// worst-case odds against it, and a calculator that lights as many marks as it is given.
+// Every figure comes from config or is computed from it.
 export function OddsLadder({ escape }: { escape: Escape }) {
   return (
     <section id="odds" className="border-t border-ink/15 px-6 py-24 md:px-10 md:py-32">
@@ -16,6 +19,9 @@ export function OddsLadder({ escape }: { escape: Escape }) {
         <p className="mt-4 max-w-[40rem] text-lg">
           Worst-case odds assume every one of the {count(escape.cap)} entries in the cap is taken. Fewer entries sold means better odds for everyone in the draw.
         </p>
+        <FieldMotion steps={[1]} className="mt-12 max-w-[40rem]">
+          <OddsField id="odds-field" entries={escape.cap} cap={escape.cap} lit={1} maxLit={escape.entry.maxPerPerson} />
+        </FieldMotion>
         <div className="mt-12">
           <Ledger escape={escape} />
         </div>
@@ -30,7 +36,7 @@ export function OddsLadder({ escape }: { escape: Escape }) {
           ))}
         </ol>
         <div className="mt-12 border-t border-ink/15 pt-8">
-          <OddsCalculator cap={escape.cap} maxPerPerson={escape.entry.maxPerPerson} />
+          <OddsCalculator cap={escape.cap} maxPerPerson={escape.entry.maxPerPerson} fieldId="odds-field" />
         </div>
       </div>
     </section>

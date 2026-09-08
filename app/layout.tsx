@@ -41,9 +41,11 @@ export const metadata: Metadata = {
 // The accent is one per escape and comes from config, never from a stylesheet.
 const accent = { '--accent': escape.theme.accent } as CSSProperties;
 
-// Decides before first paint whether the logo moment plays: fresh session, home page,
-// motion allowed. Runs in the head so nothing flashes either way.
-const momentGate = `try{if(location.pathname==="/"&&!matchMedia("(prefers-reduced-motion: reduce)").matches&&!sessionStorage.getItem("trove:logo-moment")){document.documentElement.dataset.moment="play"}}catch(e){}`;
+// Decides before first paint whether motion runs at all (data-motion="full" unless the
+// visitor asks for reduced motion) and whether the logo moment plays: fresh session, home
+// page, motion allowed. Runs as the document parses so nothing flashes either way; without
+// it every act is in its final state.
+const momentGate = `try{var r=matchMedia("(prefers-reduced-motion: reduce)").matches;if(!r){document.documentElement.dataset.motion="full"}if(location.pathname==="/"&&!r&&!sessionStorage.getItem("trove:logo-moment")){document.documentElement.dataset.moment="play"}}catch(e){}`;
 
 // Html, fonts, consent and analytics only. The header, menu and footer live in
 // app/(site)/layout.tsx so the holding and enter pages can render without them.

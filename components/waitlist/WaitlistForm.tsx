@@ -1,6 +1,8 @@
 'use client';
 
-import { useEffect, useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
+import gsap from 'gsap';
+import { prefersReducedMotion } from '@/lib/reduced-motion';
 import { Turnstile, TURNSTILE_SITE_KEY } from './Turnstile';
 import { readAttribution } from '@/lib/attribution';
 import { trackEvent } from '@/lib/analytics';
@@ -8,7 +10,7 @@ import { trackEvent } from '@/lib/analytics';
 type Status = 'idle' | 'sending' | 'ok' | 'duplicate' | 'invalid' | 'error' | 'challenge';
 
 const messages: Record<Exclude<Status, 'idle' | 'sending'>, string> = {
-  ok: 'You are on the list.',
+  ok: 'Check your email.',
   duplicate: 'You are already on the list.',
   invalid: 'That does not look like an email address.',
   error: 'We could not reach the list. Please try again in a moment.',
@@ -25,11 +27,30 @@ const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 // honeypot field named for bots to fill refuses the submit client-side when it has a
 // value. Without a site key configured the widget is skipped and the honeypot still holds.
 // sourceChannel names the surface the form sits on and is stored against the signup.
-export function WaitlistForm({ sourceChannel = 'trove-home' }: { sourceChannel?: string } = {}) {
+//
+// On success the disc rises inside the button (iconSvg is the brand icon's source, read on
+// the server), and only then does "Check your email." appear. Under reduced motion the disc
+// is already up and the message is immediate.
+export function WaitlistForm({ sourceChannel = 'trove-home', iconSvg }: { sourceChannel?: string; iconSvg?: string } = {}) {
   const [status, setStatus] = useState<Status>('idle');
+  const [settled, setSettled] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
   const [token, setToken] = useState<string | null>(null);
   const [resetSignal, setResetSignal] = useState(0);
   const protectedByTurnstile = TURNSTILE_SITE_KEY.length > 0;
+
+  useEffect(() => {
+    if (status !== 'ok') return;
+    const disc = buttonRef.current?.querySelector('circle');
+    if (!disc || !iconSvg || prefersReducedMotion()) {
+      setSettled(true);
+      return;
+    }
+    const tween = gsap.fromTo(disc, { attr: { cy: 82 } }, { attr: { cy: 36 }, duration: 0.6, ease: 'power3.out', onComplete: () => setSettled(true) });
+    return () => {
+      tween.kill();
+    };
+  }, [status, iconSvg]);
 
   useEffect(() => {
     if (!protectedByTurnstile) {
@@ -109,11 +130,19 @@ export function WaitlistForm({ sourceChannel = 'trove-home' }: { sourceChannel?:
     }
   }
 
-  const message = status === 'idle' || status === 'sending' ? null : messages[status];
+  const message = status === 'idle' || status === 'sending' || (status === 'ok' && !settled) ? null : messages[status];
   const done = status === 'ok' || status === 'duplicate';
+  const rising = status === 'ok' && Boolean(iconSvg);
 
   return (
     <form onSubmit={onSubmit} noValidate className="relative flex flex-col gap-3" data-waitlist-form data-turnstile-key={protectedByTurnstile ? "set" : "missing"}>
+      {rising ? (
+        <div className="flex">
+          <button ref={buttonRef} type="button" disabled aria-label="Your place is secured" className="flex h-12 w-12 items-center justify-center bg-accent text-ink" data-waitlist-disc>
+            <span className="brand-mark brand-icon block h-7" dangerouslySetInnerHTML={{ __html: prefersReducedMotion() ? iconSvg! : iconSvg!.replace('cy="36"', 'cy="82"') }} />
+          </button>
+        </div>
+      ) : null}
       {!done ? (
         <>
           <div className="flex flex-col gap-3 md:flex-row">
