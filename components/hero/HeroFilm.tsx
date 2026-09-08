@@ -1,3 +1,4 @@
+import { preload } from 'react-dom';
 import { escape as hampshire, type Escape } from '@/config/prize';
 import { HeroLoop } from './HeroLoop';
 
@@ -8,6 +9,8 @@ import { HeroLoop } from './HeroLoop';
 export function HeroFilm({ media = hampshire.media }: { media?: Escape['media'] }) {
   const { poster, posterAlt, loop } = media;
   const source = loop ? 'loop' : poster ? 'poster' : 'gradient';
+  // The poster is the first paint layer, so it is asked for from the head, ahead of script.
+  if (poster) preload(poster, { as: 'image', fetchPriority: 'high' });
 
   return (
     <div className="hero-poster absolute inset-0 z-0 overflow-hidden" data-film={source}>
