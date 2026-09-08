@@ -24,3 +24,9 @@ export function numberWord(value: number): string {
 export function sentenceCase(text: string): string {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
+
+// A share as a whole percentage ("15%") for figure surfaces such as the stat strip.
+// Prose keeps "fifteen pence in every pound"; both read the same share.
+export function percent(share: number): string {
+  return `${Math.round(share * 100)}%`;
+}

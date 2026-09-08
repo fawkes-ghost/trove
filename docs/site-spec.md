@@ -80,7 +80,8 @@ final positions, no sequence.
 |                     Your chance to win               kicker, sans  |
 |                A long weekend at one of              display, snow |
 |             England’s finest country houses.         centred       |
-|   Three nights, breakfast, and £1,300 in cash. A £4,000 prize.     |
+|   Three nights for two in a suite, chauffeur-driven, and £600     |
+|   in cash. A £6,500 prize.                            sans, snow   |
 |      [ One winner is guaranteed. Entries are capped at 3,000. ]    |
 |                     [ Join the waitlist ]            snow fill,    |
 |                                                      ink text      |
@@ -89,7 +90,7 @@ final positions, no sequence.
 |                                                                    |
 |                        ( scroll )            the scroll button     |
 |  18+. UK residents. Free postal entry, identical odds, same cap.   |
-|  Significant conditions.                     mono 11, strip        |
+|  Key terms.                                  mono 11, strip        |
 +------------------------------------------------------------------+
 ```
 
@@ -104,19 +105,24 @@ ink disc with a downward chevron, centred at the base of the hero, which scrolls
 next section on click.
 
 ### Below the hero, in order
-1. **The ledger.** Entries taken against the cap, live once entries open; the worst-case
-   odds beside it. Mono. This is the honesty device; give it room.
-2. **What you win.** The prize components from config, each with one photograph.
-   The cash line is explicit. Cash alternative and claim window in one sentence with a
-   link to terms.
-3. **Where the money goes.** Moss section. The 15% stated as pence in the pound, the
-   locality statement from config, no charity named until cleared. One photograph of
-   the countryside, not the venue.
-4. **How it works.** Three steps, because it is literally a sequence: enter, we draw,
+1. **The stat strip.** The draw in figures, mono, no borders or cards: the cap, the
+   worst-case odds, one winner, free by post, and the giving share as a percentage.
+   One-line captions. Each figure fades and rises 8px as it enters, once, GSAP
+   ScrollTrigger, nothing under reduced motion. One link beneath: "See the Hampshire
+   escape." to the escape page's odds anchor, destination from config.
+2. **How it works.** Three steps, because it is literally a sequence: enter, we draw,
    you escape. Postal route linked from step one.
-5. **Why Trove.** Two paragraphs from the founder's voice and one portrait or landscape.
-6. **Waitlist.** The form again, with the founding friends count if we choose to show it.
-7. Footer.
+3. **Why Trove.** Two paragraphs from the founder's voice and one portrait or landscape.
+4. **Waitlist.** The form again, with the founding friends count if we choose to show it.
+5. Footer.
+
+The ledger, what you win and where the money goes live on the escape page only.
+
+Percent rule: figure surfaces (the strip) show the giving share as "15%"; prose surfaces
+keep "fifteen pence in every pound". Both read `charity.shareOfGross`.
+
+Link text: the significant conditions page is linked as "Key terms" everywhere; the full
+terms as "Terms". Routes and page content are unchanged.
 
 ### Review against the generic default
 The default for this brief would be cream, a high-contrast serif, a terracotta accent and

@@ -17,7 +17,7 @@ export const routes = {
   ] satisfies Route[],
   legal: [
     { label: 'Terms', href: '/legal/terms' },
-    { label: 'Significant conditions', href: compliance.significantConditionsPath },
+    { label: 'Key terms', href: compliance.significantConditionsPath },
     { label: 'Playing responsibly', href: '/legal/playing-responsibly' },
     { label: 'Privacy', href: '/legal/privacy' },
     { label: 'Cookies', href: '/legal/cookies' },

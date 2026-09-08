@@ -12,7 +12,7 @@ export function ComplianceStrip({ className = '' }: { className?: string }) {
       </Link>
       , identical odds, same cap.{' '}
       <Link href={significantConditions} className="underline underline-offset-4">
-        Significant conditions
+        Key terms
       </Link>
       .
     </p>

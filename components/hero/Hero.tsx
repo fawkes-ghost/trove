@@ -28,7 +28,7 @@ export function Hero({
       ? `A long weekend at ${escape.venue.name}.`
       : "A long weekend at one of England’s finest country houses.";
 
-  const sweetener = `${sentenceCase(numberWord(escape.nights))} nights for you and your favourite person, breakfast included, and ${gbp(escape.prize.cash)} in cash. A ${gbp(escape.prize.value)} prize.`;
+  const sweetener = `${sentenceCase(numberWord(escape.nights))} nights for ${numberWord(escape.party)} in a suite, chauffeur-driven, and ${gbp(escape.prize.cash)} in cash. A ${gbp(escape.prize.value)} prize.`;
 
   const chip = `${compliance.noRollover ? 'One winner is guaranteed. ' : ''}Entries are capped at ${count(escape.cap)}.`;
 

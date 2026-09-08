@@ -17,7 +17,17 @@ export const organisation = {
     trustpilot: null as string | null,
     companiesHouse: null as string | null,
   },
+  // The footer's social and review slots, in order. Text until a handle exists; the day
+  // one does, set it here and the footer links it without a copy change. The link goes
+  // to the matching sameAs url above.
+  social: [
+    { network: 'Instagram', key: 'instagram', handle: null as string | null },
+    { network: 'TikTok', key: 'tiktok', handle: null as string | null },
+    { network: 'Reviews', key: 'trustpilot', handle: null as string | null },
+  ] as { network: string; key: SocialKey; handle: string | null }[],
 };
+
+export type SocialKey = 'instagram' | 'tiktok' | 'linkedin' | 'trustpilot' | 'companiesHouse';
 
 // The live sameAs links, in a stable order, for structured data.
 export function sameAsLinks(): string[] {

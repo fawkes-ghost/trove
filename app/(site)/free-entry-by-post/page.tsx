@@ -67,9 +67,8 @@ export default function FreeEntryByPostPage() {
 
           <Block title="Questions.">
             <p>
-              The{' '}
               <Link href="/legal/terms" className="underline underline-offset-4">
-                full terms
+                Terms
               </Link>{' '}
               set out the postal route in detail, and the{' '}
               <Link href={`/escapes/${escape.slug}`} className="underline underline-offset-4">

@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { compliance } from '@/config/prize';
+import { organisation } from '@/config/organisation';
 import { routes, freePostalRoute, signposting } from '@/lib/routes';
 import { ComplianceStrip } from './ComplianceStrip';
 
-const slots = ['Instagram', 'TikTok', 'Reviews'];
-
-// Moss block, rows of text. Compliance strip, DCMS signposting, social and review slots, legal links.
+// Moss block, rows of text. Compliance strip, DCMS signposting, social and review slots from
+// config (text until a handle exists), legal links.
 export function Footer() {
   const [first, second] = compliance.dcmsVoluntaryCode.signposting;
   return (
@@ -28,9 +28,20 @@ export function Footer() {
           .
         </p>
         <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-snow/80" aria-label="Social and reviews">
-          {slots.map((slot) => (
-            <li key={slot}>{slot}</li>
-          ))}
+          {organisation.social.map((slot) => {
+            const url = organisation.sameAs[slot.key];
+            return (
+              <li key={slot.network}>
+                {slot.handle && url ? (
+                  <a href={url} rel="noopener" className="hover:text-snow">
+                    {slot.handle}
+                  </a>
+                ) : (
+                  slot.network
+                )}
+              </li>
+            );
+          })}
         </ul>
         <ul className="flex flex-wrap gap-x-6 gap-y-2 text-[13px] text-snow/80" aria-label="Legal">
           {routes.legal.map((route) => (
