@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import type { CSSProperties, ReactNode } from 'react';
-import Script from 'next/script';
 import { Fraunces, Geist, Geist_Mono } from 'next/font/google';
 import { escape } from '@/config/prize';
 
@@ -57,9 +56,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     >
       <body>
         <OrganisationJsonLd />
-        <Script id="moment-gate" strategy="beforeInteractive">
-          {momentGate}
-        </Script>
+        {/* A real inline script, not next/script: beforeInteractive scripts are queued until
+            Next's runtime loads, which on a slow connection is well after first paint. This
+            one runs as the document parses, so the page opens as snow. */}
+        <script id="moment-gate" dangerouslySetInnerHTML={{ __html: momentGate }} />
         {children}
         <ConsentBanner />
         <Analytics />

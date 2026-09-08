@@ -28,7 +28,7 @@ export function Header() {
             {route.label}
           </Link>
         ))}
-        <WaitlistLink className="inline-flex h-10 items-center border border-current px-4 text-sm font-medium">Join the waitlist</WaitlistLink>
+        <WaitlistLink className="inline-flex h-10 items-center border border-current px-4 text-sm font-medium">Secure your place</WaitlistLink>
       </nav>
       <div className="min-[900px]:hidden">
         <Menu groups={routes} />

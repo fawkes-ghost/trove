@@ -46,7 +46,7 @@ export function ConfirmPlace() {
 
   const back = (
     <Link href="/#waitlist" className="underline underline-offset-4">
-      Join the waitlist
+      Secure your place
     </Link>
   );
 
@@ -88,7 +88,7 @@ export function ConfirmPlace() {
       {status === 'expired' ? (
         <>
           <h1 className="display text-balance text-[2.5rem] md:text-[3.5rem]">This link has expired.</h1>
-          <p className="mt-6 text-lg">Join the waitlist again and we will send you a fresh one. {back}.</p>
+          <p className="mt-6 text-lg">Secure your place again and we will send you a fresh one. {back}.</p>
         </>
       ) : null}
 
