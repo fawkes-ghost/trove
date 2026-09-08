@@ -6,11 +6,11 @@ import { HeroLoop } from './HeroLoop';
 // heavy so snow text reads over any frame. The wrapper keeps the hero-poster class the
 // logo moment fades in.
 export function HeroFilm({ media = hampshire.media }: { media?: Escape['media'] }) {
-  const { poster, loop } = media;
+  const { poster, posterAlt, loop } = media;
   const source = loop ? 'loop' : poster ? 'poster' : 'gradient';
 
   return (
-    <div className="hero-poster absolute inset-0 -z-10 overflow-hidden" aria-hidden="true" data-film={source}>
+    <div className="hero-poster absolute inset-0 -z-10 overflow-hidden" data-film={source}>
       {source === 'gradient' ? (
         <>
           <div className="absolute inset-0 bg-[linear-gradient(180deg,#4F4256_0%,#8E6A6A_34%,#D39A72_56%,#3B3631_80%,#1A1917_100%)]" />
@@ -18,7 +18,7 @@ export function HeroFilm({ media = hampshire.media }: { media?: Escape['media'] 
         </>
       ) : null}
       {poster ? (
-        <img src={poster} alt="" className="absolute inset-0 h-full w-full object-cover" decoding="async" fetchPriority="high" />
+        <img src={poster} alt={posterAlt} className="absolute inset-0 h-full w-full object-cover" decoding="async" fetchPriority="high" />
       ) : null}
       {loop ? <HeroLoop src={loop} poster={poster ?? undefined} /> : null}
       <div className="absolute inset-0 bg-ink/45" />

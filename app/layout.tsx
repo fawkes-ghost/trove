@@ -10,6 +10,7 @@ import { siteUrl } from '@/lib/site';
 import { ConsentBanner } from '@/components/consent/ConsentBanner';
 import { Analytics } from '@/components/consent/Analytics';
 import { AttributionCapture } from '@/components/attribution/AttributionCapture';
+import { OrganisationJsonLd } from '@/components/site/OrganisationJsonLd';
 import './globals.css';
 
 const fraunces = Fraunces({
@@ -57,6 +58,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       className={`${fraunces.variable} ${geistSans.variable} ${geistMono.variable}`}
     >
       <body>
+        <OrganisationJsonLd />
         <Script id="moment-gate" strategy="beforeInteractive">
           {momentGate}
         </Script>

@@ -11,8 +11,11 @@ export function Enter({ escape }: { escape: Escape }) {
     <section id="enter" className="border-t border-ink/15 px-6 py-24 md:px-10 md:py-32">
       <div className="max-w-[52rem]">
         <h2 className="display text-balance text-[2rem] md:text-[2.75rem]">Enter.</h2>
+        <p className="mt-6 max-w-[40rem] text-lg" data-answer>
+          A single entry is {gbp(escape.entry.price)}, and bundles are {escape.entry.bundles.filter((b) => b.entries > 1).map((b) => `${numberWord(b.entries)} for ${gbp(b.price)}`).join(' and ')}, paid online or free by post.
+        </p>
         {!open ? (
-          <p className="mt-6 max-w-[40rem] text-lg">Entries are not open yet. Founding friends hear first when they are.</p>
+          <p className="mt-4 max-w-[40rem] text-lg">Entries are not open yet. Founding friends hear first when they are.</p>
         ) : null}
         <ul className="mt-10 flex flex-col">
           {escape.entry.bundles.map((bundle) => (

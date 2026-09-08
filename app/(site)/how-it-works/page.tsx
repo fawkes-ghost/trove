@@ -55,6 +55,9 @@ export default function HowItWorksPage() {
       <section id="odds" className="border-t border-ink/15 px-6 py-20 md:px-10 md:py-28">
         <div className="max-w-[40rem]">
           <h2 className="display text-balance text-[2rem] md:text-[2.75rem]">The cap and the odds.</h2>
+          <p className="mt-6 text-lg" data-answer>
+            The cap is {count(escape.cap)} entries, paid and postal together, and the worst-case odds are {worstCaseOdds(escape)} with one entry.
+          </p>
           <div className="mt-10 flex flex-col gap-10 font-mono">
             <div>
               <p className="text-[2.75rem] leading-none text-accent md:text-[4rem]">{count(escape.cap)}</p>
