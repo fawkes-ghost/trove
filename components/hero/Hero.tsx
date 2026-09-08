@@ -10,8 +10,19 @@ import { WaitlistLink } from './WaitlistLink';
 
 // One centred column over the film: kicker, headline, sweetener, chip, button, the charity
 // line. Snow on a heavy scrim; the accent does not appear in the hero. Every figure is read
-// from config and the venue is unnamed until permission exists.
-export function Hero({ escape = hampshire, moment = true }: { escape?: Escape; moment?: boolean }) {
+// from config and the venue is unnamed until permission exists. The escape page passes its
+// own headline (the destination) and scroll target so it does not repeat the home hero.
+export function Hero({
+  escape = hampshire,
+  moment = true,
+  headline,
+  scrollTarget = 'ledger',
+}: {
+  escape?: Escape;
+  moment?: boolean;
+  headline?: string;
+  scrollTarget?: string;
+}) {
   const venueLine =
     escape.venue.name && escape.venue.permissionGranted
       ? `A long weekend at ${escape.venue.name}.`
@@ -34,7 +45,7 @@ export function Hero({ escape = hampshire, moment = true }: { escape?: Escape; m
             Your chance to win
           </p>
           <h1 data-hero-line className="display text-balance text-[2.5rem] md:text-[4.25rem]">
-            {venueLine}
+            {headline ?? venueLine}
           </h1>
           <p data-hero-line className="text-base md:text-lg">
             {sweetener}
@@ -52,7 +63,7 @@ export function Hero({ escape = hampshire, moment = true }: { escape?: Escape; m
       </div>
 
       <div className="row-start-4 flex justify-center pb-6">
-        <ScrollButton targetId="ledger" />
+        <ScrollButton targetId={scrollTarget} />
       </div>
 
       <div className="hero-strip row-start-5 border-t border-snow/20 px-6 py-3 md:px-10">

@@ -69,7 +69,8 @@ export type Escape = {
     claimWindowDays: number;        // winner must confirm stay or cash within this window
     stayValidMonths: number;        // from claim, subject to availability and stated blackout dates
     stayWindow: string;             // the season the stay is valid in, stated in terms
-    description: string[];          // factual components, no adjectives, every figure derived
+    venueDescription: string | null; // the founder's paragraph on the house; null until venue.permissionGranted
+    description: string[];          // factual components in order: the stay, the transfers, the cash; no adjectives, every figure derived
   };
   theme: {
     accent: string;                 // one accent per escape, drawn from the destination in season
@@ -120,6 +121,7 @@ export const escape: Escape = {
     claimWindowDays: 90,
     stayValidMonths: 12,
     stayWindow: 'Friday to Monday between November and March, excluding 20 December to 3 January, subject to availability',
+    venueDescription: null,         // the founder supplies the copy once the house has given permission
     description: [
       `${sentenceCase(numberWord(hampshireNights))} nights for ${numberWord(hampshireParty)} in a suite, breakfast included`,
       'Chauffeur-driven transfers there and back',
@@ -223,6 +225,7 @@ export function assertEscape(e: Escape = escape): void {
   if (e.prize.cashAlternative >= e.prize.value) problems.push('cash alternative must be below the published prize value');
   if (e.prize.cashAlternative < economics.cashAlternativeFloor * e.prize.value) problems.push(`cash alternative is below the floor of ${Math.round(economics.cashAlternativeFloor * 100)}% of the prize value`);
   if (e.venue.name && !e.venue.permissionGranted) problems.push('venue named without written permission');
+  if (e.prize.venueDescription && !e.venue.permissionGranted) problems.push('venue described without written permission');
   if (e.charity.beneficiary) problems.push('charity named before counsel cleared the commercial participator agreement');
   if (e.status === 'open' && !(compliance.freePostalRoute.address ?? '').trim()) problems.push('entries cannot open without a live free postal route address');
   if (/\b(draw|trove)\s*\d+/i.test(e.destination + e.slug)) problems.push('draws are named by destination, never numbered');
