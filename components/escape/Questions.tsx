@@ -4,7 +4,7 @@ import { questionsFor } from '@/lib/questions';
 // Ten questions answered plainly, from the same source as the FAQPage structured data.
 export function Questions({ escape }: { escape: Escape }) {
   return (
-    <section id="questions" className="rule-t px-6 py-24 md:px-10 md:py-32">
+    <section id="questions" className="rule-t section">
       <div className="max-w-[40rem]">
         <h2 className="display text-balance text-[2rem] md:text-[2.75rem]">Questions.</h2>
         <dl className="mt-10 flex flex-col">

@@ -84,7 +84,7 @@ export function ConfirmPlace({ iconSvg }: { iconSvg?: string }) {
             type="button"
             onClick={confirm}
             disabled={status === 'sending'}
-            className="mt-8 h-12 bg-accent px-6 text-base font-medium text-ink disabled:opacity-60"
+            className="btn mt-8 h-12 bg-accent px-6 text-base font-medium text-ink disabled:opacity-60"
           >
             {status === 'sending' ? 'Confirming' : 'Confirm my place'}
           </button>

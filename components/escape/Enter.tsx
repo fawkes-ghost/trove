@@ -8,7 +8,7 @@ import { gbp, numberWord, sentenceCase } from '@/lib/format';
 export function Enter({ escape }: { escape: Escape }) {
   const open = escape.status === 'open';
   return (
-    <section id="enter" className="rule-t px-6 py-24 md:px-10 md:py-32">
+    <section id="enter" className="rule-t section">
       <div className="max-w-[52rem]">
         <h2 className="display text-balance text-[2rem] md:text-[2.75rem]">Enter.</h2>
         <p className="mt-6 max-w-[40rem] text-lg" data-answer>
@@ -27,14 +27,14 @@ export function Enter({ escape }: { escape: Escape }) {
                 <p className="mt-1 font-mono text-sm text-ink/70">Worst-case odds of {oddsForEntries(bundle.entries, escape)}.</p>
               </div>
               {open ? (
-                <button type="button" className="h-12 bg-accent px-6 text-base font-medium text-ink" disabled>
+                <button type="button" className="btn h-12 bg-accent px-6 text-base font-medium text-ink" disabled>
                   Enter
                 </button>
               ) : (
                 <Link
                   href="/#waitlist"
                   data-entry="waitlist"
-                  className="inline-flex h-12 items-center justify-center border border-ink/40 px-6 text-base font-medium text-ink/70"
+                  className="btn inline-flex h-12 items-center justify-center border border-ink/40 px-6 text-base font-medium text-ink/70"
                 >
                   Secure your place
                 </Link>

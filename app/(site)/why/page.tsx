@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function WhyPage() {
   const hasPortrait = existsSync(path.join(process.cwd(), 'public', founder.portrait));
   return (
-    <main className="px-6 pt-28 pb-24 md:px-10 md:pt-36 md:pb-32">
+    <main className="page">
       <div className="grid gap-12 md:grid-cols-[minmax(0,40rem)_minmax(16rem,24rem)] md:gap-20">
         <article>
           <h1 className="display text-balance text-[2.5rem] md:text-[3.5rem]">{whyHeading}</h1>
