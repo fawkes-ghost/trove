@@ -120,8 +120,8 @@ Ink, ink, snow, film, snow, snow, snow, film, moss:
    kicker, the statement at display size, the giving line with its figure in moss, and
    "Why Trove exists."
 7. **Founding friends** (snow): kicker, "Become a founding friend.", two sentences, the form.
-8. **The reel again** (film), above the footer on every page.
-9. **Footer** (moss).
+8. **Footer** (moss). Nothing sits between the founding friends form and the footer; the
+   reel appears only where it belongs to a section.
 
 Mono kickers sitewide are sentence case with a full stop, never caps. Nothing fades in on
 scroll; the field draws in and that is all. Buttons: hover darkens, a press darkens more,
@@ -157,10 +157,11 @@ columns a vertical rule stands between them; full-bleed images butt against the 
 
 ### The sticky bar
 Sitewide, one ink line fixed to the top once the hero (or the page heading) has left the
-viewport: the prize in short form, the worst-case odds in mono (entries taken against the
-cap once entries open), an empty slot for a review platform mark until
-`organisation.review` is set, and "Secure your place" in the accent. Below 900px only the
-call to action remains, at the foot. No countdown, ever.
+viewport. From 900px: the logo tile, the prize in short form, the worst-case odds in mono
+(entries taken against the cap once entries open), an empty slot for a review platform
+mark until `organisation.review` is set, and "Secure your place" in the accent. Below
+900px: the logo tile and the nav trigger only. Nothing is ever fixed to the foot of the
+screen. No countdown, ever.
 
 ## 4. The escapes index (`/escapes`)
 

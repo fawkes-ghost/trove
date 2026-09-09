@@ -146,7 +146,7 @@ export const escape: Escape = {
       `${gbp(hampshireCash)} in cash`,
     ],
   },
-  theme: { accent: '#D9455F' },     // rosehip, Hampshire in winter; provisional until the design plan is signed off
+  theme: { accent: '#C2410C' },     // rust, Hampshire in winter; provisional until the founder confirms
   media: {
     poster: '/media/hero-poster.jpg', // first visible frame of the loop below (frame zero is black), extracted once and committed
     posterAlt: 'A lion cub beside a lioness in long grass at dusk. A placeholder still until the Hampshire film is licensed.',
