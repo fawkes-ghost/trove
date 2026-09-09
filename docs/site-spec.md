@@ -111,8 +111,10 @@ Ink, ink, snow, film, snow, snow, snow, film, moss:
    odds and the giving share as a percentage, one-line captions, "Read the key terms." at
    the right. Stacks at 390.
 3. **The destination** (snow). Kicker and headline; the venue unnamed until permitted.
-4. **The reel** (film). Full-bleed licensed stills from `media.stills`, crossfade on a four
-   second timer, arrows, dots, swipe on touch, pause on hover, static under reduced motion.
+4. **The reel** (film). Full-bleed licensed stills from `media.stills`, sixteen by nine from
+   768px and four by five below it so a caption sits in the lower third clear of the arrows,
+   crossfade on a four second timer, arrows, dots, swipe on touch, pause on hover, static
+   under reduced motion.
    No venue still until `venue.footageLicensed`. Until the Hampshire stills are licensed,
    AI-generated placeholder stills, mood only, with no venue depicted.
 5. **The field** (snow), unchanged.
