@@ -127,6 +127,61 @@ Mono kickers sitewide are sentence case with a full stop, never caps. Nothing fa
 scroll; the field draws in and that is all. Buttons: hover darkens, a press darkens more,
 nothing fades. No pills, no arrows in buttons, no dashes.
 
+### The motion, as built
+
+What runs on the page today, act by act, with its still version. Every act reads the
+document's inline gate: `data-motion="full"` is set before first paint unless the visitor
+asks for reduced motion, and without it every act stands in its final, server-rendered
+state.
+
+- **The logo moment.** Home page, fresh session, motion allowed: the gate sets
+  `data-moment="play"` before first paint and the moment runs in CSS from that paint, over
+  900ms, needing no script and no film. The page opens as snow with the ink tile centred
+  and the disc below the ridgeline. The disc rises through the first half; the poster
+  brightens behind from the 15% mark; the hero lines rise from 50%; the header fades in
+  from 60%; the tile clears from 70%. When the component hydrates it switches the attribute
+  to `js`, keeps the start states, and GSAP continues from the same elapsed time, adding the
+  one thing CSS cannot do: the tile docks to the header icon's measured seat and takes the
+  inverse colours. Any scroll, wheel, touch, pointer or key before the dock completes the
+  moment at once. A page that loads already scrolled, or hydrates after the 900ms, shows the
+  still at once. It plays once per session; on a return visit in the same session the gate
+  leaves `data-moment` unset and the page is the still from first paint, header, poster and
+  lines all in place. Reduced motion: the same still, and the loop never mounts.
+- **The film.** The poster is preloaded from the head and is the first paint layer; the
+  loop mounts above it once the poster has arrived and fades in over 700ms when it can
+  play; the scrim sits above both. Reduced motion: the poster alone.
+- **Scroll.** Lenis on desktop, driven by the GSAP ticker so ScrollTrigger reads the
+  smoothed position. Any device whose primary pointer is coarse keeps native scroll, and
+  every scroll-bound act there runs from IntersectionObserver lines across the viewport
+  (`observeLines`, nineteen lines a twentieth apart), never from a scroll event. Beyond the
+  field's steps, nothing on any device scrubs with the scroll position. Reduced motion:
+  native scroll everywhere.
+- **The field.** Draws in over 800ms, top to bottom, once its top reaches 80% of the
+  viewport (a ScrollTrigger on desktop, an observer on touch), then lights its marks: at
+  once, one after another, or step by step as the section moves through the viewport, with
+  progress measured as 0 when its top reaches the 60% line and 1 when its bottom does. On
+  the escape page the calculator lights as many marks as it is given, on hover, tap or a
+  typed number, with no scroll dependency. Reduced motion: nothing runs; the field is drawn
+  and lit as the server rendered it.
+- **The reel.** Crossfades on a four second timer over 700ms, with arrows, dots and swipe on
+  touch, and pauses while hovered or focused. A still with a title or a caption shows them
+  over its lower third on a scrim; a bare still is bare. Reduced motion: no timer and no
+  crossfade; the still changes only on an arrow, a dot or a swipe.
+- **The form.** On success the disc rises inside the submit button over 600ms, then "Check
+  your email." The same on the confirm page. Reduced motion: straight to the finished state.
+- **The header.** Exactly one fixed bar, one element throughout, with two states, switched
+  by an IntersectionObserver on the hero (or, on a page without one, the first heading). At
+  the top: logo and wordmark, the nav in the centre, the outlined call to action. Once the
+  hero has left the viewport: ink, the logo tile alone, the short prize line and the odds in
+  the centre, the same call to action filled with the accent. Below 900px: the tile and the
+  nav trigger only. The switch is a change of colour and content, not a transition, so it is
+  the same under reduced motion.
+- **The foot.** Nothing is fixed to the foot of the screen: no mobile call to action bar, no
+  portal, no reel above the footer. The one thing that can occupy the foot is the consent
+  banner while it is open, and while it is, on narrow screens the hero's compliance strip
+  sticks just above it and the body reserves the banner's height, so nothing the page must
+  show is covered.
+
 ### The finish
 
 - **Rhythm.** One spacing scale in tokens (`--gutter`, `--space-strip`, `--space-section`,
