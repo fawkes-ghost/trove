@@ -10,7 +10,7 @@ export function OddsSection({ escape = hampshire }: { escape?: Escape }) {
   const bundles = escape.entry.bundles;
   const steps = bundles.map((bundle) => bundle.entries);
   return (
-    <section id="field" className="rule-t px-6 py-16 md:px-10 md:py-32">
+    <section id="field" className="rule-t section">
       <FieldMotion steps={steps} className="grid gap-10 md:grid-cols-[minmax(0,40rem)_minmax(0,32rem)] md:items-start md:gap-0">
         <OddsField entries={escape.cap} cap={escape.cap} lit={steps[steps.length - 1]} steps={steps} />
         <div className="md:rule-l md:sticky md:top-28 md:pl-16">

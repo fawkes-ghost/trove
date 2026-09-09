@@ -7,7 +7,7 @@ import { Kicker } from '@/components/site/Kicker';
 // founder's page. No reveal.
 export function Mission() {
   return (
-    <section id="mission" className="px-6 py-16 md:px-10 md:py-32">
+    <section id="mission" className="section">
       <div className="rounded-xl border border-ink/15 bg-moss/10 p-8 md:p-14">
         <Kicker>{missionKicker}</Kicker>
         <p className="display mt-6 max-w-[44rem] text-balance text-[1.75rem] md:text-[2.5rem]">{missionStatement}</p>

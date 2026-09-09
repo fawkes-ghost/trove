@@ -47,7 +47,7 @@ export default async function EnterPage({ searchParams }: { searchParams: Promis
             aria-describedby="enter-status"
             className="h-12 w-full border border-ink/40 bg-snow px-4 text-base text-ink focus:border-ink focus:outline-none"
           />
-          <button type="submit" className="h-12 bg-ink px-6 text-base font-medium text-snow">
+          <button type="submit" className="btn h-12 bg-ink px-6 text-base font-medium text-snow">
             Enter
           </button>
           <p id="enter-status" role="alert" className="min-h-6 text-base">

@@ -5,7 +5,7 @@ import { percent } from '@/lib/format';
 // charity named until counsel has cleared the agreement.
 export function WhereTheMoneyGoes({ escape }: { escape: Escape }) {
   return (
-    <section id="where-the-money-goes" className="bg-moss px-6 py-24 text-snow md:px-10 md:py-32">
+    <section id="where-the-money-goes" className="section bg-moss text-snow">
       <div className="max-w-[40rem]">
         <h2 className="display text-balance text-[2rem] md:text-[2.75rem]">Where the money goes.</h2>
         <p className="mt-6 text-lg" data-answer>{escape.charity.localityStatement}</p>

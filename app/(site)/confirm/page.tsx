@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 // the query string and does nothing until the button is pressed.
 export default function ConfirmPage() {
   return (
-    <main className="min-h-[70svh] px-6 pt-28 pb-24 md:px-10">
+    <main className="page min-h-[70svh]">
       <Suspense fallback={null}>
         <ConfirmPlace iconSvg={iconSource()} />
       </Suspense>

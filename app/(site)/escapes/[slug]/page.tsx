@@ -56,7 +56,7 @@ export default async function EscapePage({ params }: { params: Promise<{ slug: s
       <Enter escape={item} />
       <PostalEntry escape={item} />
       <Questions escape={item} />
-      <section className="rule-t px-6 py-6 md:px-10">
+      <section className="rule-t section-strip">
         <ComplianceStrip className="text-ink/75" />
       </section>
     </main>

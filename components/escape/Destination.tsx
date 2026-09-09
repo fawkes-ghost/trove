@@ -12,7 +12,7 @@ export function Destination({ escape }: { escape: Escape }) {
 
   return (
     <section id="destination" className="rule-t">
-      <div className="px-6 py-16 md:px-10 md:py-32">
+      <div className="section">
         <div className="max-w-[40rem]">
           <h2 className="display text-balance text-[2rem] md:text-[2.75rem]">{escape.destination}.</h2>
           <p className="mt-6 text-lg" data-answer>

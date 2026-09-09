@@ -127,6 +127,16 @@ Mono kickers sitewide are sentence case with a full stop, never caps. Nothing fa
 scroll; the field draws in and that is all. Buttons: hover darkens, a press darkens more,
 nothing fades. No pills, no arrows in buttons, no dashes.
 
+### The finish
+
+- **Rhythm.** One spacing scale in tokens (`--gutter`, `--space-strip`, `--space-section`,
+  `--space-page-top`) and the classes on it (`section`, `section-half`, `section-strip`,
+  `page`, `page-head`, `page-body`). Every section on every page uses one of them.
+- **Reveals.** The only scroll reveal is the field. Nothing else fades, slides or scrubs on
+  scroll.
+- **Buttons.** Hover is a press darkening (`.btn`, brightness 0.9, 0.82 when pressed);
+  nothing fades on hover.
+
 ## 3. The standard escape page (`/escapes/[slug]`)
 
 The escape page sells the escape; the home page sells the proposition. Identical structure
