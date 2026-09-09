@@ -125,11 +125,15 @@ body {
   --disc: var(--ink);
 }
 
-/* The header sits over the hero on the home page and reads snow on film there. */
+/* The header reads ink on snow, and snow over the hero film. Once it is scrolled it
+   carries its own ink, so it reads snow there too: the .on-film class alone loses to
+   .site-header on source order, and on a page with no hero that left the mark and the nav
+   trigger ink on ink. */
 .site-header {
   color: var(--ink);
 }
-body:has([data-hero]) .site-header {
+body:has([data-hero]) .site-header,
+.site-header.on-film {
   color: var(--snow);
   --disc: var(--ink);
 }

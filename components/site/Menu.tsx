@@ -47,7 +47,9 @@ export function Menu({ groups }: { groups: Groups }) {
         aria-expanded={open}
         aria-controls={id}
         aria-label={open ? 'Close menu' : 'Open menu'}
-        className={`relative z-[60] -mr-3 flex h-11 w-11 flex-col items-center justify-center gap-[6px] ${open ? 'text-snow' : ''}`}
+        // The target stays 44px; the negative margin keeps it from setting the header's height,
+        // so the band is the one 40px line the tile makes.
+        className={`relative z-[60] -mr-3 -my-0.5 flex h-11 w-11 flex-col items-center justify-center gap-[6px] ${open ? 'text-snow' : ''}`}
       >
         <motion.span
           className="block h-px w-[22px] bg-current"

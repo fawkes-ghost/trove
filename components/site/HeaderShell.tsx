@@ -24,8 +24,10 @@ type Props = {
 // centre, and the same call to action on the right, the same element throughout. The
 // centre is a grid column that owns its width: the odds drop first when it is tight,
 // then the prize line shortens to the value alone, and nothing ever runs under the logo.
-// Below 900px the bar carries the logo tile and the nav trigger only. Nothing is ever
-// fixed to the foot of the screen.
+// Below 900px the same two states run with the nav trigger in place of the nav and the
+// call to action: the tile and the wordmark at the top, the tile alone once scrolled. One
+// line either way, so the band never changes height. Nothing is ever fixed to the foot of
+// the screen.
 export function HeaderShell({ iconSvg, wordmarkSvg, primary, groups, prize, prizeValue, odds }: Props) {
   const [scrolled, setScrolled] = useState(false);
 
@@ -39,13 +41,13 @@ export function HeaderShell({ iconSvg, wordmarkSvg, primary, groups, prize, priz
 
   return (
     <header
-      className={`site-header fixed inset-x-0 top-0 z-40 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-6 px-6 py-4 md:px-10 ${scrolled ? 'on-film bg-ink text-snow' : ''}`}
+      className={`site-header fixed inset-x-0 top-0 z-40 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-6 px-6 py-3 md:px-10 min-[900px]:py-4 ${scrolled ? 'on-film bg-ink text-snow' : ''}`}
       data-header={scrolled ? 'scrolled' : 'top'}
     >
       <Link href="/" className="flex items-center gap-[10px]" aria-label="Trove home">
-        <span className="brand-mark brand-icon header-icon block h-7" dangerouslySetInnerHTML={{ __html: iconSvg }} />
+        <span className="brand-mark brand-icon header-icon block h-10 min-[900px]:h-7" dangerouslySetInnerHTML={{ __html: iconSvg }} />
         {/* The wordmark's own class sets display, so its visibility lives on a wrapper. */}
-        <span className={`h-[22px] ${scrolled ? 'hidden' : 'hidden min-[900px]:block'}`}>
+        <span className={`h-[22px] ${scrolled ? 'hidden' : 'block'}`}>
           <span className="brand-mark h-[22px]" dangerouslySetInnerHTML={{ __html: wordmarkSvg }} />
         </span>
       </Link>
