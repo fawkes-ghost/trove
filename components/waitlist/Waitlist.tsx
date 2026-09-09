@@ -5,7 +5,7 @@ import { iconSource } from '@/components/brand/Marks';
 // The waitlist section. The only call to action until entries open.
 export function Waitlist() {
   return (
-    <section id="waitlist" className="scroll-mt-24 border-t border-ink/15 px-6 py-16 md:px-10 md:py-32">
+    <section id="waitlist" className="section scroll-mt-24 border-t border-ink/15">
       <div className="max-w-[40rem]">
         <h2 className="display text-balance text-[2rem] md:text-[2.75rem]">Be a founding friend.</h2>
         <div className="mt-8">

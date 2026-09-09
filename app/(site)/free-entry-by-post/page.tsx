@@ -17,7 +17,7 @@ export default function FreeEntryByPostPage() {
   const address = compliance.freePostalRoute.address;
   return (
     <main>
-      <section className="px-6 pt-28 pb-16 md:px-10 md:pt-36 md:pb-24">
+      <section className="page-head">
         <div className="max-w-[40rem]">
           <h1 className="display text-balance text-[2.5rem] md:text-[3.5rem]">Free entry by post.</h1>
           <p className="mt-6 text-lg">
@@ -26,7 +26,7 @@ export default function FreeEntryByPostPage() {
         </div>
       </section>
 
-      <section className="px-6 pb-8 md:px-10">
+      <section className="page-body">
         <div className="max-w-[40rem]">
           <Block title="What to write.">
             <p>On a postcard, in block capitals, write:</p>
@@ -84,7 +84,7 @@ export default function FreeEntryByPostPage() {
         </div>
       </section>
 
-      <section className="border-t border-ink/15 px-6 py-6 md:px-10">
+      <section className="section-strip border-t border-ink/15">
         <ComplianceStrip className="text-ink/75" />
       </section>
     </main>

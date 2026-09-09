@@ -165,7 +165,7 @@ export function WaitlistForm({ sourceChannel = 'trove-home', iconSvg }: { source
             <button
               type="submit"
               disabled={status === 'sending'}
-              className="h-12 shrink-0 bg-accent px-6 text-base font-medium text-ink disabled:opacity-60"
+              className="btn h-12 shrink-0 bg-accent px-6 text-base font-medium text-ink disabled:opacity-60"
             >
               {status === 'sending' ? 'Securing' : 'Secure your place'}
             </button>

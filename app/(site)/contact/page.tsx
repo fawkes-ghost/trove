@@ -15,7 +15,7 @@ export default function ContactPage() {
   const address = compliance.freePostalRoute.address;
   return (
     <main>
-      <section className="px-6 pt-28 pb-24 md:px-10 md:pt-36 md:pb-32">
+      <section className="page">
         <div className="max-w-[40rem]">
           <h1 className="display text-balance text-[2.5rem] md:text-[3.5rem]">Contact.</h1>
           <dl className="mt-10 flex flex-col">
@@ -46,7 +46,7 @@ export default function ContactPage() {
           </dl>
         </div>
       </section>
-      <section className="border-t border-ink/15 px-6 py-6 md:px-10">
+      <section className="section-strip border-t border-ink/15">
         <ComplianceStrip className="text-ink/75" />
       </section>
     </main>

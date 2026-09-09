@@ -137,8 +137,13 @@ bare labels are form labels, navigation and the footer's slot names.
   and the mission's words run from IntersectionObserver thresholds, not scroll events.
 - **Mobile bar.** Rendered in a portal at body level, `position: fixed`, bottom at the
   safe-area inset, shown and hidden by IntersectionObserver.
-- **Rhythm.** Home sections sit on one scale: 4rem of padding on narrow screens, 8rem
-  from 768px, a hairline between each.
+- **Rhythm.** One spacing scale in tokens (`--gutter`, `--space-strip`, `--space-section`,
+  `--space-page-top`) and four classes on it (`section`, `section-half`, `section-strip`,
+  `page`, `page-head`, `page-body`). Every section on every page uses one of them.
+- **Reveals.** The only scroll reveals are the field and the escape card's still. Nothing
+  else fades, slides or scrubs on scroll.
+- **Buttons.** Hover is a press darkening (`.btn`, brightness 0.9, 0.82 when pressed);
+  nothing fades on hover.
 - **The field.** A server-rendered SVG of one mark per entry in the cap, 60 across on
   desktop and 40 at 390px, one lit in the accent. It draws in over 800ms as it enters; as
   the visitor scrolls on, the marks for the larger bundles light in sequence and the
@@ -147,7 +152,6 @@ bare labels are form labels, navigation and the footer's slot names.
   Copy beside it: the cap, "Never more. One of them is yours."
 - **Giving.** The same field with a hundred marks, the giving share of them turning moss
   one after another, the locality statement beneath.
-- **Mission.** Each word comes from muted to ink as it is scrolled through.
 - **Escape card.** The still wipes in once as it enters.
 - **Form.** On success the disc rises inside the submit button, then "Check your email."
   The same on the confirm page.
