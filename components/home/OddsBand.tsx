@@ -23,11 +23,11 @@ export function OddsBand({ escape = hampshire }: { escape?: Escape }) {
           </p>
         ))}
         {figures.map((item, i) => (
-          <p key={item.caption} className={`text-base text-snow/70 md:row-start-2 ${['md:col-start-1', 'md:col-start-2', 'md:col-start-3'][i]} ${i < figures.length - 1 ? 'mb-7 md:mb-0' : ''}`}>
+          <p key={item.caption} className={`text-base text-snow/70 md:row-start-2 md:self-start ${['md:col-start-1', 'md:col-start-2', 'md:col-start-3'][i]} ${i < figures.length - 1 ? 'mb-7 md:mb-0' : ''}`}>
             {item.caption}
           </p>
         ))}
-        <p className="mt-6 text-base md:col-start-4 md:row-start-2 md:mt-0 md:justify-self-end">
+        <p className="mt-6 text-base md:col-start-4 md:row-start-2 md:mt-0 md:self-start md:justify-self-end">
           <Link href={compliance.significantConditionsPath} className="underline decoration-snow/40 decoration-1 underline-offset-8 hover:decoration-snow">
             Read the key terms.
           </Link>
