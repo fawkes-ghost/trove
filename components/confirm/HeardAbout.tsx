@@ -76,7 +76,7 @@ export function HeardAbout({ token }: { token: string }) {
               type="button"
               disabled={status === 'sending'}
               onClick={() => answer(option.key)}
-              className="h-10 border border-ink/40 px-4 text-sm font-medium text-ink hover:border-ink disabled:opacity-60"
+              className="btn h-10 border border-ink/40 px-4 text-sm font-medium text-ink disabled:opacity-60"
             >
               {option.label}
             </button>

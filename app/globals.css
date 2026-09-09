@@ -7,6 +7,18 @@
   --moss: #3F5A3A;
   --accent: var(--ink);
   --hairline: 1px;
+  /* The spacing scale. Every section, page head and strip sits on these and nothing else. */
+  --gutter: 1.5rem;
+  --space-strip: 1.5rem;
+  --space-section: 4rem;
+  --space-page-top: 7rem;
+}
+@media (min-width: 768px) {
+  :root {
+    --gutter: 2.5rem;
+    --space-section: 8rem;
+    --space-page-top: 9rem;
+  }
 }
 
 @theme inline {
@@ -28,6 +40,34 @@ body {
   font-family: var(--font-sans);
   font-variant-numeric: tabular-nums;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Layout rhythm, from the scale above. */
+.section {
+  padding: var(--space-section) var(--gutter);
+}
+.section-half {
+  padding: calc(var(--space-section) / 2) var(--gutter);
+}
+.section-strip {
+  padding: var(--space-strip) var(--gutter);
+}
+.page {
+  padding: var(--space-page-top) var(--gutter) var(--space-section);
+}
+.page-head {
+  padding: var(--space-page-top) var(--gutter) calc(var(--space-section) / 2);
+}
+.page-body {
+  padding: 0 var(--gutter) calc(var(--space-section) / 2);
+}
+
+/* Buttons and calls to action: hover is a press darkening, nothing fades. */
+.btn:hover {
+  filter: brightness(0.9);
+}
+.btn:active {
+  filter: brightness(0.82);
 }
 
 /* Display type: Fraunces on the soft optical axis. Headlines ragged left, tight leading. */
@@ -184,13 +224,6 @@ html[data-motion="full"] [data-field]:not([data-field-live]) .field-lit {
 }
 [data-ladder-step][data-active="no"] {
   color: color-mix(in srgb, var(--ink) 40%, transparent);
-}
-html[data-motion="full"] [data-scrub-word] {
-  opacity: 0.25;
-  transition: opacity 0.35s ease;
-}
-html[data-motion="full"] [data-scrub-word][data-ink] {
-  opacity: 1;
 }
 html[data-motion="full"] [data-wipe] {
   clip-path: inset(0 100% 0 0);

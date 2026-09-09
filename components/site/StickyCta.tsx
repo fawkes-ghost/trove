@@ -45,7 +45,7 @@ export function StickyCta() {
       className={`fixed inset-x-0 z-30 transition-transform duration-300 min-[900px]:hidden ${show ? 'translate-y-0' : 'pointer-events-none translate-y-full'}`}
       style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + var(--consent-h, 0px))' }}
     >
-      <WaitlistLink className="flex h-14 w-full items-center justify-center bg-ink text-base font-medium text-snow">Secure your place</WaitlistLink>
+      <WaitlistLink className="btn flex h-14 w-full items-center justify-center bg-ink text-base font-medium text-snow">Secure your place</WaitlistLink>
     </div>,
     document.body,
   );

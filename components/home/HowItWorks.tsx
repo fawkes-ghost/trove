@@ -6,7 +6,7 @@ import { freePostalRoute } from '@/lib/routes';
 // from the first step; the full page from the end.
 export function HowItWorks() {
   return (
-    <section id="how-it-works" className="border-t border-ink/15 px-6 py-16 md:px-10 md:py-32">
+    <section id="how-it-works" className="section border-t border-ink/15">
       <div className="max-w-[40rem]">
         <h2 className="display text-balance text-[2rem] md:text-[2.75rem]">How it works.</h2>
         <ol className="mt-10 flex flex-col">

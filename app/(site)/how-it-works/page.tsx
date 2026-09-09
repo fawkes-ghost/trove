@@ -17,14 +17,14 @@ export default function HowItWorksPage() {
   const largest = escape.entry.bundles[escape.entry.bundles.length - 1];
   return (
     <main>
-      <section className="px-6 pt-28 pb-16 md:px-10 md:pt-36 md:pb-24">
+      <section className="page-head">
         <div className="max-w-[40rem]">
           <h1 className="display text-balance text-[2.5rem] md:text-[3.5rem]">How it works.</h1>
           <p className="mt-6 text-lg">One escape, one draw, one winner. Three steps and nothing hidden.</p>
         </div>
       </section>
 
-      <section className="px-6 pb-8 md:px-10">
+      <section className="page-body">
         <ol className="max-w-[40rem]">
           <Step number={1} title="Enter.">
             <p>
@@ -52,7 +52,7 @@ export default function HowItWorksPage() {
         </ol>
       </section>
 
-      <section id="odds" className="border-t border-ink/15 px-6 py-20 md:px-10 md:py-28">
+      <section id="odds" className="section border-t border-ink/15">
         <div className="max-w-[40rem]">
           <h2 className="display text-balance text-[2rem] md:text-[2.75rem]">The cap and the odds.</h2>
           <p className="mt-6 text-lg" data-answer>
@@ -82,7 +82,7 @@ export default function HowItWorksPage() {
         </div>
       </section>
 
-      <section className="border-t border-ink/15 px-6 py-6 md:px-10">
+      <section className="section-strip border-t border-ink/15">
         <ComplianceStrip className="text-ink/75" />
       </section>
     </main>

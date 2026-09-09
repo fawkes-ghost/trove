@@ -8,7 +8,7 @@ import { WipeIn } from '@/components/motion/WipeIn';
 export function EscapeCard({ escape = hampshire }: { escape?: Escape }) {
   const href = `/escapes/${escape.slug}`;
   return (
-    <section id="escape" className="border-t border-ink/15 px-6 py-16 md:px-10 md:py-32">
+    <section id="escape" className="section border-t border-ink/15">
       <div className="grid gap-8 md:grid-cols-[minmax(0,32rem)_minmax(0,40rem)] md:gap-16">
         <WipeIn>
         <Link href={href} className="block aspect-[4/3] w-full overflow-hidden bg-ink/10">
