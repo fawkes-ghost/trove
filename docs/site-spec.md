@@ -113,8 +113,8 @@ Ink, ink, snow, film, snow, snow, snow, film, moss:
 3. **The destination** (snow). Kicker and headline; the venue unnamed until permitted.
 4. **The reel** (film). Full-bleed licensed stills from `media.stills`, crossfade on a four
    second timer, arrows, dots, swipe on touch, pause on hover, static under reduced motion.
-   No venue still until `venue.footageLicensed`. Placeholder frames of the montage until
-   the Hampshire stills are licensed.
+   No venue still until `venue.footageLicensed`. Until the Hampshire stills are licensed,
+   AI-generated placeholder stills, mood only, with no venue depicted.
 5. **The field** (snow), unchanged.
 6. **The mission panel** (snow): a moss-tinted panel with a hairline and a 12px radius, the
    kicker, the statement at display size, the giving line with its figure in moss, and
