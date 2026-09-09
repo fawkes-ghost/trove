@@ -46,6 +46,10 @@ export const compliance = {
 // ---------------------------------------------------------------------------
 // The escape. One hero escape at a time. Named by destination, never numbered.
 // ---------------------------------------------------------------------------
+// The Supabase media bucket path for the AI-generated placeholders. Licensed footage replaces
+// everything under it before launch.
+const placeholderMedia = 'https://uvnhwgbqmwzzdvxxdgzm.supabase.co/storage/v1/object/public/media/hampshire-placeholder';
+
 export type EntryBundle = { entries: number; price: Money };
 export type Still = {
   src: string;
@@ -148,17 +152,36 @@ export const escape: Escape = {
   },
   theme: { accent: '#C2410C' },     // rust, Hampshire in winter; provisional until the founder confirms
   media: {
-    poster: '/media/hero-poster.jpg', // first visible frame of the loop below (frame zero is black), extracted once and committed
-    posterAlt: 'A lion cub beside a lioness in long grass at dusk. A placeholder still until the Hampshire film is licensed.',
-    // A placeholder montage while the site is behind the gate, replaced by the licensed
-    // Hampshire film before launch. The poster above is its first visible frame.
-    loop: 'https://uvnhwgbqmwzzdvxxdgzm.supabase.co/storage/v1/object/public/media/hero-montage-desktop-v2-web-v3.mp4',
-    // Frames of the same placeholder montage, until licensed Hampshire stills replace them.
-    // None is venue imagery.
+    // Every asset here is an AI-generated placeholder: mood only, no venue depicted, to be
+    // replaced by licensed footage before launch. Served from the Supabase media bucket
+    // under hampshire-placeholder/; the poster is committed locally so first paint never
+    // waits on the bucket.
+    poster: '/media/hero-poster-hampshire-placeholder.jpg', // the loop's own first frame, so first paint matches frame zero
+    posterAlt: 'Mist over a wooded valley at sunrise, bare winter trees under a low sun. An AI-generated placeholder, not a real place, until the Hampshire film is licensed.',
+    loop: `${placeholderMedia}/hero-hampshire-placeholder-v1.mp4`, // 1600x900, 17.4s, silent, seamless
+    // AI-generated placeholder stills for the reel, mood only. None depicts a venue.
     stills: [
-      { src: '/media/placeholder-still-1.jpg', alt: 'A placeholder still from the montage used while the Hampshire film is licensed.', venue: false, title: null, caption: null },
-      { src: '/media/placeholder-still-2.jpg', alt: 'A placeholder still from the montage used while the Hampshire film is licensed.', venue: false, title: null, caption: null },
-      { src: '/media/placeholder-still-3.jpg', alt: 'A placeholder still from the montage used while the Hampshire film is licensed.', venue: false, title: null, caption: null },
+      {
+        src: `${placeholderMedia}/still-01-downland.jpg`,
+        alt: 'Frosted chalk downland at sunrise',
+        venue: false,
+        title: 'The downs.',
+        caption: 'Chalk grassland, frost until ten, and a track that goes on for miles.',
+      },
+      {
+        src: `${placeholderMedia}/still-02-chalk-stream.jpg`,
+        alt: 'A clear chalk stream in low winter sun',
+        venue: false,
+        title: 'The water.',
+        caption: 'Clear, cold and fast. The county’s rivers rise from the chalk itself.',
+      },
+      {
+        src: `${placeholderMedia}/still-03-woodland-mist.jpg`,
+        alt: 'Mist in a wooded valley at first light',
+        venue: false,
+        title: 'The woods.',
+        caption: 'Beech hangers hold the last of the light until four.',
+      },
     ],
   },
   entry: {

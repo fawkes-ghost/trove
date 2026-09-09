@@ -6,7 +6,9 @@ import { useReducedMotion } from '@/lib/use-reduced-motion';
 type Still = { src: string; alt: string; title?: string | null; caption?: string | null };
 
 // A full-bleed reel of licensed stills: crossfade on a four second timer, arrows, dots,
-// swipe on touch, pause while hovered or focused, static under reduced motion. A still with
+// swipe on touch, pause while hovered or focused, static under reduced motion. Sixteen by
+// nine from 768px; four by five below it, so a caption sits in the lower third clear of the
+// arrows at the centre. A still with
 // a title or a caption shows them over its lower third on a scrim; without them the still
 // is bare. Takes the stills as values; the server decides which stills may be shown.
 export function Reel({ stills, label }: { stills: Still[]; label: string }) {
@@ -26,7 +28,7 @@ export function Reel({ stills, label }: { stills: Still[]; label: string }) {
 
   if (count === 0) {
     return (
-      <div className="flex aspect-[16/9] max-h-[80vh] w-full items-end bg-ink/5 p-4" role="img" aria-label={label} data-reel="empty">
+      <div className="flex aspect-[4/5] max-h-[80vh] w-full items-end bg-ink/5 p-4 md:aspect-[16/9]" role="img" aria-label={label} data-reel="empty">
         <p className="font-mono text-[11px] text-ink/60">{label}</p>
       </div>
     );
@@ -36,7 +38,7 @@ export function Reel({ stills, label }: { stills: Still[]; label: string }) {
 
   return (
     <section
-      className="group relative aspect-[16/9] max-h-[80vh] w-full overflow-hidden bg-ink"
+      className="group relative aspect-[4/5] max-h-[80vh] w-full overflow-hidden bg-ink md:aspect-[16/9]"
       aria-roledescription="carousel"
       aria-label={label}
       data-reel
@@ -62,7 +64,7 @@ export function Reel({ stills, label }: { stills: Still[]; label: string }) {
           <figure key={still.src} className={`absolute inset-0 m-0 ${fade} ${i === index ? 'opacity-100' : 'opacity-0'}`} aria-hidden={i !== index} data-reel-still={i}>
             <img src={still.src} alt={still.alt} className="h-full w-full object-cover" loading={i === 0 ? 'eager' : 'lazy'} decoding="async" />
             {captioned ? (
-              <figcaption className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,#10121400_0%,#101214B3_60%,#101214D9_100%)] px-6 pt-24 pb-14 text-snow md:px-10 md:pb-16" data-reel-caption>
+              <figcaption className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,#10121400_0%,#101214B3_60%,#101214D9_100%)] px-6 pt-16 pb-12 text-snow md:px-10 md:pt-24 md:pb-16" data-reel-caption>
                 {still.title ? <p className="display text-[1.5rem] md:text-[2rem]">{still.title}</p> : null}
                 {still.caption ? <p className="mt-2 max-w-[40rem] text-base text-snow/85">{still.caption}</p> : null}
               </figcaption>
