@@ -120,8 +120,8 @@ Ink, ink, snow, film, snow, snow, snow, film, moss:
    kicker, the statement at display size, the giving line with its figure in moss, and
    "Why Trove exists."
 7. **Founding friends** (snow): kicker, "Become a founding friend.", two sentences, the form.
-8. **The reel again** (film), above the footer on every page.
-9. **Footer** (moss).
+8. **Footer** (moss). Nothing sits between the founding friends form and the footer; the
+   reel appears only where it belongs to a section.
 
 Mono kickers sitewide are sentence case with a full stop, never caps. Nothing fades in on
 scroll; the field draws in and that is all. Buttons: hover darkens, a press darkens more,
@@ -165,12 +165,15 @@ One hairline (`--hairline`) in one colour (`--rule`, `--rule-on-ink`), through `
 `rule-b` and `rule-l`. Sections are separated by full-width rules; where a section is two
 columns a vertical rule stands between them; full-bleed images butt against the rules.
 
-### The sticky bar
-Sitewide, one ink line fixed to the top once the hero (or the page heading) has left the
-viewport: the prize in short form, the worst-case odds in mono (entries taken against the
-cap once entries open), an empty slot for a review platform mark until
-`organisation.review` is set, and "Secure your place" in the accent. Below 900px only the
-call to action remains, at the foot. No countdown, ever.
+### The header
+Exactly one fixed bar on the page, with two states. At the top: logo and wordmark left,
+the nav in the centre, "Secure your place" outlined on the right. Once the hero (or the
+page heading) has left the viewport: ink, the logo tile alone, the short prize line and
+the worst-case odds in mono in the centre (entries taken against the cap once entries
+open), the same call to action filled with the accent. A grid with fixed columns, so
+nothing overlaps at any width: the odds drop first when the centre is tight, then the
+prize line shortens to the value alone. Below 900px the bar carries the logo tile and the
+nav trigger only. Nothing is ever fixed to the foot of the screen. No countdown, ever.
 
 ## 4. The escapes index (`/escapes`)
 

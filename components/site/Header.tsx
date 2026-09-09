@@ -1,8 +1,9 @@
-import Link from 'next/link';
-import { Icon, Wordmark } from '@/components/brand/Marks';
+import { escape as hampshire, worstCaseOdds, type Escape } from '@/config/prize';
+import { count, gbp } from '@/lib/format';
+import { prizeLineShort } from '@/lib/escapes';
 import { routes, freePostalRoute } from '@/lib/routes';
-import { WaitlistLink } from '@/components/hero/WaitlistLink';
-import { Menu } from './Menu';
+import { iconSource, wordmarkSource } from '@/components/brand/Marks';
+import { HeaderShell } from './HeaderShell';
 
 // The primary routes, shown in the header from 900px up. Below that the hamburger overlay
 // carries every route.
@@ -13,26 +14,20 @@ const primary = [
   { label: 'Free entry by post', href: freePostalRoute },
 ];
 
-// Logo top left as one link. From 900px, the primary routes and the waitlist call to
-// action; below, the hamburger.
-export function Header() {
+// The header, on the server: reads the marks and config and hands the client shell strings
+// and route lists only. The centre's second state carries the worst-case odds until entries
+// open, then the entries taken against the cap (static until the ledger is live).
+export function Header({ escape = hampshire, entriesTaken = 0 }: { escape?: Escape; entriesTaken?: number }) {
+  const odds = escape.status === 'open' ? `${count(entriesTaken)} of ${count(escape.cap)} entries taken.` : `${worstCaseOdds(escape)} worst case.`;
   return (
-    <header className="site-header absolute inset-x-0 top-0 z-40 flex items-center justify-between px-6 py-5 md:px-10">
-      <Link href="/" className="flex items-center gap-[10px]" aria-label="Trove home">
-        <Icon height={28} className="header-icon" />
-        <Wordmark height={22} />
-      </Link>
-      <nav aria-label="Primary" className="hidden items-center gap-8 min-[900px]:flex">
-        {primary.map((route) => (
-          <Link key={route.href} href={route.href} className="text-sm font-medium underline-offset-4 hover:underline">
-            {route.label}
-          </Link>
-        ))}
-        <WaitlistLink className="btn inline-flex h-10 items-center border border-current px-4 text-sm font-medium">Secure your place</WaitlistLink>
-      </nav>
-      <div className="min-[900px]:hidden">
-        <Menu groups={routes} />
-      </div>
-    </header>
+    <HeaderShell
+      iconSvg={iconSource()}
+      wordmarkSvg={wordmarkSource()}
+      primary={primary}
+      groups={routes}
+      prize={prizeLineShort(escape)}
+      prizeValue={`A ${gbp(escape.prize.value)} prize.`}
+      odds={odds}
+    />
   );
 }
