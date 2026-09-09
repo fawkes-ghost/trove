@@ -1,18 +1,24 @@
-import { missionHeading, missionParagraphs } from '@/lib/mission';
-import { ScrubWords } from '@/components/motion/ScrubWords';
+import Link from 'next/link';
+import { missionGivingLine, missionGivingShare, missionKicker, missionStatement } from '@/lib/mission';
+import { Kicker } from '@/components/site/Kicker';
 
-// The mission from lib/mission.ts, each word coming to ink as it is scrolled through.
+// The mission as a panel on snow: a moss tint, a hairline, a soft corner. The kicker, the
+// statement at display size, the giving line with its figure in moss, and the link to the
+// founder's page. No reveal.
 export function Mission() {
-  const paragraphs = missionParagraphs();
   return (
-    <section id="mission" className="border-t border-ink/15 px-6 py-16 md:px-10 md:py-32">
-      <div className="max-w-[40rem]">
-        <h2 className="display text-balance text-[2rem] md:text-[2.75rem]">{missionHeading}</h2>
-        <div className="mt-8 flex flex-col gap-6 text-lg">
-          {paragraphs.map((paragraph) => (
-            <ScrubWords key={paragraph.slice(0, 32)} text={paragraph} />
-          ))}
-        </div>
+    <section id="mission" className="px-6 py-16 md:px-10 md:py-32">
+      <div className="rounded-xl border border-ink/15 bg-moss/10 p-8 md:p-14">
+        <Kicker>{missionKicker}</Kicker>
+        <p className="display mt-6 max-w-[44rem] text-balance text-[1.75rem] md:text-[2.5rem]">{missionStatement}</p>
+        <p className="mt-8 max-w-[40rem] text-lg">
+          <span className="font-mono text-moss">{missionGivingShare}</span> {missionGivingLine}
+        </p>
+        <p className="mt-8 text-base">
+          <Link href="/why" className="underline decoration-ink/30 decoration-1 underline-offset-8 hover:decoration-ink">
+            Why Trove exists.
+          </Link>
+        </p>
       </div>
     </section>
   );

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { WaitlistLink } from '@/components/hero/WaitlistLink';
 
-// Below 900px: one line, paper on ink, fixed to the foot of the screen. Rendered in a
+// Below 900px: one line, ink on the accent, fixed to the foot of the screen. Rendered in a
 // portal at body level so no transformed ancestor can turn its fixed position into an
 // absolute one, with its bottom at the safe-area inset (plus the consent banner's height
 // while that is open). Appears once the hero, and with it its call to action and
@@ -45,7 +45,7 @@ export function StickyCta() {
       className={`fixed inset-x-0 z-30 transition-transform duration-300 min-[900px]:hidden ${show ? 'translate-y-0' : 'pointer-events-none translate-y-full'}`}
       style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + var(--consent-h, 0px))' }}
     >
-      <WaitlistLink className="flex h-14 w-full items-center justify-center bg-ink text-base font-medium text-snow">Secure your place</WaitlistLink>
+      <WaitlistLink className="btn flex h-14 w-full items-center justify-center bg-accent text-base font-medium text-ink">Secure your place</WaitlistLink>
     </div>,
     document.body,
   );

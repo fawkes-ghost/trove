@@ -47,6 +47,7 @@ export const compliance = {
 // The escape. One hero escape at a time. Named by destination, never numbered.
 // ---------------------------------------------------------------------------
 export type EntryBundle = { entries: number; price: Money };
+export type Still = { src: string; alt: string; venue: boolean };
 
 export type Escape = {
   slug: string;                     // route segment, destination only
@@ -79,6 +80,7 @@ export type Escape = {
     poster: string | null;          // first frame of the film, shown on first paint and under reduced motion
     posterAlt: string;              // what the poster shows, truthfully, for alt text
     loop: string | null;            // silent looping film; null falls back to the gradient
+    stills: Still[];                // licensed stills for the reel, in order; venue stills need venue.footageLicensed
   };
   entry: {
     price: Money;                   // single entry
@@ -87,6 +89,7 @@ export type Escape = {
   };
   cap: number;                      // entries, paid and postal together
   cadence: {
+    announced: string | null;       // the month entries open, in words, shown as the hero kicker once the founder sets it
     opens: string | null;           // ISO date, set once
     longstop: string | null;        // ISO date, set once, never moved later
     longstopDays: number;           // planning length if longstop not yet fixed
@@ -144,6 +147,13 @@ export const escape: Escape = {
     // A placeholder montage while the site is behind the gate, replaced by the licensed
     // Hampshire film before launch. The poster above is its first visible frame.
     loop: 'https://uvnhwgbqmwzzdvxxdgzm.supabase.co/storage/v1/object/public/media/hero-montage-desktop-v2-web-v3.mp4',
+    // Frames of the same placeholder montage, until licensed Hampshire stills replace them.
+    // None is venue imagery.
+    stills: [
+      { src: '/media/placeholder-still-1.jpg', alt: 'A placeholder still from the montage used while the Hampshire film is licensed.', venue: false },
+      { src: '/media/placeholder-still-2.jpg', alt: 'A placeholder still from the montage used while the Hampshire film is licensed.', venue: false },
+      { src: '/media/placeholder-still-3.jpg', alt: 'A placeholder still from the montage used while the Hampshire film is licensed.', venue: false },
+    ],
   },
   entry: {
     price: 8,
@@ -155,7 +165,7 @@ export const escape: Escape = {
     maxPerPerson: 62,               // the most entries inside economics.perPersonSpendCeiling at the single entry price
   },
   cap: 3000,
-  cadence: { opens: null, longstop: null, longstopDays: 56 },
+  cadence: { announced: null, opens: null, longstop: null, longstopDays: 56 },
   charity: {
     shareOfGross: economics.charityShareOfGross,
     beneficiary: null,
