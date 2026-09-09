@@ -155,13 +155,15 @@ One hairline (`--hairline`) in one colour (`--rule`, `--rule-on-ink`), through `
 `rule-b` and `rule-l`. Sections are separated by full-width rules; where a section is two
 columns a vertical rule stands between them; full-bleed images butt against the rules.
 
-### The sticky bar
-Sitewide, one ink line fixed to the top once the hero (or the page heading) has left the
-viewport. From 900px: the logo tile, the prize in short form, the worst-case odds in mono
-(entries taken against the cap once entries open), an empty slot for a review platform
-mark until `organisation.review` is set, and "Secure your place" in the accent. Below
-900px: the logo tile and the nav trigger only. Nothing is ever fixed to the foot of the
-screen. No countdown, ever.
+### The header
+Exactly one fixed bar on the page, with two states. At the top: logo and wordmark left,
+the nav in the centre, "Secure your place" outlined on the right. Once the hero (or the
+page heading) has left the viewport: ink, the logo tile alone, the short prize line and
+the worst-case odds in mono in the centre (entries taken against the cap once entries
+open), the same call to action filled with the accent. A grid with fixed columns, so
+nothing overlaps at any width: the odds drop first when the centre is tight, then the
+prize line shortens to the value alone. Below 900px the bar carries the logo tile and the
+nav trigger only. Nothing is ever fixed to the foot of the screen. No countdown, ever.
 
 ## 4. The escapes index (`/escapes`)
 
