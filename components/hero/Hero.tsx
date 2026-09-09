@@ -24,7 +24,7 @@ export function Hero({ escape = hampshire, moment = true, headline }: { escape?:
 
   const sweetener = prizeLine(escape);
 
-  const chip = `${compliance.noRollover ? 'One guaranteed winner. ' : ''}${count(escape.cap)} entries, never more.`;
+  const chip = `${compliance.noRollover ? 'One winner guaranteed. ' : ''}Only ${count(escape.cap)} entries available.`;
 
   const iconSvg = readFileSync(path.join(process.cwd(), 'public', 'brand', 'icon.svg'), 'utf8');
 

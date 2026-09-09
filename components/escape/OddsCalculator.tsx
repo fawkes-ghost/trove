@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useState } from 'react';
 import { costFor, oddsForEntries } from '@/lib/odds';
-import { count, gbp, numberWord, sentenceCase } from '@/lib/format';
+import { count, gbp, gbpPence, numberWord, sentenceCase } from '@/lib/format';
 
 type Bundle = { entries: number; price: number };
 
@@ -25,7 +25,7 @@ export function OddsCalculator({ cap, maxPerPerson, price, bundles, share, desti
   const id = useId();
   const held = Math.min(Math.max(entries || 1, 1), maxPerPerson);
   const cost = costFor(held, bundles, price);
-  const giving = Math.round(cost * share);
+  const giving = cost * share;
 
   useEffect(() => {
     if (!fieldId) return;
@@ -93,7 +93,7 @@ export function OddsCalculator({ cap, maxPerPerson, price, bundles, share, desti
           <div>
             <dt className="text-sm text-ink/70">To {destination} causes</dt>
             <dd className="mt-2 font-mono text-[1.75rem] leading-none md:text-[2rem]" data-odds-giving>
-              {gbp(giving)}
+              {gbpPence(giving)}
             </dd>
           </div>
         </dl>

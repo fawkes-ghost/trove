@@ -11,7 +11,7 @@ export function Waitlist() {
         <Kicker>Founding friends enter first.</Kicker>
         <h2 className="display mt-6 text-balance text-[2rem] md:text-[2.75rem]">Become a founding friend.</h2>
         <p className="mt-6 text-lg">
-          Founding friends are told the day entries open and can enter before the public. We send one email when that happens and nothing before it.
+          Founding friends are told the day entries open and can enter before the public. We send one email when that happens.
         </p>
         <div className="mt-8">
           <WaitlistForm iconSvg={iconSource()} />
