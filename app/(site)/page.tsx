@@ -1,24 +1,25 @@
 import { Hero } from '@/components/hero/Hero';
+import { OddsBand } from '@/components/home/OddsBand';
+import { DestinationSection } from '@/components/home/DestinationSection';
+import { EscapeReel } from '@/components/media/EscapeReel';
 import { OddsSection } from '@/components/home/OddsSection';
 import { Mission } from '@/components/home/Mission';
-import { GivingSection } from '@/components/home/GivingSection';
-import { EscapeCard } from '@/components/home/EscapeCard';
-import { HowItWorks } from '@/components/home/HowItWorks';
 import { Waitlist } from '@/components/waitlist/Waitlist';
 import { WebSiteJsonLd } from '@/components/site/WebSiteJsonLd';
 
-// The hero, the field, the mission, the giving field, the open escape as a card, how it
-// works, the waitlist. The ledger and the ladder live on the escape page.
+// The rhythm: ink (hero), ink (the odds band), snow (the destination), film (the reel), snow
+// (the field), snow (the mission panel), snow (founding friends), then the layout's reel
+// (film) and the footer (moss).
 export default function Home() {
   return (
     <main>
       <WebSiteJsonLd />
       <Hero />
+      <OddsBand />
+      <DestinationSection />
+      <EscapeReel />
       <OddsSection />
       <Mission />
-      <GivingSection />
-      <EscapeCard />
-      <HowItWorks />
       <Waitlist />
     </main>
   );

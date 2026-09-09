@@ -9,6 +9,11 @@ export function gbp(value: Money): string {
   }).format(value);
 }
 
+// Pounds and pence, for amounts that are not whole pounds: what a purchase gives.
+export function gbpPence(value: number): string {
+  return new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
+}
+
 // Counts with UK thousands separators, for caps and entry totals.
 export function count(value: number): string {
   return value.toLocaleString('en-GB');

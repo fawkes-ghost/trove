@@ -31,3 +31,9 @@ export function prizeLine(e: Escape): string {
 export function venueLine(e: Escape): string {
   return e.venue.name && e.venue.permissionGranted ? e.venue.name : 'one of England’s finest country houses';
 }
+
+// The stills the reel may show: every licensed still, but no venue still until the venue's
+// footage is licensed. Returns values only, for the client-side reel.
+export function reelStills(e: Escape): { src: string; alt: string }[] {
+  return e.media.stills.filter((still) => !still.venue || e.venue.footageLicensed).map(({ src, alt }) => ({ src, alt }));
+}

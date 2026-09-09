@@ -1,13 +1,13 @@
 import { oddsForEntries, worstCaseOdds, type Escape } from '@/config/prize';
-import { count, gbp, numberWord, sentenceCase } from '@/lib/format';
+import { count, numberWord } from '@/lib/format';
 import { OddsCalculator } from './OddsCalculator';
 import { Ledger } from '@/components/ledger/Ledger';
 import { OddsField } from '@/components/field/OddsField';
 import { FieldMotion } from '@/components/field/FieldMotion';
 
-// The field first, one mark per entry with one lit, then the cap, each bundle with its own
-// worst-case odds against it, and a calculator that lights as many marks as it is given.
-// Every figure comes from config or is computed from it.
+// The field first, one mark per entry with one lit, then the cap, then the ladder and the
+// calculator as one: hover or tap a tier, or type a number, and the cost, the odds, the
+// giving and the lit marks follow. Every figure comes from config or is computed from it.
 export function OddsLadder({ escape }: { escape: Escape }) {
   return (
     <section id="odds" className="section border-t border-ink/15">
@@ -25,18 +25,16 @@ export function OddsLadder({ escape }: { escape: Escape }) {
         <div className="mt-12">
           <Ledger escape={escape} />
         </div>
-        <ol className="mt-12 flex flex-col">
-          {escape.entry.bundles.map((bundle) => (
-            <li key={bundle.entries} className="grid items-baseline gap-2 border-t border-ink/15 py-5 md:grid-cols-[14rem_1fr]">
-              <p className="font-mono text-[1.75rem] leading-none md:text-[2rem]">{oddsForEntries(bundle.entries, escape)}</p>
-              <p className="text-base">
-                {sentenceCase(numberWord(bundle.entries))} {bundle.entries === 1 ? 'entry' : 'entries'} for {gbp(bundle.price)}.
-              </p>
-            </li>
-          ))}
-        </ol>
-        <div className="mt-12 border-t border-ink/15 pt-8">
-          <OddsCalculator cap={escape.cap} maxPerPerson={escape.entry.maxPerPerson} fieldId="odds-field" />
+        <div className="mt-12">
+          <OddsCalculator
+            cap={escape.cap}
+            maxPerPerson={escape.entry.maxPerPerson}
+            price={escape.entry.price}
+            bundles={escape.entry.bundles.map(({ entries, price }) => ({ entries, price }))}
+            share={escape.charity.shareOfGross}
+            destination={escape.destination}
+            fieldId="odds-field"
+          />
         </div>
       </div>
     </section>

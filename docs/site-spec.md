@@ -43,7 +43,7 @@ escape; the words say exactly what it is and where the money goes.
 | `--snow` | `#F2F3EF` | Page background. Cool, not cream |
 | `--ink` | `#101214` | Text, the icon tile, primary button |
 | `--moss` | `#3F5A3A` | Secondary surfaces, the charity section, footer |
-| `--accent` | from `escape.theme.accent` | The ledger figure and buttons outside the hero. Never in the hero, where the button is snow with ink text. Hampshire winter: rosehip `#D9455F` |
+| `--accent` | from `escape.theme.accent` | The ledger figure, the lit marks, and every "Secure your place" fill with ink text, the hero included. The header's stays outlined. Hampshire winter: rosehip `#D9455F` |
 | `--film` | media only | Warm winter grade: low sun, long shadows, breath in the air, no midday blue |
 
 Rules: the accent appears at most three times per viewport and never in the hero, where
@@ -102,67 +102,40 @@ country houses". The scroll button from the previous site is carried over: a sin
 ink disc with a downward chevron, centred at the base of the hero, which scrolls to the
 next section on click.
 
-### Below the hero, in order
-1. **The mission.** The founder's words from `lib/mission.ts`; the section renders nothing
-   until the copy is there.
-2. **The escape card.** The open escape: poster, destination, the prize line, the worst-case
-   odds and the link to its page. Everything from config, no motion.
-3. **How it works.** Three steps, because it is literally a sequence: enter, we draw,
-   you escape. Postal route linked from step one.
-4. **Waitlist.** The form again, with the founding friends count if we choose to show it.
-5. Footer.
+### The rhythm, in order
+Ink, ink, snow, film, snow, snow, snow, film, moss:
+1. **Hero** (ink over film). The mono kicker "Coming {month}." appears above the headline
+   only once `cadence.announced` is set. The call to action fills with the escape's accent
+   and ink text.
+2. **The odds, in writing** (ink band). Three figures on one row, the cap, the worst-case
+   odds and the giving share as a percentage, one-line captions, "Read the key terms." at
+   the right. Stacks at 390.
+3. **The destination** (snow). Kicker and headline; the venue unnamed until permitted.
+4. **The reel** (film). Full-bleed licensed stills from `media.stills`, crossfade on a four
+   second timer, arrows, dots, swipe on touch, pause on hover, static under reduced motion.
+   No venue still until `venue.footageLicensed`. Placeholder frames of the montage until
+   the Hampshire stills are licensed.
+5. **The field** (snow), unchanged.
+6. **The mission panel** (snow): a moss-tinted panel with a hairline and a 12px radius, the
+   kicker, the statement at display size, the giving line with its figure in moss, and
+   "Why Trove exists."
+7. **Founding friends** (snow): kicker, "Become a founding friend.", two sentences, the form.
+8. **The reel again** (film), above the footer on every page.
+9. **Footer** (moss).
 
-The ledger, what you win and where the money goes live on the escape page only. The why
-page carries the founder's essay; the home mission does not duplicate it.
+Mono kickers sitewide are sentence case with a full stop, never caps. Nothing fades in on
+scroll; the field draws in and that is all. Buttons: hover darkens, a press darkens more,
+nothing fades. No pills, no arrows in buttons, no dashes.
 
-Giving line: every site surface reads `charity.localityStatement`, which states the share as
-a percentage. The terms and the key terms keep the pence form through `t.givingLine`.
+### The finish
 
-Link text: the significant conditions page is linked as "Key terms" everywhere; the full
-terms as "Terms". Routes and page content are unchanged.
-
-Every caption is a full sentence that explains itself to a first-time visitor; the only
-bare labels are form labels, navigation and the footer's slot names.
-
-### The motion system
-
-- **Choreography.** The logo moment first (900ms, docks to the header, completes at once on
-  any scroll). Only then does the hero pin engage. Never both at once.
-- **Hero.** After the moment the hero is complete: headline, prize line, chip, the call to
-  action, the founding friends line and the strip, all visible at once, one viewport tall
-  (`dvh`), with no scroll dependency. The poster is the first paint layer, the film above
-  it once it can play, the scrim static above both.
-- **Scroll.** Lenis on desktop only. Any `pointer: coarse` device scrolls natively and
-  ScrollTrigger reads the native scroller. On touch the field's sequence, the ladder lines
-  and the mission's words run from IntersectionObserver thresholds, not scroll events.
-- **Mobile bar.** Rendered in a portal at body level, `position: fixed`, bottom at the
-  safe-area inset, shown and hidden by IntersectionObserver.
 - **Rhythm.** One spacing scale in tokens (`--gutter`, `--space-strip`, `--space-section`,
-  `--space-page-top`) and four classes on it (`section`, `section-half`, `section-strip`,
+  `--space-page-top`) and the classes on it (`section`, `section-half`, `section-strip`,
   `page`, `page-head`, `page-body`). Every section on every page uses one of them.
-- **Reveals.** The only scroll reveals are the field and the escape card's still. Nothing
-  else fades, slides or scrubs on scroll.
+- **Reveals.** The only scroll reveal is the field. Nothing else fades, slides or scrubs on
+  scroll.
 - **Buttons.** Hover is a press darkening (`.btn`, brightness 0.9, 0.82 when pressed);
   nothing fades on hover.
-- **The field.** A server-rendered SVG of one mark per entry in the cap, 60 across on
-  desktop and 40 at 390px, one lit in the accent. It draws in over 800ms as it enters; as
-  the visitor scrolls on, the marks for the larger bundles light in sequence and the
-  matching ladder line comes to ink. `OddsField` takes values only (entries, cap, lit,
-  steps, maxLit, sold) and never the config object. `sold` is ready for the live ledger.
-  Copy beside it: the cap, "Never more. One of them is yours."
-- **Giving.** The same field with a hundred marks, the giving share of them turning moss
-  one after another, the locality statement beneath.
-- **Escape card.** The still wipes in once as it enters.
-- **Form.** On success the disc rises inside the submit button, then "Check your email."
-  The same on the confirm page.
-- **Reduced motion.** The inline gate leaves `data-motion` unset, so every act is in its
-  final state: no scrub, the poster instead of the film, the logo moment as a still.
-- **Escape page.** The field heads "Your odds." and the calculator lights as many marks as
-  it is given.
-
-The home order is now: hero, the field, the mission, giving, the escape card, how it works,
-the waitlist, footer. The scroll disc at the base of the hero is gone: a pinned hero that
-reveals on scroll is its own invitation.
 
 ## 3. The standard escape page (`/escapes/[slug]`)
 

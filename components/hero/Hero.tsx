@@ -8,9 +8,10 @@ import { HeroFilm } from './HeroFilm';
 import { LogoMoment } from './LogoMoment';
 import { WaitlistLink } from './WaitlistLink';
 import { StickyCta } from '@/components/site/StickyCta';
+import { Kicker } from '@/components/site/Kicker';
 
 // One centred column over the film: headline, the prize line, chip, button, the founding
-// friends line. Snow on a heavy scrim; the accent does not appear in the hero. Every figure is read
+// friends line. Snow on a heavy scrim; the accent fills the call to action. Every figure is read
 // from config and the venue is unnamed until permission exists. The escape page passes its
 // own headline (the destination) so it does not repeat the home hero. After the logo
 // moment the hero is complete: every line visible at once, one viewport tall, no scroll
@@ -23,7 +24,7 @@ export function Hero({ escape = hampshire, moment = true, headline }: { escape?:
 
   const sweetener = prizeLine(escape);
 
-  const chip = `${compliance.noRollover ? 'One guaranteed winner. ' : ''}${count(escape.cap)} entries, never more.`;
+  const chip = `${compliance.noRollover ? 'One winner guaranteed. ' : ''}Only ${count(escape.cap)} entries available.`;
 
   const iconSvg = readFileSync(path.join(process.cwd(), 'public', 'brand', 'icon.svg'), 'utf8');
 
@@ -35,6 +36,7 @@ export function Hero({ escape = hampshire, moment = true, headline }: { escape?:
 
       <div className="relative z-30 row-start-2 px-6 pt-24 pb-8 md:px-10">
         <div className="mx-auto flex max-w-[44rem] flex-col items-center gap-5 text-center">
+          {escape.cadence.announced ? <Kicker tone="film">Coming {escape.cadence.announced}.</Kicker> : null}
           <h1 data-hero-line className="display text-balance text-[2.5rem] md:text-[4.25rem]">
             {headline ?? venueLine}
           </h1>
@@ -45,7 +47,7 @@ export function Hero({ escape = hampshire, moment = true, headline }: { escape?:
             {chip}
           </p>
           <div data-hero-cta className="flex w-full flex-col items-center gap-4 md:w-auto">
-            <WaitlistLink className="btn inline-flex w-full items-center justify-center bg-snow px-6 py-3.5 text-base font-medium text-ink md:w-auto">
+            <WaitlistLink className="btn inline-flex w-full items-center justify-center bg-accent px-6 py-3.5 text-base font-medium text-ink md:w-auto">
               Secure your place
             </WaitlistLink>
             <p className="text-sm text-snow/85">Founding friends enter first, before the public.</p>
