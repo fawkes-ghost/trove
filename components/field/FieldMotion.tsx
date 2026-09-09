@@ -1,21 +1,31 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { afterPin, motion, motionAllowed } from '@/lib/motion';
+import { VIEWPORT_LINES, isTouch, motion, motionAllowed, observeLines } from '@/lib/motion';
 
 type Props = {
   children: React.ReactNode;
   // Cumulative lit counts per step. With more than one step the later steps light as the
-  // section scrolls; with one step every lit mark lights after the draw.
+  // section moves through the viewport; with one step every lit mark lights after the draw.
   steps: number[];
   // Light the marks one after another after the draw, instead of all at once.
   stagger?: boolean;
   className?: string;
 };
 
+// The section's progress through the viewport: 0 as its top reaches 60% down the screen,
+// 1 as its bottom reaches the same line. The same measure on every device.
+function progressOf(rect: DOMRect, viewport: number): number {
+  const line = viewport * 0.6;
+  return Math.min(1, Math.max(0, (line - rect.top) / rect.height));
+}
+
 // Draws a field in over 800ms as it enters, top to bottom, then lights its marks: at once,
-// staggered, or step by step as the visitor scrolls on. Reads only the DOM beneath it.
-// Under reduced motion nothing runs and the server-rendered final state stands.
+// staggered, or step by step as the section moves through the viewport. On desktop the
+// steps follow the smoothed scroll through ScrollTrigger; on touch devices, where scroll
+// events are throttled, everything runs from IntersectionObservers on lines across the
+// viewport and reads the same to the eye. Reads only the DOM beneath it. Under reduced motion nothing runs and the
+// server-rendered final state stands.
 export function FieldMotion({ children, steps, stagger = false, className = '' }: Props) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -43,39 +53,65 @@ export function FieldMotion({ children, steps, stagger = false, className = '' }
       const step = steps.findIndex((cumulative) => count <= cumulative);
       ladder.forEach((line) => line.setAttribute('data-active', Number(line.dataset.ladderStep) === step + 1 ? '' : 'no'));
     };
+    const stepFor = (progress: number) => steps[Math.min(steps.length - 1, Math.floor(progress * steps.length))];
 
+    const draw = gsap.timeline({ paused: true });
+    draw.to(reveals, { scaleY: 1, duration: 0.8, ease: 'power1.inOut' });
+    if (stagger) {
+      const first = steps[0];
+      for (let i = 1; i <= first; i++) draw.call(() => light(i), [], 0.8 + (i - 1) * 0.05);
+    } else {
+      draw.call(() => light(steps[0]), [], 0.8);
+    }
+
+    const observers: IntersectionObserver[] = [];
+    let stopLines = () => {};
     let ctx: ReturnType<typeof gsap.context> | null = null;
-    const stop = afterPin(() => {
-    ctx = gsap.context(() => {
-      const draw = gsap.timeline({ paused: true });
-      draw.to(reveals, { scaleY: 1, duration: 0.8, ease: 'power1.inOut' });
-      if (stagger) {
-        const first = steps[0];
-        for (let i = 1; i <= first; i++) draw.call(() => light(i), [], 0.8 + (i - 1) * 0.05);
-      } else {
-        draw.call(() => light(steps[0]), [], 0.8);
-      }
 
-      ScrollTrigger.create({ trigger: field, start: 'top 80%', once: true, onEnter: () => draw.play() });
-
+    if (isTouch()) {
+      const enter = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((entry) => entry.isIntersecting)) {
+            draw.play();
+            enter.disconnect();
+          }
+        },
+        { rootMargin: '0px 0px -20% 0px' },
+      );
+      enter.observe(field);
+      observers.push(enter);
       if (steps.length > 1) {
-        ScrollTrigger.create({
-          trigger: root,
-          start: 'top 60%',
-          end: 'bottom 60%',
-          onUpdate: (self) => {
+        stopLines = observeLines(
+          root,
+          (rect) => {
             if (draw.progress() < 1) return;
-            const step = Math.min(steps.length - 1, Math.floor(self.progress * steps.length));
-            light(steps[step]);
+            light(stepFor(progressOf(rect, window.innerHeight)));
           },
-        });
+          VIEWPORT_LINES,
+        );
       }
-    }, root);
-    });
+    } else {
+      ctx = gsap.context(() => {
+        ScrollTrigger.create({ trigger: field, start: 'top 80%', once: true, onEnter: () => draw.play() });
+        if (steps.length > 1) {
+          ScrollTrigger.create({
+            trigger: root,
+            start: 'top 60%',
+            end: 'bottom 60%',
+            onUpdate: (self) => {
+              if (draw.progress() < 1) return;
+              light(stepFor(self.progress));
+            },
+          });
+        }
+      }, root);
+    }
 
     return () => {
-      stop();
+      observers.forEach((observer) => observer.disconnect());
+      stopLines();
       ctx?.revert();
+      draw.kill();
     };
   }, [steps, stagger]);
 

@@ -10,7 +10,7 @@ export function GivingSection({ escape = hampshire }: { escape?: Escape }) {
   const marks = 100;
   const lit = Math.round(escape.charity.shareOfGross * marks);
   return (
-    <section id="giving" className="border-t border-ink/15 px-6 py-24 md:px-10 md:py-32">
+    <section id="giving" className="border-t border-ink/15 px-6 py-16 md:px-10 md:py-32">
       <FieldMotion steps={[lit]} stagger className="grid gap-10 md:grid-cols-[minmax(0,32rem)_minmax(0,32rem)] md:items-center md:gap-16">
         <OddsField entries={marks} cap={marks} lit={lit} tone="moss" columns={{ desktop: 20, mobile: 10 }} label={`${marks} marks, one for every pound entered, with ${lit} in moss.`} />
         <div>

@@ -6,16 +6,15 @@ import { prizeLine } from '@/lib/escapes';
 import { ComplianceStrip } from '@/components/site/ComplianceStrip';
 import { HeroFilm } from './HeroFilm';
 import { LogoMoment } from './LogoMoment';
-import { HeroPin } from './HeroPin';
 import { WaitlistLink } from './WaitlistLink';
 import { StickyCta } from '@/components/site/StickyCta';
 
 // One centred column over the film: headline, the prize line, chip, button, the founding
 // friends line. Snow on a heavy scrim; the accent does not appear in the hero. Every figure is read
 // from config and the venue is unnamed until permission exists. The escape page passes its
-// own headline (the destination) so it does not repeat the home hero. The hero pins for a
-// viewport and a half once the logo moment is over (HeroPin), and each line after the
-// headline is an act bound to a scroll position.
+// own headline (the destination) so it does not repeat the home hero. After the logo
+// moment the hero is complete: every line visible at once, one viewport tall, no scroll
+// dependency.
 export function Hero({ escape = hampshire, moment = true, headline }: { escape?: Escape; moment?: boolean; headline?: string }) {
   const venueLine =
     escape.venue.name && escape.venue.permissionGranted
@@ -29,9 +28,8 @@ export function Hero({ escape = hampshire, moment = true, headline }: { escape?:
   const iconSvg = readFileSync(path.join(process.cwd(), 'public', 'brand', 'icon.svg'), 'utf8');
 
   return (
-    <section data-hero className="relative isolate grid min-h-svh grid-rows-[1fr_auto_1fr_auto] text-snow">
+    <section data-hero className="relative isolate grid min-h-dvh grid-rows-[1fr_auto_1fr_auto] text-snow">
       {moment ? <LogoMoment iconSvg={iconSvg} /> : null}
-      <HeroPin />
       <StickyCta />
       <HeroFilm media={escape.media} />
 
@@ -40,13 +38,13 @@ export function Hero({ escape = hampshire, moment = true, headline }: { escape?:
           <h1 data-hero-line className="display text-balance text-[2.5rem] md:text-[4.25rem]">
             {headline ?? venueLine}
           </h1>
-          <p data-hero-act="line" className="text-base md:text-lg">
+          <p className="text-base md:text-lg">
             {sweetener}
           </p>
-          <p data-hero-act="chip" className="w-full border border-snow/60 px-3 py-2 text-sm md:w-auto">
+          <p className="w-full border border-snow/60 px-3 py-2 text-sm md:w-auto">
             {chip}
           </p>
-          <div data-hero-act="cta" data-hero-cta className="flex w-full flex-col items-center gap-4 md:w-auto">
+          <div data-hero-cta className="flex w-full flex-col items-center gap-4 md:w-auto">
             <WaitlistLink className="inline-flex w-full items-center justify-center bg-snow px-6 py-3.5 text-base font-medium text-ink md:w-auto">
               Secure your place
             </WaitlistLink>

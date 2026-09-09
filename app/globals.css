@@ -158,16 +158,6 @@ html[data-moment="play"] .curtain {
 
 /* Motion start states. The inline gate sets data-motion="full" before first paint when
    motion is allowed; without it every act is in its final state and nothing is hidden. */
-html[data-motion="full"] [data-hero-act] {
-  opacity: 0;
-  transform: translateY(24px);
-}
-html[data-motion="full"] .hero-scrim {
-  opacity: 0;
-}
-.hero-poster {
-  transform-origin: center;
-}
 [data-field-reveal] {
   transform-box: fill-box;
   transform-origin: top;
@@ -197,6 +187,10 @@ html[data-motion="full"] [data-field]:not([data-field-live]) .field-lit {
 }
 html[data-motion="full"] [data-scrub-word] {
   opacity: 0.25;
+  transition: opacity 0.35s ease;
+}
+html[data-motion="full"] [data-scrub-word][data-ink] {
+  opacity: 1;
 }
 html[data-motion="full"] [data-wipe] {
   clip-path: inset(0 100% 0 0);
