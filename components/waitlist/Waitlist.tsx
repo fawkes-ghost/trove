@@ -6,7 +6,7 @@ import { Kicker } from '@/components/site/Kicker';
 // The founding friend section. The only call to action until entries open.
 export function Waitlist() {
   return (
-    <section id="waitlist" className="section scroll-mt-24 border-t border-ink/15">
+    <section id="waitlist" className="scroll-mt-24 rule-t section">
       <div className="max-w-[40rem]">
         <Kicker>Founding friends enter first.</Kicker>
         <h2 className="display mt-6 text-balance text-[2rem] md:text-[2.75rem]">Become a founding friend.</h2>

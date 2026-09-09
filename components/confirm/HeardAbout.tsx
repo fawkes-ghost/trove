@@ -66,7 +66,7 @@ export function HeardAbout({ token }: { token: string }) {
   }
 
   return (
-    <div className="mt-12 border-t border-ink/15 pt-8" data-heard-about="asking">
+    <div className="mt-12 rule-t pt-8" data-heard-about="asking">
       <p className="text-lg">How did you hear about Trove?</p>
       <p className="mt-1 text-sm text-ink/60">Optional. One tap and we will not ask again.</p>
       <ul className="mt-4 flex flex-wrap gap-2">

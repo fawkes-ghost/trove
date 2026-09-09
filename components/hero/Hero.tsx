@@ -7,7 +7,6 @@ import { ComplianceStrip } from '@/components/site/ComplianceStrip';
 import { HeroFilm } from './HeroFilm';
 import { LogoMoment } from './LogoMoment';
 import { WaitlistLink } from './WaitlistLink';
-import { StickyCta } from '@/components/site/StickyCta';
 import { Kicker } from '@/components/site/Kicker';
 
 // One centred column over the film: headline, the prize line, chip, button, the founding
@@ -31,7 +30,6 @@ export function Hero({ escape = hampshire, moment = true, headline }: { escape?:
   return (
     <section data-hero className="relative isolate grid min-h-dvh grid-rows-[1fr_auto_1fr_auto] text-snow">
       {moment ? <LogoMoment iconSvg={iconSvg} /> : null}
-      <StickyCta />
       <HeroFilm media={escape.media} />
 
       <div className="relative z-30 row-start-2 px-6 pt-24 pb-8 md:px-10">
@@ -55,7 +53,7 @@ export function Hero({ escape = hampshire, moment = true, headline }: { escape?:
         </div>
       </div>
 
-      <div className="hero-strip relative z-30 row-start-4 border-t border-snow/20 px-6 py-3 md:px-10">
+      <div className="hero-strip relative z-30 row-start-4 rule-t px-6 py-3 md:px-10">
         <ComplianceStrip />
       </div>
     </section>

@@ -139,26 +139,38 @@ nothing fades. No pills, no arrows in buttons, no dashes.
 
 ## 3. The standard escape page (`/escapes/[slug]`)
 
-Identical structure for every escape so the template is the product:
+The escape page sells the escape; the home page sells the proposition. Identical structure
+for every escape so the template is the product:
 
-1. Hero film. The headline is the destination ("Hampshire.") with the prize line beneath,
-   so it does not repeat the home hero.
-2. Your odds (`#odds`): the answer line, then "Not unlimited." with the entries count and
-   the cap (`#ledger`) and the postal parity line, then the ladder and the calculator.
-3. What you win: the stay and the cash side by side, one still slot each labelled with the
-   poster's alt until stills land, the cash as the single accent figure and appearing once, and
-   "A cash alternative is available. Terms." with the amount in the terms and key terms.
-4. The destination, in pictures and 150 words. Venue unnamed until permitted. The house
-   paragraph is stored in `venue.description` and rendered on the server only when
-   `venue.permissionGranted` is true; before then nothing from the venue block reaches
-   the HTML, the payload or the metadata, and the build greps `app/`, `components/`,
-   `lib/` and `content/` for the venue's name.
-5. Where the money goes, with the locality statement.
-6. Enter: the bundles from config as three plain options, no strikethrough, no "best
-   value" badge. Disabled and labelled "Join the waitlist" until the escape opens.
-7. Free entry by post: one paragraph and the link.
-8. Questions: eight to ten, answered plainly.
-9. Significant conditions strip.
+1. Hero film. The headline is the destination ("Hampshire.") with the prize line beneath.
+2. The prize strip: one mono row, ink on snow, a rule above and below, nights, guests,
+   cash and prize value from config, two by two at 390. No icons.
+3. What you win: the stay and the cash side by side with a vertical rule between, one
+   still slot each, the cash as the single accent figure, "A cash alternative is
+   available. Terms."
+4. The destination in prose, then the captioned gallery: the reel, full-bleed on the
+   rules. Each still may carry a title and one sentence from config over its lower third on
+   a scrim; both are null until the founder writes them. Venue unnamed until permitted; no
+   venue still until `venue.footageLicensed`.
+5. Your odds (`#odds`): the field, "Not unlimited.", the ladder and the calculator as one.
+6. Where the money goes, moss.
+7. Enter: the bundles as plain options and the accent call to action. No countdown, no
+   deadline, no "Enter now", no pills.
+8. Free entry by post: one paragraph and the link.
+9. Questions.
+10. The compliance strip.
+
+### Rules
+One hairline (`--hairline`) in one colour (`--rule`, `--rule-on-ink`), through `rule-t`,
+`rule-b` and `rule-l`. Sections are separated by full-width rules; where a section is two
+columns a vertical rule stands between them; full-bleed images butt against the rules.
+
+### The sticky bar
+Sitewide, one ink line fixed to the top once the hero (or the page heading) has left the
+viewport: the prize in short form, the worst-case odds in mono (entries taken against the
+cap once entries open), an empty slot for a review platform mark until
+`organisation.review` is set, and "Secure your place" in the accent. Below 900px only the
+call to action remains, at the foot. No countdown, ever.
 
 ## 4. The escapes index (`/escapes`)
 

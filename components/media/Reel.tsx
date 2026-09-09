@@ -3,11 +3,12 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useReducedMotion } from '@/lib/use-reduced-motion';
 
-type Still = { src: string; alt: string };
+type Still = { src: string; alt: string; title?: string | null; caption?: string | null };
 
 // A full-bleed reel of licensed stills: crossfade on a four second timer, arrows, dots,
-// swipe on touch, pause while hovered or focused, static under reduced motion. Takes the
-// stills as values; the server decides which stills may be shown.
+// swipe on touch, pause while hovered or focused, static under reduced motion. A still with
+// a title or a caption shows them over its lower third on a scrim; without them the still
+// is bare. Takes the stills as values; the server decides which stills may be shown.
 export function Reel({ stills, label }: { stills: Still[]; label: string }) {
   const reduced = useReducedMotion();
   const [index, setIndex] = useState(0);
@@ -31,6 +32,8 @@ export function Reel({ stills, label }: { stills: Still[]; label: string }) {
     );
   }
 
+  const fade = reduced ? '' : 'transition-opacity duration-700';
+
   return (
     <section
       className="group relative aspect-[16/9] max-h-[80vh] w-full overflow-hidden bg-ink"
@@ -53,18 +56,20 @@ export function Reel({ stills, label }: { stills: Still[]; label: string }) {
         if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) go(dx < 0 ? index + 1 : index - 1);
       }}
     >
-      {stills.map((still, i) => (
-        <img
-          key={still.src}
-          src={still.src}
-          alt={still.alt}
-          className={`absolute inset-0 h-full w-full object-cover ${reduced ? '' : 'transition-opacity duration-700'} ${i === index ? 'opacity-100' : 'opacity-0'}`}
-          loading={i === 0 ? 'eager' : 'lazy'}
-          decoding="async"
-          aria-hidden={i !== index}
-          data-reel-still={i}
-        />
-      ))}
+      {stills.map((still, i) => {
+        const captioned = Boolean(still.title || still.caption);
+        return (
+          <figure key={still.src} className={`absolute inset-0 m-0 ${fade} ${i === index ? 'opacity-100' : 'opacity-0'}`} aria-hidden={i !== index} data-reel-still={i}>
+            <img src={still.src} alt={still.alt} className="h-full w-full object-cover" loading={i === 0 ? 'eager' : 'lazy'} decoding="async" />
+            {captioned ? (
+              <figcaption className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,#10121400_0%,#101214B3_60%,#101214D9_100%)] px-6 pt-24 pb-14 text-snow md:px-10 md:pb-16" data-reel-caption>
+                {still.title ? <p className="display text-[1.5rem] md:text-[2rem]">{still.title}</p> : null}
+                {still.caption ? <p className="mt-2 max-w-[40rem] text-base text-snow/85">{still.caption}</p> : null}
+              </figcaption>
+            ) : null}
+          </figure>
+        );
+      })}
       {count > 1 ? (
         <>
           <button type="button" onClick={() => go(index - 1)} aria-label="Previous still" className="btn absolute top-1/2 left-4 flex h-11 w-11 -translate-y-1/2 items-center justify-center bg-snow text-ink md:left-6">

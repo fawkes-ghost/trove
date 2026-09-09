@@ -23,6 +23,11 @@ export function statusLabel(status: Escape['status']): string {
   }
 }
 
+// The prize in its short form, for the sticky bar.
+export function prizeLineShort(e: Escape): string {
+  return `${sentenceCase(numberWord(e.nights))} nights and ${gbp(e.prize.cash)} in cash. A ${gbp(e.prize.value)} prize.`;
+}
+
 // The prize in one line, for the hero, the escape card and the holding page.
 export function prizeLine(e: Escape): string {
   return `${sentenceCase(numberWord(e.nights))} nights for you and your plus one, and ${gbp(e.prize.cash)} in cash. A ${gbp(e.prize.value)} prize.`;
@@ -34,6 +39,6 @@ export function venueLine(e: Escape): string {
 
 // The stills the reel may show: every licensed still, but no venue still until the venue's
 // footage is licensed. Returns values only, for the client-side reel.
-export function reelStills(e: Escape): { src: string; alt: string }[] {
-  return e.media.stills.filter((still) => !still.venue || e.venue.footageLicensed).map(({ src, alt }) => ({ src, alt }));
+export function reelStills(e: Escape): { src: string; alt: string; title: string | null; caption: string | null }[] {
+  return e.media.stills.filter((still) => !still.venue || e.venue.footageLicensed).map(({ src, alt, title, caption }) => ({ src, alt, title, caption }));
 }

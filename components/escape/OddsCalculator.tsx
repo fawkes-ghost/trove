@@ -49,7 +49,7 @@ export function OddsCalculator({ cap, maxPerPerson, price, bundles, share, desti
               onClick={() => setEntries(bundle.entries)}
               aria-pressed={held === bundle.entries}
               data-tier={bundle.entries}
-              className={`grid w-full items-baseline gap-2 border-t border-ink/15 py-5 text-left md:grid-cols-[14rem_1fr] ${held === bundle.entries ? 'text-ink' : 'text-ink/70'}`}
+              className={`grid w-full items-baseline gap-2 rule-t py-5 text-left md:grid-cols-[14rem_1fr] ${held === bundle.entries ? 'text-ink' : 'text-ink/70'}`}
             >
               <span className="font-mono text-[1.75rem] leading-none md:text-[2rem]">{oddsForEntries(bundle.entries, { cap })}</span>
               <span className="text-base">
@@ -60,7 +60,7 @@ export function OddsCalculator({ cap, maxPerPerson, price, bundles, share, desti
         ))}
       </ol>
 
-      <div className="mt-10 grid gap-8 border-t border-ink/15 pt-8 md:grid-cols-[8rem_1fr] md:gap-12">
+      <div className="mt-10 grid gap-8 rule-t pt-8 md:grid-cols-[10rem_1fr] md:gap-0">
         <div className="flex flex-col gap-2">
           <label htmlFor={id} className="text-sm font-medium">
             Entries
@@ -77,7 +77,7 @@ export function OddsCalculator({ cap, maxPerPerson, price, bundles, share, desti
             className="h-12 w-32 border border-ink/40 bg-snow px-4 text-base text-ink focus:border-ink focus:outline-none"
           />
         </div>
-        <dl className="grid gap-6 sm:grid-cols-3" data-odds-figures>
+        <dl className="grid gap-6 sm:grid-cols-3 md:rule-l md:pl-10" data-odds-figures>
           <div>
             <dt className="text-sm text-ink/70">{count(held)} {held === 1 ? 'entry' : 'entries'} cost</dt>
             <dd className="mt-2 font-mono text-[1.75rem] leading-none md:text-[2rem]" data-odds-cost>
