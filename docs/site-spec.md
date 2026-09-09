@@ -229,8 +229,12 @@ page heading) has left the viewport: ink, the logo tile alone, the short prize l
 the worst-case odds in mono in the centre (entries taken against the cap once entries
 open), the same call to action filled with the accent. A grid with fixed columns, so
 nothing overlaps at any width: the odds drop first when the centre is tight, then the
-prize line shortens to the value alone. Below 900px the bar carries the logo tile and the
-nav trigger only. Nothing is ever fixed to the foot of the screen. No countdown, ever.
+prize line shortens to the value alone. Below 900px the same two states run, with the nav
+trigger in place of the nav and the call to action: the tile and the wordmark at the top,
+the tile alone once scrolled. There the band is one line, a 40px tile with 12px above and
+below it, the same height in both states so nothing jumps, and the nav trigger keeps its
+44px target without setting that height. Nothing is ever fixed to the foot of the screen.
+No countdown, ever.
 
 ## 4. The escapes index (`/escapes`)
 

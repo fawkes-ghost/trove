@@ -32,7 +32,7 @@ export function Hero({ escape = hampshire, moment = true, headline }: { escape?:
       {moment ? <LogoMoment iconSvg={iconSvg} /> : null}
       <HeroFilm media={escape.media} />
 
-      <div className="relative z-30 row-start-2 px-6 pt-24 pb-8 md:px-10">
+      <div className="relative z-30 row-start-2 px-6 pt-16 pb-8 md:px-10 min-[900px]:pt-24">
         <div className="mx-auto flex max-w-[44rem] flex-col items-center gap-5 text-center">
           {escape.cadence.announced ? <Kicker tone="film">Coming {escape.cadence.announced}.</Kicker> : null}
           <h1 data-hero-line className="display text-balance text-[2.5rem] md:text-[4.25rem]">
