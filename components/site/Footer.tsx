@@ -9,7 +9,7 @@ import { ComplianceStrip } from './ComplianceStrip';
 export function Footer() {
   const [first, second] = compliance.dcmsVoluntaryCode.signposting;
   return (
-    <footer className="bg-moss px-6 py-12 text-snow md:px-10">
+    <footer className="section-half bg-moss text-snow">
       <div className="flex flex-col gap-8">
         <ComplianceStrip className="text-snow/90" />
         <p className="text-sm">

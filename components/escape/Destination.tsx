@@ -11,7 +11,7 @@ export function Destination({ escape }: { escape: Escape }) {
   const label = `A licensed photograph of the ${escape.destination} countryside goes here.`;
 
   return (
-    <section id="destination" className="border-t border-ink/15 px-6 py-24 md:px-10 md:py-32">
+    <section id="destination" className="section border-t border-ink/15">
       <div className="grid gap-12 md:grid-cols-2 md:gap-16">
         <div className="max-w-[40rem]">
           <h2 className="display text-balance text-[2rem] md:text-[2.75rem]">{escape.destination}.</h2>

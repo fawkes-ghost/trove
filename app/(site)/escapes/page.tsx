@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 // odds, status, one line of the locality statement.
 export default function EscapesPage() {
   return (
-    <main className="px-6 pt-28 pb-24 md:px-10 md:pt-36 md:pb-32">
+    <main className="page">
       <h1 className="display text-balance text-[2.5rem] md:text-[3.5rem]">Escapes.</h1>
       <ol className="mt-12 flex flex-col md:mt-16">
         {escapes.map((item) => (
@@ -27,8 +27,8 @@ export default function EscapesPage() {
                 )}
               </div>
               <div className="flex flex-col gap-3">
-                <p className="font-mono text-[11px] text-ink/60">{statusLabel(item.status)}</p>
                 <h2 className="display text-[2rem] md:text-[2.5rem]">{item.destination}.</h2>
+                <p className="font-mono text-[11px] text-ink/60">{statusLabel(item.status)}</p>
                 <p className="text-lg">{prizeLine(item)}</p>
                 <p className="font-mono text-base">Worst-case odds are {worstCaseOdds(item)} with one entry.</p>
                 <p className="text-base text-ink/70">{item.charity.localityStatement}</p>

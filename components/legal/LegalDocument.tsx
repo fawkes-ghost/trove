@@ -19,7 +19,7 @@ export function LegalDocument({ title, updated, headings, children }: { title: s
   );
 
   return (
-    <main className="px-6 pt-28 pb-24 md:px-10 md:pt-36 md:pb-32">
+    <main className="page">
       <div className="grid gap-10 min-[900px]:grid-cols-[16rem_minmax(0,40rem)] min-[900px]:gap-16">
         <aside>
           <details className="min-[900px]:hidden">

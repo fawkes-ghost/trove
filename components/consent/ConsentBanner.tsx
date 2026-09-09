@@ -61,10 +61,10 @@ export function ConsentBanner() {
         .
       </p>
       <div className="mt-3 flex gap-3 md:mt-4">
-        <button type="button" onClick={() => choose('accepted')} className="h-10 flex-1 bg-snow px-4 text-sm font-medium text-ink md:h-11">
+        <button type="button" onClick={() => choose('accepted')} className="btn h-10 flex-1 bg-snow px-4 text-sm font-medium text-ink md:h-11">
           Accept
         </button>
-        <button type="button" onClick={() => choose('declined')} className="h-10 flex-1 border border-snow/60 px-4 text-sm font-medium text-snow md:h-11">
+        <button type="button" onClick={() => choose('declined')} className="btn h-10 flex-1 border border-snow/60 px-4 text-sm font-medium text-snow md:h-11">
           Decline
         </button>
       </div>
