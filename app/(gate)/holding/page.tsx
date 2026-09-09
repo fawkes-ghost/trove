@@ -46,12 +46,12 @@ export default function HoldingPage() {
           <h1 className="display mt-4 text-balance text-[2rem] md:text-[2.75rem]">{headline}</h1>
           <ul className="mt-8 flex flex-col" data-facts>
             {facts.map((fact) => (
-              <li key={fact} className="border-t border-ink/15 py-3 text-lg">
+              <li key={fact} className="rule-t py-3 text-lg">
                 {fact}
               </li>
             ))}
           </ul>
-          <div className="mt-10 border-t border-ink/15 pt-8">
+          <div className="mt-10 rule-t pt-8">
             <p className="text-lg font-medium">Be a founding friend.</p>
             <div className="mt-4">
               <WaitlistForm sourceChannel="trove-holding" iconSvg={iconSource()} />
@@ -60,7 +60,7 @@ export default function HoldingPage() {
         </div>
       </div>
 
-      <div className="border-t border-ink/15 py-3">
+      <div className="rule-t py-3">
         <ComplianceStrip className="text-ink/75" />
       </div>
     </main>

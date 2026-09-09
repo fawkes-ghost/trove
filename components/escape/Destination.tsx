@@ -1,18 +1,18 @@
 import type { Escape } from '@/config/prize';
 import { gbp, numberWord } from '@/lib/format';
-import { venueLine } from '@/lib/escapes';
+import { reelStills, venueLine } from '@/lib/escapes';
+import { Reel } from '@/components/media/Reel';
 
-// The destination in pictures and prose. The nights and the cash render from config. The
-// venue paragraph is gated on the server: until permissionGranted nothing from the venue
-// block reaches the HTML, and the county copy holds the section. No venue imagery until
-// footage is licensed.
+// The destination in prose, then the captioned gallery full-bleed beneath, sitting on the
+// rules. The nights and the cash render from config. The venue paragraph is gated on the
+// server: until permissionGranted nothing from the venue block reaches the HTML, and the
+// county copy holds the section. No venue still until the footage is licensed.
 export function Destination({ escape }: { escape: Escape }) {
   const named = Boolean(escape.venue.name && escape.venue.permissionGranted);
-  const label = `A licensed photograph of the ${escape.destination} countryside goes here.`;
 
   return (
-    <section id="destination" className="border-t border-ink/15 px-6 py-24 md:px-10 md:py-32">
-      <div className="grid gap-12 md:grid-cols-2 md:gap-16">
+    <section id="destination" className="rule-t">
+      <div className="px-6 py-16 md:px-10 md:py-32">
         <div className="max-w-[40rem]">
           <h2 className="display text-balance text-[2rem] md:text-[2.75rem]">{escape.destination}.</h2>
           <p className="mt-6 text-lg" data-answer>
@@ -33,20 +33,10 @@ export function Destination({ escape }: { escape: Escape }) {
             <p>Bring boots, a book and your favourite person. The county does the rest.</p>
           </div>
         </div>
-        <div className="flex flex-col gap-6">
-          <ImagePlaceholder label={label} />
-          <ImagePlaceholder label={label} />
-        </div>
+      </div>
+      <div className="rule-t">
+        <Reel stills={reelStills(escape)} label={`Licensed stills of the ${escape.destination} escape.`} />
       </div>
     </section>
-  );
-}
-
-// A 4:5 frame no taller than 80vh, waiting for the licensed photograph.
-function ImagePlaceholder({ label }: { label: string }) {
-  return (
-    <div className="flex aspect-[4/5] w-full max-w-[64vh] items-end border border-ink/20 bg-ink/5 p-4" data-placeholder="image" role="img" aria-label={label}>
-      <p className="font-mono text-[11px] text-ink/60">{label}</p>
-    </div>
   );
 }

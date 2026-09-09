@@ -84,7 +84,7 @@ export default function FreeEntryByPostPage() {
         </div>
       </section>
 
-      <section className="border-t border-ink/15 px-6 py-6 md:px-10">
+      <section className="rule-t px-6 py-6 md:px-10">
         <ComplianceStrip className="text-ink/75" />
       </section>
     </main>
@@ -93,7 +93,7 @@ export default function FreeEntryByPostPage() {
 
 function Block({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="border-t border-ink/15 py-8">
+    <div className="rule-t py-8">
       <h2 className="display text-[1.75rem] leading-tight md:text-[2.25rem]">{title}</h2>
       <div className="mt-3 text-lg">{children}</div>
     </div>

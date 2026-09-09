@@ -52,7 +52,7 @@ export default function HowItWorksPage() {
         </ol>
       </section>
 
-      <section id="odds" className="border-t border-ink/15 px-6 py-20 md:px-10 md:py-28">
+      <section id="odds" className="rule-t px-6 py-20 md:px-10 md:py-28">
         <div className="max-w-[40rem]">
           <h2 className="display text-balance text-[2rem] md:text-[2.75rem]">The cap and the odds.</h2>
           <p className="mt-6 text-lg" data-answer>
@@ -82,7 +82,7 @@ export default function HowItWorksPage() {
         </div>
       </section>
 
-      <section className="border-t border-ink/15 px-6 py-6 md:px-10">
+      <section className="rule-t px-6 py-6 md:px-10">
         <ComplianceStrip className="text-ink/75" />
       </section>
     </main>
@@ -91,7 +91,7 @@ export default function HowItWorksPage() {
 
 function Step({ number, title, children }: { number: number; title: string; children: React.ReactNode }) {
   return (
-    <li className="grid gap-2 border-t border-ink/15 py-8 md:grid-cols-[3rem_1fr]">
+    <li className="grid gap-2 rule-t py-8 md:grid-cols-[3rem_1fr]">
       <p className="font-mono text-sm text-ink/60">{number}</p>
       <div>
         <h2 className="display text-[1.75rem] leading-tight md:text-[2.25rem]">{title}</h2>

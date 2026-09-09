@@ -8,7 +8,7 @@ import { gbp, numberWord, sentenceCase } from '@/lib/format';
 export function Enter({ escape }: { escape: Escape }) {
   const open = escape.status === 'open';
   return (
-    <section id="enter" className="border-t border-ink/15 px-6 py-24 md:px-10 md:py-32">
+    <section id="enter" className="rule-t px-6 py-24 md:px-10 md:py-32">
       <div className="max-w-[52rem]">
         <h2 className="display text-balance text-[2rem] md:text-[2.75rem]">Enter.</h2>
         <p className="mt-6 max-w-[40rem] text-lg" data-answer>
@@ -19,7 +19,7 @@ export function Enter({ escape }: { escape: Escape }) {
         ) : null}
         <ul className="mt-10 flex flex-col">
           {escape.entry.bundles.map((bundle) => (
-            <li key={bundle.entries} className="grid items-center gap-4 border-t border-ink/15 py-6 md:grid-cols-[1fr_auto]">
+            <li key={bundle.entries} className="grid items-center gap-4 rule-t py-6 md:grid-cols-[1fr_auto]">
               <div>
                 <p className="text-lg">
                   {sentenceCase(numberWord(bundle.entries))} {bundle.entries === 1 ? 'entry' : 'entries'} for {gbp(bundle.price)}.

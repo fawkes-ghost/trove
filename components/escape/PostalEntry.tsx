@@ -6,7 +6,7 @@ import { freePostalRoute } from '@/lib/routes';
 // One paragraph and the link. Free postal entries count inside the same cap with identical odds.
 export function PostalEntry({ escape }: { escape: Escape }) {
   return (
-    <section id="free-entry-by-post" className="border-t border-ink/15 px-6 py-24 md:px-10 md:py-32">
+    <section id="free-entry-by-post" className="rule-t px-6 py-24 md:px-10 md:py-32">
       <div className="max-w-[40rem]">
         <h2 className="display text-balance text-[2rem] md:text-[2.75rem]">Free entry by post.</h2>
         <p className="mt-6 text-lg">

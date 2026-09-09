@@ -17,7 +17,7 @@ export default function EscapesPage() {
       <h1 className="display text-balance text-[2.5rem] md:text-[3.5rem]">Escapes.</h1>
       <ol className="mt-12 flex flex-col md:mt-16">
         {escapes.map((item) => (
-          <li key={item.slug} className="border-t border-ink/15 py-8 md:py-10">
+          <li key={item.slug} className="rule-t py-8 md:py-10">
             <Link href={`/escapes/${item.slug}`} className="grid gap-6 md:grid-cols-[18rem_1fr] md:gap-10">
               <div className="aspect-[4/3] w-full overflow-hidden bg-ink/10">
                 {item.media.poster ? (

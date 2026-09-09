@@ -10,6 +10,8 @@ export const organisation = {
     postalCode: string;
     addressCountry: 'GB';
   },
+  // The review platform mark in the sticky bar, once a listing exists. Hidden until then.
+  review: null as null | { label: string; url: string },
   sameAs: {                                  // each becomes a link the day the account or listing is live
     instagram: null as string | null,
     tiktok: null as string | null,

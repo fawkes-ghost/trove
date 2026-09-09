@@ -47,7 +47,13 @@ export const compliance = {
 // The escape. One hero escape at a time. Named by destination, never numbered.
 // ---------------------------------------------------------------------------
 export type EntryBundle = { entries: number; price: Money };
-export type Still = { src: string; alt: string; venue: boolean };
+export type Still = {
+  src: string;
+  alt: string;
+  venue: boolean;
+  title: string | null;           // over the lower third of the reel, once the founder writes it
+  caption: string | null;         // one sentence beneath the title
+};
 
 export type Escape = {
   slug: string;                     // route segment, destination only
@@ -150,9 +156,9 @@ export const escape: Escape = {
     // Frames of the same placeholder montage, until licensed Hampshire stills replace them.
     // None is venue imagery.
     stills: [
-      { src: '/media/placeholder-still-1.jpg', alt: 'A placeholder still from the montage used while the Hampshire film is licensed.', venue: false },
-      { src: '/media/placeholder-still-2.jpg', alt: 'A placeholder still from the montage used while the Hampshire film is licensed.', venue: false },
-      { src: '/media/placeholder-still-3.jpg', alt: 'A placeholder still from the montage used while the Hampshire film is licensed.', venue: false },
+      { src: '/media/placeholder-still-1.jpg', alt: 'A placeholder still from the montage used while the Hampshire film is licensed.', venue: false, title: null, caption: null },
+      { src: '/media/placeholder-still-2.jpg', alt: 'A placeholder still from the montage used while the Hampshire film is licensed.', venue: false, title: null, caption: null },
+      { src: '/media/placeholder-still-3.jpg', alt: 'A placeholder still from the montage used while the Hampshire film is licensed.', venue: false, title: null, caption: null },
     ],
   },
   entry: {

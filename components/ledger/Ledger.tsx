@@ -10,7 +10,7 @@ import { TypedFigure } from './TypedFigure';
 export function Ledger({ escape = hampshire, entriesTaken = 0 }: { escape?: Escape; entriesTaken?: number }) {
   const open = escape.status === 'open';
   return (
-    <div id="ledger" className="scroll-mt-24 border-t border-ink/15 pt-8">
+    <div id="ledger" className="scroll-mt-24 rule-t pt-8">
       <h3 className="display text-[1.75rem] md:text-[2rem]">Not unlimited.</h3>
       <p className="mt-6 font-mono text-[2.75rem] leading-none text-accent md:text-[4.5rem]">
         {open ? <TypedFigure text={`${count(entriesTaken)} of ${count(escape.cap)}`} /> : count(escape.cap)}

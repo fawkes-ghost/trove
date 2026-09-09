@@ -19,7 +19,7 @@ export default function ContactPage() {
         <div className="max-w-[40rem]">
           <h1 className="display text-balance text-[2.5rem] md:text-[3.5rem]">Contact.</h1>
           <dl className="mt-10 flex flex-col">
-            <div className="border-t border-ink/15 py-6">
+            <div className="rule-t py-6">
               <dt className="text-sm font-medium text-ink/70">Email</dt>
               <dd className="mt-2 text-lg">
                 <a href={`mailto:${contactEmail}`} className="underline underline-offset-4">
@@ -27,7 +27,7 @@ export default function ContactPage() {
                 </a>
               </dd>
             </div>
-            <div className="border-t border-ink/15 py-6">
+            <div className="rule-t py-6">
               <dt className="text-sm font-medium text-ink/70">Post</dt>
               <dd className="mt-2 text-lg">
                 {address ? (
@@ -37,7 +37,7 @@ export default function ContactPage() {
                 )}
               </dd>
             </div>
-            <div className="border-t border-ink/15 py-6">
+            <div className="rule-t py-6">
               <dt className="text-sm font-medium text-ink/70">Response time</dt>
               <dd className="mt-2 text-lg" data-placeholder="copy">
                 To be confirmed by the founder before launch.
@@ -46,7 +46,7 @@ export default function ContactPage() {
           </dl>
         </div>
       </section>
-      <section className="border-t border-ink/15 px-6 py-6 md:px-10">
+      <section className="rule-t px-6 py-6 md:px-10">
         <ComplianceStrip className="text-ink/75" />
       </section>
     </main>

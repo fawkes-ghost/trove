@@ -7,6 +7,8 @@
   --moss: #3F5A3A;
   --accent: var(--ink);
   --hairline: 1px;
+  --rule: color-mix(in srgb, var(--ink) 15%, transparent);
+  --rule-on-ink: color-mix(in srgb, var(--snow) 20%, transparent);
 }
 
 @theme inline {
@@ -28,6 +30,30 @@ body {
   font-family: var(--font-sans);
   font-variant-numeric: tabular-nums;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Rules: the one hairline, in the one weight, everywhere a section or a column is marked. */
+.rule-t {
+  border-top: var(--hairline) solid var(--rule);
+}
+.rule-b {
+  border-bottom: var(--hairline) solid var(--rule);
+}
+.rule-l {
+  border-left: var(--hairline) solid var(--rule);
+}
+.on-ink .rule-t,
+.on-ink.rule-t,
+.text-snow .rule-t {
+  border-top-color: var(--rule-on-ink);
+}
+@media (min-width: 768px) {
+  .md\:rule-l {
+    border-left: var(--hairline) solid var(--rule);
+  }
+  .md\:rule-t-0 {
+    border-top: 0;
+  }
 }
 
 /* Buttons and calls to action: hover darkens, a press darkens more, nothing fades. */

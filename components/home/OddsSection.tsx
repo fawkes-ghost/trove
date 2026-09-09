@@ -10,10 +10,10 @@ export function OddsSection({ escape = hampshire }: { escape?: Escape }) {
   const bundles = escape.entry.bundles;
   const steps = bundles.map((bundle) => bundle.entries);
   return (
-    <section id="field" className="border-t border-ink/15 px-6 py-16 md:px-10 md:py-32">
-      <FieldMotion steps={steps} className="grid gap-10 md:grid-cols-[minmax(0,40rem)_minmax(0,28rem)] md:items-start md:gap-16">
+    <section id="field" className="rule-t px-6 py-16 md:px-10 md:py-32">
+      <FieldMotion steps={steps} className="grid gap-10 md:grid-cols-[minmax(0,40rem)_minmax(0,32rem)] md:items-start md:gap-0">
         <OddsField entries={escape.cap} cap={escape.cap} lit={steps[steps.length - 1]} steps={steps} />
-        <div className="md:sticky md:top-28">
+        <div className="md:rule-l md:sticky md:top-28 md:pl-16">
           <h2 className="display text-balance text-[2rem] md:text-[2.75rem]">
             {count(escape.cap)} entries. Never more. One of them is yours.
           </h2>
