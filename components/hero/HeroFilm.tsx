@@ -5,7 +5,7 @@ import { HeroLoop } from './HeroLoop';
 // The film layer behind the hero, in explicit paint order: the poster is the first paint
 // layer (or the gradient when config has none), the loop sits above it and fades in once it
 // can play, the scrims sit above both. Reduced motion never mounts the loop. The wrapper
-// keeps the hero-poster class the logo moment fades in and the pin scales.
+// keeps the hero-poster class the logo moment fades in.
 export function HeroFilm({ media = hampshire.media }: { media?: Escape['media'] }) {
   const { poster, posterAlt, loop } = media;
   const source = loop ? 'loop' : poster ? 'poster' : 'gradient';
@@ -26,7 +26,7 @@ export function HeroFilm({ media = hampshire.media }: { media?: Escape['media'] 
       {loop ? <HeroLoop src={loop} poster={poster ?? undefined} /> : null}
       <div className="absolute inset-0 z-20 bg-ink/45" />
       <div className="absolute inset-0 z-20 bg-[linear-gradient(180deg,#10121400_30%,#10121499_70%,#101214D9_100%)]" />
-      {/* Deepens toward the call to action as the pinned hero scrolls; fully on without motion. */}
+      {/* The static scrim over the film, so the copy reads on any frame. */}
       <div className="hero-scrim absolute inset-0 z-20 bg-ink/35" />
     </div>
   );
