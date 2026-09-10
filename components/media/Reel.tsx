@@ -6,10 +6,11 @@ import { useReducedMotion } from '@/lib/use-reduced-motion';
 type Still = { src: string; alt: string; title?: string | null; caption?: string | null };
 
 // A full-bleed reel of licensed stills: crossfade on a four second timer, arrows, dots,
-// swipe on touch, pause while hovered or focused, static under reduced motion. The arrows are
-// bare chevrons from 900px, with no plate behind them, and absent below it where a swipe does
-// the same job. They are snow over an ink shadow rather than ink: measured against the three
-// stills, an ink chevron reads between 1.19 and 3.2 against the frame behind it. Sixteen by
+// swipe on touch, pause while hovered or focused, static under reduced motion. There are no
+// arrows: nothing holds contrast over a frame that changes under it, measured between 1.19 and
+// 3.2 for ink and down to 2.39 for snow across these three stills. The dots carry position and
+// control at every width, a swipe turns the reel on touch, and each dot's button is a 24px
+// target around an 8px mark. Sixteen by
 // nine from 768px; four by five below it, so a caption sits in the lower third clear of the
 // arrows at the centre. A still with
 // a title or a caption shows them over its lower third on a scrim; without them the still
@@ -76,31 +77,22 @@ export function Reel({ stills, label }: { stills: Still[]; label: string }) {
         );
       })}
       {count > 1 ? (
-        <>
-          <button type="button" onClick={() => go(index - 1)} aria-label="Previous still" className="reel-arrow absolute top-1/2 left-4 hidden h-11 w-11 -translate-y-1/2 items-center justify-center text-snow/90 transition-opacity hover:text-snow min-[900px]:flex md:left-6">
-            <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true">
-              <path d="M12 4 L6 10 L12 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
-          <button type="button" onClick={() => go(index + 1)} aria-label="Next still" className="reel-arrow absolute top-1/2 right-4 hidden h-11 w-11 -translate-y-1/2 items-center justify-center text-snow/90 transition-opacity hover:text-snow min-[900px]:flex md:right-6">
-            <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true">
-              <path d="M8 4 L14 10 L8 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
-          <div className="absolute inset-x-0 bottom-4 flex justify-center gap-2 md:bottom-6" role="tablist" aria-label="Stills">
-            {stills.map((still, i) => (
-              <button
-                key={still.src}
-                type="button"
-                role="tab"
-                aria-selected={i === index}
-                aria-label={`Still ${i + 1} of ${count}`}
-                onClick={() => go(i)}
-                className={`h-2 w-2 ${i === index ? 'bg-snow' : 'bg-snow/40'}`}
-              />
-            ))}
-          </div>
-        </>
+        <div className="absolute inset-x-0 bottom-4 flex justify-center gap-1 md:bottom-6" role="tablist" aria-label="Stills">
+          {stills.map((still, i) => (
+            <button
+              key={still.src}
+              type="button"
+              role="tab"
+              aria-selected={i === index}
+              aria-label={`Still ${i + 1} of ${count}`}
+              onClick={() => go(i)}
+              className="flex h-6 w-6 items-center justify-center"
+            >
+              {/* The mark stays small; the button around it is a real target at any width. */}
+              <span aria-hidden="true" className={`block h-2 w-2 ${i === index ? 'bg-snow' : 'bg-snow/40'}`} />
+            </button>
+          ))}
+        </div>
       ) : null}
     </section>
   );

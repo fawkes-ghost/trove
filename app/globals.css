@@ -299,12 +299,6 @@ html[data-reveal="on"] [data-reveal="group"] > *:not([data-reveal-state]) {
   }
 }
 
-/* The reel's arrows carry no plate, so the glyph alone has to read on any frame: a light
-   chevron over a soft ink shadow, which is legible on a bright frame and a dark one. */
-.reel-arrow {
-  filter: drop-shadow(0 1px 2px color-mix(in srgb, var(--ink) 70%, transparent));
-}
-
 /* The field on a touch device: the marks are a texture, not a diagram to be read one by
    one, so they are capped at a share of the screen and the heading and the ladder stay in
    the same view. The SVG keeps its ratio and centres in the column. */
