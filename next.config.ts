@@ -14,6 +14,17 @@ const nextConfig: NextConfig = {
   pageExtensions: ['ts', 'tsx', 'mdx'],
   // The brand marks are read from disk and inlined by components/brand/Marks.tsx.
   outputFileTracingIncludes: { '/*': ['./public/brand/*.svg'] },
+  // Everything under public/media is content-addressed by its filename: a new cut is a new
+  // name, never a new body at the same path, so it can be cached for a year and never
+  // revalidated.
+  async headers() {
+    return [
+      {
+        source: '/media/:file*',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+      },
+    ];
+  },
 };
 
 const withMDX = createMDX({});

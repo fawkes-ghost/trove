@@ -22,10 +22,11 @@ function progressOf(rect: DOMRect, viewport: number): number {
 
 // Draws a field in over 800ms as it enters, top to bottom, then lights its marks: at once,
 // staggered, or step by step as the section moves through the viewport. On desktop the
-// steps follow the smoothed scroll through ScrollTrigger; on touch devices, where scroll
-// events are throttled, everything runs from IntersectionObservers on lines across the
-// viewport and reads the same to the eye. Reads only the DOM beneath it. Under reduced motion nothing runs and the
-// server-rendered final state stands.
+// steps follow the smoothed scroll through ScrollTrigger; on touch devices the draw and the
+// sequence run from IntersectionObservers on lines across the viewport, which survive the
+// throttling of a momentum scroll, with one frame-coalesced scroll listener behind them so a
+// jump settles on the step its position asks for. Reads only the DOM beneath it. Under
+// reduced motion nothing runs and the server-rendered final state stands.
 export function FieldMotion({ children, steps, stagger = false, className = '' }: Props) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -66,6 +67,7 @@ export function FieldMotion({ children, steps, stagger = false, className = '' }
 
     const observers: IntersectionObserver[] = [];
     let stopLines = () => {};
+    let stopScroll = () => {};
     let ctx: ReturnType<typeof gsap.context> | null = null;
 
     if (isTouch()) {
@@ -81,14 +83,33 @@ export function FieldMotion({ children, steps, stagger = false, className = '' }
       enter.observe(field);
       observers.push(enter);
       if (steps.length > 1) {
-        stopLines = observeLines(
-          root,
-          (rect) => {
-            if (draw.progress() < 1) return;
-            light(stepFor(progressOf(rect, window.innerHeight)));
-          },
-          VIEWPORT_LINES,
-        );
+        // Read the section's position now rather than trusting the rectangle the observer
+        // captured: during a fast scroll that rectangle can be several hundred pixels stale,
+        // which used to leave the field lit at the largest bundle once the section had gone
+        // by, instead of resting at one.
+        const settle = () => {
+          if (draw.progress() < 1) return;
+          light(stepFor(progressOf(root.getBoundingClientRect(), window.innerHeight)));
+        };
+        stopLines = observeLines(root, settle, VIEWPORT_LINES);
+        // The lines carry the sequence while the section crosses the screen, which is what a
+        // finger-scroll does. They cannot carry a jump: send the page from below the section
+        // to the top in one move, the way tapping the status bar does, and the section is
+        // outside every line's band before and after, so nothing fires and the field stays
+        // lit where it was. One passive listener, coalesced to a frame, settles it.
+        let frame = 0;
+        const onScroll = () => {
+          if (frame) return;
+          frame = requestAnimationFrame(() => {
+            frame = 0;
+            settle();
+          });
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        stopScroll = () => {
+          window.removeEventListener('scroll', onScroll);
+          if (frame) cancelAnimationFrame(frame);
+        };
       }
     } else {
       ctx = gsap.context(() => {
@@ -110,6 +131,7 @@ export function FieldMotion({ children, steps, stagger = false, className = '' }
     return () => {
       observers.forEach((observer) => observer.disconnect());
       stopLines();
+      stopScroll();
       ctx?.revert();
       draw.kill();
     };
