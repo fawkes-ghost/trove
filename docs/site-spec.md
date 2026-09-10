@@ -153,9 +153,16 @@ state.
   still at once. It plays once per session; on a return visit in the same session the gate
   leaves `data-moment` unset and the page is the still from first paint, header, poster and
   lines all in place. Reduced motion: the same still, and the loop never mounts.
-- **The film.** The poster is preloaded from the head and is the first paint layer; the
-  loop mounts above it once the poster has arrived and fades in over 700ms when it can
-  play; the scrim sits above both. Reduced motion: the poster alone.
+- **The film.** The poster is preloaded from the head and is the first paint layer; the loop
+  mounts above it once the poster has arrived and fades in over 700ms once it is *playing*,
+  never merely once it could play; the scrim sits above both. Neither cut carries an audio
+  stream. The element is muted as a property as well as an attribute, before any request to
+  play, and carries `playsinline`, `loop`, `autoplay` and `disablepictureinpicture`. A device
+  that refuses autoplay, which is what Low Power Mode and Low Data Mode do, takes the film off
+  the page and leaves the poster: iOS draws its own play control over any paused video, so a
+  film on screen and not running is worse than no film. A pause from the system is asked to
+  resume once the page is visible, and gives up its place if it cannot. Reduced motion: the
+  poster alone.
 - **Scroll.** Lenis on desktop, driven by the GSAP ticker so ScrollTrigger reads the
   smoothed position. Any device whose primary pointer is coarse keeps native scroll, and
   every scroll-bound act there runs from IntersectionObserver lines across the viewport
