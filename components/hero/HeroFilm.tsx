@@ -7,7 +7,7 @@ import { HeroLoop } from './HeroLoop';
 // can play, the scrims sit above both. Reduced motion never mounts the loop. The wrapper
 // keeps the hero-poster class the logo moment fades in.
 export function HeroFilm({ media = hampshire.media }: { media?: Escape['media'] }) {
-  const { poster, posterAlt, loop } = media;
+  const { poster, posterAlt, loop, loopSmall } = media;
   const source = loop ? 'loop' : poster ? 'poster' : 'gradient';
   // The poster is the first paint layer, so it is asked for from the head, ahead of script.
   if (poster) preload(poster, { as: 'image', fetchPriority: 'high' });
@@ -23,7 +23,7 @@ export function HeroFilm({ media = hampshire.media }: { media?: Escape['media'] 
       {poster ? (
         <img src={poster} alt={posterAlt} className="absolute inset-0 z-0 h-full w-full object-cover" decoding="async" fetchPriority="high" data-hero-poster />
       ) : null}
-      {loop ? <HeroLoop src={loop} poster={poster ?? undefined} /> : null}
+      {loop ? <HeroLoop src={loop} srcSmall={loopSmall} poster={poster ?? undefined} /> : null}
       <div className="absolute inset-0 z-20 bg-ink/45" />
       <div className="absolute inset-0 z-20 bg-[linear-gradient(180deg,#10121400_30%,#10121499_70%,#101214D9_100%)]" />
       {/* The static scrim over the film, so the copy reads on any frame. */}

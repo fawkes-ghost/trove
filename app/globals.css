@@ -215,15 +215,15 @@ html[data-moment="play"] .curtain {
 /* While the consent banner is up on narrow screens, the hero's compliance strip sticks
    just above it and the page reserves its height at the foot, so nothing it must show is
    covered. */
+html[data-consent="open"] body {
+  padding-bottom: var(--consent-h, 0px);
+}
 @media (max-width: 899px) {
   html[data-consent="open"] [data-hero] .hero-strip {
     position: sticky;
     bottom: var(--consent-h, 0px);
     z-index: 5;
     background: color-mix(in srgb, var(--ink) 85%, transparent);
-  }
-  html[data-consent="open"] body {
-    padding-bottom: var(--consent-h, 0px);
   }
 }
 
@@ -296,6 +296,17 @@ html[data-reveal="on"] [data-reveal="group"] > *:not([data-reveal-state]) {
   html[data-reveal="on"] [data-reveal="group"] > * {
     opacity: 1 !important;
     transform: none !important;
+  }
+}
+
+/* The field on a touch device: the marks are a texture, not a diagram to be read one by
+   one, so they are capped at a share of the screen and the heading and the ladder stay in
+   the same view. The SVG keeps its ratio and centres in the column. */
+@media (pointer: coarse) {
+  [data-field-svg] {
+    max-height: 60svh;
+    width: auto;
+    margin-inline: auto;
   }
 }
 

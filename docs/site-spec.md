@@ -107,13 +107,16 @@ Ink, ink, snow, film, snow, snow, snow, film, moss:
 1. **Hero** (ink over film). The mono kicker "Coming {month}." appears above the headline
    only once `cadence.announced` is set. The call to action fills with the escape's accent
    and ink text.
-2. **The odds, in writing** (ink band). Three figures on one row, the cap, the worst-case
-   odds and the giving share as a percentage, one-line captions, "Read the key terms." at
-   the right. Stacks at 390.
+2. **Your odds of winning** (ink band). Three figures, the cap, the worst-case odds and the
+   giving share as a percentage, each with its one-line caption directly beneath it. A figure
+   and its caption are one unit and are never separated: three across from 900px, one above
+   the other below it. "Read the key terms." has its own line beneath the units, under a
+   rule, never a fourth figure.
 3. **The destination** (snow). Kicker and headline; the venue unnamed until permitted.
 4. **The reel** (film). Full-bleed licensed stills from `media.stills`, sixteen by nine from
    768px and four by five below it so a caption sits in the lower third clear of the arrows,
-   crossfade on a four second timer, arrows, dots, swipe on touch, pause on hover, static
+   crossfade on a four second timer, dots, bare ink chevrons from 900px and none below it
+   where a swipe does the same job, swipe on touch, pause on hover, static
    under reduced motion.
    No venue still until `venue.footageLicensed`. Until the Hampshire stills are licensed,
    AI-generated placeholder stills, mood only, with no venue depicted.
@@ -158,7 +161,13 @@ state.
   (`observeLines`, nineteen lines a twentieth apart), never from a scroll event. Beyond the
   field's steps, nothing on any device scrubs with the scroll position. Reduced motion:
   native scroll everywhere.
-- **The field.** Draws in over 800ms, top to bottom, once its top reaches 80% of the
+- **The field.** On a touch device it is capped at 60% of the viewport's height and centres
+  in its column, so the marks, the heading and the ladder are one screen rather than two.
+  One mark is lit at rest, and the field is built to light up to the largest bundle: the
+  steps run as the section crosses the screen and it returns to one when it leaves. On touch
+  the sequence runs from the observer lines, with one frame-coalesced scroll listener behind
+  them so a jump settles on the step the section's position asks for.
+  Draws in over 800ms, top to bottom, once its top reaches 80% of the
   viewport (a ScrollTrigger on desktop, an observer on touch), then lights its marks: at
   once, one after another, or step by step as the section moves through the viewport, with
   progress measured as 0 when its top reaches the 60% line and 1 when its bottom does. On
@@ -239,8 +248,9 @@ page heading) has left the viewport: ink, the logo tile alone, the short prize l
 the worst-case odds in mono in the centre (entries taken against the cap once entries
 open), the same call to action filled with the accent. A grid with fixed columns, so
 nothing overlaps at any width: the odds drop first when the centre is tight, then the
-prize line shortens to the value alone. Below 900px the same two states run, with the nav
-trigger in place of the nav and the call to action: the tile and the wordmark at the top,
+prize line shortens to the value alone. The nav trigger sits in the top right at every
+width, to the right of the call to action from 900px, so the full route list is always one
+tap away. Below 900px the same two states run, without the call to action: the tile and the wordmark at the top,
 the tile alone once scrolled. There the band is one line, a 40px tile with 12px above and
 below it, the same height in both states so nothing jumps, and the nav trigger keeps its
 44px target without setting that height. Nothing is ever fixed to the foot of the screen.
@@ -281,3 +291,10 @@ Licensed footage and photography only. AI-generated imagery may be used for mood
 (landscape, weather, table settings) but never to depict a real venue, a real person,
 or anything that could be taken as the actual prize. No venue footage until licensed.
 Film grade: warm winter, poster frame for first paint, scrim as a CSS layer.
+
+Delivery: every file this app shows lives in `public/media` and is served by this app.
+Nothing under `media/` comes from Supabase or any other origin, so a page never waits on a
+second connection. `next.config.ts` gives `/media/*` a year, `immutable`: a new cut is a new
+filename, never a new body at the same path. The hero film ships in two cuts, the 1600 wide
+master and a 960 wide rendition at CRF 30, offered first below 900px through a `source`
+media query, so a phone never fetches the wide one.

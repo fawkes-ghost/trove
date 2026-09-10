@@ -9,7 +9,7 @@ import { useReducedMotion } from '@/lib/use-reduced-motion';
 // for a slow connection. Fades in over the poster the moment it can play, whenever that is:
 // it never holds anything up. Once it has mounted it stays: leaving the hero behind is not
 // a reason to fetch the film twice.
-export function HeroLoop({ src, poster }: { src: string; poster?: string }) {
+export function HeroLoop({ src, srcSmall, poster }: { src: string; srcSmall?: string | null; poster?: string }) {
   const reduced = useReducedMotion();
   const [posterDone, setPosterDone] = useState(false);
   const [inView, setInView] = useState(false);
@@ -53,7 +53,6 @@ export function HeroLoop({ src, poster }: { src: string; poster?: string }) {
   return (
     <video
       className={`absolute inset-0 z-10 h-full w-full object-cover transition-opacity duration-700 ${ready ? 'opacity-100' : 'opacity-0'}`}
-      src={src}
       poster={poster}
       autoPlay
       muted
@@ -70,6 +69,11 @@ export function HeroLoop({ src, poster }: { src: string; poster?: string }) {
       onPlaying={() => performance.mark('trove:film-playing')}
       tabIndex={-1}
       data-hero-loop
-    />
+    >
+      {/* The narrow cut first: a phone never fetches the 1600 file. The media attribute is
+          read once, when the element picks its source, which is what a hero needs. */}
+      {srcSmall ? <source media="(max-width: 900px)" src={srcSmall} type="video/mp4" /> : null}
+      <source src={src} type="video/mp4" />
+    </video>
   );
 }
