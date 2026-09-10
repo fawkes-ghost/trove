@@ -4,30 +4,51 @@ import { useEffect, useState } from 'react';
 import { useReducedMotion } from '@/lib/use-reduced-motion';
 
 // The looping film, above the poster. Mounts only in the browser, only when motion is
-// allowed, and only once the poster has arrived, so the poster is what paints first, what
-// reduced motion keeps, and never competes with the film for a slow connection. Fades in
-// over the poster the moment it can play, whenever that is: it never holds anything up.
+// allowed, only once the poster has arrived, and only while the hero is in view, so the
+// poster is what paints first, what reduced motion keeps, and never competes with the film
+// for a slow connection. Fades in over the poster the moment it can play, whenever that is:
+// it never holds anything up. Once it has mounted it stays: leaving the hero behind is not
+// a reason to fetch the film twice.
 export function HeroLoop({ src, poster }: { src: string; poster?: string }) {
   const reduced = useReducedMotion();
-  const [mounted, setMounted] = useState(false);
+  const [posterDone, setPosterDone] = useState(false);
+  const [inView, setInView] = useState(false);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
     const posterImage = document.querySelector<HTMLImageElement>('[data-hero-poster]');
     if (!posterImage || posterImage.complete) {
-      setMounted(true);
+      setPosterDone(true);
       return;
     }
-    const mount = () => setMounted(true);
-    posterImage.addEventListener('load', mount, { once: true });
-    posterImage.addEventListener('error', mount, { once: true });
+    const done = () => setPosterDone(true);
+    posterImage.addEventListener('load', done, { once: true });
+    posterImage.addEventListener('error', done, { once: true });
     return () => {
-      posterImage.removeEventListener('load', mount);
-      posterImage.removeEventListener('error', mount);
+      posterImage.removeEventListener('load', done);
+      posterImage.removeEventListener('error', done);
     };
   }, []);
 
-  if (!mounted || reduced) return null;
+  // The film is only ever worth fetching while the hero is on screen. On a normal visit the
+  // hero is in view at load and this resolves at once; on a restored or deep-linked scroll
+  // position it means the film is never fetched for a hero nobody is looking at.
+  useEffect(() => {
+    const hero = document.querySelector('[data-hero]');
+    if (!hero) {
+      setInView(true);
+      return;
+    }
+    const observer = new IntersectionObserver((entries) => {
+      if (!entries[entries.length - 1].isIntersecting) return;
+      setInView(true);
+      observer.disconnect();
+    }, { threshold: 0 });
+    observer.observe(hero);
+    return () => observer.disconnect();
+  }, []);
+
+  if (!posterDone || !inView || reduced) return null;
 
   return (
     <video
@@ -38,7 +59,7 @@ export function HeroLoop({ src, poster }: { src: string; poster?: string }) {
       muted
       loop
       playsInline
-      preload="auto"
+      preload="none"
       onCanPlay={(event) => {
         performance.mark('trove:film-canplay');
         setReady(true);
