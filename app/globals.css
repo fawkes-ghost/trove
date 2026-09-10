@@ -290,6 +290,14 @@ html[data-reveal="on"] [data-reveal="group"] > *:not([data-reveal-state]) {
   opacity: 0;
   transform: translateY(20px);
 }
+/* Paper never scrolls, so it never crosses the line: print the final state. */
+@media print {
+  html[data-reveal="on"] [data-reveal="item"],
+  html[data-reveal="on"] [data-reveal="group"] > * {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
 
 /* Reduced motion: every moment has a still version. See lib/reduced-motion.ts. */
 @media (prefers-reduced-motion: reduce) {
