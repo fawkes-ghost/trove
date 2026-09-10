@@ -7,7 +7,9 @@ type Still = { src: string; alt: string; title?: string | null; caption?: string
 
 // A full-bleed reel of licensed stills: crossfade on a four second timer, arrows, dots,
 // swipe on touch, pause while hovered or focused, static under reduced motion. The arrows are
-// bare chevrons from 900px and absent below it, where a swipe does the same job. Sixteen by
+// bare chevrons from 900px, with no plate behind them, and absent below it where a swipe does
+// the same job. They are snow over an ink shadow rather than ink: measured against the three
+// stills, an ink chevron reads between 1.19 and 3.2 against the frame behind it. Sixteen by
 // nine from 768px; four by five below it, so a caption sits in the lower third clear of the
 // arrows at the centre. A still with
 // a title or a caption shows them over its lower third on a scrim; without them the still
@@ -75,12 +77,12 @@ export function Reel({ stills, label }: { stills: Still[]; label: string }) {
       })}
       {count > 1 ? (
         <>
-          <button type="button" onClick={() => go(index - 1)} aria-label="Previous still" className="absolute top-1/2 left-4 hidden h-11 w-11 -translate-y-1/2 items-center justify-center text-ink/60 transition-colors hover:text-ink min-[900px]:flex md:left-6">
+          <button type="button" onClick={() => go(index - 1)} aria-label="Previous still" className="reel-arrow absolute top-1/2 left-4 hidden h-11 w-11 -translate-y-1/2 items-center justify-center text-snow/90 transition-opacity hover:text-snow min-[900px]:flex md:left-6">
             <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true">
               <path d="M12 4 L6 10 L12 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
-          <button type="button" onClick={() => go(index + 1)} aria-label="Next still" className="absolute top-1/2 right-4 hidden h-11 w-11 -translate-y-1/2 items-center justify-center text-ink/60 transition-colors hover:text-ink min-[900px]:flex md:right-6">
+          <button type="button" onClick={() => go(index + 1)} aria-label="Next still" className="reel-arrow absolute top-1/2 right-4 hidden h-11 w-11 -translate-y-1/2 items-center justify-center text-snow/90 transition-opacity hover:text-snow min-[900px]:flex md:right-6">
             <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true">
               <path d="M8 4 L14 10 L8 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
