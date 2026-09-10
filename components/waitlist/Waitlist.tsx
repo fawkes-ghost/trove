@@ -7,7 +7,7 @@ import { Kicker } from '@/components/site/Kicker';
 export function Waitlist() {
   return (
     <section id="waitlist" className="scroll-mt-24 rule-t section">
-      <div className="max-w-[40rem]">
+      <div className="max-w-[40rem]" data-reveal="group">
         <Kicker>Founding friends enter first.</Kicker>
         <h2 className="display mt-6 text-balance text-[2rem] md:text-[2.75rem]">Become a founding friend.</h2>
         <p className="mt-6 text-lg">

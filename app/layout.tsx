@@ -42,10 +42,15 @@ export const metadata: Metadata = {
 const accent = { '--accent': escape.theme.accent } as CSSProperties;
 
 // Decides before first paint whether motion runs at all (data-motion="full" unless the
-// visitor asks for reduced motion) and whether the logo moment plays: fresh session, home
-// page, motion allowed. Runs as the document parses so nothing flashes either way; without
-// it every act is in its final state.
-const momentGate = `try{var r=matchMedia("(prefers-reduced-motion: reduce)").matches;if(!r){document.documentElement.dataset.motion="full"}if(location.pathname==="/"&&!r&&!sessionStorage.getItem("trove:logo-moment")){document.documentElement.dataset.moment="play"}}catch(e){}`;
+// visitor asks for reduced motion), whether the reveals arm (data-reveal="on", the same
+// condition), and whether the logo moment plays: fresh session, home page, motion allowed.
+// Runs as the document parses so nothing flashes either way; without it every act is in its
+// final state. The reveal gate carries its own fail-safe: if components/motion/Reveals.tsx
+// never announces itself the attribute is dropped and every revealed block is simply
+// visible, so a failed bundle can never leave a section blank. It is dropped shortly after
+// load, which is as soon as a missing bundle can be inferred, with a four second ceiling in
+// case load never fires.
+const momentGate = `try{var d=document.documentElement;var r=matchMedia("(prefers-reduced-motion: reduce)").matches;if(!r){d.dataset.motion="full";d.dataset.reveal="on";var c=function(){if(!d.dataset.revealLive){delete d.dataset.reveal}};addEventListener("load",function(){setTimeout(c,300)});setTimeout(c,4000)}if(location.pathname==="/"&&!r&&!sessionStorage.getItem("trove:logo-moment")){d.dataset.moment="play"}}catch(e){}`;
 
 // Html, fonts, consent and analytics only. The header, menu and footer live in
 // app/(site)/layout.tsx so the holding and enter pages can render without them.

@@ -272,6 +272,33 @@ html.lenis body {
   overflow: hidden;
 }
 
+/* The reveal. Twenty pixels up and in, 280ms, once, on the few blocks that earn it and
+   nowhere else: section headings, the mission panel, the destination block, the founding
+   friends block. Never body copy, the field, the reel, the nav, the strip or the hero.
+   The start state lives here rather than in script so it can never flash: the inline gate
+   sets data-reveal="on" before first paint, and only when motion is allowed.
+   components/motion/Reveals.tsx sets data-reveal-state="in" as each one arrives, and the
+   gate drops the attribute if that runtime never lands, so nothing can stay invisible. */
+html[data-reveal="on"] [data-reveal="item"],
+html[data-reveal="on"] [data-reveal="group"] > * {
+  transition:
+    opacity 280ms cubic-bezier(0.4, 0, 0.6, 1),
+    transform 280ms cubic-bezier(0.4, 0, 0.6, 1);
+}
+html[data-reveal="on"] [data-reveal="item"]:not([data-reveal-state]),
+html[data-reveal="on"] [data-reveal="group"] > *:not([data-reveal-state]) {
+  opacity: 0;
+  transform: translateY(20px);
+}
+/* Paper never scrolls, so it never crosses the line: print the final state. */
+@media print {
+  html[data-reveal="on"] [data-reveal="item"],
+  html[data-reveal="on"] [data-reveal="group"] > * {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 /* Reduced motion: every moment has a still version. See lib/reduced-motion.ts. */
 @media (prefers-reduced-motion: reduce) {
   *,

@@ -13,7 +13,7 @@ export function WhatYouWin({ escape }: { escape: Escape }) {
   const [stay] = prize.description;
   return (
     <section id="what-you-win" className="rule-t section">
-      <h2 className="display text-balance text-[2rem] md:text-[2.75rem]">What you win.</h2>
+      <h2 data-reveal="item" className="display text-balance text-[2rem] md:text-[2.75rem]">What you win.</h2>
       <p className="mt-6 max-w-[40rem] text-lg" data-answer>
         A {gbp(prize.value)} prize in two parts: the stay and the cash.
       </p>

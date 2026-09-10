@@ -189,8 +189,18 @@ state.
 - **Rhythm.** One spacing scale in tokens (`--gutter`, `--space-strip`, `--space-section`,
   `--space-page-top`) and the classes on it (`section`, `section-half`, `section-strip`,
   `page`, `page-head`, `page-body`). Every section on every page uses one of them.
-- **Reveals.** The only scroll reveal is the field. Nothing else fades, slides or scrubs on
-  scroll.
+- **Reveals.** Two, and no more. The field draws itself in, and one reveal utility carries a
+  named list of blocks: twenty pixels up and into view over 280ms on
+  `cubic-bezier(0.4, 0, 0.6, 1)`, fired once by an IntersectionObserver when the block's top
+  crosses the line 15% into the viewport, then unobserved. Children of a group stagger by
+  80ms to a maximum of five. `will-change` goes on for the animation and comes off after.
+  The list is section headings, the mission panel, the destination block and the founding
+  friends block. Never body copy, the field, the reel, the nav, the strip or the hero, and
+  never applied globally. Everything is server rendered and visible; the start state is CSS
+  behind a gate the inline script sets before first paint only when motion is allowed, and
+  that gate drops itself if the runtime never lands, so a failed bundle leaves the page
+  visible rather than blank. Reduced motion arms nothing: no gate, no observer, final state.
+  Nothing else fades, slides or scrubs on scroll.
 - **Buttons.** Hover is a press darkening (`.btn`, brightness 0.9, 0.82 when pressed);
   nothing fades on hover.
 
