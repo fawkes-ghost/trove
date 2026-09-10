@@ -10,7 +10,7 @@ export function Enter({ escape }: { escape: Escape }) {
   return (
     <section id="enter" className="rule-t section">
       <div className="max-w-[52rem]">
-        <h2 className="display text-balance text-[2rem] md:text-[2.75rem]">Enter.</h2>
+        <h2 data-reveal="item" className="display text-balance text-[2rem] md:text-[2.75rem]">Enter.</h2>
         <p className="mt-6 max-w-[40rem] text-lg" data-answer>
           A single entry is {gbp(escape.entry.price)}, and bundles are {escape.entry.bundles.filter((b) => b.entries > 1).map((b) => `${numberWord(b.entries)} for ${gbp(b.price)}`).join(' and ')}, paid online or free by post.
         </p>

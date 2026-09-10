@@ -13,7 +13,7 @@ export function Destination({ escape }: { escape: Escape }) {
   return (
     <section id="destination" className="rule-t">
       <div className="section">
-        <div className="max-w-[40rem]">
+        <div className="max-w-[40rem]" data-reveal="item">
           <h2 className="display text-balance text-[2rem] md:text-[2.75rem]">{escape.destination}.</h2>
           <p className="mt-6 text-lg" data-answer>
             This escape is {numberWord(escape.nights)} nights in {escape.destination}, at {venueLine(escape)}.
