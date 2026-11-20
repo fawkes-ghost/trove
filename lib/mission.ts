@@ -5,4 +5,4 @@ import { percent } from '@/lib/format';
 export const missionKicker = 'Why we do this.';
 export const missionStatement = 'We hand extraordinary escapes to ordinary people, fairly, and leave the places they visit better than we found them.';
 export const missionGivingShare = percent(economics.charityShareOfGross);
-export const missionGivingLine = 'of every entry goes to local charities protecting the countryside you escape to.';
+export const missionGivingLine = 'of every paid entry goes to local charities protecting the countryside you escape to.';
