@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { compliance, escape, worstCaseOdds } from '@/config/prize';
-import { count } from '@/lib/format';
-import { prizeLine } from '@/lib/escapes';
+import { compliance } from '@/config/prize';
+import { freePostalRoute } from '@/lib/routes';
 import { gatePassphrase } from '@/lib/gate';
 import { Wordmark, iconSource } from '@/components/brand/Marks';
 import { ComplianceStrip } from '@/components/site/ComplianceStrip';
@@ -11,28 +10,35 @@ import { signposting } from '@/lib/routes';
 
 export const dynamic = 'force-dynamic';
 
+// The description travels with every shared link to the holding page (Instagram, WhatsApp,
+// Messages), so it carries no figure: prize value, cap, odds and share are under review.
+const description = 'A UK prize draw for escapes, with a fixed cap on entries, odds published before you enter, and free entry by post.';
+
 export const metadata: Metadata = {
   title: 'Trove',
+  description,
+  openGraph: { title: 'Trove', description },
+  twitter: { title: 'Trove', description },
   robots: { index: false, follow: false },
 };
 
 // The page every gated route renders while GATE_PASSPHRASE is set, and the primary
-// conversion surface until launch: the marks, the kicker, one headline, the facts from
-// config, the waitlist form, the compliance strip. Snow, no film, no navigation, no link
+// conversion surface until launch: the marks, the kicker, one headline, how Trove works,
+// the waitlist form, the compliance strip. It states no figure and names no destination:
+// prize value, cap, odds and charity share are under review, and social posts send
+// people here. When the numbers are signed off the facts can read from config again. Snow, no film, no navigation, no link
 // beyond what the strip carries. proxy.ts rewrites here; with the gate off this route does
 // not exist.
 export default function HoldingPage() {
   if (!gatePassphrase()) notFound();
 
   const [first, second] = compliance.dcmsVoluntaryCode.signposting;
-  const headline = `A UK prize draw for escapes. ${escape.charity.localityStatement}`;
+  const headline = 'A UK prize draw for escapes, with the odds published before you enter.';
 
   const facts = [
-    prizeLine(escape),
-    `Entries are capped at ${count(escape.cap)}, paid and postal together.`,
-    `Worst-case odds of ${worstCaseOdds(escape)} with one entry.`,
+    'Every draw has a fixed cap on entries, paid and postal together. It never moves, so you know your worst-case odds before you enter.',
+    'A share of every paid entry goes to causes where the escape is. We publish what was given after every draw.',
     ...(compliance.noRollover ? ['One winner is guaranteed.'] : []),
-    'Founding friends hear first when entries open.',
   ];
 
   return (
@@ -51,6 +57,14 @@ export default function HoldingPage() {
                 {fact}
               </li>
             ))}
+            <li className="rule-t py-3 text-lg">
+              Free entry by post, with identical odds, inside the same cap.{' '}
+              <a href={freePostalRoute} className="underline underline-offset-4">
+                How to enter by post
+              </a>
+              .
+            </li>
+            <li className="rule-t py-3 text-lg">Founding friends hear first when entries open.</li>
           </ul>
           <div className="mt-10 rule-t pt-8">
             <p className="text-lg font-medium">Be a founding friend.</p>
