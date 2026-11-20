@@ -31,8 +31,10 @@ PR so the other is updated the same day.
    routes, filenames and commit messages. No countdown timers, no "win now", no
    strikethrough pricing. Plain and specific: the imagery carries the aspiration, the
    words carry the facts.
-4. **The logo is kept.** Wordmark and icon SVGs live in `public/brand/` and are used
-   as inline SVG so they can animate. Do not redraw them.
+4. **The logo is the Low sun kit** (chosen 20 November 2026; masters in the project's
+   `brand-round-five/trove-low-sun-kit/`). Wordmark and icon SVGs live in `public/brand/`
+   and are used as inline SVG so they can animate. Do not redraw them. The sun is the o,
+   so the wordmark and the tile never appear side by side.
 5. **Client components receive values, never the config object.** A client component
    that takes `escape` serialises every config field into the page payload, including
    fields not rendered in copy.
@@ -44,8 +46,12 @@ library afterthought. Reference: spacetime.nl, where the motion is the site. Tro
 differs in one way: it must also deliver facts (prize, price, odds, where the money
 goes), so motion carries the visitor to the facts and then gets out of the way.
 
-- One memorable moment per page. On the home page it is the logo: the disc rises
-  through the ridgeline on first paint as the film brightens, then the ledger types in.
+- One memorable moment per page. On the home page it is the horizon: the line draws
+  across under the film and the sun rises onto it, half set, like the o in the wordmark.
+- Palette (Low sun, daylight): page `#F7F8F5`, alternate band `#EEF0EA`, text deep loch
+  `#142520`, loch `#1F3A33` for the few dark blocks, sun `#E9A23B` as a fill only (never
+  text on a light ground), mist `#B9C7C1` for quiet marks. Fraunces display, Instrument
+  Sans body and UI, IBM Plex Mono for the ledger and compliance strip only.
 - Respect `prefers-reduced-motion` with a still version of every moment.
 - Photography and film do the selling. Licensed footage only. No AI-generated venue
   imagery, ever.
