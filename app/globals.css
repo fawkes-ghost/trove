@@ -276,3 +276,23 @@ html[data-reveal="on"] [data-reveal="group"] > *:not([data-reveal-state]) {
     scroll-behavior: auto !important;
   }
 }
+
+/* The reel's story segment: fills left to right while a still is shown. */
+@keyframes trove-reel-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.reel-fill {
+  animation-name: trove-reel-fill;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+/* The join bar steps aside while the cookie banner holds the foot of the screen. */
+html[data-consent="open"] .join-bar {
+  display: none;
+}
