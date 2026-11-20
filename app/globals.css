@@ -316,3 +316,30 @@ html[data-consent="open"] .join-bar {
 html[data-motion="full"] .field-halo {
   animation: trove-halo 2.4s ease-in-out infinite;
 }
+
+/* The sun seal: tap the sun and it dips below the horizon and rises again. Two keyframe
+   names alternate so every tap restarts the animation without remounting the button. */
+@keyframes trove-sun-dip-a {
+  0% { transform: translate(-50%, 50%); }
+  45% { transform: translate(-50%, 105%); }
+  100% { transform: translate(-50%, 50%); }
+}
+@keyframes trove-sun-dip-b {
+  0% { transform: translate(-50%, 50%); }
+  45% { transform: translate(-50%, 105%); }
+  100% { transform: translate(-50%, 50%); }
+}
+html[data-motion="full"] .sun-seal[data-turn="a"] {
+  animation: trove-sun-dip-a 0.9s cubic-bezier(0.5, 0, 0.2, 1) both;
+}
+html[data-motion="full"] .sun-seal[data-turn="b"] {
+  animation: trove-sun-dip-b 0.9s cubic-bezier(0.5, 0, 0.2, 1) both;
+}
+@keyframes trove-sun-line {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: none; }
+}
+html[data-motion="full"] .sun-line {
+  display: inline-block;
+  animation: trove-sun-line 0.4s ease 0.4s both;
+}
