@@ -296,3 +296,23 @@ html[data-reveal="on"] [data-reveal="group"] > *:not([data-reveal-state]) {
 html[data-consent="open"] .join-bar {
   display: none;
 }
+
+/* The halo around your mark in the odds field. */
+.field-halo {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@keyframes trove-halo {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 0.45;
+  }
+}
+html[data-motion="full"] .field-halo {
+  animation: trove-halo 2.4s ease-in-out infinite;
+}
