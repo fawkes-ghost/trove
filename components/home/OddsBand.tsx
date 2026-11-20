@@ -11,7 +11,7 @@ export function OddsBand({ escape = hampshire }: { escape?: Escape }) {
   const figures = [
     { figure: count(escape.cap), caption: 'entries in the cap, never more.' },
     { figure: worstCaseOdds(escape), caption: 'worst-case odds with one entry.' },
-    { figure: percent(escape.charity.shareOfGross), caption: `of every entry to ${escape.destination} causes.` },
+    { figure: percent(escape.charity.shareOfGross), caption: `of every paid entry to ${escape.destination} causes.` },
   ];
   return (
     <section id="odds-band" className="section-half bg-ink text-snow">

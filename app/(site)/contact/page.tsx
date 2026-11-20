@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { compliance } from '@/config/prize';
+import { organisation } from '@/config/organisation';
 import { contactEmail } from '@/lib/site';
 import { ComplianceStrip } from '@/components/site/ComplianceStrip';
 
@@ -9,10 +9,11 @@ export const metadata: Metadata = {
   alternates: { canonical: '/contact' },
 };
 
-// Email, postal address and response time. The address reads the same one config field the
-// postal route uses, so it appears the day the registered office exists.
+// Email, postal address and response time. The address is the registered office from
+// config/organisation.ts.
 export default function ContactPage() {
-  const address = compliance.freePostalRoute.address;
+  const office = organisation.address;
+  const address = office && organisation.legalName ? [organisation.legalName, office.streetAddress, office.addressLocality, office.postalCode].join('\n') : null;
   return (
     <main>
       <section className="page">
@@ -33,7 +34,7 @@ export default function ContactPage() {
                 {address ? (
                   <p className="whitespace-pre-line">{address}</p>
                 ) : (
-                  <p data-placeholder="address">The postal address is published here as soon as the registered office exists.</p>
+                  <p data-placeholder="address">The postal address is published here before entries open.</p>
                 )}
               </dd>
             </div>

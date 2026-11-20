@@ -3,8 +3,14 @@
 // lives in lib/site.ts and is read from there.
 export const organisation = {
   name: 'Trove',
-  legalName: null as string | null,          // the registered company name, on incorporation
-  address: null as null | {                  // the registered office, on incorporation
+  legalName: 'Trove Wild Limited' as string | null, // the registered company name
+  companyNumber: '17524782' as string | null,     // Companies House, England and Wales
+  address: {                                 // the registered office, as filed at Companies House
+    streetAddress: 'Suite 54, 101 Clapham High Street',
+    addressLocality: 'London',
+    postalCode: 'SW4 7TB',
+    addressCountry: 'GB',
+  } as null | {
     streetAddress: string;
     addressLocality: string;
     postalCode: string;
@@ -17,7 +23,7 @@ export const organisation = {
     tiktok: null as string | null,
     linkedin: null as string | null,
     trustpilot: null as string | null,
-    companiesHouse: null as string | null,
+    companiesHouse: 'https://find-and-update.company-information.service.gov.uk/company/17524782' as string | null,
   },
   // The footer's social and review slots, in order. Text until a handle exists; the day
   // one does, set it here and the footer links it without a copy change. The link goes
