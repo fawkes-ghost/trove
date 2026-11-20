@@ -343,3 +343,12 @@ html[data-motion="full"] .sun-line {
   display: inline-block;
   animation: trove-sun-line 0.4s ease 0.4s both;
 }
+
+/* The footer wordmark fills the width at every size. */
+.footer-wordmark {
+  height: auto !important;
+}
+.footer-wordmark > svg {
+  width: 100%;
+  height: auto;
+}

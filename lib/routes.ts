@@ -12,7 +12,7 @@ export const routes = {
     { label: 'How it works', href: '/how-it-works' },
     { label: 'Why Trove', href: '/why' },
     { label: 'Free entry by post', href: '/free-entry-by-post' },
-    { label: 'Journal', href: '/journal' },
+    // The journal joins this list with its first piece; until then it is not linked or indexed.
     { label: 'Contact', href: '/contact' },
   ] satisfies Route[],
   legal: [

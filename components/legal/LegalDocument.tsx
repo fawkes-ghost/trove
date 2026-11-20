@@ -5,7 +5,7 @@ type Heading = { id: string; text: string };
 // Two columns above 900px: a sticky contents column from the document's headings, the
 // document at a measure under 70 characters. Below 900px the contents collapse into a
 // disclosure at the top.
-export function LegalDocument({ title, updated, headings, children }: { title: string; updated: string; headings: Heading[]; children: ReactNode }) {
+export function LegalDocument({ title, updated, headings, children }: { title: string; updated?: string; headings: Heading[]; children: ReactNode }) {
   const contents = (
     <ol className="flex flex-col gap-2 text-sm">
       {headings.map((heading) => (
@@ -33,7 +33,7 @@ export function LegalDocument({ title, updated, headings, children }: { title: s
         </aside>
         <article className="legal">
           <h1 className="display text-balance text-[2.5rem] md:text-[3.5rem]">{title}</h1>
-          <p className="mt-4 font-mono text-[11px] text-ink/60">{updated}</p>
+          {updated ? <p className="mt-4 font-mono text-[11px] text-ink/60">{updated}</p> : null}
           {children}
         </article>
       </div>
