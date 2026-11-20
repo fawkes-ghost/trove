@@ -12,3 +12,13 @@ export function shareCopy(e: Escape, path = '/') {
     url: `${siteUrl}${path}`,
   };
 }
+
+// The holding page's share words. Every gated link lands on the holding page, which states
+// no figure and names no destination, so neither do these.
+export function holdingShareCopy() {
+  return {
+    title: 'Trove.',
+    text: 'A UK prize draw for escapes, with the odds published before you enter. Who would you take?',
+    url: `${siteUrl}/`,
+  };
+}

@@ -36,7 +36,7 @@ const plexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: { default: 'Trove', template: '%s · Trove' },
-  description: `A UK luxury travel prize draw. One escape per draw, a cap on entries, published odds. ${escape.charity.localityStatement}`,
+  description: 'A UK luxury travel prize draw. One escape per draw, a fixed cap on entries, odds published before you enter, and free entry by post.',
   alternates: { canonical: '/' },
   openGraph: { siteName: 'Trove', type: 'website', locale: 'en_GB' },
   twitter: { card: 'summary_large_image' },

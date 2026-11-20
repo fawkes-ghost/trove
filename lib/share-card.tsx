@@ -93,3 +93,24 @@ export async function shareCard(e: Escape): Promise<ImageResponse> {
     { ...shareCardSize, fonts: fonts.length ? fonts : undefined },
   );
 }
+
+// The figure-free card: the wordmark on daylight over the loch horizon. Used while the gate
+// is on, because every gated link resolves to the holding page, which states no figure.
+export function logoCard(): ImageResponse {
+  const { viewBox, paths } = wordmarkPaths();
+  const [, , w, h] = viewBox.split(' ').map(Number);
+  const height = 170;
+  return new ImageResponse(
+    (
+      <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: DAYLIGHT }}>
+        <svg viewBox={viewBox} height={height} width={Math.round((height * w) / h)}>
+          {paths.map((p, index) => (
+            <path key={index} d={p.d} fill={p.fill} />
+          ))}
+        </svg>
+        <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: 18, background: LOCH }} />
+      </div>
+    ),
+    shareCardSize,
+  );
+}
