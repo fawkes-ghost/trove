@@ -18,14 +18,14 @@ type Props = {
   odds: string;
 };
 
-// The one fixed bar on the page, with two states. At the top of the page: the logo and
-// wordmark on the left, the nav in the centre, the call to action on the right, over the
-// film or on snow. Once the hero (or, on a page without one, the heading) has left the
-// viewport: ink, the logo tile alone on the left, the prize line and the odds in the
+// The one fixed bar on the page, with two states. At the top of the page: the wordmark on
+// the left, the nav in the centre, the call to action on the right, on the light page.
+// Once the hero (or, on a page without one, the heading) has left the viewport: frosted
+// daylight, the logo tile alone on the left, the prize line and the odds in the
 // centre, and the same call to action on the right, the same element throughout. The
 // centre is a grid column that owns its width: the odds drop first when it is tight,
 // then the prize line shortens to the value alone, and nothing ever runs under the logo.
-// Below 900px the same two states run without the call to action: the tile and the wordmark
+// Below 900px the same two states run without the call to action: the wordmark
 // at the top, the tile alone once scrolled. One line either way, so the band never changes
 // height. The nav trigger is in the top right at every width, so the full route list is one
 // tap away even where the nav links are shown. Nothing is ever fixed to the foot of the
@@ -55,14 +55,18 @@ export function HeaderShell({ iconSvg, wordmarkSvg, primary, groups, prize, priz
 
   return (
     <header
-      className={`site-header fixed inset-x-0 top-0 z-40 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-6 px-6 py-3 md:px-10 min-[900px]:py-4 ${scrolled ? 'on-film bg-ink text-snow' : ''}`}
+      className="site-header fixed inset-x-0 top-0 z-40 grid h-16 grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-6 px-6 md:px-10 min-[900px]:h-[4.5rem]"
       data-header={scrolled ? 'scrolled' : 'top'}
     >
       <Link href="/" className="flex items-center gap-[10px]" aria-label="Trove home">
-        <span className="brand-mark brand-icon header-icon block h-10 min-[900px]:h-7" dangerouslySetInnerHTML={{ __html: iconSvg }} />
-        {/* The wordmark's own class sets display, so its visibility lives on a wrapper. */}
-        <span className={`h-[22px] ${scrolled ? 'hidden' : 'block'}`}>
-          <span className="brand-mark h-[22px]" dangerouslySetInnerHTML={{ __html: wordmarkSvg }} />
+        {/* The sun is the o, so the wordmark stands alone at the top and the tile stands
+            alone once scrolled: never both, or the sun appears twice. The marks' own class
+            sets display, so visibility lives on the wrappers. */}
+        <span className={`h-9 min-[900px]:h-8 ${scrolled ? 'block' : 'hidden'}`}>
+          <span className="brand-mark brand-icon header-icon h-9 min-[900px]:h-8" dangerouslySetInnerHTML={{ __html: iconSvg }} />
+        </span>
+        <span className={`h-[26px] min-[900px]:h-[30px] ${scrolled ? 'hidden' : 'block'}`}>
+          <span className="brand-mark h-[26px] min-[900px]:h-[30px]" dangerouslySetInnerHTML={{ __html: wordmarkSvg }} />
         </span>
       </Link>
 
@@ -71,7 +75,7 @@ export function HeaderShell({ iconSvg, wordmarkSvg, primary, groups, prize, priz
           <p className="flex min-w-0 items-baseline gap-6 whitespace-nowrap text-sm" data-header-centre="prize">
             <span className="hidden @[24rem]:inline">{prize}</span>
             <span className="@[24rem]:hidden">{prizeValue}</span>
-            <span className="hidden font-mono text-[13px] text-snow/80 @[38rem]:inline" data-header-odds>
+            <span className="hidden font-mono text-[13px] text-ink/70 @[38rem]:inline" data-header-odds>
               {odds}
             </span>
           </p>
@@ -86,7 +90,7 @@ export function HeaderShell({ iconSvg, wordmarkSvg, primary, groups, prize, priz
         )}
       </div>
       <div className="col-start-3 flex items-center gap-5">
-        <WaitlistLink className={`btn hidden h-10 items-center px-4 text-sm font-medium min-[900px]:inline-flex ${scrolled ? 'bg-accent text-ink' : 'border border-current'}`} data-header-cta>
+        <WaitlistLink className={`btn hidden h-10 items-center px-4 text-sm font-medium min-[900px]:inline-flex ${scrolled ? 'bg-sun text-ink' : 'border border-current'}`} data-header-cta>
           Secure your place
         </WaitlistLink>
         <Menu groups={groups} />

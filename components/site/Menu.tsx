@@ -68,7 +68,7 @@ export function Menu({ groups }: { groups: Groups }) {
           <motion.nav
             id={id}
             aria-label="Site"
-            className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-ink px-6 pt-28 pb-8 text-snow md:px-10"
+            className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-loch px-6 pt-28 pb-8 text-snow md:px-10"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -129,7 +129,7 @@ function MenuGroup({
               href={route.href}
               onClick={onNavigate}
               ref={index === 0 ? firstRef : undefined}
-              className="display text-[2rem] leading-tight hover:text-accent md:text-[2.5rem]"
+              className="display text-[2rem] leading-tight hover:text-sun md:text-[2.5rem]"
             >
               {route.label}
             </Link>
