@@ -7,6 +7,7 @@ import { gatePassphrase } from '@/lib/gate';
 import { Icon, Wordmark, iconSource } from '@/components/brand/Marks';
 import { ComplianceStrip } from '@/components/site/ComplianceStrip';
 import { WaitlistForm } from '@/components/waitlist/WaitlistForm';
+import { signposting } from '@/lib/routes';
 
 export const dynamic = 'force-dynamic';
 
@@ -23,6 +24,7 @@ export const metadata: Metadata = {
 export default function HoldingPage() {
   if (!gatePassphrase()) notFound();
 
+  const [first, second] = compliance.dcmsVoluntaryCode.signposting;
   const headline = `A UK prize draw for escapes. ${escape.charity.localityStatement}`;
 
   const facts = [
@@ -62,6 +64,21 @@ export default function HoldingPage() {
 
       <div className="rule-t py-3">
         <ComplianceStrip className="text-ink/75" />
+        <p className="mt-2 font-mono text-[11px] leading-relaxed text-ink/75" data-signposting>
+          Please play responsibly. Support from{' '}
+          <a href={signposting[first]} rel="noopener" className="underline underline-offset-4">
+            {first}
+          </a>{' '}
+          and{' '}
+          <a href={signposting[second]} rel="noopener" className="underline underline-offset-4">
+            {second}
+          </a>
+          .{' '}
+          <a href="/legal/playing-responsibly" className="underline underline-offset-4">
+            Playing responsibly
+          </a>
+          .
+        </p>
       </div>
     </main>
   );
