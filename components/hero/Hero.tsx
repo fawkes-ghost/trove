@@ -4,6 +4,8 @@ import { prizeLine } from '@/lib/escapes';
 import { ComplianceStrip } from '@/components/site/ComplianceStrip';
 import { HeroFilm } from './HeroFilm';
 import { WaitlistLink } from './WaitlistLink';
+import { ShareButton } from '@/components/share/ShareButton';
+import { shareCopy } from '@/lib/share';
 
 // The horizon hero. The film sits above a loch green horizon line and the sun sits on that
 // line, half set, the same construction as the o in the wordmark. The facts sit below the
@@ -12,7 +14,7 @@ import { WaitlistLink } from './WaitlistLink';
 // (CSS only, see app/globals.css); reduced motion shows the final state. Every figure is
 // read from config and the venue is unnamed until permission exists. The escape page passes
 // its own headline so it does not repeat the home hero.
-export function Hero({ escape = hampshire, headline }: { escape?: Escape; headline?: string }) {
+export function Hero({ escape = hampshire, headline, path = '/' }: { escape?: Escape; headline?: string; path?: string }) {
   const venueLine =
     escape.venue.name && escape.venue.permissionGranted
       ? `Win an escape to ${escape.venue.name}.`
@@ -42,9 +44,12 @@ export function Hero({ escape = hampshire, headline }: { escape?: Escape; headli
           <div className="flex flex-col items-start gap-4 min-[900px]:pt-9">
             <p className="text-base md:text-lg">{prizeLine(escape)}</p>
             <p className="rounded-2xl border border-mist px-3 py-1.5 text-[13px] md:rounded-full md:text-sm">{chip}</p>
-            <WaitlistLink className="btn mt-1 inline-flex w-full items-center justify-center bg-sun px-7 py-3.5 text-base font-medium text-ink min-[900px]:w-auto">
-              Secure your place
-            </WaitlistLink>
+            <div className="mt-1 flex w-full flex-col gap-2.5 min-[900px]:w-auto min-[900px]:flex-row min-[900px]:items-center min-[900px]:gap-3">
+              <WaitlistLink className="btn inline-flex w-full items-center justify-center bg-sun px-7 py-3.5 text-base font-medium text-ink min-[900px]:w-auto">
+                Secure your place
+              </WaitlistLink>
+              <ShareButton {...shareCopy(escape, path)} placement="hero" className="w-full border border-ink/25 px-6 py-3.5 text-base font-medium hover:border-ink min-[900px]:w-auto" />
+            </div>
             <p className="text-sm text-ink/70">Founding friends enter first, before the public.</p>
             {/* The significant conditions sit directly under the call to action, so they are
                 on screen whenever it is. */}
