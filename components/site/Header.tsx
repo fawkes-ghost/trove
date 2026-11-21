@@ -2,7 +2,7 @@ import { escape as hampshire, worstCaseOdds, type Escape } from '@/config/prize'
 import { count, gbp } from '@/lib/format';
 import { prizeLineShort } from '@/lib/escapes';
 import { routes, freePostalRoute } from '@/lib/routes';
-import { iconSource, wordmarkSource } from '@/components/brand/Marks';
+import { wordmarkSource } from '@/components/brand/Marks';
 import { HeaderShell } from './HeaderShell';
 
 // The primary routes, shown in the header from 900px up. Below that the hamburger overlay
@@ -21,7 +21,6 @@ export function Header({ escape = hampshire, entriesTaken = 0 }: { escape?: Esca
   const odds = escape.status === 'open' ? `${count(entriesTaken)} of ${count(escape.cap)} entries taken.` : `${worstCaseOdds(escape)} worst case.`;
   return (
     <HeaderShell
-      iconSvg={iconSource()}
       wordmarkSvg={wordmarkSource()}
       primary={primary}
       groups={routes}

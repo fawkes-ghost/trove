@@ -8,7 +8,6 @@ import { WaitlistLink } from '@/components/hero/WaitlistLink';
 import { Menu } from './Menu';
 
 type Props = {
-  iconSvg: string;
   wordmarkSvg: string;
   primary: Route[];
   groups: { escapes: Route[]; information: Route[]; legal: Route[] };
@@ -30,7 +29,7 @@ type Props = {
 // height. The nav trigger is in the top right at every width, so the full route list is one
 // tap away even where the nav links are shown. Nothing is ever fixed to the foot of the
 // screen.
-export function HeaderShell({ iconSvg, wordmarkSvg, primary, groups, prize, prizeValue, odds }: Props) {
+export function HeaderShell({ wordmarkSvg, primary, groups, prize, prizeValue, odds }: Props) {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
@@ -59,11 +58,9 @@ export function HeaderShell({ iconSvg, wordmarkSvg, primary, groups, prize, priz
       data-header={scrolled ? 'scrolled' : 'top'}
     >
       <Link href="/" className="flex items-center gap-[10px]" aria-label="Trove home">
-        <span className="brand-mark brand-icon header-icon block h-10 min-[900px]:h-7" dangerouslySetInnerHTML={{ __html: iconSvg }} />
-        {/* The wordmark's own class sets display, so its visibility lives on a wrapper. */}
-        <span className={`h-[22px] ${scrolled ? 'hidden' : 'block'}`}>
-          <span className="brand-mark h-[22px]" dangerouslySetInnerHTML={{ __html: wordmarkSvg }} />
-        </span>
+        {/* trove X: the wordmark alone, at the top and once scrolled. The t tile beside it
+            would say the name twice, and the X is never shown on its own. */}
+        <span className="brand-mark h-6 min-[900px]:h-[26px]" dangerouslySetInnerHTML={{ __html: wordmarkSvg }} />
       </Link>
 
       <div className="@container hidden min-w-0 justify-center min-[900px]:flex">

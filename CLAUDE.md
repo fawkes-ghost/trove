@@ -31,8 +31,11 @@ PR so the other is updated the same day.
    routes, filenames and commit messages. No countdown timers, no "win now", no
    strikethrough pricing. Plain and specific: the imagery carries the aspiration, the
    words carry the facts.
-4. **The logo is kept.** Wordmark and icon SVGs live in `public/brand/` and are used
-   as inline SVG so they can animate. Do not redraw them.
+4. **The logo is trove X** (chosen 21 November 2026): bold lowercase "trove" with a gold
+   X as the full stop. Masters are in the project's `brand-round-seven/trove-x-logo-kit/`.
+   Wordmark and icon SVGs live in `public/brand/` and are used as inline SVG. Do not
+   redraw them. Never use the X on its own as an icon or avatar: alone it reads as the
+   X (Twitter) logo.
 5. **Client components receive values, never the config object.** A client component
    that takes `escape` serialises every config field into the page payload, including
    fields not rendered in copy.

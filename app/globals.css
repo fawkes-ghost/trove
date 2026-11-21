@@ -321,3 +321,9 @@ html[data-reveal="on"] [data-reveal="group"] > *:not([data-reveal-state]) {
     scroll-behavior: auto !important;
   }
 }
+
+/* trove X: the sun-disc logo moment has no disc to raise in the new icon, so its tile
+   curtain is not shown and the page opens in its still version. */
+.curtain {
+  display: none !important;
+}
