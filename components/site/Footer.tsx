@@ -107,8 +107,9 @@ export function Footer() {
           </p>
         ) : null}
       </div>
-      {/* The wordmark set large, the sun in its own colour on the loch. */}
-      <div className="overflow-hidden px-6 pb-6 md:px-10" aria-hidden="true">
+      {/* The wordmark as big as the page allows: edge to edge, sitting on the foot of the
+          page, the sun in its own colour on the loch. */}
+      <div className="overflow-hidden px-1 pt-6 md:px-2" aria-hidden="true">
         <Wordmark height={180} className="footer-wordmark block w-full text-snow" />
       </div>
     </footer>
