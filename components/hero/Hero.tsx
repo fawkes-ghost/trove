@@ -44,7 +44,7 @@ export function Hero({ escape = hampshire, headline, path = '/' }: { escape?: Es
             {/* The promise, Rigged-plain: the price and the odds in the first sentence. */}
             <p className="text-lg leading-snug md:text-xl" data-promise>
               {prizeLine(escape)} <strong className="font-semibold">{gbp(escape.entry.price)} an entry</strong>, and never more than{' '}
-              <strong className="font-semibold">{count(escape.cap)} entries</strong>, so your worst-case odds are{' '}
+              <strong className="font-semibold">{count(escape.cap)} entries</strong>, so your chance is at least{' '}
               <strong className="font-semibold whitespace-nowrap">{worstCaseOdds(escape)}</strong>.
             </p>
             {compliance.noRollover ? <p className="rounded-full border border-mist px-3 py-1.5 text-sm">One winner is guaranteed.</p> : null}
@@ -58,7 +58,7 @@ export function Hero({ escape = hampshire, headline, path = '/' }: { escape?: Es
               </Link>
             </div>
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-ink/70">
-              <span>Founding friends enter first, before the public.</span>
+              <span>Founding friends can enter before anyone else.</span>
               <ShareButton {...shareCopy(escape, path)} placement="hero" className="text-sm font-medium text-ink underline decoration-ink/30 underline-offset-4 hover:decoration-ink" />
             </div>
             {/* The significant conditions sit directly under the call to action, so they are

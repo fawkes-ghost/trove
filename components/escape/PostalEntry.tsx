@@ -10,7 +10,7 @@ export function PostalEntry({ escape }: { escape: Escape }) {
       <div className="max-w-[40rem]">
         <h2 data-reveal="item" className="display text-balance text-[2rem] md:text-[2.75rem]">Free entry by post.</h2>
         <p className="mt-6 text-lg">
-          Anyone aged {compliance.minimumAge} or over and resident in the {compliance.residency} can enter by post for free. Each postcard is one entry with identical odds inside the same cap of {count(escape.cap)}, and the route closes when the cap is reached or at the longstop date, never earlier.{' '}
+          If you’re {compliance.minimumAge} or over and live in the {compliance.residency}, you can enter free by sending a postcard. Each postcard is one entry, with the same chance as a paid one, and postal entries close at the same moment as paid ones.{' '}
           <Link href={freePostalRoute} className="underline underline-offset-4">
             How to enter by post
           </Link>

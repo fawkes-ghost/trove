@@ -6,7 +6,7 @@ import { headingsOf } from '@/lib/legal';
 
 export const metadata: Metadata = {
   title: 'Playing responsibly',
-  description: 'Limits, suspension and closure, and where to find support.',
+  description: 'Set a spending limit, take a break or close your account, and where to get free support.',
   alternates: { canonical: '/legal/playing-responsibly' },
 };
 

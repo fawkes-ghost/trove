@@ -6,7 +6,7 @@ import { draftLabel, launch } from '@/config/launch';
 
 export const metadata: Metadata = {
   title: 'Privacy',
-  description: 'How Trove collects, uses and protects personal data, and your rights.',
+  description: 'What personal details Trove collects, why, who sees them, and your rights.',
   alternates: { canonical: '/legal/privacy' },
 };
 

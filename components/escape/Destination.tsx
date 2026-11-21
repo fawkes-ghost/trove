@@ -20,22 +20,22 @@ export function Destination({ escape }: { escape: Escape }) {
           </p>
           <div className="mt-6 flex flex-col gap-5 text-lg">
             <p>
-              {escape.destination} in winter is a county of chalk streams and short days. The Test and the Itchen run clear and cold through water meadows that flood and freeze, and the downs above them are bare enough to see the shape of the land.
+              {escape.destination} in winter means chalk streams and short days. The Test and the Itchen run clear and cold through the water meadows, and from the downs above you can see for miles.
             </p>
             <p>
-              The villages keep their pubs and their fires. Lunch takes the afternoon. Beech woods hold the last of the light until four, and the lanes empty once the dog walkers have gone home.
+              The villages still have their pubs and their fires, and lunch can take all afternoon.
             </p>
             <p>
-              This escape is {numberWord(escape.nights)} nights at {venueLine(escape)}, with breakfast each morning and {gbp(escape.prize.cash)} in cash in your pocket for dinners, a treatment, or nothing at all.
-              {named ? null : ' The house is named the moment we have its permission to name it.'}
+              You get {numberWord(escape.nights)} nights at {venueLine(escape)}, breakfast every morning, and {gbp(escape.prize.cash)} in cash to spend however you like.
+              {named ? null : ' We’ll name the house as soon as it gives us permission.'}
             </p>
             {named && escape.venue.description ? <p>{escape.venue.description}</p> : null}
-            <p>Bring boots, a book and your favourite person. The county does the rest.</p>
+            <p>Bring boots and someone you like.</p>
           </div>
         </div>
       </div>
       <div className="rule-t">
-        <Reel stills={reelStills(escape)} label={`Licensed stills of the ${escape.destination} escape.`} />
+        <Reel stills={reelStills(escape)} label={`Pictures of ${escape.destination}.`} />
       </div>
     </section>
   );

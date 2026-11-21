@@ -6,7 +6,7 @@ import { headingsOf } from '@/lib/legal';
 
 export const metadata: Metadata = {
   title: 'Significant conditions',
-  description: 'The significant conditions of every Trove draw, one click from every promotional surface.',
+  description: 'The key terms of every Trove draw on one page: who can enter, the prize, your chances, free entry by post and how the winner is chosen.',
   alternates: { canonical: '/legal/significant-conditions' },
 };
 

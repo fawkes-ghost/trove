@@ -6,7 +6,7 @@ import { draftLabel, launch } from '@/config/launch';
 
 export const metadata: Metadata = {
   title: 'Cookies',
-  description: 'What Trove stores in your browser, and the analytics cookie it sets only after you accept.',
+  description: 'What Trove stores in your browser, and the analytics cookies it sets only if you say yes.',
   alternates: { canonical: '/legal/cookies' },
 };
 
