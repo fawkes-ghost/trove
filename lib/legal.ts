@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { compliance, economics, escape, spendCeiling, worstCaseOdds } from '@/config/prize';
-import { count, gbp, numberWord, sentenceCase } from '@/lib/format';
+import { count, gbp, numberWord, percent, sentenceCase } from '@/lib/format';
 import { signposting } from '@/lib/routes';
 import { slug } from '@/lib/slug';
 import { contactEmail } from '@/lib/site';
@@ -9,8 +9,6 @@ import { organisation } from '@/config/organisation';
 
 // Every figure the legal documents state, read from config. The MDX files import this and
 // never type a number.
-const pence = Math.round(economics.charityShareOfGross * 100);
-
 // The promoter as the legal documents name it, built from config/organisation.ts so the
 // company's details are written in one place.
 function promoterLine(): string {
@@ -41,11 +39,10 @@ export const t = {
   stayValidMonths: String(escape.prize.stayValidMonths),
   stayWindow: escape.prize.stayWindow,
   longstopDays: String(escape.cadence.longstopDays),
-  charityPence: `${sentenceCase(numberWord(pence))} pence`,
-  charityShare: `${pence} per cent`,
+  charityShare: percent(economics.charityShareOfGross),
   beneficiary: escape.charity.beneficiary ?? 'a partner named once the agreement is signed',
-  // The giving line in the pence form the legal documents keep; the site reads localityStatement.
-  givingLine: `${sentenceCase(numberWord(pence))} pence in every pound of entry sales goes to local charities protecting the ${escape.destination} countryside.`,
+  // The same giving line the site uses, so the terms and the pages never say it two ways.
+  givingLine: `${percent(economics.charityShareOfGross)} of every paid entry goes to local charities protecting the ${escape.destination} countryside.`,
   postalAddress: compliance.freePostalRoute.address ?? 'the free entry address published on the free entry by post page before entries open',
   creditCardMonthlyCap: gbp(compliance.dcmsVoluntaryCode.creditCardMonthlyCap),
   gamCare: signposting.GamCare,
