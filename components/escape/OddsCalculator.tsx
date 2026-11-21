@@ -85,7 +85,7 @@ export function OddsCalculator({ cap, maxPerPerson, price, bundles, share, desti
             </dd>
           </div>
           <div>
-            <dt className="text-sm text-ink/70">Worst-case odds</dt>
+            <dt className="text-sm text-ink/70">Your chance, at least</dt>
             <dd className="mt-2 font-mono text-[1.75rem] leading-none md:text-[2rem]" data-odds-result>
               {oddsForEntries(held, { cap })}
             </dd>
@@ -99,7 +99,7 @@ export function OddsCalculator({ cap, maxPerPerson, price, bundles, share, desti
         </dl>
       </div>
       <p className="mt-6 max-w-[40rem] text-base text-ink/70">
-        Those are your worst-case odds with {count(held)} {held === 1 ? 'entry' : 'entries'}, if all {count(cap)} are taken. The cost takes the largest bundles first.
+        That’s your chance with {count(held)} {held === 1 ? 'entry' : 'entries'} if all {count(cap)} sell. The price uses the cheapest mix of bundles.
       </p>
     </div>
   );

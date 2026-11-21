@@ -6,7 +6,7 @@ import { ComplianceStrip } from '@/components/site/ComplianceStrip';
 
 export const metadata: Metadata = {
   title: 'Free entry by post',
-  description: 'How to enter every Trove draw for free by post, with identical odds inside the same cap.',
+  description: 'You can enter any Trove draw free by sending a postcard. Here is what to write, where to send it, and when it must arrive. Same chance of winning as a paid entry.',
   alternates: { canonical: '/free-entry-by-post' },
 };
 
@@ -21,7 +21,7 @@ export default function FreeEntryByPostPage() {
         <div className="max-w-[40rem]">
           <h1 className="display text-balance text-[2.5rem] md:text-[3.5rem]">Free entry by post.</h1>
           <p className="mt-6 text-lg">
-            No purchase is necessary. Anyone aged {compliance.minimumAge} or over and resident in the {compliance.residency} can enter any Trove draw for free by post. A postcard is one entry, with identical odds to a paid entry, inside the same cap.
+            You don’t have to pay to enter. If you’re {compliance.minimumAge} or over and live in the {compliance.residency}, you can enter any Trove draw by sending us a postcard. Each postcard is one entry, with exactly the same chance of winning as a paid one.
           </p>
         </div>
       </section>
@@ -29,14 +29,14 @@ export default function FreeEntryByPostPage() {
       <section className="page-body">
         <div className="max-w-[40rem]">
           <Block title="What to write.">
-            <p>On a postcard, in block capitals, write:</p>
+            <p>On a postcard, in capital letters, write:</p>
             <ul className="mt-3 flex list-disc flex-col gap-2 pl-6">
               <li>your full name,</li>
               <li>your email address,</li>
               <li>your date of birth,</li>
               <li>the name of the escape: the {escape.destination} escape.</li>
             </ul>
-            <p className="mt-3">One postcard per envelope. A postcard without all four is not a valid entry, and we cannot contact you about it.</p>
+            <p className="mt-3">Send one postcard per envelope. If any of the four is missing, the postcard can’t be entered and we won’t be able to tell you.</p>
           </Block>
 
           <Block title="Where to send it.">
@@ -44,7 +44,7 @@ export default function FreeEntryByPostPage() {
               <>
                 <p className="whitespace-pre-line">{address}</p>
                 {escape.status !== 'open' ? (
-                  <p className="mt-3">The postal route opens on the same day as paid entries. A postcard that arrives before then is not entered, so please wait until entries open to send it.</p>
+                  <p className="mt-3">Postal entries open on the same day as paid entries. A postcard that arrives before then won’t count, so please wait until entries open before you send it.</p>
                 ) : null}
               </>
             ) : (
@@ -54,19 +54,19 @@ export default function FreeEntryByPostPage() {
 
           <Block title="One postcard, one entry.">
             <p>
-              Each valid postcard is one entry. It is given a number in the ledger and enters the draw inside the same cap of {count(escape.cap)} as every paid entry, with exactly the same chance of being drawn. The worst-case odds for any single entry, if every entry is taken, are {worstCaseOdds(escape)}.
+              Each postcard is one entry and gets its own entry number. It counts towards the same {count(escape.cap)} entries as the paid ones and has exactly the same chance of being drawn: at least {worstCaseOdds(escape)}.
             </p>
           </Block>
 
-          <Block title="When the route closes.">
+          <Block title="When it must arrive.">
             <p>
-              The postal route closes when the cap is reached or on the longstop date we publish when entries open, whichever comes first, and never earlier. A postcard that arrives after the close is not entered. Allow time for the post.
+              Postal entries close at the same moment as paid ones: when all {count(escape.cap)} entries have gone, or on the closing date we publish when entries open, whichever comes first. A postcard that arrives after that won’t count, so allow time for the post.
             </p>
           </Block>
 
-          <Block title="The limit.">
+          <Block title="How many you can send.">
             <p>
-              The most any one person can hold in a draw is {count(escape.entry.maxPerPerson)} entries, paid and postal together. Postcards beyond the limit are not entered.
+              Each person can have up to {count(escape.entry.maxPerPerson)} entries in a draw, paid and postal together. Postcards over that number won’t count.
             </p>
           </Block>
 
@@ -75,11 +75,11 @@ export default function FreeEntryByPostPage() {
               <Link href="/legal/terms" className="underline underline-offset-4">
                 Terms
               </Link>{' '}
-              set out the postal route in detail, and the{' '}
+              explain postal entry in full, and the{' '}
               <Link href={`/escapes/${escape.slug}`} className="underline underline-offset-4">
                 {escape.destination} escape page
               </Link>{' '}
-              shows the ledger and the odds. Anything else, write to us from the{' '}
+              works out your chances. For anything else, get in touch through the{' '}
               <Link href="/contact" className="underline underline-offset-4">
                 contact page
               </Link>

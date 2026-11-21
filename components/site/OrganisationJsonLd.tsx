@@ -13,7 +13,7 @@ export function OrganisationJsonLd() {
     url: siteUrl,
     logo: { '@type': 'ImageObject', url: `${siteUrl}/brand/icon.svg` },
     // No figure here: it is on every page, the holding page included, and the share is under review.
-    description: 'A UK prize draw for escapes, with a fixed cap on entries, odds published before you enter, and a share of every paid entry for causes where the escape is.',
+    description: 'A UK prize draw for luxury escapes. A fixed number of entries so you know your chances before you enter, free entry by post, and part of every paid entry given to charities where the escape is.',
     contactPoint: [{ '@type': 'ContactPoint', email: contactEmail, contactType: 'customer service', areaServed: 'GB', availableLanguage: 'en' }],
     sameAs: sameAsLinks(),
     ...(organisation.legalName ? { legalName: organisation.legalName } : {}),

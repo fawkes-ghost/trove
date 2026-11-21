@@ -10,7 +10,7 @@ export function ComplianceStrip({ className = '' }: { className?: string }) {
       <Link href={freePostalRoute} className="underline underline-offset-4">
         Free entry by post
       </Link>{' '}
-      has identical odds inside the same cap. Read the{' '}
+      gives the same chance of winning. Read the{' '}
       <Link href={significantConditions} className="underline underline-offset-4">
         key terms
       </Link>

@@ -11,13 +11,13 @@ export function Ledger({ escape = hampshire, entriesTaken = 0 }: { escape?: Esca
   const open = escape.status === 'open';
   return (
     <div id="ledger" className="scroll-mt-24 rule-t pt-8">
-      <h3 className="display text-[1.75rem] md:text-[2rem]">Not unlimited.</h3>
+      <h3 className="display text-[1.75rem] md:text-[2rem]">A fixed number of entries.</h3>
       <p className="mt-6 font-mono text-[2.75rem] leading-none text-ink md:text-[4.5rem]">
         {open ? <TypedFigure text={`${count(entriesTaken)} of ${count(escape.cap)}`} /> : count(escape.cap)}
       </p>
-      <p className="mt-3 text-base text-ink/70">{open ? 'That is how many entries are taken so far, paid and postal together.' : 'That is every entry there will ever be in this draw, paid and postal together.'}</p>
+      <p className="mt-3 text-base text-ink/70">{open ? 'entries gone so far, paid and postal together.' : 'entries in this draw, and never more. Paid and postal together.'}</p>
       <p className="mt-6 max-w-[40rem] text-base">
-        Free postal entries count inside the same cap, with identical odds.{' '}
+        Postal entries are part of the same total, with the same chance.{' '}
         <Link href={freePostalRoute} className="underline underline-offset-4">
           Free entry by post
         </Link>

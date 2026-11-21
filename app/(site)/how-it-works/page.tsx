@@ -7,7 +7,7 @@ import { ComplianceStrip } from '@/components/site/ComplianceStrip';
 
 export const metadata: Metadata = {
   title: 'How it works',
-  description: 'Enter, we draw, you escape. The cap, the odds and the free postal route, in plain words.',
+  description: 'How Trove works: buy entries or enter free by post, we draw one winner at random, and the winner takes the escape or the cash. Your odds, before you enter.',
   alternates: { canonical: '/how-it-works' },
 };
 
@@ -20,7 +20,7 @@ export default function HowItWorksPage() {
       <section className="page-head">
         <div className="max-w-[40rem]">
           <h1 className="display text-balance text-[2.5rem] md:text-[3.5rem]">How it works.</h1>
-          <p className="mt-6 text-lg">One escape, one draw, one winner. Three steps and nothing hidden.</p>
+          <p className="mt-6 text-lg">You enter, we draw one winner, the winner goes away.</p>
         </div>
       </section>
 
@@ -28,25 +28,25 @@ export default function HowItWorksPage() {
         <ol className="max-w-[40rem]">
           <Step number={1} title="Enter.">
             <p>
-              Choose how many entries you would like and pay online, or{' '}
+              Buy entries online, or{' '}
               <Link href={freePostalRoute} className="underline underline-offset-4">
                 enter for free by post
               </Link>
-              . A single entry is {gbp(escape.entry.price)}; bundles are {escape.entry.bundles.map((b) => `${numberWord(b.entries)} for ${gbp(b.price)}`).join(', ')}. Every entry, paid or postal, goes into the same ledger with the same odds.
+              . One entry is {gbp(escape.entry.price)}, or {escape.entry.bundles.filter((b) => b.entries > 1).map((b) => `${numberWord(b.entries)} for ${gbp(b.price)}`).join(' or ')}. Paid and postal entries have exactly the same chance.
             </p>
             <p className="mt-3">
-              The most any one person can hold in a draw is {count(escape.entry.maxPerPerson)} entries, paid and postal together.
+              Each person can have up to {count(escape.entry.maxPerPerson)} entries in a draw.
             </p>
           </Step>
           <Step number={2} title="We draw.">
             <p>
-              Entries close when the cap of {count(escape.cap)} is reached, or on the longstop date we publish when entries open, whichever comes first. We never extend a closing date. One entry is then drawn at random from every entry in the ledger, and we publish the winning entry number and how it was drawn.
-              {compliance.noRollover ? ' One winner is guaranteed.' : null}
+              There are only ever {count(escape.cap)} entries. The draw happens when they have all gone, or on the closing date we publish when entries open, whichever comes first. We never move that date. We pick one entry at random from all of them, paid and postal, and publish the winning number and how it was drawn.
+              {compliance.noRollover ? ' There is always a winner.' : null}
             </p>
           </Step>
           <Step number={3} title="You escape.">
             <p>
-              We tell the winner by email. They have {escape.prize.claimWindowDays} days from the draw to choose between the escape and a cash alternative of {gbp(escape.prize.cashAlternative)}. The stay can be taken within {escape.prize.stayValidMonths} months of the claim.
+              We email the winner. They have {escape.prize.claimWindowDays} days to choose the escape or {gbp(escape.prize.cashAlternative)} in cash instead, and {escape.prize.stayValidMonths} months to take the escape.
             </p>
           </Step>
         </ol>
@@ -54,26 +54,26 @@ export default function HowItWorksPage() {
 
       <section id="odds" className="rule-t section">
         <div className="max-w-[40rem]">
-          <h2 className="display text-balance text-[2rem] md:text-[2.75rem]">The cap and the odds.</h2>
+          <h2 className="display text-balance text-[2rem] md:text-[2.75rem]">Your chances.</h2>
           <p className="mt-6 text-lg" data-answer>
-            The cap is {count(escape.cap)} entries, paid and postal together, and the worst-case odds are {worstCaseOdds(escape)} with one entry.
+            There are never more than {count(escape.cap)} entries, so one entry gives you at least a {worstCaseOdds(escape)} chance.
           </p>
           <div className="mt-10 flex flex-col gap-10 font-mono">
             <div>
               <p className="text-[2.75rem] leading-none text-accent md:text-[4rem]">{count(escape.cap)}</p>
-              <p className="mt-3 font-sans text-base text-ink/70">That is every entry there will ever be in the {escape.destination} draw, paid and postal together.</p>
+              <p className="mt-3 font-sans text-base text-ink/70">entries in the {escape.destination} draw, at most. Paid and postal together.</p>
             </div>
             <div>
               <p className="text-[2rem] leading-none md:text-[2.75rem]">{worstCaseOdds(escape)}</p>
-              <p className="mt-3 font-sans text-base text-ink/70">Those are your worst-case odds with one entry, if every entry is taken.</p>
+              <p className="mt-3 font-sans text-base text-ink/70">with one entry, if every entry sells.</p>
             </div>
             <div>
               <p className="text-[2rem] leading-none md:text-[2.75rem]">{oddsForEntries(largest.entries, escape)}</p>
-              <p className="mt-3 font-sans text-base text-ink/70">Those are your worst-case odds with {numberWord(largest.entries)} entries. Fewer entries taken means better odds for everyone in the draw.</p>
+              <p className="mt-3 font-sans text-base text-ink/70">with {numberWord(largest.entries)} entries. If fewer entries sell, everyone’s chance is better.</p>
             </div>
           </div>
           <p className="mt-10 text-base">
-            The full odds ladder and a calculator are on{' '}
+            Work out your chances for any number of entries on{' '}
             <Link href={`/escapes/${escape.slug}#odds`} className="underline underline-offset-4">
               the {escape.destination} escape page
             </Link>

@@ -5,7 +5,7 @@ import { founder, whyHeading, whyParagraphs } from '@/lib/why';
 
 export const metadata: Metadata = {
   title: 'Why Trove',
-  description: 'Why Trove exists: a fair draw for a great English escape, and something left behind where it lands.',
+  description: 'Why Trove exists: a fair chance at a stay most people would never book, with part of every paid entry going to charities where the escape is.',
   alternates: { canonical: '/why' },
 };
 

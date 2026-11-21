@@ -13,7 +13,7 @@ export const dynamic = 'force-dynamic';
 
 // The description travels with every shared link to the holding page (Instagram, WhatsApp,
 // Messages), so it carries no figure: prize value, cap, odds and share are under review.
-const description = 'A UK prize draw for escapes, with a fixed cap on entries, odds published before you enter, and free entry by post.';
+const description = 'Win a luxury escape in the UK. A fixed number of entries so you know your chances before you enter, and free entry by post.';
 
 export const metadata: Metadata = {
   title: 'Trove',
@@ -34,11 +34,11 @@ export default function HoldingPage() {
   if (!gatePassphrase()) notFound();
 
   const [first, second] = compliance.dcmsVoluntaryCode.signposting;
-  const headline = 'A UK prize draw for escapes, with the odds published before you enter.';
+  const headline = 'Win a luxury escape, and know your chances before you enter.';
 
   const facts = [
-    'Every draw has a fixed cap on entries, paid and postal together. It never moves, so you know your worst-case odds before you enter.',
-    'A share of every paid entry goes to causes where the escape is. We publish what was given after every draw.',
+    'Every draw has a fixed number of entries that never changes, so you know your chances before you enter.',
+    'Part of every paid entry goes to charities where the escape is, and we publish what we gave after every draw.',
     ...(compliance.noRollover ? ['One winner is guaranteed.'] : []),
   ];
 
@@ -59,7 +59,7 @@ export default function HoldingPage() {
               </li>
             ))}
             <li className="rule-t py-3 text-lg">
-              Free entry by post, with identical odds, inside the same cap.{' '}
+              You can enter free by post, with the same chance of winning.{' '}
               <a href={freePostalRoute} className="underline underline-offset-4">
                 How to enter by post
               </a>

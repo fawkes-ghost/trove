@@ -16,7 +16,7 @@ export function WhatYouWin({ escape }: { escape: Escape }) {
     <section id="what-you-win" className="rule-t section">
       <h2 data-reveal="item" className="display text-balance text-[2rem] md:text-[2.75rem]">What you win.</h2>
       <p className="mt-6 max-w-[40rem] text-lg" data-answer>
-        A {gbp(prize.value)} prize in two parts: the stay and the cash.
+        A {gbp(prize.value)} prize: the stay, and cash on top.
       </p>
       <ul className="mt-10 grid max-w-[64rem] gap-4 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] md:gap-6">
         <li className="relative flex min-h-[22rem] flex-col justify-end overflow-hidden rounded-3xl bg-loch text-snow">
@@ -30,12 +30,12 @@ export function WhatYouWin({ escape }: { escape: Escape }) {
           <p className="text-sm font-medium text-ink/70">The cash</p>
           <div>
             <p className="display text-[3.5rem] leading-none md:text-[4.5rem]">{gbp(prize.cash)}</p>
-            <p className="mt-3 text-lg">Paid to the winner in cash, to spend on the escape or not.</p>
+            <p className="mt-3 text-lg">Yours to spend on the trip, or on anything else.</p>
           </div>
         </li>
       </ul>
       <p className="mt-8 text-base">
-        A cash alternative is available.{' '}
+        Rather have cash instead of the stay? You can.{' '}
         <Link href="/legal/terms" className="underline underline-offset-4">
           Terms
         </Link>

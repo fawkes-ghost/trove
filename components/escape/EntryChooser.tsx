@@ -47,7 +47,7 @@ export function EntryChooser({ options, open, postal, flow }: Props) {
                 <input type="radio" name="entries" value={option.entries} checked={active} onChange={() => setSelected(index)} className="sr-only" />
                 <span className="text-base font-medium">{option.label}</span>
                 <span className="display text-[1.75rem] leading-none">{option.price}</span>
-                <span className="text-sm text-ink/70">Worst case {option.odds}</span>
+                <span className="text-sm text-ink/70">At least {option.odds}</span>
                 {active ? <span aria-hidden="true" className="absolute top-3.5 right-3.5 h-3 w-3 rounded-full bg-sun" /> : null}
               </label>
             );
@@ -56,7 +56,7 @@ export function EntryChooser({ options, open, postal, flow }: Props) {
 
         <div className="mt-5 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <p className="text-base" aria-live="polite" data-entry-summary>
-            {choice.label} for {choice.price}. Worst-case odds {choice.odds}. {choice.causes}.
+            {choice.label} for {choice.price}. Your chance is at least {choice.odds}. {choice.causes}.
           </p>
           {open && flow && !flow.preview ? (
             <Link href={`${flow.href}?entries=${choice.entries}`} className="btn inline-flex h-12 shrink-0 items-center justify-center bg-sun px-7 text-base font-medium text-ink">

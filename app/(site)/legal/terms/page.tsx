@@ -6,7 +6,7 @@ import { headingsOf } from '@/lib/legal';
 
 export const metadata: Metadata = {
   title: 'Terms',
-  description: 'The full terms of every Trove draw.',
+  description: 'The full terms for entering a Trove draw.',
   alternates: { canonical: '/legal/terms' },
 };
 

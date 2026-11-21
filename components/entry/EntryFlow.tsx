@@ -103,7 +103,7 @@ export function EntryFlow({ preview, escapeHref, destination, options, start, fa
       <Link href={links.postal} className="underline underline-offset-4">
         Free entry by post
       </Link>{' '}
-      has identical odds inside the same cap. Read the{' '}
+      gives the same chance of winning. Read the{' '}
       <Link href={links.keyTerms} className="underline underline-offset-4">
         key terms
       </Link>
@@ -146,7 +146,7 @@ export function EntryFlow({ preview, escapeHref, destination, options, start, fa
           <section className="mt-6 flex flex-col gap-5">
             <h1 className="display text-[2rem] leading-tight">Choose your entries.</h1>
             <p className="text-base text-ink/80">
-              Each entry is one number in the {destination} draw. The draw has {facts.cap} entries at most, so these odds can only get better.
+              There are never more than {facts.cap} entries in the {destination} draw. If fewer sell, your chance gets better.
             </p>
             <fieldset className="flex flex-col gap-2.5">
               <legend className="sr-only">Number of entries</legend>
@@ -160,16 +160,16 @@ export function EntryFlow({ preview, escapeHref, destination, options, start, fa
                     </span>
                     <span className="flex flex-1 flex-col gap-0.5">
                       <span className="text-base font-semibold">{option.label}</span>
-                      <span className="font-mono text-xs text-ink/70">Worst-case odds {option.odds}</span>
+                      <span className="font-mono text-xs text-ink/70">At least {option.odds}</span>
                     </span>
                     <span className="font-mono text-base">{option.price}</span>
                   </label>
                 );
               })}
             </fieldset>
-            <p className="font-mono text-xs leading-relaxed text-ink/70">One person may hold up to {facts.maxPerPerson} entries in this draw, online and by post together.</p>
+            <p className="font-mono text-xs leading-relaxed text-ink/70">Each person can have up to {facts.maxPerPerson} entries in this draw, online and by post together.</p>
             <p className="text-sm">
-              Prices include VAT. {facts.share} of what you pay, {choice.causes} for this choice, goes to causes in {destination}.
+              Prices include VAT. {facts.share} of what you pay goes to charities in {destination}: {choice.causes} for this choice.
             </p>
             <button type="button" onClick={() => setStep('details')} className="btn min-h-[52px] bg-ink text-base font-semibold text-snow hover:bg-loch">
               Continue
@@ -269,13 +269,13 @@ export function EntryFlow({ preview, escapeHref, destination, options, start, fa
             <dl className="flex flex-col gap-2 rounded-2xl bg-cloud px-4 py-4 text-sm">
               <Row term="Draw" value={destination} />
               <Row term="Entries" value={choice.label} />
-              <Row term="Worst-case odds" value={choice.odds} />
+              <Row term="Your chance, at least" value={choice.odds} />
               <div className="rule-t mt-1 flex justify-between gap-3 pt-2 text-base">
                 <dt className="font-semibold">Total, VAT included</dt>
                 <dd className="font-mono">{choice.price}</dd>
               </div>
               <p className="text-[13px] text-ink/75">
-                {choice.causes} of this goes to causes in {destination}.
+                {choice.causes} of this goes to charities in {destination}.
               </p>
             </dl>
             <div className="flex flex-col gap-2" aria-label="Payment">
@@ -304,7 +304,7 @@ export function EntryFlow({ preview, escapeHref, destination, options, start, fa
               <p className="relative mt-3 text-[15px] text-snow/90">
                 {choice.label} in the {destination} draw. Your entry numbers appear here, and in your account, once payment clears.
               </p>
-              <p className="relative mt-3 font-mono text-xs leading-relaxed text-snow/85">Worst-case odds {choice.odds}. Drawn when entries reach the cap or on the longstop date, whichever comes first.</p>
+              <p className="relative mt-3 font-mono text-xs leading-relaxed text-snow/85">Your chance is at least {choice.odds}. We draw the winner when all the entries have gone or on the closing date, whichever comes first.</p>
             </div>
             <p className="text-sm">We email your receipt and a link to confirm your account.</p>
             <fieldset className="flex flex-col gap-3">
