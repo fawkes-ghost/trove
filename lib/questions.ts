@@ -44,7 +44,7 @@ export function questionsFor(escape: Escape): Question[] {
     },
     {
       question: 'Where does the money go?',
-      answer: `${escape.charity.localityStatement} We’ll name the charities once our agreement with them is signed, and after every draw we publish exactly how much we gave.`,
+      answer: `${escape.charity.localityStatement} After every draw we publish exactly how much we gave.`,
     },
     {
       question: 'Is there a limit on how many entries I can have?',
