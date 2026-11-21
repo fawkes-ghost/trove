@@ -133,7 +133,7 @@ export const escape: Escape = {
   party: hampshireParty,
   prize: {
     value: 6500,
-    stayBudget: 4550,               // 3 nights Chamber Room, Fri to Mon, priced at a Feb peak weekend incl breakfast, VAT and 10% service
+    stayBudget: 4550,               // 3 nights Chamber Room, priced at a Feb peak weekend (Fri to Mon) incl breakfast, VAT and 10% service; the winner may choose any dates in stayWindow
     transport: 0,                   // no transfers in this escape; the winner travels as they choose
     cash: hampshireCash,            // paid to the winner in cash, to spend on the escape or not
     contingency: 350,
@@ -141,7 +141,7 @@ export const escape: Escape = {
     winnerResponseDays: 14,
     claimWindowDays: 90,
     stayValidMonths: 12,
-    stayWindow: 'Friday to Monday between November and March, excluding 20 December to 3 January, subject to availability',
+    stayWindow: 'on consecutive nights of the winner’s choice between November and March, excluding 20 December to 3 January, subject to availability',
     description: [
       `${sentenceCase(numberWord(hampshireNights))} nights for you and your plus one, breakfast included`,
       `${gbp(hampshireCash)} in cash`,
