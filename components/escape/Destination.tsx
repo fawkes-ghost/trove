@@ -1,9 +1,9 @@
 import type { Escape } from '@/config/prize';
 import { gbp, numberWord } from '@/lib/format';
 import { reelStills, venueLine } from '@/lib/escapes';
-import { Reel } from '@/components/media/Reel';
+import { Panels } from '@/components/media/Panels';
 
-// The destination in prose, then the captioned gallery full-bleed beneath, sitting on the
+// The destination in prose, then the pictures as full-bleed panels beneath, sitting on the
 // rules. The nights and the cash render from config. The venue paragraph is gated on the
 // server: until permissionGranted nothing from the venue block reaches the HTML, and the
 // county copy holds the section. No venue still until the footage is licensed.
@@ -14,7 +14,7 @@ export function Destination({ escape }: { escape: Escape }) {
     <section id="destination" className="rule-t">
       <div className="section">
         <div className="max-w-[40rem]" data-reveal="item">
-          <h2 className="display text-balance text-[2rem] md:text-[2.75rem]">{escape.destination}.</h2>
+          <h2 className="display text-balance text-[2.5rem] leading-[1] md:text-[4rem]">{escape.destination}.</h2>
           <p className="mt-6 text-lg" data-answer>
             This escape is {numberWord(escape.nights)} nights in {escape.destination}, at {venueLine(escape)}.
           </p>
@@ -35,7 +35,7 @@ export function Destination({ escape }: { escape: Escape }) {
         </div>
       </div>
       <div className="rule-t">
-        <Reel stills={reelStills(escape)} label={`Pictures of ${escape.destination}.`} />
+        <Panels stills={reelStills(escape)} label={`Pictures of ${escape.destination}.`} />
       </div>
     </section>
   );
