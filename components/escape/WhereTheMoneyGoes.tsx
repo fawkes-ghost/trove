@@ -11,11 +11,7 @@ export function WhereTheMoneyGoes({ escape }: { escape: Escape }) {
         <p className="mt-6 text-lg" data-answer>{escape.charity.localityStatement}</p>
         <p className="mt-10 font-mono text-[4rem] leading-none md:text-[6rem]">{percent(escape.charity.shareOfGross)}</p>
         <p className="mt-3 text-base text-snow/80">of every paid entry, however many sell.</p>
-        <p className="mt-4 text-base text-snow/80">
-          {escape.charity.beneficiary
-            ? `The money goes to ${escape.charity.beneficiary}.`
-            : 'We’ll name the charities once our agreement with them is signed.'}
-        </p>
+        {escape.charity.beneficiary ? <p className="mt-4 text-base text-snow/80">{`The money goes to ${escape.charity.beneficiary}.`}</p> : null}
       </div>
     </section>
   );

@@ -24,7 +24,6 @@ export function Footer() {
     escape.status === 'open' ? null : 'Entries are not open yet, and no payment is taken on this site.',
     launch.termsInForce ? null : 'The terms, key terms and policies are drafts for solicitor review and are not yet in force.',
     escape.venue.permissionGranted ? null : 'The house is named once it has given its written permission.',
-    escape.charity.beneficiary ? null : 'The charities we give to are named once our agreement with them is signed.',
     launch.imageryLicensed ? null : 'The film and photographs are AI-generated stand-ins for mood. They do not show the house, and licensed photography replaces them before entries open.',
   ].filter((line): line is string => Boolean(line));
 
