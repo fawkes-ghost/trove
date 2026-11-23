@@ -71,27 +71,35 @@ export function Hero({ escape = hampshire, headline, path = '/' }: { escape?: Es
   ].filter((line): line is string => Boolean(line));
 
   const loud = (
-    <div className="absolute inset-x-0 bottom-0 z-20 px-6 pb-8 text-snow md:px-10 md:pb-14" data-hero-loud>
+    <div className="relative z-20 px-6 pb-8 text-snow md:px-10 md:pb-14" data-hero-loud>
       <p className="loud-kicker" aria-hidden="true">Your chance of winning is at least</p>
       <p className="loud-number">
         <span className="sr-only">Your chance of winning is at least </span>
         {worstCaseOdds(escape)}.
       </p>
-      <p className="loud-twist">
-        <span className="loud-twist-out" aria-hidden="true">Unlimited entries.</span>
-        <span className="loud-twist-in">
-          <span className="loud-mark">{count(escape.cap)}</span> entries. Never more.
-        </span>
-      </p>
-      <h1 className="display loud-prize">
-        Win {numberWord(escape.nights)} nights at {venuePhrase(escape)}, and {gbp(escape.prize.cash)} in cash.
-      </h1>
-      <div className="loud-form">
-        <LoudOnly>
-          <WaitlistForm sourceChannel="trove-hero-loud" idPrefix="hero-waitlist" wordmarkSvg={wordmarkSource()} />
-        </LoudOnly>
+      {/* Two halves, so from 900px they can sit side by side and level: the promise, and
+          the email field with the key terms under it. One column below that. */}
+      <div className="loud-lower">
+        <div>
+          <p className="loud-twist">
+            <span className="loud-twist-out" aria-hidden="true">Unlimited entries.</span>
+            <span className="loud-twist-in">
+              <span className="loud-mark">{count(escape.cap)}</span> entries. Never more.
+            </span>
+          </p>
+          <h1 className="display loud-prize">
+            Win {numberWord(escape.nights)} nights at {venuePhrase(escape)}, and {gbp(escape.prize.cash)} in cash.
+          </h1>
+        </div>
+        <div>
+          <div className="loud-form">
+            <LoudOnly>
+              <WaitlistForm sourceChannel="trove-hero-loud" idPrefix="hero-waitlist" wordmarkSvg={wordmarkSource()} />
+            </LoudOnly>
+          </div>
+          <ComplianceStrip className="max-w-[34rem] text-snow/80" />
+        </div>
       </div>
-      <ComplianceStrip className="max-w-[34rem] text-snow/80" />
     </div>
   );
 

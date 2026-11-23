@@ -91,7 +91,9 @@ html[data-type='loud'] [data-hero-foot] {
 }
 .loud-number {
   margin: 0.06em 0 0 -0.045em;
-  font: 800 clamp(3.7rem, 17.6vw, 17rem) / 0.86 var(--loud-sans);
+  /* As wide as the screen, but never so tall that a short window loses the email field
+     below the fold: the size answers to the window's height as well as its width. */
+  font: 800 clamp(3.7rem, min(17.6vw, 27svh), 17rem) / 0.86 var(--loud-sans);
   letter-spacing: -0.058em;
   white-space: nowrap;
 }
@@ -169,7 +171,7 @@ html[data-motion='full'][data-type='loud'] .loud-twist-in {
   transform: rotate(-1.5deg);
 }
 html[data-type='loud'] .loud-prize {
-  max-width: 24ch;
+  max-width: min(100%, 34ch);
   margin-top: 0.7em;
   font-size: clamp(1.45rem, 2.5vw, 2.25rem);
   line-height: 1.12;
@@ -183,6 +185,26 @@ html[data-type='loud'] .loud-prize {
 /* The form was drawn for the light page; over the film its words are snow. */
 .loud-form [data-waitlist-status] {
   color: var(--snow);
+}
+
+/* From 900px the lower half sits in two columns, the promise on the left and the email
+   field on the right, level at the top, so the whole hero fits a laptop's first screen.
+   Below that it is one column, and on the shortest phones the film grows a little rather
+   than squeezing it. */
+@media (min-width: 900px) {
+  .loud-lower {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    column-gap: clamp(2rem, 5vw, 5rem);
+    align-items: start;
+    margin-top: 1.6rem;
+  }
+  .loud-lower .loud-twist {
+    margin-top: 0;
+  }
+  .loud-lower .loud-form {
+    margin-top: 0;
+  }
 }
 
 /* The ribbon: tilted across the film's foot, wider than the page so its ends never show. */
@@ -238,6 +260,10 @@ html[data-motion='full'] .loud-ribbon-track {
 /* The figures in the odds band: heavy sans with the gold drawn under them like a marker. */
 html[data-type='loud'] [data-figure] {
   width: max-content;
+  max-width: 100%;
+  /* Three across from 900px, where a heavy figure is wider than a narrow column: the size
+     follows the window so the odds figure never runs into its neighbour. */
+  font-size: clamp(3.5rem, 6.4vw, 5rem);
   padding: 0 0.07em;
   font-family: var(--loud-sans);
   font-variation-settings: normal;
