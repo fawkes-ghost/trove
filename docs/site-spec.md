@@ -19,7 +19,15 @@ Nothing here is a figure; every figure comes from config.
 | `/legal/playing-responsibly` | DCMS Voluntary Code controls, limits, suspension, closure, GamCare and GambleAware | Left contents column |
 | `/legal/privacy`, `/legal/cookies`, `/legal/complaints` | | Left contents column |
 | `/contact` | Email, postal address, response time | |
+| `/unsubscribe` | Where the unsubscribe link in an email lands: one heading, one button | Not indexed, not in the sitemap, open while the gate is up. See below |
 | `/journal` | Editorial: destinations, winners, where the money went | Later; SEO |
+
+Unsubscribing: the link in an email goes to the `handle-email-unsubscribe` edge function, which
+sends a plain visit on to `/unsubscribe`. Nothing happens until the person presses the button,
+which POSTs to the function, so a mail scanner that follows the link cannot unsubscribe
+anyone. The page reads the id and token from the address and removes them from the address
+bar at once, before analytics can load. `data-unsubscribe-page` stays on the page's `<main>`:
+the function looks for it to know the page is live.
 
 Header on every page: logo top left (icon plus wordmark, one link to `/`), hamburger top
 right, nothing else. The menu is a full-screen overlay that lists the routes above in two
