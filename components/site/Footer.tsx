@@ -39,7 +39,7 @@ export function Footer() {
         <nav aria-label="Footer" className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
           {groups.map((group) => (
             <div key={group.title}>
-              <p className="font-mono text-[11px] tracking-[0.12em] text-snow/70 uppercase">{group.title}</p>
+              <p className="text-[11px] tracking-[0.12em] text-snow/70 uppercase">{group.title}</p>
               <ul className="mt-4 flex flex-col gap-3 text-base">
                 {group.links.map((link) => (
                   <li key={link.href}>
@@ -86,7 +86,7 @@ export function Footer() {
 
         {status.length ? (
           <div className="rule-t pt-8" data-site-status>
-            <p className="font-mono text-[11px] tracking-[0.12em] text-snow/70 uppercase">Where things stand</p>
+            <p className="text-[11px] tracking-[0.12em] text-snow/70 uppercase">Where things stand</p>
             <ul className="mt-4 flex max-w-[44rem] flex-col gap-2 text-sm leading-relaxed text-snow/85">
               {status.map((line) => (
                 <li key={line}>{line}</li>

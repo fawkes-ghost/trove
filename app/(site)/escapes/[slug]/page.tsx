@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { escapes, getEscape, prizeLine } from '@/lib/escapes';
 import { Hero } from '@/components/hero/Hero';
-import { PrizeStrip } from '@/components/escape/PrizeStrip';
 import { WhatYouWin } from '@/components/escape/WhatYouWin';
 import { Destination } from '@/components/escape/Destination';
 import { WhereTheMoneyGoes } from '@/components/escape/WhereTheMoneyGoes';
@@ -38,7 +37,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 // The standard escape page. One template, every escape identical in form, driven entirely
 // by the Escape object. The escape page sells the escape: the prize first, the place, then
-// the odds and the money.
+// the odds and the money, then the entry on the company's paper. Loud once, in the hero;
+// everything beneath it is the house.
 export default async function EscapePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const item = getEscape(slug);
@@ -47,8 +47,7 @@ export default async function EscapePage({ params }: { params: Promise<{ slug: s
   return (
     <main>
       <FaqJsonLd escape={item} />
-      <Hero escape={item} headline={`${item.destination}.`} path={`/escapes/${item.slug}`} />
-      <PrizeStrip escape={item} />
+      <Hero escape={item} lead={`The ${item.destination} escape.`} sourceChannel="trove-escape-hero" />
       <WhatYouWin escape={item} />
       <Destination escape={item} />
       <OddsLadder escape={item} />

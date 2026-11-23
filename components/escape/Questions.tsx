@@ -6,7 +6,7 @@ export function Questions({ escape }: { escape: Escape }) {
   return (
     <section id="questions" className="rule-t section">
       <div className="max-w-[40rem]">
-        <h2 data-reveal="item" className="display text-balance text-[2.5rem] leading-[1] md:text-[4rem]">Questions.</h2>
+        <h2 data-reveal="item" className="display text-balance heading-section">Questions.</h2>
         <dl className="mt-10 flex flex-col">
           {questionsFor(escape).map(({ question, answer }) => (
             <div key={question} className="rule-t py-6">

@@ -2,7 +2,7 @@ import { preload } from 'react-dom';
 import { escape as hampshire, type Escape } from '@/config/prize';
 import { HeroLoop } from './HeroLoop';
 
-// The film layer above the horizon, in explicit paint order: the poster is the first paint
+// The film layer behind the hero's words, in explicit paint order: the poster is the first paint
 // layer (or a low sun gradient when config has none), the loop sits above it and fades in
 // once it can play. No text sits on the film, so there is no scrim: the footage is shown as
 // graded. Reduced motion never mounts the loop.

@@ -16,10 +16,10 @@ export function OddsSection({ escape = hampshire }: { escape?: Escape }) {
             field is built to light up to the largest bundle but starts, and rests, at one. */}
         <OddsField entries={escape.cap} cap={escape.cap} lit={1} maxLit={steps[steps.length - 1]} steps={steps} />
         <div className="md:rule-l md:sticky md:top-28 md:pl-16">
-          <h2 className="display text-balance text-[2.5rem] leading-[1] md:text-[4rem]">
+          <h2 className="display text-balance heading-section">
             {count(escape.cap)} entries at most. One of them could be yours.
           </h2>
-          <p className="mt-8 flex flex-col gap-2 font-mono text-base">
+          <p className="mt-8 flex flex-col gap-2 text-base">
             {bundles.map((bundle, index) => (
               <span key={bundle.entries} data-ladder-step={index + 1} className="transition-colors duration-300">
                 {oddsForEntries(bundle.entries, escape)} with {numberWord(bundle.entries)} {bundle.entries === 1 ? 'entry' : 'entries'}.

@@ -98,7 +98,7 @@ export function EntryFlow({ preview, escapeHref, destination, options, start, fa
   }
 
   const strip = (
-    <p className="rule-t mt-10 pt-3 font-mono text-[11px] leading-relaxed text-ink/75">
+    <p className="rule-t mt-10 pt-3 text-[11px] leading-relaxed text-ink/75">
       Open to {facts.residency} residents aged {facts.minimumAge} or over.{' '}
       <Link href={links.postal} className="underline underline-offset-4">
         Free entry by post
@@ -132,7 +132,7 @@ export function EntryFlow({ preview, escapeHref, destination, options, start, fa
                   <span aria-hidden="true">←</span> Back
                 </button>
               )}
-              <p className="font-mono text-xs text-ink/70">Step {stepNumber} of 3</p>
+              <p className="text-xs text-ink/70">Step {stepNumber} of 3</p>
             </div>
             <div className="grid grid-cols-3 gap-1.5" aria-hidden="true">
               {[1, 2, 3].map((n) => (
@@ -160,14 +160,14 @@ export function EntryFlow({ preview, escapeHref, destination, options, start, fa
                     </span>
                     <span className="flex flex-1 flex-col gap-0.5">
                       <span className="text-base font-semibold">{option.label}</span>
-                      <span className="font-mono text-xs text-ink/70">At least {option.odds}</span>
+                      <span className="text-xs text-ink/70">At least {option.odds}</span>
                     </span>
-                    <span className="font-mono text-base">{option.price}</span>
+                    <span className="text-base">{option.price}</span>
                   </label>
                 );
               })}
             </fieldset>
-            <p className="font-mono text-xs leading-relaxed text-ink/70">Each person can have up to {facts.maxPerPerson} entries in this draw, online and by post together.</p>
+            <p className="text-xs leading-relaxed text-ink/70">Each person can have up to {facts.maxPerPerson} entries in this draw, online and by post together.</p>
             <p className="text-sm">
               Prices include VAT. {facts.share} of what you pay goes to charities in {destination}: {choice.causes} for this choice.
             </p>
@@ -272,7 +272,7 @@ export function EntryFlow({ preview, escapeHref, destination, options, start, fa
               <Row term="Your chance, at least" value={choice.odds} />
               <div className="rule-t mt-1 flex justify-between gap-3 pt-2 text-base">
                 <dt className="font-semibold">Total, VAT included</dt>
-                <dd className="font-mono">{choice.price}</dd>
+                <dd>{choice.price}</dd>
               </div>
               <p className="text-[13px] text-ink/75">
                 {choice.causes} of this goes to charities in {destination}.
@@ -300,11 +300,11 @@ export function EntryFlow({ preview, escapeHref, destination, options, start, fa
           <section className="flex flex-col gap-6">
             <div className="relative overflow-hidden rounded-3xl bg-loch px-5 py-6 text-snow">
               <span aria-hidden="true" className="absolute -top-12 -right-8 h-28 w-28 rounded-full bg-sun" />
-              <h1 className="display relative text-[2rem] leading-tight">You are in the draw.</h1>
+              <h1 className="display relative text-[2rem] leading-tight">You’re in the draw.</h1>
               <p className="relative mt-3 text-[15px] text-snow/90">
                 {choice.label} in the {destination} draw. Your entry numbers appear here, and in your account, once payment clears.
               </p>
-              <p className="relative mt-3 font-mono text-xs leading-relaxed text-snow/85">Your chance is at least {choice.odds}. We draw the winner when all the entries have gone or on the closing date, whichever comes first.</p>
+              <p className="relative mt-3 text-xs leading-relaxed text-snow/85">Your chance is at least {choice.odds}. We draw the winner when all the entries have gone or on the closing date, whichever comes first.</p>
             </div>
             <p className="text-sm">We email your receipt and a link to confirm your account.</p>
             <fieldset className="flex flex-col gap-3">
@@ -373,7 +373,7 @@ function Row({ term, value }: { term: string; value: string }) {
   return (
     <div className="flex justify-between gap-3">
       <dt className="text-ink/75">{term}</dt>
-      <dd className="text-right font-mono">{value}</dd>
+      <dd className="text-right">{value}</dd>
     </div>
   );
 }

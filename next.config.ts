@@ -14,6 +14,9 @@ const nextConfig: NextConfig = {
   pageExtensions: ['ts', 'tsx', 'mdx'],
   // The brand marks are read from disk and inlined by components/brand/Marks.tsx.
   outputFileTracingIncludes: { '/*': ['./public/brand/*.svg'] },
+  // Photographs go through the image optimiser: AVIF or WebP at the width the screen needs,
+  // so a phone on 4G is not sent a desktop-sized JPEG.
+  images: { formats: ['image/avif', 'image/webp'] },
   // Everything under public/media is content-addressed by its filename: a new cut is a new
   // name, never a new body at the same path, so it can be cached for a year and never
   // revalidated.

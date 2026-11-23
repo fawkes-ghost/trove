@@ -30,7 +30,10 @@ PR so the other is updated the same day.
    stay, holiday, vacation. Draws are named by destination and never numbered, in copy,
    routes, filenames and commit messages. No countdown timers, no "win now", no
    strikethrough pricing. Plain and specific: the imagery carries the aspiration, the
-   words carry the facts.
+   words carry the facts. Write it the way a person would say it to a customer: a heading
+   never describes the copy under it (no "in writing", "in plain words"). The cash
+   alternative amount appears only in the terms and key terms. Company details (name,
+   number, Companies House) sit in the footer, never in page copy.
 4. **The logo is trove X** (chosen 21 November 2026): bold lowercase "trove" with a gold
    X as the full stop. Masters are in the project's `brand-round-seven/trove-x-logo-kit/`.
    Wordmark and icon SVGs live in `public/brand/` and are used as inline SVG. Do not
@@ -47,8 +50,17 @@ library afterthought. Reference: spacetime.nl, where the motion is the site. Tro
 differs in one way: it must also deliver facts (prize, price, odds, where the money
 goes), so motion carries the visitor to the facts and then gets out of the way.
 
-- One memorable moment per page. On the home page it is the logo: the disc rises
-  through the ridgeline on first paint as the film brightens, then the ledger types in.
+- One memorable moment per page. On the home page it is the number: the worst-case
+  chance of winning, as wide as the screen over the film, with “Unlimited entries.”
+  struck out in gold once and replaced by the cap.
+- Two voices. Newsreader says things (headlines, the prize sentence). DM Sans at its
+  heaviest promises things (the chance, the cap, the giving share). DM Sans carries
+  everything else. No monospace. The gold is a highlighter for promises: the call to
+  action, the mark under a promise, the founding friend sticker.
+- Two registers. Loud once, in the hero: the chance, the cap, the email field. The house
+  everywhere else: moderate serif headings, small sentence case labels, hairlines, plain
+  text links, photographs as plates with captions beneath. Trust is the rules of the draw
+  ("How we keep it fair."). No badge, logo row or testimonial until it is real.
 - Respect `prefers-reduced-motion` with a still version of every moment.
 - Photography and film do the selling. Licensed footage only. No AI-generated venue
   imagery, ever.

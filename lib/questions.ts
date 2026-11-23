@@ -1,17 +1,22 @@
 import { compliance, oddsForEntries, spendCeiling, worstCaseOdds, type Escape } from '@/config/prize';
-import { count, gbp, numberWord } from '@/lib/format';
+import { count, gbp, numberWord, sentenceCase } from '@/lib/format';
 
 export type Question = { question: string; answer: string };
 
-// The ten questions and their answers, in plain text so the page and the FAQPage
+// The ten questions and their answers, as plain strings so the page and the FAQPage
 // structured data read from one source. Every figure comes from config or is computed
 // from it; no number is typed in the copy.
 export function questionsFor(escape: Escape): Question[] {
   const { prize } = escape;
   const bundles = escape.entry.bundles.filter((bundle) => bundle.entries > 1);
+  // "Three entries make that 1 in 1,000, and five make it 1 in 600."
   const bundleOdds = bundles
-    .map((bundle) => `${numberWord(bundle.entries)} entries, ${oddsForEntries(bundle.entries, escape)}`)
-    .join('. ');
+    .map((bundle, index) =>
+      index === 0
+        ? `${sentenceCase(numberWord(bundle.entries))} entries make that ${oddsForEntries(bundle.entries, escape)}`
+        : `${numberWord(bundle.entries)} make it ${oddsForEntries(bundle.entries, escape)}`,
+    )
+    .join(', and ');
 
   return [
     {
@@ -24,15 +29,15 @@ export function questionsFor(escape: Escape): Question[] {
     },
     {
       question: 'What are my odds?',
-      answer: `With one entry, at least ${worstCaseOdds(escape)}. That’s if every entry sells. If fewer sell, your chance is better. With more entries: ${bundleOdds}.`,
+      answer: `With one entry, at least ${worstCaseOdds(escape)}. That’s if every entry sells. If fewer sell, your chance is better. ${bundleOdds}.`,
     },
     {
       question: 'What exactly do I win?',
       answer: `${prize.description.join('. ')}. The escape is for ${numberWord(escape.party)}. The cash is yours to spend however you like. We’ll name the house as soon as it gives us written permission.`,
     },
     {
-      question: 'What if I would rather have the cash?',
-      answer: `You can take ${gbp(prize.cashAlternative)} in cash instead of the escape. Once you have replied to our email we send you at least ${numberWord(prize.datesOffered)} sets of dates, and you have ${prize.claimWindowDays} days to pick one or take the cash. If you choose neither, you get the cash. The stay is taken within ${prize.stayValidMonths} months, on the dates you picked.`,
+      question: 'Can I take cash instead?',
+      answer: `Yes. Once you’ve replied to our email we send you at least ${numberWord(prize.datesOffered)} sets of dates, and you have ${prize.claimWindowDays} days to pick one or take the cash alternative. If you choose neither, you get the cash. The stay is taken within ${prize.stayValidMonths} months, on the dates you picked. The terms give the amount.`,
     },
     {
       question: 'When is the draw?',
@@ -47,8 +52,8 @@ export function questionsFor(escape: Escape): Question[] {
       answer: `${escape.charity.localityStatement} After every draw we publish exactly how much we gave.`,
     },
     {
-      question: 'Is there a limit on how many entries I can have?',
-      answer: `Yes. Each person can have up to ${count(escape.entry.maxPerPerson)} entries in a draw, paid and postal together. That’s ${gbp(spendCeiling(escape))} at the single entry price.`,
+      question: 'How many entries can I have?',
+      answer: `Up to ${count(escape.entry.maxPerPerson)} in a draw, paid and postal together. That’s ${gbp(spendCeiling(escape))} at the single entry price.`,
     },
     {
       question: 'Can I enter for free?',

@@ -7,11 +7,7 @@ function readMark(file: string): string {
   return readFileSync(path.join(process.cwd(), 'public', 'brand', file), 'utf8');
 }
 
-// The marks' sources, for client components that render them from strings.
-export function iconSource(): string {
-  return readMark('icon.svg');
-}
-
+// The wordmark's source, for client components that render it from a string.
 export function wordmarkSource(): string {
   return readMark('wordmark.svg');
 }

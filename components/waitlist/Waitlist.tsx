@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { WaitlistForm } from './WaitlistForm';
-import { iconSource } from '@/components/brand/Marks';
+import { wordmarkSource } from '@/components/brand/Marks';
 import { Kicker } from '@/components/site/Kicker';
 import { escape } from '@/config/prize';
 import { shareCopy } from '@/lib/share';
@@ -11,12 +11,12 @@ export function Waitlist() {
     <section id="waitlist" className="scroll-mt-24 rule-t section">
       <div className="max-w-[40rem]" data-reveal="group">
         <Kicker>Founding friends enter first.</Kicker>
-        <h2 className="display mt-6 text-balance text-[2.5rem] leading-[1] md:text-[4rem]">Become a founding friend.</h2>
+        <h2 className="display mt-6 text-balance heading-section">Become a founding friend.</h2>
         <p className="mt-6 text-lg">
-          Founding friends hear the day entries open and can enter before anyone else. We’ll send you one email when that happens.
+          We’ll email you once, on the day entries open. Founding friends can enter before anyone else.
         </p>
         <div className="mt-8">
-          <WaitlistForm iconSvg={iconSource()} share={shareCopy(escape)} />
+          <WaitlistForm wordmarkSvg={wordmarkSource()} share={shareCopy(escape)} />
         </div>
         <p className="mt-4 text-sm text-ink/70">
           You can unsubscribe at any time.{' '}

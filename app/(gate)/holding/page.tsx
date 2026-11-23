@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { compliance } from '@/config/prize';
 import { freePostalRoute } from '@/lib/routes';
 import { gatePassphrase } from '@/lib/gate';
-import { Wordmark, iconSource } from '@/components/brand/Marks';
+import { Wordmark, wordmarkSource } from '@/components/brand/Marks';
 import { ComplianceStrip } from '@/components/site/ComplianceStrip';
 import { WaitlistForm } from '@/components/waitlist/WaitlistForm';
 import { signposting } from '@/lib/routes';
@@ -70,7 +70,7 @@ export default function HoldingPage() {
           <div className="mt-10 rule-t pt-8">
             <p className="text-lg font-medium">Be a founding friend.</p>
             <div className="mt-4">
-              <WaitlistForm sourceChannel="trove-holding" iconSvg={iconSource()} share={holdingShareCopy()} />
+              <WaitlistForm sourceChannel="trove-holding" wordmarkSvg={wordmarkSource()} share={holdingShareCopy()} />
             </div>
           </div>
         </div>
@@ -78,7 +78,7 @@ export default function HoldingPage() {
 
       <div className="rule-t py-3">
         <ComplianceStrip className="text-ink/75" />
-        <p className="mt-2 font-mono text-[11px] leading-relaxed text-ink/75" data-signposting>
+        <p className="mt-2 text-[11px] leading-relaxed text-ink/75" data-signposting>
           Please play responsibly. Support from{' '}
           <a href={signposting[first]} rel="noopener" className="underline underline-offset-4">
             {first}

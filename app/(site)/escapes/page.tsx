@@ -28,9 +28,9 @@ export default function EscapesPage() {
               </div>
               <div className="flex flex-col gap-3">
                 <h2 className="display text-[2rem] md:text-[2.5rem]">{item.destination}.</h2>
-                <p className="font-mono text-[11px] text-ink/60">{statusLabel(item.status)}</p>
+                <p className="text-[11px] text-ink/60">{statusLabel(item.status)}</p>
                 <p className="text-lg">{prizeLine(item)}</p>
-                <p className="font-mono text-base">Your chance with one entry: at least {worstCaseOdds(item)}.</p>
+                <p className="text-base">Your chance with one entry: at least {worstCaseOdds(item)}.</p>
                 <p className="text-base text-ink/70">{item.charity.localityStatement}</p>
               </div>
             </Link>

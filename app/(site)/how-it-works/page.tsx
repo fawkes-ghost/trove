@@ -46,7 +46,7 @@ export default function HowItWorksPage() {
           </Step>
           <Step number={3} title="You escape.">
             <p>
-              We email the winner and send them dates to choose from. They have {escape.prize.claimWindowDays} days to pick one, or to take {gbp(escape.prize.cashAlternative)} in cash instead. The stay is taken within {escape.prize.stayValidMonths} months.
+              If you win, we email you and send you dates to choose from. You have {escape.prize.claimWindowDays} days to pick one, or to take the cash alternative instead. The stay is taken within {escape.prize.stayValidMonths} months.
             </p>
           </Step>
         </ol>
@@ -54,11 +54,11 @@ export default function HowItWorksPage() {
 
       <section id="odds" className="rule-t section">
         <div className="max-w-[40rem]">
-          <h2 className="display text-balance text-[2.5rem] leading-[1] md:text-[4rem]">Your chances.</h2>
+          <h2 className="display text-balance heading-section">Your chances.</h2>
           <p className="mt-6 text-lg" data-answer>
             There are never more than {count(escape.cap)} entries, so one entry gives you at least a {worstCaseOdds(escape)} chance.
           </p>
-          <div className="mt-10 flex flex-col gap-10 font-mono">
+          <div className="mt-10 flex flex-col gap-10">
             <div>
               <p className="text-[2.75rem] leading-none text-accent md:text-[4rem]">{count(escape.cap)}</p>
               <p className="mt-3 font-sans text-base text-ink/70">entries in the {escape.destination} draw, at most. Paid and postal together.</p>
@@ -92,7 +92,7 @@ export default function HowItWorksPage() {
 function Step({ number, title, children }: { number: number; title: string; children: React.ReactNode }) {
   return (
     <li className="grid gap-2 rule-t py-8 md:grid-cols-[3rem_1fr]">
-      <p className="font-mono text-sm text-ink/60">{number}</p>
+      <p className="text-sm text-ink/60">{number}</p>
       <div>
         <h2 className="display text-[1.75rem] leading-tight md:text-[2.25rem]">{title}</h2>
         <div className="mt-3 text-lg">{children}</div>

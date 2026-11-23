@@ -39,6 +39,15 @@ export function venueLine(e: Escape): string {
 
 // The stills the reel may show: every licensed still, but no venue still until the venue's
 // footage is licensed. Returns values only, for the client-side reel.
-export function reelStills(e: Escape): { src: string; alt: string; title: string | null; caption: string | null }[] {
-  return e.media.stills.filter((still) => !still.venue || e.venue.footageLicensed).map(({ src, alt, title, caption }) => ({ src, alt, title, caption }));
+export function reelStills(e: Escape): { src: string; alt: string; title: string | null; caption: string | null; blur?: string }[] {
+  return e.media.stills.filter((still) => !still.venue || e.venue.footageLicensed).map(({ src, alt, title, caption, blur }) => ({ src, alt, title, caption, blur }));
+}
+
+// The county in two short paragraphs, for the escape page and the home page's escape
+// section, so the words are written once.
+export function countyProse(e: Escape): string[] {
+  return [
+    `${e.destination} in winter means chalk streams and short days. The Test and the Itchen run clear and cold through the water meadows, and from the downs above you can see for miles.`,
+    'The villages still have their pubs and their fires, and lunch can take all afternoon.',
+  ];
 }

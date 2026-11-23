@@ -1,12 +1,13 @@
 import Link from 'next/link';
 import { compliance, escape as hampshire, type Escape } from '@/config/prize';
-import { count } from '@/lib/format';
+import { count, numberWord, sentenceCase } from '@/lib/format';
 import { prizeLine } from '@/lib/escapes';
 import { freePostalRoute } from '@/lib/routes';
 
-// Three steps, numbered because they are literally a sequence. The first thing a visitor
-// from a social feed asks is "how does this work, and is it real", so the answer sits
-// straight under the odds. Every figure from config.
+// Three steps, in order. The first thing a visitor from a social feed asks is "how does
+// this work, and is it real", so the answer is three ruled columns of plain words: a step,
+// a short title in the serif, one or two sentences. No cards and no badges. Every figure
+// from config.
 export function HowItWorks({ escape = hampshire }: { escape?: Escape }) {
   const steps = [
     {
@@ -14,7 +15,7 @@ export function HowItWorks({ escape = hampshire }: { escape?: Escape }) {
       body: (
         <>
           Pay online, or{' '}
-          <Link href={freePostalRoute} className="underline underline-offset-4">
+          <Link href={freePostalRoute} className="link-quiet">
             enter free by post
           </Link>
           . Same chance either way.
@@ -34,15 +35,13 @@ export function HowItWorks({ escape = hampshire }: { escape?: Escape }) {
   ];
   return (
     <section id="how-it-works" className="section">
-      <h2 data-reveal="item" className="display text-balance text-[2.5rem] leading-[1] md:text-[4rem]">How it works.</h2>
-      <ol className="mt-10 grid gap-4 md:grid-cols-3 md:gap-6">
+      <h2 data-reveal="item" className="display text-balance heading-section">How it works.</h2>
+      <ol className="mt-12 grid gap-10 md:grid-cols-3 md:gap-12">
         {steps.map((step, index) => (
-          <li key={step.title} className="flex flex-col gap-3 rounded-3xl bg-cloud p-6 md:p-8">
-            <span aria-hidden="true" className="flex h-10 w-10 items-center justify-center rounded-full bg-loch text-base font-medium text-snow">
-              {index + 1}
-            </span>
-            <p className="display text-[1.5rem] leading-tight md:text-[1.75rem]">{step.title}</p>
-            <p className="text-base text-ink/80">{step.body}</p>
+          <li key={step.title} className="rule-t flex flex-col gap-3 pt-6">
+            <span className="text-sm font-medium text-ink/60">{sentenceCase(numberWord(index + 1))}.</span>
+            <p className="display text-[1.625rem] leading-tight md:text-[1.875rem]">{step.title}</p>
+            <p className="max-w-[26rem] text-base text-ink/80">{step.body}</p>
           </li>
         ))}
       </ol>
