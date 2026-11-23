@@ -3,6 +3,7 @@ import { compliance, escape } from '@/config/prize';
 import { organisation } from '@/config/organisation';
 import { launch } from '@/config/launch';
 import { routes, freePostalRoute, signposting, type Route } from '@/lib/routes';
+import { photoCredits, photoCreditsRoute } from '@/lib/escapes';
 import { Wordmark } from '@/components/brand/Marks';
 import { ComplianceStrip } from './ComplianceStrip';
 
@@ -16,7 +17,7 @@ export function Footer() {
   const groups: { title: string; links: Route[] }[] = [
     { title: 'Escapes', links: [{ label: escape.destination, href: `/escapes/${escape.slug}` }, { label: 'All escapes', href: '/escapes' }, { label: 'Results', href: `/escapes/${escape.slug}/winner` }] },
     { title: 'Help', links: [{ label: 'How it works', href: '/how-it-works' }, { label: 'Fair questions', href: '/#questions' }, { label: 'Free entry by post', href: freePostalRoute }, { label: 'Contact', href: '/contact' }, { label: 'Complaints', href: '/legal/complaints' }] },
-    { title: 'Trove', links: [{ label: 'Why Trove', href: '/why' }, { label: 'Playing responsibly', href: '/legal/playing-responsibly' }] },
+    { title: 'Trove', links: [{ label: 'Why Trove', href: '/why' }, { label: 'Playing responsibly', href: '/legal/playing-responsibly' }, ...(photoCredits().length ? [{ label: 'Photo credits', href: photoCreditsRoute }] : [])] },
     { title: 'Legal', links: routes.legal.filter((route) => route.href !== '/legal/complaints' && route.href !== '/legal/playing-responsibly') },
   ];
 

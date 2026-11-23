@@ -47,14 +47,17 @@ export const compliance = {
 // The escape. One hero escape at a time. Named by destination, never numbered.
 // ---------------------------------------------------------------------------
 export type EntryBundle = { entries: number; price: Money };
-// Who took a photograph and the licence it is used under. Shown beneath the photograph,
-// because the licences ask for it; the full record is docs/media-credits.md.
+// Who took a photograph and the licence it is used under. Shown on the photo credits page,
+// which the footer links from every page, because the licences ask for a credit; the full
+// record is docs/media-credits.md.
 export type StillCredit = {
+  work: string | null;            // the photograph's title at the source, where the licence asks for it (CC 2.0 does)
   by: string;                     // the photographer, as they are credited at the source
   source: string;                 // the page the photograph came from
   licence: string;                // the licence's short name
   licenceUrl: string;
   note: string | null;            // what was changed, if anything beyond a resize
+  shareAlike: boolean;            // true where the licence makes our edited copy carry the same licence
 };
 export type Still = {
   src: string;
@@ -184,7 +187,7 @@ export const escape: Escape = {
         title: 'The river.',
         caption: 'Early mist along the Itchen at Shawford, south of Winchester.',
         blur: 'data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAQIEBf/EAB4QAAICAgIDAAAAAAAAAAAAAAERAgMABCFREiJB/8QAFAEBAAAAAAAAAAAAAAAAAAAAAv/EABURAQEAAAAAAAAAAAAAAAAAAAAR/9oADAMBAAIRAxEAPwB5bdDXnz8HeSVbNll0i1AFI5mj3Rkie1hMiOQVhpR//9k=',
-        credit: { by: 'Forbes Johnston', source: 'https://commons.wikimedia.org/wiki/File:2025_(challenge_No._1-_old_unpublished_pics)_-_Day_338_-_early_morning_mist,_River_Itchen,_Shawford,_Hampshire_2022_-_Flickr_-_ambabheg.jpg', licence: 'CC BY 4.0', licenceUrl: 'https://creativecommons.org/licenses/by/4.0/', note: null },
+        credit: { work: null, by: 'Forbes Johnston', source: 'https://commons.wikimedia.org/wiki/File:2025_(challenge_No._1-_old_unpublished_pics)_-_Day_338_-_early_morning_mist,_River_Itchen,_Shawford,_Hampshire_2022_-_Flickr_-_ambabheg.jpg', licence: 'CC BY 4.0', licenceUrl: 'https://creativecommons.org/licenses/by/4.0/', note: null, shareAlike: false },
       },
       {
         src: '/media/hampshire-morestead-downs-c4d64cef.jpg',
@@ -193,7 +196,7 @@ export const escape: Escape = {
         title: 'The downs.',
         caption: 'Sunrise over the South Downs at Morestead.',
         blur: 'data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAMEBf/EAB0QAAICAwADAAAAAAAAAAAAAAECAAMEESExUZH/xAAUAQEAAAAAAAAAAAAAAAAAAAAD/8QAGBEAAgMAAAAAAAAAAAAAAAAAABEBUWH/2gAMAwEAAhEDEQA/AJKmxjrd6LHWNSoJTIpA9l+/JhjkGYjwYUux3h//2Q==',
-        credit: { by: 'Forbes Johnston', source: 'https://commons.wikimedia.org/wiki/File:South_Downs_-_Morestead,_Hampshire,_England_2020.jpg', licence: 'CC BY 4.0', licenceUrl: 'https://creativecommons.org/licenses/by/4.0/', note: 'Colour adjusted.' },
+        credit: { work: null, by: 'Forbes Johnston', source: 'https://commons.wikimedia.org/wiki/File:South_Downs_-_Morestead,_Hampshire,_England_2020.jpg', licence: 'CC BY 4.0', licenceUrl: 'https://creativecommons.org/licenses/by/4.0/', note: 'Colour adjusted.', shareAlike: false },
       },
       {
         src: '/media/hampshire-micheldever-wood-e30ef912.jpg',
@@ -202,7 +205,7 @@ export const escape: Escape = {
         title: 'The woods.',
         caption: 'Beech trees in low winter sun in Micheldever Wood.',
         blur: 'data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAgEE/8QAHBAAAwACAwEAAAAAAAAAAAAAAQIRAAMSITET/8QAFAEBAAAAAAAAAAAAAAAAAAAAA//EABYRAAMAAAAAAAAAAAAAAAAAAAABEf/aAAwDAQACEQMRAD8AAi/Q0E0+nKlcEMlitD3mB3ZUZge7h1b9pDNzNHmBGLEf/9k=',
-        credit: { by: 'Mr Ignavy', source: 'https://commons.wikimedia.org/wiki/File:Footpath_through_Micheldever_Wood_-_geograph.org.uk_-_7737382.jpg', licence: 'CC BY-SA 2.0', licenceUrl: 'https://creativecommons.org/licenses/by-sa/2.0/', note: 'Cropped, colour adjusted.' },
+        credit: { work: 'Footpath through Micheldever Wood', by: 'Mr Ignavy', source: 'https://commons.wikimedia.org/wiki/File:Footpath_through_Micheldever_Wood_-_geograph.org.uk_-_7737382.jpg', licence: 'CC BY-SA 2.0', licenceUrl: 'https://creativecommons.org/licenses/by-sa/2.0/', note: 'Cropped, colour adjusted.', shareAlike: true },
       },
     ],
   },
