@@ -7,6 +7,7 @@ import { Turnstile, TURNSTILE_SITE_KEY } from './Turnstile';
 import { readAttribution } from '@/lib/attribution';
 import { ShareButton } from '@/components/share/ShareButton';
 import { trackEvent } from '@/lib/analytics';
+import { LoudSticker } from '@/components/preview/LoudSticker';
 
 type Status = 'idle' | 'sending' | 'ok' | 'duplicate' | 'invalid' | 'error' | 'challenge';
 
@@ -32,7 +33,7 @@ const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 // On success the disc rises inside the button (iconSvg is the brand icon's source, read on
 // the server), and only then does "Check your email." appear. Under reduced motion the disc
 // is already up and the message is immediate.
-export function WaitlistForm({ sourceChannel = 'trove-home', iconSvg, share }: { sourceChannel?: string; iconSvg?: string; share?: { title: string; text: string; url: string } } = {}) {
+export function WaitlistForm({ sourceChannel = 'trove-home', iconSvg, share, idPrefix = 'waitlist', wordmarkSvg }: { sourceChannel?: string; iconSvg?: string; share?: { title: string; text: string; url: string }; idPrefix?: string; wordmarkSvg?: string } = {}) {
   const [status, setStatus] = useState<Status>('idle');
   const [settled, setSettled] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -133,7 +134,10 @@ export function WaitlistForm({ sourceChannel = 'trove-home', iconSvg, share }: {
 
   const message = status === 'idle' || status === 'sending' || (status === 'ok' && !settled) ? null : messages[status];
   const done = status === 'ok' || status === 'duplicate';
-  const rising = status === 'ok' && Boolean(iconSvg);
+  // PREVIEW ONLY: under the Loud option a new founding friend gets the sticker instead of the
+  // disc. Read only once someone has signed up, so it can never differ from the server.
+  const loud = done && typeof document !== 'undefined' && document.documentElement.dataset.type === 'loud';
+  const rising = status === 'ok' && Boolean(iconSvg) && !loud;
 
   return (
     <form onSubmit={onSubmit} noValidate className="relative flex flex-col gap-3" data-waitlist-form data-turnstile-key={protectedByTurnstile ? "set" : "missing"}>
@@ -147,11 +151,11 @@ export function WaitlistForm({ sourceChannel = 'trove-home', iconSvg, share }: {
       {!done ? (
         <>
           <div className="flex flex-col gap-3 md:flex-row">
-            <label htmlFor="waitlist-email" className="sr-only">
+            <label htmlFor={`${idPrefix}-email`} className="sr-only">
               Email address
             </label>
             <input
-              id="waitlist-email"
+              id={`${idPrefix}-email`}
               name="email"
               type="email"
               autoComplete="email"
@@ -159,7 +163,7 @@ export function WaitlistForm({ sourceChannel = 'trove-home', iconSvg, share }: {
               placeholder="Your email address"
               required
               aria-invalid={status === 'invalid' || undefined}
-              aria-describedby="waitlist-status"
+              aria-describedby={`${idPrefix}-status`}
               onChange={() => status !== 'idle' && setStatus('idle')}
               className="h-12 w-full border border-ink/40 bg-snow px-4 text-base text-ink placeholder:text-ink/50 focus:border-ink focus:outline-none md:max-w-sm"
             />
@@ -174,8 +178,8 @@ export function WaitlistForm({ sourceChannel = 'trove-home', iconSvg, share }: {
 
           {/* Honeypot. Off screen for people, present for scripts. Not display:none. */}
           <div className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
-            <label htmlFor="waitlist-website">Website</label>
-            <input id="waitlist-website" name="website" type="text" tabIndex={-1} autoComplete="off" defaultValue="" />
+            <label htmlFor={`${idPrefix}-website`}>Website</label>
+            <input id={`${idPrefix}-website`} name="website" type="text" tabIndex={-1} autoComplete="off" defaultValue="" />
           </div>
 
           {protectedByTurnstile ? (
@@ -190,7 +194,8 @@ export function WaitlistForm({ sourceChannel = 'trove-home', iconSvg, share }: {
           ) : null}
         </>
       ) : null}
-      <p id="waitlist-status" role="status" aria-live="polite" data-waitlist-status className={`min-h-6 text-base ${done ? 'font-medium' : ''}`}>
+      {loud ? <LoudSticker celebrate={status === 'ok'} wordmarkSvg={wordmarkSvg} /> : null}
+      <p id={`${idPrefix}-status`} role="status" aria-live="polite" data-waitlist-status className={`min-h-6 text-base ${done ? 'font-medium' : ''}`}>
         {message}
       </p>
       {/* Once someone is on the list, the next useful thing is the person they would take. */}

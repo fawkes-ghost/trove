@@ -27,7 +27,7 @@ export function SunSeal({ line, children, overlay }: { line: string; children: R
         />
       </div>
       <div aria-hidden="true" className="hero-horizon h-[6px] bg-loch" />
-      <p aria-live="polite" className="px-6 pt-3 text-center text-sm md:text-base">
+      <p aria-live="polite" data-sun-row className="px-6 pt-3 text-center text-sm md:text-base">
         {open ? (
           <span key="line" className="sun-line font-medium">{line}</span>
         ) : (

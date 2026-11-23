@@ -38,7 +38,8 @@ const typeOptions: TypeOption[] = [
   { id: 'current', name: 'Current', faces: 'Fraunces, Instrument Sans, IBM Plex Mono.' },
   { id: 'a', name: 'A Editorial', faces: 'Instrument Serif headlines. Instrument Sans for text, buttons and figures.' },
   { id: 'b', name: 'B All sans', faces: 'DM Sans throughout, the nearest free match to the logo.' },
-  { id: 'c', name: 'C Broadsheet', faces: 'Newsreader headlines. Instrument Sans for text, buttons and figures. The recommended option.' },
+  { id: 'c', name: 'C Broadsheet', faces: 'Newsreader headlines. Instrument Sans for text, buttons and figures.' },
+  { id: 'loud', name: 'D Loud', faces: 'Broadsheet for what we say, the logo’s heavy sans for what we promise. A new hero, a ribbon, a sticker when you sign up.' },
 ];
 
 // PREVIEW ONLY: applies the chosen option before first paint, from ?type= or the last choice.

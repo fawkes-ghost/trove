@@ -1,7 +1,10 @@
 import Link from 'next/link';
 import { compliance, escape as hampshire, worstCaseOdds, type Escape } from '@/config/prize';
 import { count, gbp, numberWord, percent, sentenceCase } from '@/lib/format';
-import { prizeLine } from '@/lib/escapes';
+import { prizeLine, venueLine as venuePhrase } from '@/lib/escapes';
+import { wordmarkSource } from '@/components/brand/Marks';
+import { WaitlistForm } from '@/components/waitlist/WaitlistForm';
+import { LoudOnly } from '@/components/preview/LoudOnly';
 import { ComplianceStrip } from '@/components/site/ComplianceStrip';
 import { HeroFilm } from './HeroFilm';
 import { SunSeal } from './SunSeal';
@@ -55,12 +58,72 @@ export function Hero({ escape = hampshire, headline, path = '/' }: { escape?: Es
     </div>
   );
 
+  // PREVIEW ONLY, the Loud option. One giant idea, the chance, in the logo's heavy sans; the
+  // twist line under it; the prize in one sentence; the email field; the key terms. Five
+  // things where the current hero carries nine. Shown only when data-type="loud" is set
+  // (app/type-options.css); every figure is still read from config.
+  const promises = [
+    `${count(escape.cap)} entries. Never more.`,
+    compliance.noRollover ? 'One winner guaranteed.' : null,
+    'Free entry by post.',
+    `${percent(escape.charity.shareOfGross)} to causes in ${escape.destination}.`,
+    `${gbp(escape.entry.price)} an entry.`,
+  ].filter((line): line is string => Boolean(line));
+
+  const loud = (
+    <div className="absolute inset-x-0 bottom-0 z-20 px-6 pb-8 text-snow md:px-10 md:pb-14" data-hero-loud>
+      <p className="loud-kicker" aria-hidden="true">Your chance of winning is at least</p>
+      <p className="loud-number">
+        <span className="sr-only">Your chance of winning is at least </span>
+        {worstCaseOdds(escape)}.
+      </p>
+      <p className="loud-twist">
+        <span className="loud-twist-out" aria-hidden="true">Unlimited entries.</span>
+        <span className="loud-twist-in">
+          <span className="loud-mark">{count(escape.cap)}</span> entries. Never more.
+        </span>
+      </p>
+      <h1 className="display loud-prize">
+        Win {numberWord(escape.nights)} nights at {venuePhrase(escape)}, and {gbp(escape.prize.cash)} in cash.
+      </h1>
+      <div className="loud-form">
+        <LoudOnly>
+          <WaitlistForm sourceChannel="trove-hero-loud" idPrefix="hero-waitlist" wordmarkSvg={wordmarkSource()} />
+        </LoudOnly>
+      </div>
+      <ComplianceStrip className="max-w-[34rem] text-snow/80" />
+    </div>
+  );
+
   return (
     <section data-hero data-hero-film className="relative">
-      <SunSeal line={sunLine} overlay={overlay}>
+      <SunSeal
+        line={sunLine}
+        overlay={
+          <>
+            {overlay}
+            {loud}
+          </>
+        }
+      >
         <HeroFilm media={escape.media} />
       </SunSeal>
-      <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 px-6 pt-1 pb-10 text-center text-sm text-ink/70 md:pb-14">
+      {/* PREVIEW ONLY, the Loud option: the promises on a tilted ribbon, twice over so the
+          loop has no seam. The second run is hidden from assistive technology. */}
+      <div data-loud-ribbon>
+        <div className="loud-ribbon-band">
+          <div className="loud-ribbon-track">
+            {[0, 1].map((run) => (
+              <p key={run} aria-hidden={run === 1 || undefined}>
+                {promises.map((line) => (
+                  <span key={line}>{line}</span>
+                ))}
+              </p>
+            ))}
+          </div>
+        </div>
+      </div>
+      <div data-hero-foot className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 px-6 pt-1 pb-10 text-center text-sm text-ink/70 md:pb-14">
         <span>Founding friends can enter before anyone else.</span>
         <ShareButton {...shareCopy(escape, path)} placement="hero" className="text-sm font-medium text-ink underline decoration-ink/30 underline-offset-4 hover:decoration-ink" />
       </div>

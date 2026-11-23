@@ -49,6 +49,301 @@ html[data-type='c'] .display {
   line-height: 1;
 }
 
+/* ---- D, Loud: two voices ----
+   Newsreader for what the site says, DM Sans, heavy, for what it promises. Beyond the
+   faces this option changes the hero (one giant idea, five things instead of nine), adds
+   the ribbon of promises under the film and a sticker with confetti on signup. Everything
+   it adds is in the page for every option and shown only here. */
+html[data-type='loud'] {
+  --font-fraunces: var(--font-opt-newsreader);
+  --font-instrument-sans: var(--font-opt-dm-sans);
+  --font-plex-mono: var(--font-opt-dm-sans);
+  --loud-sans: var(--font-opt-dm-sans), system-ui, sans-serif;
+}
+html[data-type='loud'] .display {
+  font-variation-settings: normal;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  letter-spacing: -0.022em;
+  line-height: 1;
+}
+
+/* What Loud adds is hidden under every other option, and what it replaces is hidden here. */
+[data-hero-loud],
+[data-loud-ribbon] {
+  display: none;
+}
+html[data-type='loud'] [data-hero-loud] {
+  display: block;
+}
+html[data-type='loud'] [data-hero-copy],
+html[data-type='loud'] .hero-sun,
+html[data-type='loud'] .hero-horizon,
+html[data-type='loud'] [data-sun-row],
+html[data-type='loud'] [data-hero-foot] {
+  display: none;
+}
+
+/* The hero. */
+.loud-kicker {
+  font: 500 clamp(0.95rem, 1.5vw, 1.25rem) / 1.2 var(--loud-sans);
+  color: color-mix(in srgb, var(--snow) 88%, transparent);
+}
+.loud-number {
+  margin: 0.06em 0 0 -0.045em;
+  font: 800 clamp(3.7rem, 17.6vw, 17rem) / 0.86 var(--loud-sans);
+  letter-spacing: -0.058em;
+  white-space: nowrap;
+}
+.loud-twist {
+  display: grid;
+  margin-top: 0.5em;
+  font: 700 clamp(1.4rem, 3.4vw, 2.9rem) / 1.1 var(--loud-sans);
+  letter-spacing: -0.035em;
+}
+.loud-twist > span {
+  grid-area: 1 / 1;
+  width: max-content;
+  max-width: 100%;
+}
+/* Without motion the struck line never shows: the page opens on the promise itself. */
+.loud-twist-out {
+  position: relative;
+  opacity: 0;
+}
+.loud-twist-out::after {
+  content: '';
+  position: absolute;
+  left: -2%;
+  top: 54%;
+  width: 104%;
+  height: 0.13em;
+  border-radius: 999px;
+  background: var(--sun);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+html[data-motion='full'][data-type='loud'] .loud-twist-out {
+  animation: loud-twist-out 2.3s ease both;
+}
+html[data-motion='full'][data-type='loud'] .loud-twist-out::after {
+  animation: loud-strike 0.45s ease-out 0.75s both;
+}
+html[data-motion='full'][data-type='loud'] .loud-twist-in {
+  animation: loud-twist-in 0.5s cubic-bezier(0.2, 1.4, 0.4, 1) 2.15s both;
+}
+@keyframes loud-twist-out {
+  0%,
+  78% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-45%) rotate(-3deg);
+  }
+}
+@keyframes loud-strike {
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes loud-twist-in {
+  from {
+    opacity: 0;
+    transform: translateY(45%) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+/* The highlighter: the gold as a marker box behind a figure, ink on gold so it reads on film. */
+.loud-mark {
+  display: inline-block;
+  padding: 0 0.16em;
+  margin-right: 0.04em;
+  border-radius: 0.12em;
+  background: var(--sun);
+  color: var(--ink);
+  transform: rotate(-1.5deg);
+}
+html[data-type='loud'] .loud-prize {
+  max-width: 24ch;
+  margin-top: 0.7em;
+  font-size: clamp(1.45rem, 2.5vw, 2.25rem);
+  line-height: 1.12;
+  text-wrap: balance;
+}
+.loud-form {
+  max-width: 34rem;
+  min-height: 3rem;
+  margin: 1.25rem 0 0.25rem;
+}
+/* The form was drawn for the light page; over the film its words are snow. */
+.loud-form [data-waitlist-status] {
+  color: var(--snow);
+}
+
+/* The ribbon: tilted across the film's foot, wider than the page so its ends never show. */
+html[data-type='loud'] [data-loud-ribbon] {
+  display: block;
+  position: relative;
+  z-index: 25;
+  margin-top: -1.35rem;
+  padding: 0.6rem 0 2.2rem;
+  overflow: clip;
+}
+.loud-ribbon-band {
+  width: 106%;
+  margin-left: -3%;
+  padding: 0.7rem 0 0.75rem;
+  background: var(--sun);
+  color: var(--ink);
+  transform: rotate(-1.6deg);
+  font: 700 clamp(1.05rem, 1.9vw, 1.6rem) / 1 var(--loud-sans);
+  letter-spacing: -0.025em;
+  white-space: nowrap;
+}
+.loud-ribbon-track {
+  display: flex;
+  width: max-content;
+}
+.loud-ribbon-track p {
+  display: flex;
+}
+.loud-ribbon-track span {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.4rem;
+  padding-left: 1.4rem;
+}
+/* An ink disc between promises. A shape, not the X: the X never stands alone. */
+.loud-ribbon-track span::after {
+  content: '';
+  width: 0.38em;
+  height: 0.38em;
+  border-radius: 999px;
+  background: var(--ink);
+}
+html[data-motion='full'] .loud-ribbon-track {
+  animation: loud-ribbon 38s linear infinite;
+}
+@keyframes loud-ribbon {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* The figures in the odds band: heavy sans with the gold drawn under them like a marker. */
+html[data-type='loud'] [data-figure] {
+  width: max-content;
+  padding: 0 0.07em;
+  font-family: var(--loud-sans);
+  font-variation-settings: normal;
+  font-weight: 800;
+  letter-spacing: -0.055em;
+  background: linear-gradient(180deg, transparent 60%, var(--sun) 60%, var(--sun) 93%, transparent 93%);
+}
+
+/* The sticker a new founding friend gets, and the confetti that falls with it. */
+.loud-sticker {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: max-content;
+  max-width: 100%;
+  margin: 0.4rem 0 1.1rem 0.3rem;
+  transform: rotate(-4deg);
+  font-family: var(--loud-sans);
+}
+.loud-sticker-word {
+  padding: 0.3em 0.75em 0.38em;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--snow);
+  box-shadow: 0 0 0 3px var(--snow), 0 12px 32px rgb(0 0 0 / 0.28);
+  font-weight: 800;
+  font-size: clamp(1.6rem, 5.4vw, 2.5rem);
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+.loud-sticker-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  margin: -0.28em 0 0 1.4em;
+  padding: 0.38em 0.85em 0.42em;
+  border-radius: 999px;
+  background: var(--sun);
+  color: var(--ink);
+  box-shadow: 0 0 0 2px var(--ink);
+  transform: rotate(3deg);
+  font-weight: 700;
+  font-size: 0.85rem;
+  line-height: 1;
+}
+.loud-sticker-mark {
+  height: 0.95em;
+  color: var(--ink);
+}
+/* On the ink tab's gold, the wordmark's own gold X would vanish: it goes ink with the word. */
+.loud-sticker-mark svg [fill='#E9A23B'] {
+  fill: var(--ink);
+}
+html[data-motion='full'] .loud-sticker {
+  animation: loud-sticker-in 0.55s cubic-bezier(0.2, 1.5, 0.4, 1) both;
+}
+@keyframes loud-sticker-in {
+  from {
+    opacity: 0;
+    transform: rotate(-14deg) scale(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(-4deg) scale(1);
+  }
+}
+.loud-confetti {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  overflow: hidden;
+  pointer-events: none;
+  display: none;
+}
+html[data-motion='full'] .loud-confetti {
+  display: block;
+}
+.loud-piece {
+  position: absolute;
+  top: -1.5rem;
+  width: 0.55rem;
+  height: 1.1rem;
+  border-radius: 2px;
+  background: var(--sun);
+  animation-name: loud-fall;
+  animation-timing-function: cubic-bezier(0.3, 0.6, 0.5, 1);
+  animation-fill-mode: forwards;
+}
+.loud-piece[data-shape='disc'] {
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 999px;
+}
+.loud-piece[data-tone='ink'] {
+  background: var(--ink);
+}
+.loud-piece[data-tone='snow'] {
+  background: var(--snow);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--ink) 25%, transparent);
+}
+@keyframes loud-fall {
+  to {
+    transform: translate(var(--drift), 108vh) rotate(var(--spin));
+  }
+}
+
 /* Figures: in the serif options the numbers the site stands on are set in the sans, heavy
    and tight, so they speak in the logo's voice rather than the headline's. */
 html[data-type='a'] [data-figure],
