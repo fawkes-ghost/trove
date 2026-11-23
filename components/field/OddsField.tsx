@@ -73,6 +73,11 @@ export function OddsField({ entries, cap, lit, steps, maxLit, sold = 0, tone = '
             ) : null}
           </g>
         </g>
+        {/* A halo around the first lit mark, so "one of them is yours" can be found in a
+            field of thousands at a glance. It breathes once motion is allowed. */}
+        {indices.length > 0 && lit > 0 ? (
+          <circle cx={markCentre(indices[0], cols).x} cy={markCentre(indices[0], cols).y} r={CELL * 1.1} fill="none" stroke={color} strokeWidth={CELL * 0.12} className="field-halo" data-field-halo />
+        ) : null}
         {indices.map((index, position) => {
           const { x, y } = markCentre(index, cols);
           return (
