@@ -10,10 +10,10 @@ export const metadata: Metadata = {
   alternates: { canonical: '/escapes' },
 };
 
-// A vertical list, not a card grid. Each row: the escape's first photograph (its credit is
-// beneath the same photograph on the escape's own page), destination, nights, prize value,
-// odds, status, one line of the locality statement. Without a photograph the row takes the
-// film's poster, and without that the gradient.
+// A vertical list, not a card grid. Each row: the escape's first photograph (credited on the
+// photo credits page), destination, nights, prize value, odds, status, one line of the
+// locality statement. Without a photograph the row takes the film's poster, and without that
+// the gradient.
 export default function EscapesPage() {
   return (
     <main className="page">

@@ -38,9 +38,16 @@ export function venueLine(e: Escape): string {
 }
 
 // The stills the pages may show: every licensed still, but no venue still until the venue's
-// footage is licensed. Returns values only, each with its credit where it has one.
-export function reelStills(e: Escape): { src: string; alt: string; title: string | null; caption: string | null; blur?: string; credit: StillCredit | null }[] {
-  return e.media.stills.filter((still) => !still.venue || e.venue.footageLicensed).map(({ src, alt, title, caption, blur, credit }) => ({ src, alt, title, caption, blur, credit: credit ?? null }));
+// footage is licensed. Returns values only.
+export function reelStills(e: Escape): { src: string; alt: string; title: string | null; caption: string | null; blur?: string }[] {
+  return e.media.stills.filter((still) => !still.venue || e.venue.footageLicensed).map(({ src, alt, title, caption, blur }) => ({ src, alt, title, caption, blur }));
+}
+
+// Every photograph the site shows that someone else took, with who took it and the licence it
+// is used under, for the photo credits page. The same stills the pages show, no others.
+export const photoCreditsRoute = '/photo-credits';
+export function photoCredits(): { src: string; alt: string; title: string | null; blur?: string; credit: StillCredit }[] {
+  return escapes.flatMap((e) => e.media.stills.filter((still) => !still.venue || e.venue.footageLicensed)).flatMap(({ src, alt, title, blur, credit }) => (credit ? [{ src, alt, title, blur, credit }] : []));
 }
 
 // The county in two short paragraphs, for the escape page and the home page's escape

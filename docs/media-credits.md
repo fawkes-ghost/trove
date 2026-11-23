@@ -2,7 +2,9 @@
 
 Every photograph and film on the site that Trove did not make, with where it came from, the
 licence it is used under and what was changed. Add a row in the same commit as the file.
-The rules are in `docs/site-spec.md`, section 8.
+The rules are in `docs/site-spec.md`, section 8. The public credit for each photograph is on
+the site's photo credits page (`/photo-credits`), built from the `credit` on the still in
+`config/prize.ts`; nothing is credited beneath the pictures themselves.
 
 Retrieved 23 November 2026 from Wikimedia Commons. The two that came to Commons from Flickr
 carry Commons' automated licence review; the third came from Geograph, whose photographs are
@@ -37,7 +39,7 @@ its estate.
 - Taken: 23 July 2020, 05:43. Coordinates at source: 51.034755, -1.281194
 - Licence: Creative Commons Attribution 4.0 International, https://creativecommons.org/licenses/by/4.0/
 - Original size: 5184 x 3456. Source file SHA-1: f474ce2d873ad0238a946f840cae68db0bc6354e
-- Changes: resized to 2400 x 1600, colour saturation reduced by about a fifth so it sits with the other two, re-encoded as JPEG. No crop. The site says "Colour adjusted." beneath it.
+- Changes: resized to 2400 x 1600, colour saturation reduced by about a fifth so it sits with the other two, re-encoded as JPEG. No crop. The photo credits page says "Colour adjusted." beside it.
 - Note: a summer sunrise. The caption does not say winter.
 
 ### The woods
@@ -49,7 +51,7 @@ its estate.
 - Taken: 24 February 2024. Coordinates at source: 51.139638, -1.244665
 - Licence: Creative Commons Attribution-ShareAlike 2.0 Generic, https://creativecommons.org/licenses/by-sa/2.0/
 - Original size: 4032 x 3024. Source file SHA-1: d9b6a740097f753bf8f500eadf7b674a0ba77b0d
-- Changes: cropped to the right-hand 62% at 3:2 (which also takes a distant walker out of frame), resized to 2000 x 1333, colour saturation reduced by a fifth, re-encoded as JPEG. The site says "Cropped, colour adjusted." beneath it.
+- Changes: cropped to the right-hand 62% at 3:2 (which also takes a distant walker out of frame), resized to 2000 x 1333, colour saturation reduced by a fifth, re-encoded as JPEG. The photo credits page says "Cropped, colour adjusted." beside it.
 - Share-alike: Trove's edited copy of this photograph, the file named above, is offered under the same licence, CC BY-SA 2.0, with the same credit. The licence covers that file, not the pages around it.
 
 ## Film
