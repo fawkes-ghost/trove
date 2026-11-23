@@ -38,6 +38,7 @@ export const t = {
   claimWindowDays: String(escape.prize.claimWindowDays),
   stayValidMonths: String(escape.prize.stayValidMonths),
   stayWindow: escape.prize.stayWindow,
+  datesOffered: numberWord(escape.prize.datesOffered),
   longstopDays: String(escape.cadence.longstopDays),
   charityShare: percent(economics.charityShareOfGross),
   beneficiary: escape.charity.beneficiary ?? 'a partner named once the agreement is signed',
