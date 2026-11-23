@@ -39,7 +39,9 @@ export function Turnstile({ onToken, onError, resetSignal }: Props) {
     widgetId.current = api.render(container.current, {
       sitekey: TURNSTILE_SITE_KEY,
       theme: 'light',
-      size: 'flexible',
+      // Flexible fills the column but never goes below 300px. On the narrowest phones the
+      // column is narrower than that, so they get the compact box instead.
+      size: container.current.clientWidth < 300 ? 'compact' : 'flexible',
       appearance: 'always',
       callback: (token: string) => callbacks.current.onToken(token),
       'expired-callback': () => callbacks.current.onToken(null),
@@ -70,7 +72,7 @@ export function Turnstile({ onToken, onError, resetSignal }: Props) {
   return (
     <>
       <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" strategy="afterInteractive" onLoad={render} />
-      <div ref={container} data-turnstile className="min-h-[65px] w-full max-w-sm" />
+      <div ref={container} data-turnstile className="min-h-[65px] w-full max-w-sm overflow-hidden" />
     </>
   );
 }
