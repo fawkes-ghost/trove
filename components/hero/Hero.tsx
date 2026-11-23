@@ -42,9 +42,11 @@ export function Hero({ escape = hampshire, lead, sourceChannel = 'trove-hero' }:
           <div className="hero-lower">
             <div>
               {/* The struck line is decoration: it is hidden from assistive technology and,
-                  without motion, never shown. The promise itself is always in the page. */}
+                  without motion, never shown. Its words come from CSS, not the page text, so a
+                  search engine or answer engine reading the page never quotes "unlimited
+                  entries" for a capped draw. The promise itself is always in the page. */}
               <p className="hero-twist">
-                <span className="hero-twist-out" aria-hidden="true">Unlimited entries.</span>
+                <span className="hero-twist-out" aria-hidden="true" />
                 <span className="hero-twist-in">
                   <span className="mark-box">{count(escape.cap)}</span> entries. Never more.
                 </span>

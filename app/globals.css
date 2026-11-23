@@ -300,6 +300,10 @@ body:has([data-hero-film]) .site-header[data-header="top"] {
   position: relative;
   opacity: 0;
 }
+/* The struck words live here rather than in the HTML, so crawlers never read them. */
+.hero-twist-out::before {
+  content: 'Unlimited entries.';
+}
 .hero-twist-out::after {
   content: '';
   position: absolute;
