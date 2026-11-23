@@ -18,7 +18,7 @@ export default function Page() {
         <div className="max-w-[40rem]">
           <h1 className="display text-balance text-[2.5rem] md:text-[3.5rem]">Journal.</h1>
           <p className="mt-6 text-lg">
-            The journal begins with the first draw. It will carry the destination, the result of every draw and an account of where the money went.
+            The journal starts with the first draw. We’ll write about each destination, publish every result and show where the money went.
           </p>
           <p className="rule-t mt-8 pt-6 text-base">
             Until then, read about{' '}

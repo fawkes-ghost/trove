@@ -58,7 +58,7 @@ export function ConfirmPlace({ wordmarkSvg }: { wordmarkSvg?: string }) {
       {status === 'idle' || status === 'sending' || status === 'error' ? (
         <>
           <h1 className="display text-balance text-[2.5rem] md:text-[3.5rem]">Confirm your place.</h1>
-          <p className="mt-6 text-lg">One press and you are a founding friend.</p>
+          <p className="mt-6 text-lg">One tap and you’re a founding friend.</p>
           <button
             type="button"
             onClick={confirm}
@@ -68,18 +68,18 @@ export function ConfirmPlace({ wordmarkSvg }: { wordmarkSvg?: string }) {
             {status === 'sending' ? 'Confirming' : 'Confirm my place'}
           </button>
           <p role="status" aria-live="polite" className="mt-4 min-h-6 text-base">
-            {status === 'error' ? 'We could not confirm your place. Please try again in a moment.' : null}
+            {status === 'error' ? 'We couldn’t confirm your place. Please try again in a moment.' : null}
           </p>
         </>
       ) : null}
 
       {status === 'confirmed' ? (
         <>
-          <h1 className="display text-balance text-[2.5rem] md:text-[3.5rem]">You are a founding friend.</h1>
+          <h1 className="display text-balance text-[2.5rem] md:text-[3.5rem]">You’re a founding friend.</h1>
           <div className="mt-8">
             <FoundingSticker celebrate wordmarkSvg={wordmarkSvg} line="Your place is confirmed." />
           </div>
-          <p className="mt-8 text-lg">You will hear from us first when entries open.</p>
+          <p className="mt-8 text-lg">You’ll hear from us first when entries open.</p>
           <HeardAbout token={token} />
         </>
       ) : null}
@@ -87,14 +87,14 @@ export function ConfirmPlace({ wordmarkSvg }: { wordmarkSvg?: string }) {
       {status === 'already' ? (
         <>
           <h1 className="display text-balance text-[2.5rem] md:text-[3.5rem]">Your place was already confirmed.</h1>
-          <p className="mt-6 text-lg">There is nothing more to do. You will hear from us first when entries open.</p>
+          <p className="mt-6 text-lg">There’s nothing more to do. You’ll hear from us first when entries open.</p>
         </>
       ) : null}
 
       {status === 'expired' ? (
         <>
           <h1 className="display text-balance text-[2.5rem] md:text-[3.5rem]">This link has expired.</h1>
-          <p className="mt-6 text-lg">Secure your place again and we will send you a fresh one. {back}.</p>
+          <p className="mt-6 text-lg">Secure your place again and we’ll send you a new one. {back}.</p>
         </>
       ) : null}
 

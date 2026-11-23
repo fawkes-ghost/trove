@@ -30,7 +30,10 @@ PR so the other is updated the same day.
    stay, holiday, vacation. Draws are named by destination and never numbered, in copy,
    routes, filenames and commit messages. No countdown timers, no "win now", no
    strikethrough pricing. Plain and specific: the imagery carries the aspiration, the
-   words carry the facts.
+   words carry the facts. Write it the way a person would say it to a customer: a heading
+   never describes the copy under it (no "in writing", "in plain words"). The cash
+   alternative amount appears only in the terms and key terms. Company details (name,
+   number, Companies House) sit in the footer, never in page copy.
 4. **The logo is trove X** (chosen 21 November 2026): bold lowercase "trove" with a gold
    X as the full stop. Masters are in the project's `brand-round-seven/trove-x-logo-kit/`.
    Wordmark and icon SVGs live in `public/brand/` and are used as inline SVG. Do not
@@ -56,9 +59,8 @@ goes), so motion carries the visitor to the facts and then gets out of the way.
   action, the mark under a promise, the founding friend sticker.
 - Two registers. Loud once, in the hero: the chance, the cap, the email field. The house
   everywhere else: moderate serif headings, small sentence case labels, hairlines, plain
-  text links, photographs as plates with captions beneath. Trust is the draw's own
-  undertakings set out in writing and signed with the company's name and number. No badge,
-  logo row or testimonial until it is real.
+  text links, photographs as plates with captions beneath. Trust is the rules of the draw
+  ("How we keep it fair."). No badge, logo row or testimonial until it is real.
 - Respect `prefers-reduced-motion` with a still version of every moment.
 - Photography and film do the selling. Licensed footage only. No AI-generated venue
   imagery, ever.

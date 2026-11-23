@@ -2,31 +2,17 @@ import Link from 'next/link';
 import type { Escape } from '@/config/prize';
 import { gbp } from '@/lib/format';
 
-// The prize, set out the way a hotel confirms a booking: the heading and one sentence on the
-// left, the matter on the right. The two parts of the prize stand side by side with a rule
-// between them, the stay in words and the cash as a figure, then the conditions as a ruled
-// list: when the stay is taken, the cash alternative and its amount, the prize in all. No
-// cards and no picture here; the photographs belong to the place, in the next section.
-// Every figure is read from config.
+// The prize. The heading and one sentence on the left, the detail on the right: the stay in
+// words and the cash as a figure, side by side with a rule between them, then when the stay
+// is taken and what the prize is worth. The cash alternative is one sentence linking to the
+// terms, where the amount lives. Every figure is read from config.
 export function WhatYouWin({ escape }: { escape: Escape }) {
   const { prize } = escape;
   // config orders the description as the stay, then the cash.
   const [stay] = prize.description;
-  const rows: { term: string; detail: React.ReactNode }[] = [
-    { term: 'When', detail: `The stay is taken ${prize.stayWindow}.` },
-    {
-      term: 'Or instead',
-      detail: (
-        <>
-          {gbp(prize.cashAlternative)} in cash instead of the escape, if you would rather.{' '}
-          <Link href="/legal/terms" className="link-quiet">
-            Terms
-          </Link>
-          .
-        </>
-      ),
-    },
-    { term: 'In all', detail: `A ${gbp(prize.value)} prize.` },
+  const rows = [
+    { term: 'When', detail: prize.stayWhen },
+    { term: 'Prize value', detail: `${gbp(prize.value)}.` },
   ];
   return (
     <section id="what-you-win" className="section">
@@ -57,6 +43,13 @@ export function WhatYouWin({ escape }: { escape: Escape }) {
               </div>
             ))}
           </dl>
+          <p className="mt-6 text-base">
+            Rather have cash instead of the stay? You can.{' '}
+            <Link href="/legal/terms" className="link-quiet">
+              See the terms
+            </Link>
+            .
+          </p>
         </div>
       </div>
     </section>

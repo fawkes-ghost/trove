@@ -13,7 +13,7 @@ export function Waitlist() {
         <Kicker>Founding friends enter first.</Kicker>
         <h2 className="display mt-6 text-balance heading-section">Become a founding friend.</h2>
         <p className="mt-6 text-lg">
-          Founding friends hear the day entries open and can enter before anyone else. We’ll send you one email when that happens.
+          We’ll email you once, on the day entries open. Founding friends can enter before anyone else.
         </p>
         <div className="mt-8">
           <WaitlistForm wordmarkSvg={wordmarkSource()} share={shareCopy(escape)} />

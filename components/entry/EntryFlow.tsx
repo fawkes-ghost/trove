@@ -300,7 +300,7 @@ export function EntryFlow({ preview, escapeHref, destination, options, start, fa
           <section className="flex flex-col gap-6">
             <div className="relative overflow-hidden rounded-3xl bg-loch px-5 py-6 text-snow">
               <span aria-hidden="true" className="absolute -top-12 -right-8 h-28 w-28 rounded-full bg-sun" />
-              <h1 className="display relative text-[2rem] leading-tight">You are in the draw.</h1>
+              <h1 className="display relative text-[2rem] leading-tight">You’re in the draw.</h1>
               <p className="relative mt-3 text-[15px] text-snow/90">
                 {choice.label} in the {destination} draw. Your entry numbers appear here, and in your account, once payment clears.
               </p>

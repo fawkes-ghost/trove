@@ -1,14 +1,16 @@
 import type { Escape } from '@/config/prize';
 import { gbp, numberWord } from '@/lib/format';
 import { countyProse, reelStills, venueLine } from '@/lib/escapes';
+import Image from 'next/image';
 import { Plate, PlateCaption } from '@/components/media/Plate';
 
 // The place: its name and one sentence on the left, the county in prose on the right, then
-// the photographs. One runs edge to edge between the rules, drifting slowly in its frame as
-// it passes, with its title and one line beneath it; the others follow as a pair of plates.
-// The nights and the cash render from config. The venue paragraph is gated on the server:
-// until permissionGranted nothing from the venue block reaches the HTML, and the county copy
-// holds the section. No venue still until the footage is licensed.
+// the photographs. One runs edge to edge, drifting slowly in its frame as it passes, with its
+// title and one line beneath it; the others follow close under it as an even pair, so there
+// is no empty space around them. The nights and the cash render from config. The venue
+// paragraph is decided on the server: until permissionGranted nothing from the venue block
+// reaches the HTML, and the county copy holds the section. No venue still until the footage
+// is licensed.
 export function Destination({ escape }: { escape: Escape }) {
   const named = Boolean(escape.venue.name && escape.venue.permissionGranted);
   const [lead, ...rest] = reelStills(escape);
@@ -37,15 +39,15 @@ export function Destination({ escape }: { escape: Escape }) {
       {lead ? (
         <figure className="m-0" data-photograph>
           <div className="rule-t rule-b relative h-[56svh] min-h-[20rem] overflow-clip bg-loch md:h-[78svh]">
-            <img src={lead.src} alt={lead.alt} className="panel-media absolute inset-0 h-full w-full object-cover" loading="lazy" decoding="async" draggable={false} />
+            <Image src={lead.src} alt={lead.alt} fill sizes="100vw" className="panel-media object-cover" placeholder={lead.blur ? 'blur' : 'empty'} blurDataURL={lead.blur} draggable={false} />
           </div>
           <PlateCaption title={lead.title} caption={lead.caption} className="px-[var(--gutter)]" />
         </figure>
       ) : null}
       {rest.length ? (
-        <div className="section grid gap-12 min-[900px]:grid-cols-[minmax(0,4fr)_minmax(0,5fr)] min-[900px]:gap-[clamp(3rem,7vw,7rem)]">
-          {rest.slice(0, 2).map((still, index) => (
-            <Plate key={still.src} still={still} ratio={index === 0 ? 'aspect-[4/5]' : 'aspect-[3/2]'} className={index === 1 ? 'min-[900px]:mt-24' : ''} />
+        <div className="grid gap-6 px-[var(--gutter)] pt-10 pb-[var(--space-section)] sm:grid-cols-2 md:pt-12">
+          {rest.slice(0, 2).map((still) => (
+            <Plate key={still.src} still={still} ratio="aspect-[3/2]" sizes="(min-width: 640px) 50vw, 100vw" />
           ))}
         </div>
       ) : (

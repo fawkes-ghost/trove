@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { founder, whyHeading, whyParagraphs } from '@/lib/why';
@@ -31,7 +32,9 @@ export default function WhyPage() {
         </article>
         <aside className="md:pt-24">
           {hasPortrait ? (
-            <img src={founder.portrait} alt={`${founder.name}, founder of Trove`} className="aspect-[4/5] w-full max-w-[64vh] object-cover" loading="lazy" decoding="async" />
+            <div className="plate relative aspect-[4/5] w-full max-w-[64vh]">
+              <Image src={founder.portrait} alt={`${founder.name}, founder of Trove`} fill sizes="(min-width: 768px) 24rem, 100vw" className="object-cover" placeholder="blur" blurDataURL={founder.portraitBlur} />
+            </div>
           ) : (
             <div className="flex aspect-[4/5] w-full max-w-[64vh] items-end border border-ink/20 bg-ink/5 p-4" role="img" aria-label="Portrait of the founder, licensed photograph" data-placeholder="image">
               <p className="text-[11px] text-ink/60">Portrait, licensed photograph. Drop it at public{founder.portrait}.</p>
