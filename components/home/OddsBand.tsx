@@ -19,7 +19,7 @@ export function OddsBand({ escape = hampshire }: { escape?: Escape }) {
       <div className="mt-8 grid gap-8 min-[900px]:grid-cols-3">
         {figures.map((item) => (
           <div key={item.figure} data-odds-unit>
-            <p className="display text-[3.5rem] leading-none whitespace-nowrap tabular-nums md:text-[5rem]">{item.figure}</p>
+            <p data-figure className="display text-[3.5rem] leading-none whitespace-nowrap tabular-nums md:text-[5rem]">{item.figure}</p>
             <p className="mt-3 text-base text-ink/70">{item.caption}</p>
           </div>
         ))}

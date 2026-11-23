@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
-import { Fraunces, IBM_Plex_Mono, Instrument_Sans } from 'next/font/google';
+import { DM_Sans, Fraunces, IBM_Plex_Mono, Instrument_Sans, Instrument_Serif, Newsreader } from 'next/font/google';
 import { escape } from '@/config/prize';
 
 import { siteUrl } from '@/lib/site';
@@ -8,7 +8,9 @@ import { ConsentBanner } from '@/components/consent/ConsentBanner';
 import { Analytics } from '@/components/consent/Analytics';
 import { AttributionCapture } from '@/components/attribution/AttributionCapture';
 import { OrganisationJsonLd } from '@/components/site/OrganisationJsonLd';
+import { TypeSwitcher, type TypeOption } from '@/components/preview/TypeSwitcher';
 import './globals.css';
+import './type-options.css';
 
 const fraunces = Fraunces({
   subsets: ['latin'],
@@ -22,9 +24,25 @@ const fraunces = Fraunces({
 const instrumentSans = Instrument_Sans({
   subsets: ['latin'],
   variable: '--font-instrument-sans',
-  weight: ['400', '500'],
+  // PREVIEW ONLY: the variable font, so the options can use 600 for figures.
   display: 'swap',
 });
+
+// PREVIEW ONLY: the faces behind the type options. Not preloaded, so the current site's
+// first paint is unchanged; an option's faces load when it is chosen.
+const optInstrumentSerif = Instrument_Serif({ subsets: ['latin'], weight: '400', style: ['normal', 'italic'], variable: '--font-opt-instrument-serif', display: 'swap', preload: false });
+const optNewsreader = Newsreader({ subsets: ['latin'], axes: ['opsz'], style: ['normal', 'italic'], variable: '--font-opt-newsreader', display: 'swap', preload: false });
+const optDmSans = DM_Sans({ subsets: ['latin'], axes: ['opsz'], variable: '--font-opt-dm-sans', display: 'swap', preload: false });
+
+const typeOptions: TypeOption[] = [
+  { id: 'current', name: 'Current', faces: 'Fraunces, Instrument Sans, IBM Plex Mono.' },
+  { id: 'a', name: 'A Editorial', faces: 'Instrument Serif headlines. Instrument Sans for text, buttons and figures.' },
+  { id: 'b', name: 'B All sans', faces: 'DM Sans throughout, the nearest free match to the logo.' },
+  { id: 'c', name: 'C Broadsheet', faces: 'Newsreader headlines. Instrument Sans for text, buttons and figures. The recommended option.' },
+];
+
+// PREVIEW ONLY: applies the chosen option before first paint, from ?type= or the last choice.
+const typeGate = `try{var k="trove:type-option";var p=new URLSearchParams(location.search).get("type");if(p){localStorage.setItem(k,p)}var v=p||localStorage.getItem(k);if(v&&v!=="current"){document.documentElement.dataset.type=v}}catch(e){}`;
 
 const plexMono = IBM_Plex_Mono({
   subsets: ['latin'],
@@ -66,7 +84,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       lang="en-GB"
       // The gate script sets data-motion and data-reveal on <html> before hydration, by design.
       suppressHydrationWarning
-      className={`${fraunces.variable} ${instrumentSans.variable} ${plexMono.variable}`}
+      className={`${fraunces.variable} ${instrumentSans.variable} ${plexMono.variable} ${optInstrumentSerif.variable} ${optNewsreader.variable} ${optDmSans.variable}`}
     >
       <body>
         <OrganisationJsonLd />
@@ -74,7 +92,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             Next's runtime loads, which on a slow connection is well after first paint. This
             one runs as the document parses, so the page opens as snow. */}
         <script id="moment-gate" dangerouslySetInnerHTML={{ __html: momentGate }} />
+        <script id="type-gate" dangerouslySetInnerHTML={{ __html: typeGate }} />
         {children}
+        <TypeSwitcher options={typeOptions} />
         <ConsentBanner />
         <Analytics />
         <AttributionCapture />

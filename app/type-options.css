@@ -1,0 +1,110 @@
+/* PREVIEW ONLY: the type options. Not for merging.
+
+   Each option re-points the three font variables the whole site already reads
+   (--font-fraunces for display, --font-instrument-sans for text and UI, --font-plex-mono for
+   the small print), so every page renders in the option with no component changes. The
+   display rule is then tuned per face: weight, tracking, leading and, through
+   font-size-adjust, the apparent size, so a face that runs small is not judged small. */
+
+/* ---- A, editorial: Instrument Serif over Instrument Sans ----
+   The face is about 30% narrower than the others, so at the same size a headline reads as
+   a thin column. font-size-adjust lifts it by a tenth so it is judged at its own best. */
+html[data-type='a'] {
+  --font-fraunces: var(--font-opt-instrument-serif);
+  --font-plex-mono: var(--font-instrument-sans);
+}
+html[data-type='a'] .display {
+  font-variation-settings: normal;
+  font-weight: 400;
+  font-size-adjust: 0.56;
+  letter-spacing: -0.012em;
+  line-height: 0.98;
+}
+
+/* ---- B, all sans: DM Sans throughout, the nearest free match to the logo ---- */
+html[data-type='b'] {
+  --font-fraunces: var(--font-opt-dm-sans);
+  --font-instrument-sans: var(--font-opt-dm-sans);
+  --font-plex-mono: var(--font-opt-dm-sans);
+}
+html[data-type='b'] .display {
+  font-variation-settings: normal;
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+}
+
+/* ---- C, broadsheet: Newsreader over Instrument Sans ----
+   The optical size axis is left to follow the font size, so a card title gets sturdier
+   strokes than an 80px headline without a second rule. */
+html[data-type='c'] {
+  --font-fraunces: var(--font-opt-newsreader);
+  --font-plex-mono: var(--font-instrument-sans);
+}
+html[data-type='c'] .display {
+  font-variation-settings: normal;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  letter-spacing: -0.022em;
+  line-height: 1;
+}
+
+/* Figures: in the serif options the numbers the site stands on are set in the sans, heavy
+   and tight, so they speak in the logo's voice rather than the headline's. */
+html[data-type='a'] [data-figure],
+html[data-type='c'] [data-figure] {
+  font-family: var(--font-instrument-sans), system-ui, sans-serif;
+  font-variation-settings: normal;
+  font-size-adjust: none;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+/* The small print was sized for a monospace; in a proportional face it needs no tracking. */
+html[data-type] .font-mono {
+  letter-spacing: 0;
+}
+
+/* The switcher itself: a tool, deliberately outside the site's design. */
+.type-switcher {
+  position: fixed;
+  left: 0.75rem;
+  bottom: 0.75rem;
+  z-index: 80;
+  max-width: calc(100vw - 1.5rem);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background: #111;
+  color: #fff;
+  font: 500 12px/1.3 system-ui, sans-serif;
+  box-shadow: 0 4px 24px rgb(0 0 0 / 0.35);
+}
+.type-switcher-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+.type-switcher button {
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.3rem;
+  background: #2b2b2b;
+  color: #fff;
+  font: inherit;
+}
+.type-switcher button[aria-checked='true'] {
+  background: #e9a23b;
+  color: #111;
+}
+.type-switcher p {
+  margin-top: 0.4rem;
+  padding: 0 0.15rem;
+  color: #c9c9c9;
+  font-weight: 400;
+}
+/* On a phone it sits under the header, clear of the hero's button and the join bar. */
+@media (max-width: 899px) {
+  .type-switcher {
+    top: 4.75rem;
+    bottom: auto;
+  }
+}
