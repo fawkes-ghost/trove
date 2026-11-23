@@ -59,15 +59,21 @@ The site speaks in two registers and keeps them apart.
 **Loud, once.** The promise: the chance of winning in the hero, the cap beside it, the email
 field. One screen, and the sticker a founding friend gets for signing up.
 
-**The house, everywhere else.** The escape, the company, how it works, the questions: set
-the way a good hotel sets its stationery. Moderate serif headings with air around them, a
+**The house, everywhere else.** The escape, the company, how it works, the questions.
+Moderate serif headings with air around them, a
 small sentence case label above, hairlines, plain text links, photographs as plates with
 their captions beneath. Nothing here competes with the hero. References for this register:
 nihi.com, aman.com, fabersett.com, wildseekersafaris.com, wildernessdestinations.com and
-Black Tomato's Keepers. Taken from them: pace, restraint, composed photography, credentials
-stated plainly. Not taken: tracked capitals (Trove is sentence case), cream and beige, and
-badges for awards and memberships Trove has not earned. Trove's trust comes from its
-arithmetic and its paper, so its credentials are the draw's own undertakings, in writing.
+Black Tomato's Keepers. Taken from them: pace, restraint, composed photography. Not taken:
+tracked capitals (Trove is sentence case), cream and beige, and badges for awards and
+memberships Trove has not earned. Trove's trust comes from the rules of the draw, so those
+are what the trust section shows.
+
+**Copy.** Written the way a person would say it to a customer. Lead with the benefit or the
+fact. A heading never describes the copy under it (no “in writing”, “in plain words”, “set
+out”). The cash alternative is mentioned with a link to the terms, and its amount appears
+only in the terms and key terms. The company's name, number and Companies House record are
+in the footer and nowhere in page copy.
 
 | Voice | Face | Notes |
 | --- | --- | --- |
@@ -131,21 +137,18 @@ leading the kicker.
 ### The rhythm, in order
 Film, daylight, cloud, daylight, daylight, loch, daylight, daylight, loch:
 1. **Hero** (snow over film), then the rail. As in the wireframe above. The one loud screen.
-2. **The escape** (daylight). A label, the heading, the county in a paragraph, then exactly
-   what is included as a ruled list: the stay, the cash, when it is taken, the cash
-   alternative, the prize in all. One tall photograph beside the words and a pair beneath,
-   each a plate with its title and one line under it. No carousel and nothing that moves by
-   itself; the one edge-to-edge photograph lives on the escape page. Venue unnamed until permitted; no
-   venue still until `venue.footageLicensed`.
-3. **The draw, in writing** (a sheet of paper on cloud). The company's wordmark as a
-   letterhead, the heading, then the undertakings as ruled rows: on the left the promise in
-   the heavy sans, marked in gold (the cap, the worst-case chance, one winner while
-   `compliance.noRollover` is true, free by post, the giving share, the cash alternative);
-   on the right what it means in plain words. Signed with the registered company name and
-   number, with links to the key terms and the Companies House record, a review link the day
-   `organisation.review` is set, and a line saying the terms are drafts until
-   `launch.termsInForce`. This is the trust section: no badge, logo row or testimonial
-   appears on the site until it is real.
+2. **The escape** (daylight). A label, the heading (“Three nights away, for two.”), the
+   county in a paragraph, then what is included as a ruled list: the stay, the cash, when it
+   is taken, the prize value. On the right the photographs fill the column: one wide, the
+   other two side by side under it, each with its title and one line beneath. No carousel
+   and nothing that moves by itself; the one edge-to-edge photograph lives on the escape
+   page. Venue unnamed until permitted; no venue still until `venue.footageLicensed`.
+3. **How we keep it fair** (a panel on cloud). The wordmark, the heading, then the rules of
+   the draw as ruled rows: on the left the rule in the heavy sans, marked in gold (the cap,
+   the worst-case chance, one winner while `compliance.noRollover` is true, free by post,
+   the giving share); on the right what it means. A link to the key terms beneath. This is
+   the trust section: no badge, logo row or testimonial appears on the site until it is
+   real.
 4. **How it works** (daylight). Three ruled columns in order: a step, a short title in the
    serif, one or two sentences. No cards.
 5. **The field** (daylight), unchanged.
@@ -261,24 +264,24 @@ for every escape so the template is the product:
 2. What you win (daylight). No prize strip: the rail already runs under the hero, and two
    bands of facts in a row was one too many. The two parts of the prize stand side by side
    with a vertical rule between, the stay in words and the cash as a figure in the serif,
-   then a ruled list: when the stay is taken, the cash alternative with its amount and a
-   link to the terms, the prize in all. No cards and no picture.
+   then a ruled list: when the stay is taken and the prize value. One sentence says a cash
+   alternative exists and links to the terms. No cards and no picture.
 3. The place (daylight). The destination’s name and one sentence on the left, the county in
    prose on the right. Then the photographs: one edge to edge between the rules, drifting
-   slowly in its frame as it passes, with its title and one line beneath it; the others as a
-   pair of plates. Nothing is set over a picture. Venue unnamed until permitted; no venue
+   slowly in its frame as it passes, with its title and one line beneath it; the others close
+   under it as an even pair. Nothing is set over a picture. Venue unnamed until permitted; no venue
    still until `venue.footageLicensed`.
 4. Your chances (`#odds`). Two rows of the same two columns: the words beside the field,
    then the cap (the ledger figure, marked in gold at the size of a subheading) beside the
    ladder and the calculator.
 5. Where the money goes (loch). The heading and the locality statement on the left; the
    share on the right, in the heavy sans and in gold.
-6. Enter (a sheet of paper on cloud, as the draw in writing is on the home page). The
-   wordmark as a letterhead, the answer sentence, then the choice as ruled rows: a gold disc
+6. Enter (a panel on cloud, as the fairness section is on the home page). The wordmark,
+   the answer sentence, then the choice as ruled rows: a gold disc
    marks the one chosen, the label, the worst-case chance, the price in the serif. The free
    postal route is the last row, in the same type and the same columns. One call to action
-   beneath, with what goes to the destination for that choice. Signed with the registered
-   company name and number, the key terms and the Companies House record. No countdown, no
+   beneath, with what goes to the destination for that choice, and a link to the key terms.
+   No countdown, no
    deadline, no “Enter now”, no default to a bundle.
 7. Free entry by post: one paragraph and the link.
 8. Founding friends, while the escape is not open.
@@ -356,3 +359,8 @@ second connection. `next.config.ts` gives `/media/*` a year, `immutable`: a new 
 filename, never a new body at the same path. The hero film ships in two cuts, the 1600 wide
 master and a 960 wide rendition at CRF 30, offered first below 900px through a `source`
 media query, so a phone never fetches the wide one.
+
+Photographs go through the Next image optimiser (same origin): AVIF or WebP at the width
+the screen needs, lazy below the fold, with a 16px blurred copy from config holding the
+frame until the picture arrives. The site has to load on a 4G signal, so nothing spins,
+flies in or waits on a script: a photograph fades up as it enters, and that is all.

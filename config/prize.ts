@@ -53,6 +53,7 @@ export type Still = {
   venue: boolean;
   title: string | null;           // over the lower third of the reel, once the founder writes it
   caption: string | null;         // one sentence beneath the title
+  blur?: string;                  // a 16px copy of the still as a data URI, shown while the real one loads on a slow connection
 };
 
 export type Escape = {
@@ -78,6 +79,7 @@ export type Escape = {
     datesOffered: number;           // the fewest sets of dates we offer the winner to choose from
     stayValidMonths: number;        // from claim, subject to availability and stated blackout dates
     stayWindow: string;             // the season the stay is valid in and how its dates are fixed, stated in terms
+    stayWhen: string;               // the same window as a sentence for the pages; keep it in step with stayWindow
     description: string[];          // factual components in order: the stay, then the cash; no adjectives, every figure derived
   };
   theme: {
@@ -144,6 +146,7 @@ export const escape: Escape = {
     datesOffered: 3,
     stayValidMonths: 12,
     stayWindow: 'on consecutive nights between November and March, excluding 20 December to 3 January, on dates the winner chooses from those we offer',
+    stayWhen: 'Between November and March, on dates you choose from the ones we offer. Not 20 December to 3 January.',
     description: [
       `${sentenceCase(numberWord(hampshireNights))} nights for you and your plus one, breakfast included`,
       `${gbp(hampshireCash)} in cash`,
@@ -167,13 +170,15 @@ export const escape: Escape = {
         venue: false,
         title: 'The downs.',
         caption: 'Chalk grassland, frost until ten, and a track that goes on for miles.',
+        blur: 'data:image/jpeg;base64,/9j/2wBDABIMDRANCxIQDhAUExIVGywdGxgYGzYnKSAsQDlEQz85Pj1HUGZXR0thTT0+WXlaYWltcnNyRVV9hnxvhWZwcm7/2wBDARMUFBsXGzQdHTRuST5Jbm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm7/wAARCAAJABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAUG/8QAIxAAAQQBAQkAAAAAAAAAAAAAAQACAxIEQQUGERMyNHJz0f/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/8QAGBEAAwEBAAAAAAAAAAAAAAAAAAExESH/2gAMAwEAAhEDEQA/ABM23k3BhkdXUuA+KtibxS0bzHjidagBZaLtB7CkwdEPglXSYlD/2Q==',
       },
       {
         src: '/media/still-02-chalk-stream.jpg',
         alt: 'A clear chalk stream in low winter sun',
         venue: false,
         title: 'The water.',
-        caption: 'Clear, cold and fast. The county’s rivers rise from the chalk itself.',
+        caption: 'Clear, cold and fast. The county’s rivers rise from the chalk.',
+        blur: 'data:image/jpeg;base64,/9j/2wBDABIMDRANCxIQDhAUExIVGywdGxgYGzYnKSAsQDlEQz85Pj1HUGZXR0thTT0+WXlaYWltcnNyRVV9hnxvhWZwcm7/2wBDARMUFBsXGzQdHTRuST5Jbm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm7/wAARCAAJABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAUG/8QAIRAAAQMEAQUAAAAAAAAAAAAAAQIDBAAFESGBEjIzQbH/xAAVAQEBAAAAAAAAAAAAAAAAAAABAv/EABgRAAMBAQAAAAAAAAAAAAAAAAABAhEh/9oADAMBAAIRAxEAPwAdsuCQ+tbjcRKlqB6g2RgADQAOqoXW6yGRmM9HKCc7BJPPusrH8/I+UyX2Uyt6TTw//9k=',
       },
       {
         src: '/media/still-03-woodland-mist.jpg',
@@ -181,6 +186,7 @@ export const escape: Escape = {
         venue: false,
         title: 'The woods.',
         caption: 'Beech hangers hold the last of the light until four.',
+        blur: 'data:image/jpeg;base64,/9j/2wBDABIMDRANCxIQDhAUExIVGywdGxgYGzYnKSAsQDlEQz85Pj1HUGZXR0thTT0+WXlaYWltcnNyRVV9hnxvhWZwcm7/2wBDARMUFBsXGzQdHTRuST5Jbm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm7/wAARCAAJABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABQIE/8QAIxAAAQQABAcAAAAAAAAAAAAAAQACAwQFBhJBEyEyUoGRof/EABUBAQEAAAAAAAAAAAAAAAAAAAEC/8QAGBEAAwEBAAAAAAAAAAAAAAAAAAEREjH/2gAMAwEAAhEDEQA/AIbmm4GaJXCQb8y0+wj7OJW5HHhXrLR2mUn6EfY28rTT6ApuVUPT/9k=',
       },
     ],
   },

@@ -39,8 +39,8 @@ export function venueLine(e: Escape): string {
 
 // The stills the reel may show: every licensed still, but no venue still until the venue's
 // footage is licensed. Returns values only, for the client-side reel.
-export function reelStills(e: Escape): { src: string; alt: string; title: string | null; caption: string | null }[] {
-  return e.media.stills.filter((still) => !still.venue || e.venue.footageLicensed).map(({ src, alt, title, caption }) => ({ src, alt, title, caption }));
+export function reelStills(e: Escape): { src: string; alt: string; title: string | null; caption: string | null; blur?: string }[] {
+  return e.media.stills.filter((still) => !still.venue || e.venue.footageLicensed).map(({ src, alt, title, caption, blur }) => ({ src, alt, title, caption, blur }));
 }
 
 // The county in two short paragraphs, for the escape page and the home page's escape

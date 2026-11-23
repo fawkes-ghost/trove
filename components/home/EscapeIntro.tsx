@@ -1,14 +1,14 @@
 import Link from 'next/link';
 import { escape as hampshire, type Escape } from '@/config/prize';
 import { gbp, numberWord, sentenceCase } from '@/lib/format';
-import { countyProse, reelStills, venueLine } from '@/lib/escapes';
+import { countyProse, reelStills } from '@/lib/escapes';
 import { Kicker } from '@/components/site/Kicker';
 import { Plate } from '@/components/media/Plate';
 
-// The escape, in the house register: what it is, where it is, and exactly what is included,
-// set the way a hotel sets a letter. Words in a narrow column on the left, one tall
-// photograph on the right, the remaining photographs as a pair beneath, each with its title
-// and one line under it rather than over it. Every figure is read from config; the house is
+// The escape: what it is, where it is and what is included, beside its photographs. Words in
+// a narrow column on the left; on the right one wide photograph with the other two side by
+// side under it, so the pictures fill the column and nothing is left empty beside them. Each
+// has its title and one line beneath it. Every figure is read from config; the house is
 // unnamed until it gives permission, and no venue still shows until its footage is licensed.
 export function EscapeIntro({ escape = hampshire }: { escape?: Escape }) {
   const { prize } = escape;
@@ -17,19 +17,18 @@ export function EscapeIntro({ escape = hampshire }: { escape?: Escape }) {
   const [stay] = prize.description;
   const included = [
     { term: 'The stay', detail: `${stay}.` },
-    { term: 'The cash', detail: `${gbp(prize.cash)}, yours to spend on the trip, or on anything else.` },
-    { term: 'When', detail: `The stay is taken ${prize.stayWindow}.` },
-    { term: 'Or instead', detail: `${gbp(prize.cashAlternative)} in cash instead of the escape, if you would rather.` },
-    { term: 'In all', detail: `A ${gbp(prize.value)} prize.` },
+    { term: 'The cash', detail: `${gbp(prize.cash)} to spend however you like.` },
+    { term: 'When', detail: prize.stayWhen },
+    { term: 'Prize value', detail: `${gbp(prize.value)}.` },
   ];
 
   return (
     <section id="destination" className="section">
-      <div className="grid gap-12 min-[900px]:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] min-[900px]:items-start min-[900px]:gap-[clamp(3rem,7vw,7rem)]">
+      <div className="grid gap-12 min-[900px]:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] min-[900px]:items-start min-[900px]:gap-[clamp(2.5rem,5vw,5rem)]">
         <div data-reveal="group">
           <Kicker>The escape.</Kicker>
           <h2 className="display heading-section mt-6 text-balance">
-            {sentenceCase(numberWord(escape.nights))} nights at {venueLine(escape)}.
+            {sentenceCase(numberWord(escape.nights))} nights away, for {numberWord(escape.party)}.
           </h2>
           <p className="mt-8 max-w-[34rem] text-lg" data-answer>
             {countyProse(escape)[0]}
@@ -49,15 +48,19 @@ export function EscapeIntro({ escape = hampshire }: { escape?: Escape }) {
             </Link>
           </p>
         </div>
-        {lead ? <Plate still={lead} ratio="aspect-[4/5]" className="min-[900px]:mt-20" /> : null}
+        {lead ? (
+          <div className="grid gap-6">
+            <Plate still={lead} ratio="aspect-[3/2]" sizes="(min-width: 900px) 56vw, 100vw" />
+            {rest.length ? (
+              <div className="grid gap-6 sm:grid-cols-2">
+                {rest.slice(0, 2).map((still) => (
+                  <Plate key={still.src} still={still} ratio="aspect-[3/2]" sizes="(min-width: 900px) 28vw, (min-width: 640px) 50vw, 100vw" />
+                ))}
+              </div>
+            ) : null}
+          </div>
+        ) : null}
       </div>
-      {rest.length ? (
-        <div className="mt-12 grid gap-12 min-[900px]:mt-24 min-[900px]:grid-cols-[minmax(0,4fr)_minmax(0,5fr)] min-[900px]:gap-[clamp(3rem,7vw,7rem)]">
-          {rest.slice(0, 2).map((still, index) => (
-            <Plate key={still.src} still={still} ratio={index === 0 ? 'aspect-[4/5]' : 'aspect-[3/2]'} className={index === 1 ? 'min-[900px]:mt-24' : ''} />
-          ))}
-        </div>
-      ) : null}
     </section>
   );
 }

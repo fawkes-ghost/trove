@@ -16,4 +16,10 @@ export function whyParagraphs(): string[] {
   ];
 }
 
-export const founder = { name: 'Stefan Bateson', role: 'Founder', portrait: '/media/founder.jpg' };
+export const founder = {
+  name: 'Stefan Bateson',
+  role: 'Founder',
+  portrait: '/media/founder.jpg',
+  // A 16px copy of the portrait, shown while the real one loads on a slow connection.
+  portraitBlur: 'data:image/jpeg;base64,/9j/2wBDABIMDRANCxIQDhAUExIVGywdGxgYGzYnKSAsQDlEQz85Pj1HUGZXR0thTT0+WXlaYWltcnNyRVV9hnxvhWZwcm7/2wBDARMUFBsXGzQdHTRuST5Jbm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm7/wAARCAAYABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABQAG/8QAJBAAAgEEAgAHAQAAAAAAAAAAAQMCAAQFERIhBhMUMUFRofH/xAAWAQEBAQAAAAAAAAAAAAAAAAABAAL/xAAYEQADAQEAAAAAAAAAAAAAAAAAARExIf/aAAwDAQACEQMRAD8A0GWzEsfcKQtJnNmjsnQHeqKzeQc7HF8WhLFkrmvkdT38xpjLWVtc3CJ3AJlD2AOgfrdA+IEoRYRQIsn5zORPPoa/v5WXR5B10luiPRMVzHepb6ozJWjL5Ai8hfCYIMO+td7qqqeCth//2Q==',
+};

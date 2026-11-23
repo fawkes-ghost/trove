@@ -60,7 +60,7 @@ export function HeardAbout({ token }: { token: string }) {
   if (status === 'failed') {
     return (
       <p className="mt-10 text-base" role="status" data-heard-about="failed">
-        We could not save that, but your place is confirmed.
+        We couldn’t save that, but your place is confirmed.
       </p>
     );
   }
@@ -68,7 +68,7 @@ export function HeardAbout({ token }: { token: string }) {
   return (
     <div className="mt-12 rule-t pt-8" data-heard-about="asking">
       <p className="text-lg">How did you hear about Trove?</p>
-      <p className="mt-1 text-sm text-ink/60">Optional. One tap and we will not ask again.</p>
+      <p className="mt-1 text-sm text-ink/60">Optional. One tap and we won’t ask again.</p>
       <ul className="mt-4 flex flex-wrap gap-2">
         {heardAboutOptions.map((option) => (
           <li key={option.key}>

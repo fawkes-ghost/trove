@@ -11,10 +11,10 @@ type Status = 'idle' | 'sending' | 'ok' | 'duplicate' | 'invalid' | 'error' | 'c
 
 const messages: Record<Exclude<Status, 'idle' | 'sending'>, string> = {
   ok: 'Check your email.',
-  duplicate: 'You are already on the list.',
-  invalid: 'That does not look like an email address.',
-  error: 'We could not reach the list. Please try again in a moment.',
-  challenge: 'We could not confirm you are a person. Please try again.',
+  duplicate: 'You’re already on the list.',
+  invalid: 'That doesn’t look like an email address.',
+  error: 'Something went wrong at our end. Please try again in a moment.',
+  challenge: 'We couldn’t check that you’re a person. Please try again.',
 };
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;

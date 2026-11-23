@@ -58,7 +58,7 @@ export function Hero({ escape = hampshire, lead, sourceChannel = 'trove-hero' }:
                 <WaitlistForm sourceChannel={sourceChannel} idPrefix="hero-waitlist" wordmarkSvg={wordmarkSource()} />
               </div>
               {escape.status === 'open' ? null : (
-                <p className="hero-note">We’ll send you one email when entries open. No payment is taken on this site yet.</p>
+                <p className="hero-note">We’ll email you once, on the day entries open. Nothing to pay today.</p>
               )}
               {/* The key terms sit directly under the call to action, so they are on screen
                   whenever it is. */}

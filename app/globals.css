@@ -177,14 +177,15 @@ body {
 }
 /* A photograph in the house register: a plate with its caption beneath, not a card. */
 .plate {
+  position: relative;
   overflow: hidden;
   border-radius: 2px;
   background: var(--cloud);
 }
 
-/* The draw in writing: a sheet of headed paper on the cloud band. The left of each row is
-   a promise in the heavy sans, marked the way a reader marks a document; the right says
-   what it means in plain words. */
+/* A panel on the cloud band, for the two things a visitor has to be able to trust: how the
+   draw is kept fair, and the entry choice. In the fairness rows the left is a rule in the
+   heavy sans, marked in gold; the right says what it means. */
 .sheet {
   max-width: 62rem;
   margin: 0 auto;

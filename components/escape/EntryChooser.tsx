@@ -86,7 +86,7 @@ export function EntryChooser({ options, open, postal, flow }: Props) {
           <WaitlistLink className="btn inline-flex h-12 shrink-0 items-center justify-center bg-sun px-7 text-base font-medium text-ink">Secure your place</WaitlistLink>
         )}
       </div>
-      {!open ? <p className="mt-4 text-sm text-ink/70">Entries are not open yet. Founding friends hear first, and enter before the public.</p> : null}
+      {!open ? <p className="mt-4 text-sm text-ink/70">Entries aren’t open yet. Founding friends hear first, and enter before the public.</p> : null}
       {flow?.preview ? (
         <p className="mt-2 text-sm" data-flow-preview-link>
           <Link href={`${flow.href}?entries=${choice.entries}`} className="link-quiet">
