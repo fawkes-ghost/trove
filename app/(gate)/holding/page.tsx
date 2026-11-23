@@ -7,6 +7,7 @@ import { Wordmark, iconSource } from '@/components/brand/Marks';
 import { ComplianceStrip } from '@/components/site/ComplianceStrip';
 import { WaitlistForm } from '@/components/waitlist/WaitlistForm';
 import { signposting } from '@/lib/routes';
+import { holdingShareCopy } from '@/lib/share';
 
 export const dynamic = 'force-dynamic';
 
@@ -69,7 +70,7 @@ export default function HoldingPage() {
           <div className="mt-10 rule-t pt-8">
             <p className="text-lg font-medium">Be a founding friend.</p>
             <div className="mt-4">
-              <WaitlistForm sourceChannel="trove-holding" iconSvg={iconSource()} />
+              <WaitlistForm sourceChannel="trove-holding" iconSvg={iconSource()} share={holdingShareCopy()} />
             </div>
           </div>
         </div>
