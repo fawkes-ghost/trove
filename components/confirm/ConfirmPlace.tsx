@@ -35,7 +35,7 @@ export function ConfirmPlace({ iconSvg }: { iconSvg?: string }) {
       setStatus('confirmed');
       return;
     }
-    const tween = gsap.fromTo(disc, { attr: { cy: 82 } }, { attr: { cy: 36 }, duration: 0.6, ease: 'power3.out', onComplete: () => setStatus('confirmed') });
+    const tween = gsap.fromTo(disc, { attr: { cy: 56 } }, { attr: { cy: 28.8 }, duration: 0.6, ease: 'power3.out', onComplete: () => setStatus('confirmed') });
     return () => {
       tween.kill();
     };
@@ -77,7 +77,7 @@ export function ConfirmPlace({ iconSvg }: { iconSvg?: string }) {
           <p className="mt-6 text-lg">One press and you are a founding friend.</p>
           {status === 'rising' ? (
             <button ref={buttonRef} type="button" disabled aria-label="Your place is confirmed" className="mt-8 flex h-12 w-12 items-center justify-center bg-accent text-ink" data-confirm-disc>
-              <span className="brand-mark brand-icon block h-7" dangerouslySetInnerHTML={{ __html: prefersReducedMotion() ? iconSvg! : iconSvg!.replace('cy="36"', 'cy="82"') }} />
+              <span className="brand-mark brand-icon block h-7" dangerouslySetInnerHTML={{ __html: prefersReducedMotion() ? iconSvg! : iconSvg!.replace('cy="28.8"', 'cy="56"') }} />
             </button>
           ) : (
           <button

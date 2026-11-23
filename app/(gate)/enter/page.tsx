@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { gatePassphrase } from '@/lib/gate';
-import { Icon, Wordmark } from '@/components/brand/Marks';
+import { Wordmark } from '@/components/brand/Marks';
 import { enter } from './actions';
 
 export const dynamic = 'force-dynamic';
@@ -27,8 +27,7 @@ export default async function EnterPage({ searchParams }: { searchParams: Promis
   return (
     <main className="grid min-h-svh grid-rows-[auto_1fr] px-6 md:px-10">
       <div className="flex items-center gap-[10px] py-5" aria-label="Trove">
-        <Icon height={28} />
-        <Wordmark height={22} />
+        <Wordmark height={28} />
       </div>
 
       <div className="flex flex-col justify-center py-12 md:py-16">

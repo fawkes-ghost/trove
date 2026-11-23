@@ -1,6 +1,6 @@
-import type { Metadata } from 'next';
-import type { CSSProperties, ReactNode } from 'react';
-import { Fraunces, Geist, Geist_Mono } from 'next/font/google';
+import type { Metadata, Viewport } from 'next';
+import type { ReactNode } from 'react';
+import { Fraunces, IBM_Plex_Mono, Instrument_Sans } from 'next/font/google';
 import { escape } from '@/config/prize';
 
 import { siteUrl } from '@/lib/site';
@@ -17,40 +17,46 @@ const fraunces = Fraunces({
   display: 'swap',
 });
 
-const geistSans = Geist({
+// Low sun type: Fraunces for display, Instrument Sans for body and UI, Plex Mono for the
+// ledger and the compliance strip only.
+const instrumentSans = Instrument_Sans({
   subsets: ['latin'],
-  variable: '--font-geist-sans',
+  variable: '--font-instrument-sans',
+  weight: ['400', '500'],
   display: 'swap',
 });
 
-const geistMono = Geist_Mono({
+const plexMono = IBM_Plex_Mono({
   subsets: ['latin'],
-  variable: '--font-geist-mono',
+  variable: '--font-plex-mono',
+  weight: ['400'],
   display: 'swap',
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: { default: 'Trove', template: '%s · Trove' },
-  description: `A UK luxury travel prize draw. One escape per draw, a cap on entries, published odds. ${escape.charity.localityStatement}`,
+  description: 'A UK luxury travel prize draw. One escape per draw, a fixed cap on entries, odds published before you enter, and free entry by post.',
   alternates: { canonical: '/' },
   openGraph: { siteName: 'Trove', type: 'website', locale: 'en_GB' },
   twitter: { card: 'summary_large_image' },
 };
 
-// The accent is one per escape and comes from config, never from a stylesheet.
-const accent = { '--accent': escape.theme.accent } as CSSProperties;
+// The browser chrome on phones takes the page colour, so the site reads as one light surface.
+export const viewport: Viewport = {
+  themeColor: '#F7F8F5',
+};
 
 // Decides before first paint whether motion runs at all (data-motion="full" unless the
 // visitor asks for reduced motion), whether the reveals arm (data-reveal="on", the same
-// condition), and whether the logo moment plays: fresh session, home page, motion allowed.
+// condition). The hero sunrise in app/globals.css runs off the same attribute.
 // Runs as the document parses so nothing flashes either way; without it every act is in its
 // final state. The reveal gate carries its own fail-safe: if components/motion/Reveals.tsx
 // never announces itself the attribute is dropped and every revealed block is simply
 // visible, so a failed bundle can never leave a section blank. It is dropped shortly after
 // load, which is as soon as a missing bundle can be inferred, with a four second ceiling in
 // case load never fires.
-const momentGate = `try{var d=document.documentElement;var r=matchMedia("(prefers-reduced-motion: reduce)").matches;if(!r){d.dataset.motion="full";d.dataset.reveal="on";var c=function(){if(!d.dataset.revealLive){delete d.dataset.reveal}};addEventListener("load",function(){setTimeout(c,300)});setTimeout(c,4000)}if(location.pathname==="/"&&!r&&!sessionStorage.getItem("trove:logo-moment")){d.dataset.moment="play"}}catch(e){}`;
+const momentGate = `try{var d=document.documentElement;var r=matchMedia("(prefers-reduced-motion: reduce)").matches;if(!r){d.dataset.motion="full";d.dataset.reveal="on";var c=function(){if(!d.dataset.revealLive){delete d.dataset.reveal}};addEventListener("load",function(){setTimeout(c,300)});setTimeout(c,4000)}}catch(e){}`;
 
 // Html, fonts, consent and analytics only. The header, menu and footer live in
 // app/(site)/layout.tsx so the holding and enter pages can render without them.
@@ -58,8 +64,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en-GB"
-      style={accent}
-      className={`${fraunces.variable} ${geistSans.variable} ${geistMono.variable}`}
+      // The gate script sets data-motion and data-reveal on <html> before hydration, by design.
+      suppressHydrationWarning
+      className={`${fraunces.variable} ${instrumentSans.variable} ${plexMono.variable}`}
     >
       <body>
         <OrganisationJsonLd />

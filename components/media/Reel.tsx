@@ -68,7 +68,7 @@ export function Reel({ stills, label }: { stills: Still[]; label: string }) {
           <figure key={still.src} className={`absolute inset-0 m-0 ${fade} ${i === index ? 'opacity-100' : 'opacity-0'}`} aria-hidden={i !== index} data-reel-still={i}>
             <img src={still.src} alt={still.alt} className="h-full w-full object-cover" loading={i === 0 ? 'eager' : 'lazy'} decoding="async" />
             {captioned ? (
-              <figcaption className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,#10121400_0%,#101214B3_60%,#101214D9_100%)] px-6 pt-16 pb-12 text-snow md:px-10 md:pt-24 md:pb-16" data-reel-caption>
+              <figcaption className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,#14252000_0%,#142520B3_60%,#142520D9_100%)] px-6 pt-16 pb-12 text-snow md:px-10 md:pt-24 md:pb-16" data-reel-caption>
                 {still.title ? <p className="display text-[1.5rem] md:text-[2rem]">{still.title}</p> : null}
                 {still.caption ? <p className="mt-2 max-w-[40rem] text-base text-snow/85">{still.caption}</p> : null}
               </figcaption>

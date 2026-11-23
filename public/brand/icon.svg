@@ -1,5 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Trove">
-  <rect x="0" y="0" width="64" height="64" rx="14" fill="currentColor"/>
-  <circle cx="32" cy="36" r="19" fill="var(--snow, #FFFFFF)"/>
-  <path d="M11 50 L26 28 L35 39 L42 32 L53 50 Z" fill="currentColor"/>
+  <rect x="0" y="0" width="64" height="64" rx="14.7" fill="#1F3A33"/>
+  <circle cx="32" cy="28.8" r="15.4" fill="#E9A23B"/>
+  <path d="M0 39.7H64V49.3A14.7 14.7 0 0 1 49.3 64H14.7A14.7 14.7 0 0 1 0 49.3Z" fill="#1F3A33"/>
+  <rect x="11.5" y="42.9" width="41" height="3.8" rx="1.9" fill="#EEF0EA"/>
 </svg>
