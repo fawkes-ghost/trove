@@ -344,7 +344,7 @@ escape page and the footer. Handling goes to a postal agent once volume warrants
 
 Footer carries slots for Instagram, TikTok and a review platform. Use each platform's
 official brand assets from their brand resource pages once the accounts exist; until
-then the slot renders the platform name in text. Nothing hand-drawn.
+then the slot does not render at all. Nothing hand-drawn.
 
 ## 8. Imagery
 
