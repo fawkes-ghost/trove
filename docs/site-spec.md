@@ -364,3 +364,28 @@ Photographs go through the Next image optimiser (same origin): AVIF or WebP at t
 the screen needs, lazy below the fold, with a 16px blurred copy from config holding the
 frame until the picture arrives. The site has to load on a 4G signal, so nothing spins,
 flies in or waits on a script: a photograph fades up as it enters, and that is all.
+
+## 9. Security headers
+
+Every response carries five headers, set in `next.config.ts` from `lib/security-headers.ts`:
+`Content-Security-Policy`, `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`,
+`Referrer-Policy: strict-origin-when-cross-origin`, and a `Permissions-Policy` that turns
+off camera, microphone and geolocation. Vercel adds `Strict-Transport-Security`.
+
+The policy is an allowlist. Scripts, frames, requests, images, film and fonts come from
+this site and three named third parties: Cloudflare Turnstile (script and frame), Google
+Tag Manager and Google Analytics (script, requests, images, after consent only), and the
+Supabase project the waitlist forms call (requests only, read from
+`NEXT_PUBLIC_SUPABASE_URL`). The site cannot be framed, forms post only to the site, and
+plugins and `<base>` rewrites are off. A new third party is a new origin in that file, in
+the directive that matches how it loads, or the browser blocks it.
+
+Inline scripts are allowed (`'unsafe-inline'`). Removing that needs a nonce minted per
+request, which makes every page dynamically rendered and takes the prerendered pages off
+the CDN. The site has to load on a 4G signal, so the pages stay static for now. If the
+strict policy is wanted later it goes in `proxy.ts`, and ships as
+`Content-Security-Policy-Report-Only` first.
+
+Under `next dev` the policy also allows `'unsafe-eval'` and websockets, which fast refresh
+needs, and `nosniff` is left off because the dev error page loads a manifest served as JSON.
+The production build has neither exception.
