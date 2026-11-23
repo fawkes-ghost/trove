@@ -13,7 +13,7 @@ export const ENTER_PATH = '/enter';
 
 // Routes that render as themselves while the gate is up. Everything else shows the
 // holding page. Static assets are excluded by the matcher in proxy.ts.
-const exemptExact = new Set([ENTER_PATH, '/confirm', '/free-entry-by-post']);
+const exemptExact = new Set([ENTER_PATH, '/confirm', '/unsubscribe', '/free-entry-by-post']);
 const exemptPrefixes = ['/legal/'];
 
 export function gatePassphrase(): string | null {

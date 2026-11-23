@@ -260,7 +260,7 @@ body:has([data-hero-film]) .site-header[data-header="top"] {
 }
 
 /* The hero's words. The kicker and the number are the one giant idea: the chance, as wide
-   as the screen, but never so tall that a short window loses the email field below the
+   as the screen, but never so tall that a short window loses the signup form below the
    fold, so the size answers to the window's height as well as its width. */
 .hero-kicker {
   font-weight: 500;
@@ -393,8 +393,34 @@ html[data-motion="full"] .hero-twist-in {
     font-size: 1.2rem;
   }
 }
-/* From 900px the lower half sits in two columns, the promise on the left and the email
-   field on the right, level at the top, so the whole hero fits a laptop's first screen.
+/* A short window has width to spare and no height, so the form spends width. From 540px the
+   email address and the button share a row, as they do on a desktop. From 760px, in the
+   hero, all three fields and the button share one row, so adding the names costs a
+   landscape phone no height at all. */
+@media (max-height: 430px) and (min-width: 540px) {
+  [data-waitlist-email-row] {
+    flex-direction: row;
+  }
+  [data-waitlist-email-row] > input {
+    flex: 1 1 0;
+  }
+}
+@media (max-height: 430px) and (min-width: 760px) {
+  .hero-form,
+  .hero-form [data-waitlist-fields] {
+    max-width: none;
+  }
+  .hero-form [data-waitlist-fields] {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.6fr) auto;
+  }
+  .hero-form [data-waitlist-names],
+  .hero-form [data-waitlist-email-row] {
+    display: contents;
+  }
+}
+/* From 900px the lower half sits in two columns, the promise on the left and the signup
+   form on the right, level at the top, so the whole hero fits a laptop's first screen.
    Below that it is one column, and on the shortest phones the film grows a little. */
 @media (min-width: 900px) {
   .hero-lower {
