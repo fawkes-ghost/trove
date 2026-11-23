@@ -53,7 +53,12 @@ goes), so motion carries the visitor to the facts and then gets out of the way.
 - Two voices. Newsreader says things (headlines, the prize sentence). DM Sans at its
   heaviest promises things (the chance, the cap, the giving share). DM Sans carries
   everything else. No monospace. The gold is a highlighter for promises: the call to
-  action, the mark under a figure, the ribbon, the founding friend sticker.
+  action, the mark under a promise, the founding friend sticker.
+- Two registers. Loud once, in the hero: the chance, the cap, the email field. The house
+  everywhere else: moderate serif headings, small sentence case labels, hairlines, plain
+  text links, photographs as plates with captions beneath. Trust is the draw's own
+  undertakings set out in writing and signed with the company's name and number. No badge,
+  logo row or testimonial until it is real.
 - Respect `prefers-reduced-motion` with a still version of every moment.
 - Photography and film do the selling. Licensed footage only. No AI-generated venue
   imagery, ever.

@@ -11,7 +11,7 @@ export function Waitlist() {
     <section id="waitlist" className="scroll-mt-24 rule-t section">
       <div className="max-w-[40rem]" data-reveal="group">
         <Kicker>Founding friends enter first.</Kicker>
-        <h2 className="display mt-6 text-balance text-[2.5rem] leading-[1] md:text-[4rem]">Become a founding friend.</h2>
+        <h2 className="display mt-6 text-balance heading-section">Become a founding friend.</h2>
         <p className="mt-6 text-lg">
           Founding friends hear the day entries open and can enter before anyone else. We’ll send you one email when that happens.
         </p>

@@ -24,9 +24,11 @@ type Props = {
 };
 
 // Cloudflare Turnstile, rendered explicitly so the widget mode set in the Cloudflare
-// dashboard (managed) applies. Tokens arrive through onToken; a failed or expired
-// challenge clears the token and reports an error. Bumping resetSignal asks for a fresh
-// token after a submit. Nothing animates on our side; the widget draws itself.
+// dashboard (managed) applies. The check runs unseen and the box appears only if Cloudflare
+// needs the person to do something, so the form is a field and a button and nothing else
+// for nearly everyone. Tokens arrive through onToken; a failed or expired challenge clears
+// the token and reports an error. Bumping resetSignal asks for a fresh token after a
+// submit. Nothing animates on our side; the widget draws itself.
 export function Turnstile({ onToken, onError, resetSignal }: Props) {
   const container = useRef<HTMLDivElement>(null);
   const widgetId = useRef<string | null>(null);
@@ -42,7 +44,7 @@ export function Turnstile({ onToken, onError, resetSignal }: Props) {
       // Flexible fills the column but never goes below 300px. On the narrowest phones the
       // column is narrower than that, so they get the compact box instead.
       size: container.current.clientWidth < 300 ? 'compact' : 'flexible',
-      appearance: 'always',
+      appearance: 'interaction-only',
       callback: (token: string) => callbacks.current.onToken(token),
       'expired-callback': () => callbacks.current.onToken(null),
       'timeout-callback': () => callbacks.current.onToken(null),
@@ -72,7 +74,7 @@ export function Turnstile({ onToken, onError, resetSignal }: Props) {
   return (
     <>
       <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" strategy="afterInteractive" onLoad={render} />
-      <div ref={container} data-turnstile className="min-h-[65px] w-full max-w-sm overflow-hidden" />
+      <div ref={container} data-turnstile className="w-full max-w-sm overflow-hidden" />
     </>
   );
 }

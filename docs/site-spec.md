@@ -1,4 +1,4 @@
-# Trove site specification (v2, 23 Nov 2026)
+# Trove site specification (v3, 23 Nov 2026)
 
 Read with CLAUDE.md and config/prize.ts. This is the design plan and page standard.
 Nothing here is a figure; every figure comes from config.
@@ -48,23 +48,38 @@ escape; the words say exactly what it is and where the money goes.
 | `--film` | media only | Warm winter grade: low sun, long shadows, breath in the air, no midday blue |
 
 The gold is the highlighter. It marks what Trove promises and nothing else: the call to
-action, the box behind the cap in the hero, the line drawn under a figure, the ribbon, the
-founding friend sticker. Surfaces stay snow, cloud, ink and loch. No gradient washes on
+action, the box behind the cap in the hero, the line drawn under a promise in the draw in
+writing, the discs on the rail, the founding friend sticker. Surfaces stay snow, cloud, ink and loch. No gradient washes on
 chrome.
 
-### Type: two voices
+### Two registers, two voices
+
+The site speaks in two registers and keeps them apart.
+
+**Loud, once.** The promise: the chance of winning in the hero, the cap beside it, the email
+field. One screen, and the sticker a founding friend gets for signing up.
+
+**The house, everywhere else.** The escape, the company, how it works, the questions: set
+the way a good hotel sets its stationery. Moderate serif headings with air around them, a
+small sentence case label above, hairlines, plain text links, photographs as plates with
+their captions beneath. Nothing here competes with the hero. References for this register:
+nihi.com, aman.com, fabersett.com, wildseekersafaris.com, wildernessdestinations.com and
+Black Tomato's Keepers. Taken from them: pace, restraint, composed photography, credentials
+stated plainly. Not taken: tracked capitals (Trove is sentence case), cream and beige, and
+badges for awards and memberships Trove has not earned. Trove's trust comes from its
+arithmetic and its paper, so its credentials are the draw's own undertakings, in writing.
 
 | Voice | Face | Notes |
 | --- | --- | --- |
-| What the site says | Newsreader 400, optical size following the font size | Headlines, the prize sentence, pull lines. Class `display` |
-| What the site promises | DM Sans 800 | The numbers the draw stands on: the chance, the cap, the giving share, the ledger figure. Class `figure`; `figure-marked` draws the gold line under it, `mark-box` sets it ink on gold |
-| Everything else | DM Sans 400, 500 and 700 | Body, navigation, forms, kickers, the compliance strip, the ribbon |
+| What the site says | Newsreader 400, optical size following the font size | Headlines, the prize sentence, captions' titles. Class `display`; section headings add `heading-section` (32px to 48px) |
+| What the site promises | DM Sans 800 | The numbers and undertakings the draw stands on: the chance, the cap, the giving share, the guarantee. Class `figure`; `figure-marked` draws the gold line under it, `mark-box` sets it ink on gold |
+| Everything else | DM Sans 400, 500 and 700 | Body, navigation, forms, kickers, the compliance strip, the rail |
 
 There is no monospace anywhere. A number in running text takes the face around it;
-numerals are tabular. Only a figure the draw stands on takes the heavy sans, and only where
-it is the point of the block, so a page never shouts twice in one screen. Headlines ragged
-left. No word-level emphasis inside a headline; italic is a whole clause or nothing.
-Measure under 70 characters.
+numerals are tabular. The heavy sans is at full size once, in the hero; in the draw in
+writing it is the size of a subheading. Headlines ragged left. No word-level emphasis
+inside a headline; italic is a whole clause or nothing. Measure under 70 characters. Links
+that are not calls to action use `link-quiet`.
 
 ### The one memorable moment
 The number. The chance of winning is the largest thing on the page, as wide as the screen,
@@ -89,53 +104,56 @@ never shows.
 |                                                   wide as the page |
 |  [3,000] entries. Never more.       [ Your email address        ]  |
 |  Win three nights at one of         [ Secure your place         ]  |
-|  England’s finest country houses,   18+. UK residents. Free entry  |
-|  and £1,600 in cash.                by post. Key terms.            |
-|   serif, the page’s h1               the form and the strip        |
+|  England’s finest country houses,   One email when entries open.   |
+|  and £1,600 in cash.                18+. UK residents. Key terms.  |
+|   serif, the page’s h1               the form, the note, the strip |
 +------------------------------------------------------------------+
-|/ 3,000 entries. Never more. • One winner guaranteed. • Free entry /|
+|  3,000 entries. Never more.  •  One winner guaranteed.  •  Free    |
 +------------------------------------------------------------------+
-        the ribbon: gold, tilted, looping, ink discs between
+     the rail: one quiet line on daylight, drifting, gold discs
 ```
 
 In order: the kicker, the number, the twist line with the cap in a gold box, the prize
-sentence (the page’s one `h1`), the email field and its button, the compliance strip, then
-the ribbon across the foot of the film. The words sit in the flow of the hero, not over it,
+sentence (the page’s one `h1`), the email field and its button, one line saying what
+signing up brings and that nothing is paid, the compliance strip, then the rail beneath
+the film. The form is a field and a button: the signup check runs unseen and shows itself
+only if it needs the person to do something. The words sit in the flow of the hero, not over it,
 so on a short window the film grows with them and nothing slides under the header. The
 number’s size answers to the window’s height as well as its width, so the email field
 stays on the first screen.
 
 Every figure in that wireframe is illustrative and is rendered from config. The venue is
 not named until `venue.permissionGranted` is true; until then “one of England’s finest
-country houses”. The ribbon’s “One winner guaranteed.” is shown only while
+country houses”. The rail’s “One winner guaranteed.” is shown only while
 `compliance.noRollover` is true. The escape page uses the same hero with the escape’s name
 leading the kicker.
 
 ### The rhythm, in order
-Ink, ink, snow, film, snow, snow, snow, film, moss:
-1. **Hero** (snow over film), then the ribbon. As in the wireframe above.
-2. **Your odds of winning** (ink band). Three figures in the heavy sans, the cap, the
-   worst-case odds and the giving share as a percentage, each marked in gold and each with
-   its one-line caption directly beneath it. A figure and its caption are one unit and are
-   never separated: three across from 900px, one above the other below it, and the figures
-   scale with the window so they never touch. “Read the key terms.” has its own line
-   beneath the units, under a rule, never a fourth figure.
-3. **The destination** (snow). Kicker and headline; the venue unnamed until permitted.
-4. **The reel** (film). Full-bleed licensed stills from `media.stills`, sixteen by nine from
-   768px and four by five below it so a caption sits in the lower third clear of the arrows,
-   crossfade on a four second timer, swipe on touch, pause on hover, static
-   under reduced motion.
-   No venue still until `venue.footageLicensed`. Until the Hampshire stills are licensed,
-   AI-generated placeholder stills, mood only, with no venue depicted. No arrows: nothing
-   holds contrast over a frame that changes under it, so the dots are the one control, each
-   an 8px mark inside a 24px target, and a swipe turns the reel on touch.
-5. **The field** (snow), unchanged.
-6. **The mission panel** (snow): a moss-tinted panel with a hairline and a 12px radius, the
-   kicker, the statement at display size, the giving line with its figure in moss, and
-   "Why Trove exists."
-7. **Founding friends** (snow): kicker, "Become a founding friend.", two sentences, the form.
-8. **Footer** (moss). Nothing sits between the founding friends form and the footer; the
-   reel appears only where it belongs to a section.
+Film, daylight, cloud, daylight, daylight, loch, daylight, daylight, loch:
+1. **Hero** (snow over film), then the rail. As in the wireframe above. The one loud screen.
+2. **The escape** (daylight). A label, the heading, the county in a paragraph, then exactly
+   what is included as a ruled list: the stay, the cash, when it is taken, the cash
+   alternative, the prize in all. One tall photograph beside the words and a pair beneath,
+   each a plate with its title and one line under it. No carousel and nothing that moves by
+   itself; the full-bleed panels live on the escape page. Venue unnamed until permitted; no
+   venue still until `venue.footageLicensed`.
+3. **The draw, in writing** (a sheet of paper on cloud). The company's wordmark as a
+   letterhead, the heading, then the undertakings as ruled rows: on the left the promise in
+   the heavy sans, marked in gold (the cap, the worst-case chance, one winner while
+   `compliance.noRollover` is true, free by post, the giving share, the cash alternative);
+   on the right what it means in plain words. Signed with the registered company name and
+   number, with links to the key terms and the Companies House record, a review link the day
+   `organisation.review` is set, and a line saying the terms are drafts until
+   `launch.termsInForce`. This is the trust section: no badge, logo row or testimonial
+   appears on the site until it is real.
+4. **How it works** (daylight). Three ruled columns in order: a step, a short title in the
+   serif, one or two sentences. No cards.
+5. **The field** (daylight), unchanged.
+6. **The mission** (loch): the kicker, the statement at display size, the giving line with
+   its figure in gold, and "Why Trove exists."
+7. **Fair questions** (daylight).
+8. **Founding friends** (daylight): kicker, "Become a founding friend.", two sentences, the form.
+9. **Footer** (loch). Nothing sits between the founding friends form and the footer.
 
 Kickers sitewide are sentence case with a full stop, never caps. Buttons are pills: hover
 darkens, a press darkens more, nothing fades. No arrows in buttons, no dashes.
@@ -153,9 +171,9 @@ state.
   the same place. The two lines share one grid cell, so nothing shifts. The struck line is
   hidden from assistive technology; the promise is what is read. Reduced motion: the
   promise from first paint, the struck line never shown.
-- **The ribbon.** The promises, written twice end to end and moved half their length over
-  38 seconds, so the loop has no seam. Tilted, wider than the page so its ends never show,
-  ink discs between the lines. Reduced motion: still.
+- **The rail.** The promises, written twice end to end and moved half their length over
+  70 seconds, so the loop has no seam and the drift is slow enough to read. Straight, small,
+  ink on daylight, gold discs between the lines. Reduced motion: still.
 - **The film.** The poster is preloaded from the head and is the first paint layer; the loop
   mounts above it once the poster has arrived and fades in over 700ms once it is *playing*,
   never merely once it could play; the scrim sits above both. Neither cut carries an audio
@@ -189,6 +207,9 @@ state.
   touch, and pauses while hovered or focused. A still with a title or a caption shows them
   over its lower third on a scrim; a bare still is bare. Reduced motion: no timer and no
   crossfade; the still changes only on an arrow, a dot or a swipe.
+- **The signup check.** Cloudflare Turnstile runs with `appearance: 'interaction-only'`: no
+  box is drawn unless a challenge needs the person, so the form does not shift for nearly
+  everyone and shows the box beneath the button for the few who are challenged.
 - **The form.** On success the field gives way to the founding friend sticker, tilted, which
   pops in over 550ms, and twenty-six pieces of paper confetti in gold, ink and snow fall
   once and are removed after 3.2 seconds. Then “Check your email.” Someone already on the
@@ -236,7 +257,7 @@ The escape page sells the escape; the home page sells the proposition. Identical
 for every escape so the template is the product:
 
 1. The hero, as on the home page, with the escape’s name leading the kicker (“The Hampshire
-   escape. Your chance of winning is at least”), then the ribbon.
+   escape. Your chance of winning is at least”), then the rail.
 2. The prize strip: one row, ink on snow, a rule above and below, nights, guests,
    cash and prize value from config, two by two at 390. No icons.
 3. What you win: the stay and the cash side by side with a vertical rule between, one

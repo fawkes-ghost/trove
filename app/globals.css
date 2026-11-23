@@ -133,15 +133,68 @@ body {
   padding: 0 0.07em;
   background: linear-gradient(180deg, transparent 60%, var(--sun) 60%, var(--sun) 93%, transparent 93%);
 }
-/* The highlighter as a box behind a figure, ink on gold, for a figure over the film. */
+/* The highlighter as a box behind a figure, ink on gold, for a figure over the film. It sits
+   square on the line: the gold is the emphasis, and a tilt on top of it would be a second one. */
 .mark-box {
   display: inline-block;
   padding: 0 0.16em;
-  margin-right: 0.04em;
-  border-radius: 0.12em;
+  margin-right: 0.06em;
+  border-radius: 0.08em;
   background: var(--sun);
   color: var(--ink);
-  transform: rotate(-1.5deg);
+}
+
+/* The house register: everything that is not a promise. Section headings speak at a
+   moderate size with air around them, the way a good hotel's stationery does, so the one
+   loud thing on a page (the chance, in the hero) stays the only loud thing. */
+.heading-section {
+  font-size: clamp(2rem, 3.4vw, 3rem);
+  line-height: 1.04;
+}
+/* A link that is not a call to action: its own line under it, nothing else. */
+.link-quiet {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.5em;
+  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+}
+.link-quiet:hover {
+  text-decoration-color: currentColor;
+}
+/* A photograph in the house register: a plate with its caption beneath, not a card. */
+.plate {
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--cloud);
+}
+
+/* The draw in writing: a sheet of headed paper on the cloud band. The left of each row is
+   a promise in the heavy sans, marked the way a reader marks a document; the right says
+   what it means in plain words. */
+.sheet {
+  max-width: 62rem;
+  margin: 0 auto;
+  padding: clamp(1.5rem, 5vw, 4.5rem);
+  border: var(--hairline) solid var(--rule);
+  border-radius: 2px;
+  background: var(--snow);
+}
+.sheet-rows > div {
+  display: grid;
+  gap: 0.6rem;
+  padding: 1.5rem 0;
+  border-top: var(--hairline) solid var(--rule);
+}
+.sheet-rows dt {
+  font-size: clamp(1.5rem, 2.5vw, 2.125rem);
+  letter-spacing: -0.045em;
+}
+@media (min-width: 720px) {
+  .sheet-rows > div {
+    grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+    gap: 2.5rem;
+    align-items: baseline;
+  }
 }
 
 /* Inline brand marks size to their wrapper; see components/brand/Marks.tsx. */
@@ -280,10 +333,10 @@ html[data-motion="full"] .hero-twist-in {
   }
 }
 .hero-prize {
-  max-width: min(100%, 34ch);
+  max-width: min(100%, 30ch);
   margin-top: 0.7em;
-  font-size: clamp(1.45rem, 2.5vw, 2.25rem);
-  line-height: 1.12;
+  font-size: clamp(1.5rem, 2.7vw, 2.5rem);
+  line-height: 1.1;
   text-wrap: balance;
 }
 .hero-form {
@@ -294,6 +347,36 @@ html[data-motion="full"] .hero-twist-in {
 /* The form was drawn for the light page; over the film its words are snow. */
 .hero-form [data-waitlist-status] {
   color: var(--snow);
+}
+/* What signing up costs and brings, said once, under the button. */
+.hero-note {
+  max-width: 34rem;
+  margin: 0 0 0.6rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--snow) 88%, transparent);
+}
+/* The two smallest windows. On a 320px phone the cap line is a touch smaller so it stays
+   on one line; on a landscape phone the lower lines are smaller so the button stays on the
+   first screen. */
+@media (max-width: 340px) {
+  .hero-twist {
+    font-size: 1.28rem;
+  }
+}
+@media (max-height: 430px) {
+  /* The film is only as tall as the words here: its usual minimum would hold the button
+     below the first screen. */
+  .hero-sky {
+    min-height: 0;
+  }
+  .hero-twist {
+    font-size: 1.2rem;
+  }
+  .hero-prize {
+    margin-top: 0.5em;
+    font-size: 1.2rem;
+  }
 }
 /* From 900px the lower half sits in two columns, the promise on the left and the email
    field on the right, level at the top, so the whole hero fits a laptop's first screen.
@@ -312,26 +395,22 @@ html[data-motion="full"] .hero-twist-in {
   }
 }
 
-/* The ribbon: the promises, tilted across the film's foot and wider than the page so its
-   ends never show. The separators are ink discs, a shape, never the X. Still without motion. */
+/* The rail: the promises on one quiet line of paper under the film, drifting slowly. Small
+   type, ink on daylight, a hairline beneath, a gold disc between each (a shape, never the
+   X). It is the facts at a glance, not a banner. Still without motion. */
 .ribbon {
   position: relative;
   z-index: 25;
-  margin-top: -1.35rem;
-  padding: 0.6rem 0 2.2rem;
   overflow: clip;
+  border-bottom: var(--hairline) solid var(--rule);
+  background: var(--snow);
 }
 .ribbon-band {
-  width: 106%;
-  margin-left: -3%;
-  padding: 0.7rem 0 0.75rem;
-  background: var(--sun);
+  padding: 0.95rem 0 1rem;
   color: var(--ink);
-  transform: rotate(-1.6deg);
-  font-weight: 700;
-  font-size: clamp(1.05rem, 1.9vw, 1.6rem);
+  font-weight: 500;
+  font-size: 0.9375rem;
   line-height: 1;
-  letter-spacing: -0.025em;
   white-space: nowrap;
 }
 .ribbon-track {
@@ -344,18 +423,18 @@ html[data-motion="full"] .hero-twist-in {
 .ribbon-track span {
   display: inline-flex;
   align-items: center;
-  gap: 1.4rem;
-  padding-left: 1.4rem;
+  gap: 1.75rem;
+  padding-left: 1.75rem;
 }
 .ribbon-track span::after {
   content: '';
-  width: 0.38em;
-  height: 0.38em;
+  width: 0.3rem;
+  height: 0.3rem;
   border-radius: 999px;
-  background: var(--ink);
+  background: var(--sun);
 }
 html[data-motion="full"] .ribbon-track {
-  animation: trove-ribbon 38s linear infinite;
+  animation: trove-ribbon 70s linear infinite;
 }
 @keyframes trove-ribbon {
   to {
