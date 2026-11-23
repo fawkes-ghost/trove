@@ -1,10 +1,9 @@
 import Link from 'next/link';
 import { compliance, escape as hampshire, worstCaseOdds, type Escape } from '@/config/prize';
-import { organisation } from '@/config/organisation';
-import { launch } from '@/config/launch';
 import { count, gbp, percent } from '@/lib/format';
-import { freePostalRoute, significantConditions } from '@/lib/routes';
+import { freePostalRoute } from '@/lib/routes';
 import { Wordmark } from '@/components/brand/Marks';
+import { Signed } from '@/components/site/Signed';
 
 // The draw, in writing. Other travel companies borrow trust from awards and memberships;
 // this one has none yet, and does not need to borrow: what makes the draw fair is a short
@@ -14,7 +13,6 @@ import { Wordmark } from '@/components/brand/Marks';
 // guarantee shows only while there is no rollover, and the sheet says so itself while the
 // terms are still drafts.
 export function InWriting({ escape = hampshire }: { escape?: Escape }) {
-  const { legalName, companyNumber } = organisation;
   const rows: { promise: string; meaning: React.ReactNode }[] = [
     {
       promise: count(escape.cap),
@@ -70,34 +68,7 @@ export function InWriting({ escape = hampshire }: { escape?: Escape }) {
             </div>
           ))}
         </dl>
-        <div className="rule-t flex flex-col gap-4 pt-8 text-base">
-          {legalName && companyNumber ? (
-            <p>
-              <span className="display text-[1.375rem] leading-tight">{legalName}.</span>
-              <span className="mt-1 block text-sm text-ink/70">
-                Registered in England and Wales, company number {companyNumber}.
-              </span>
-            </p>
-          ) : null}
-          <p className="flex flex-wrap gap-x-8 gap-y-3">
-            <Link href={significantConditions} className="link-quiet">
-              Read the key terms.
-            </Link>
-            {organisation.sameAs.companiesHouse ? (
-              <a href={organisation.sameAs.companiesHouse} rel="noopener" className="link-quiet">
-                Companies House record.
-              </a>
-            ) : null}
-            {organisation.review ? (
-              <a href={organisation.review.url} rel="noopener" className="link-quiet">
-                {organisation.review.label}
-              </a>
-            ) : null}
-          </p>
-          {launch.termsInForce ? null : (
-            <p className="text-sm text-ink/60">The terms, key terms and policies are drafts for solicitor review and are not yet in force.</p>
-          )}
-        </div>
+        <Signed />
       </div>
     </section>
   );

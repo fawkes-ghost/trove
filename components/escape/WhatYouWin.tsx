@@ -1,46 +1,64 @@
 import Link from 'next/link';
 import type { Escape } from '@/config/prize';
 import { gbp } from '@/lib/format';
-import { reelStills } from '@/lib/escapes';
 
-// The two parts of the prize side by side: the stay and the cash. The stay carries the
-// first still the escape may show (never a venue still until the footage is licensed); the
-// cash is a figure on cloud, because a picture of money says nothing. The cash alternative
-// is a single sentence linking to the terms, where the amount lives.
+// The prize, set out the way a hotel confirms a booking: the heading and one sentence on the
+// left, the matter on the right. The two parts of the prize stand side by side with a rule
+// between them, the stay in words and the cash as a figure, then the conditions as a ruled
+// list: when the stay is taken, the cash alternative and its amount, the prize in all. No
+// cards and no picture here; the photographs belong to the place, in the next section.
+// Every figure is read from config.
 export function WhatYouWin({ escape }: { escape: Escape }) {
   const { prize } = escape;
   // config orders the description as the stay, then the cash.
   const [stay] = prize.description;
-  const [still] = reelStills(escape);
+  const rows: { term: string; detail: React.ReactNode }[] = [
+    { term: 'When', detail: `The stay is taken ${prize.stayWindow}.` },
+    {
+      term: 'Or instead',
+      detail: (
+        <>
+          {gbp(prize.cashAlternative)} in cash instead of the escape, if you would rather.{' '}
+          <Link href="/legal/terms" className="link-quiet">
+            Terms
+          </Link>
+          .
+        </>
+      ),
+    },
+    { term: 'In all', detail: `A ${gbp(prize.value)} prize.` },
+  ];
   return (
-    <section id="what-you-win" className="rule-t section">
-      <h2 data-reveal="item" className="display text-balance heading-section">What you win.</h2>
-      <p className="mt-6 max-w-[40rem] text-lg" data-answer>
-        A {gbp(prize.value)} prize: the stay, and cash on top.
-      </p>
-      <ul className="mt-10 grid max-w-[64rem] gap-4 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] md:gap-6">
-        <li className="relative flex min-h-[22rem] flex-col justify-end overflow-hidden rounded-3xl bg-loch text-snow">
-          {still ? <img src={still.src} alt={still.alt} className="absolute inset-0 h-full w-full object-cover" loading="lazy" decoding="async" /> : null}
-          <div className="relative bg-[linear-gradient(180deg,#14252000_0%,#142520CC_70%)] p-6 pt-20 md:p-8 md:pt-24">
-            <p className="text-sm font-medium text-snow/80">The stay</p>
-            <p className="display mt-2 text-balance text-[1.75rem] leading-tight md:text-[2.25rem]">{stay}.</p>
+    <section id="what-you-win" className="section">
+      <div className="split">
+        <div data-reveal="group">
+          <h2 className="display heading-section text-balance">What you win.</h2>
+          <p className="mt-6 max-w-[26rem] text-lg" data-answer>
+            A {gbp(prize.value)} prize: the stay, and cash on top.
+          </p>
+        </div>
+        <div className="max-w-[52rem]">
+          <div className="rule-t grid md:grid-cols-2">
+            <div className="py-8 md:pr-10">
+              <p className="text-sm font-medium text-ink/60">The stay</p>
+              <p className="display mt-4 text-balance text-[1.75rem] leading-[1.1] md:text-[2.125rem]">{stay}.</p>
+            </div>
+            <div className="rule-t py-8 md:rule-t-0 md:rule-l md:pl-10">
+              <p className="text-sm font-medium text-ink/60">The cash</p>
+              <p className="display mt-4 whitespace-nowrap text-[3rem] md:text-[3.5rem]">{gbp(prize.cash)}</p>
+              <p className="mt-3 text-base text-ink/80">Yours to spend on the trip, or on anything else.</p>
+            </div>
           </div>
-        </li>
-        <li className="flex min-h-[16rem] flex-col justify-between rounded-3xl bg-cloud p-6 md:p-8">
-          <p className="text-sm font-medium text-ink/70">The cash</p>
-          <div>
-            <p className="display whitespace-nowrap text-[3.5rem] leading-none md:text-[clamp(3.25rem,6.6vw,4.5rem)]">{gbp(prize.cash)}</p>
-            <p className="mt-3 text-lg">Yours to spend on the trip, or on anything else.</p>
-          </div>
-        </li>
-      </ul>
-      <p className="mt-8 text-base">
-        Rather have cash instead of the stay? You can.{' '}
-        <Link href="/legal/terms" className="underline underline-offset-4">
-          Terms
-        </Link>
-        .
-      </p>
+          <dl className="rule-b">
+            {rows.map((row) => (
+              <div key={row.term} className="rule-t grid grid-cols-[6.5rem_minmax(0,1fr)] gap-4 py-4 text-base">
+                <dt className="text-ink/60">{row.term}</dt>
+                <dd>{row.detail}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
     </section>
   );
 }

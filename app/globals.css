@@ -161,6 +161,20 @@ body {
 .link-quiet:hover {
   text-decoration-color: currentColor;
 }
+/* A section in the house register on a wide screen: its heading and one sentence in a
+   narrow column on the left, the matter on the right, the way a ledger keeps its headings
+   in the margin. One column below 900px, in the same order. */
+.split {
+  display: grid;
+  gap: 2.5rem;
+}
+@media (min-width: 900px) {
+  .split {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+    gap: clamp(3rem, 7vw, 7rem);
+    align-items: start;
+  }
+}
 /* A photograph in the house register: a plate with its caption beneath, not a card. */
 .plate {
   overflow: hidden;
@@ -641,12 +655,9 @@ html[data-reveal="on"] [data-reveal="group"] > *:not([data-reveal-state]) {
   }
 }
 
-/* The full-bleed picture panels: a scrim rising from the foot for the words, and a slow
-   drift of the picture inside its frame as the panel passes, driven by the scroll itself.
-   Only where the browser supports scroll-driven animation and motion is allowed. */
-.panel-scrim {
-  background: linear-gradient(180deg, rgb(20 37 32 / 0) 0%, rgb(20 37 32 / 0.5) 55%, rgb(20 37 32 / 0.78) 100%);
-}
+/* The one photograph that runs edge to edge on an escape page: a slow drift of the picture
+   inside its frame as it passes, driven by the scroll itself. Only where the browser
+   supports scroll-driven animation and motion is allowed. */
 @keyframes trove-panel-drift {
   from {
     transform: scale(1.14) translateY(-4%);
