@@ -2,6 +2,7 @@ import type { NextConfig } from 'next';
 import createMDX from '@next/mdx';
 import { assertEscape, unpublishedVenueTerms } from './config/prize';
 import { assertVenueUnpublished } from './lib/venue-guard';
+import { securityHeaders } from './lib/security-headers';
 
 // Fails the build if config/prize.ts breaks the economics or the compliance canon, or if
 // the venue's name has leaked out of config before permission exists.
@@ -17,11 +18,14 @@ const nextConfig: NextConfig = {
   // Photographs go through the image optimiser: AVIF or WebP at the width the screen needs,
   // so a phone on 4G is not sent a desktop-sized JPEG.
   images: { formats: ['image/avif', 'image/webp'] },
+  // Two sets of headers. Every response carries the security headers (see
+  // lib/security-headers.ts for what the policy allows and why it has no nonce).
   // Everything under public/media is content-addressed by its filename: a new cut is a new
   // name, never a new body at the same path, so it can be cached for a year and never
   // revalidated.
   async headers() {
     return [
+      { source: '/:path*', headers: securityHeaders() },
       {
         source: '/media/:file*',
         headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
