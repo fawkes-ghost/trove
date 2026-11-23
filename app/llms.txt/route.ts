@@ -38,7 +38,7 @@ export function GET() {
     `## Where the money goes`,
     ``,
     `- ${e.charity.localityStatement}`,
-    `- The partner is named once the agreement is signed. What was given is published after every draw.`,
+    `- What was given is published after every draw.`,
     ``,
     `## Free entry by post`,
     ``,
