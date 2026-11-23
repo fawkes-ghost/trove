@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { compliance, escape as hampshire, worstCaseOdds, type Escape } from '@/config/prize';
 import { count, percent } from '@/lib/format';
 import { freePostalRoute, significantConditions } from '@/lib/routes';
-import { Wordmark } from '@/components/brand/Marks';
 
 // How the draw is kept fair: the trust section. Trove has no awards or memberships to show
 // yet, and what makes the draw fair is a short list of rules, so those are the credentials.
@@ -48,8 +47,7 @@ export function FairDraw({ escape = hampshire }: { escape?: Escape }) {
   return (
     <section id="fair-draw" className="section bg-cloud">
       <div className="sheet" data-reveal="item">
-        <Wordmark height={22} className="text-ink" />
-        <h2 className="display heading-section mt-10 text-balance">How we keep it fair.</h2>
+        <h2 className="display heading-section text-balance">How we keep it fair.</h2>
         <dl className="sheet-rows mt-10">
           {rows.map((row) => (
             <div key={row.promise}>

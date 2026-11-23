@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { freePostalRoute, significantConditions } from '@/lib/routes';
 import { EntryChooser } from './EntryChooser';
 import { entryFlowAvailable, entryFlowIsPreview } from '@/lib/entry-flow';
-import { Wordmark } from '@/components/brand/Marks';
 
 // The entry decision, on a panel of its own: the choice as ruled rows, one button, and a link
 // to the key terms. The answer sentence stays as text for search and answer engines. The
@@ -22,8 +21,7 @@ export function Enter({ escape }: { escape: Escape }) {
   return (
     <section id="enter" className="section bg-cloud">
       <div className="sheet" data-reveal="item">
-        <Wordmark height={22} className="text-ink" />
-        <h2 className="display heading-section mt-10 text-balance">Enter.</h2>
+        <h2 className="display heading-section text-balance">Enter.</h2>
         <p className="mt-6 max-w-[38rem] text-lg" data-answer>
           One entry is {gbp(escape.entry.price)}, or {escape.entry.bundles.filter((b) => b.entries > 1).map((b) => `${numberWord(b.entries)} for ${gbp(b.price)}`).join(' or ')}. Or enter free by post.
         </p>

@@ -143,7 +143,7 @@ Film, daylight, cloud, daylight, daylight, loch, daylight, daylight, loch:
    other two side by side under it, each with its title and one line beneath. No carousel
    and nothing that moves by itself; the one edge-to-edge photograph lives on the escape
    page. Venue unnamed until permitted; no venue still until `venue.footageLicensed`.
-3. **How we keep it fair** (a panel on cloud). The wordmark, the heading, then the rules of
+3. **How we keep it fair** (a panel on cloud). The heading, then the rules of
    the draw as ruled rows: on the left the rule in the heavy sans, marked in gold (the cap,
    the worst-case chance, one winner while `compliance.noRollover` is true, free by post,
    the giving share); on the right what it means. A link to the key terms beneath. This is
@@ -276,7 +276,7 @@ for every escape so the template is the product:
    ladder and the calculator.
 5. Where the money goes (loch). The heading and the locality statement on the left; the
    share on the right, in the heavy sans and in gold.
-6. Enter (a panel on cloud, as the fairness section is on the home page). The wordmark,
+6. Enter (a panel on cloud, as the fairness section is on the home page). The heading,
    the answer sentence, then the choice as ruled rows: a gold disc
    marks the one chosen, the label, the worst-case chance, the price in the serif. The free
    postal route is the last row, in the same type and the same columns. One call to action
