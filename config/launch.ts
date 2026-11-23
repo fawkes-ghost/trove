@@ -5,7 +5,7 @@
 export const launch = {
   // The terms, key terms and playing responsibly pages carry "Draft for solicitor review.
   // Not yet in force." until this is true. Stefan sets it once he has signed the terms off.
-  termsInForce: false,
+  termsInForce: true,
   // The film and stills are AI-generated stand-ins for mood, not the escape itself. Set true
   // once every one is replaced with licensed photography and film.
   imageryLicensed: false,
