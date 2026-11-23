@@ -25,7 +25,7 @@ type Props = {
 
 // Cloudflare Turnstile, rendered explicitly so the widget mode set in the Cloudflare
 // dashboard (managed) applies. The check runs unseen and the box appears only if Cloudflare
-// needs the person to do something, so the form is a field and a button and nothing else
+// needs the person to do something, so the form is its fields and a button and nothing else
 // for nearly everyone. Tokens arrive through onToken; a failed or expired challenge clears
 // the token and reports an error. Bumping resetSignal asks for a fresh token after a
 // submit. Nothing animates on our side; the widget draws itself.

@@ -91,7 +91,7 @@ that are not calls to action use `link-quiet`.
 The number. The chance of winning is the largest thing on the page, as wide as the screen,
 in the heavy sans over the film: the one thing no other prize draw can put in its hero,
 because theirs has no cap. Beneath it, once, on arrival, “Unlimited entries.” is struck out
-in gold and gives way to the cap. Then the prize sentence and the email field, so the first
+in gold and gives way to the cap. Then the prize sentence and the signup form, so the first
 screen is the whole proposition and the whole action. Nothing else on the page competes
 with it. Reduced motion: the promise is in place from first paint and the struck line
 never shows.
@@ -108,8 +108,8 @@ never shows.
 |  Your chance of winning is at least               sans 500, snow   |
 |  1 in 3,000.                                      sans 800, as     |
 |                                                   wide as the page |
-|  [3,000] entries. Never more.       [ Your email address        ]  |
-|  Win three nights at one of         [ Secure your place         ]  |
+|  [3,000] entries. Never more.       [ First name ] [ Surname    ]  |
+|  Win three nights at one of         [ Email      ] [Secure place]  |
 |  England’s finest country houses,   One email when entries open.   |
 |  and £1,600 in cash.                18+. UK residents. Key terms.  |
 |   serif, the page’s h1               the form, the note, the strip |
@@ -120,13 +120,17 @@ never shows.
 ```
 
 In order: the kicker, the number, the twist line with the cap in a gold box, the prize
-sentence (the page’s one `h1`), the email field and its button, one line saying what
+sentence (the page’s one `h1`), the signup form, one line saying what
 signing up brings and that nothing is paid, the compliance strip, then the rail beneath
-the film. The form is a field and a button: the signup check runs unseen and shows itself
+the film. The form is two rows of the same width: first name and surname side by side at
+every width, then the email address and the button (stacked below 768px). All three are
+required and are stored against the signup. On a short landscape window the form spends
+width, not height: the email address and the button share a row from 540px, and in the
+hero all four share one row from 760px. The signup check runs unseen and shows itself
 only if it needs the person to do something. The words sit in the flow of the hero, not over it,
 so on a short window the film grows with them and nothing slides under the header. The
-number’s size answers to the window’s height as well as its width, so the email field
-stays on the first screen.
+number’s size answers to the window’s height as well as its width, so the form and its
+button stay on the first screen.
 
 Every figure in that wireframe is illustrative and is rendered from config. The venue is
 not named until `venue.permissionGranted` is true; until then “one of England’s finest
@@ -213,7 +217,7 @@ state.
 - **The signup check.** Cloudflare Turnstile runs with `appearance: 'interaction-only'`: no
   box is drawn unless a challenge needs the person, so the form does not shift for nearly
   everyone and shows the box beneath the button for the few who are challenged.
-- **The form.** On success the field gives way to the founding friend sticker, tilted, which
+- **The form.** On success the fields give way to the founding friend sticker, tilted, which
   pops in over 550ms, and twenty-six pieces of paper confetti in gold, ink and snow fall
   once and are removed after 3.2 seconds. Then “Check your email.” Someone already on the
   list gets the sticker without the confetti. The confirm page gives the same sticker and

@@ -57,7 +57,7 @@ goes), so motion carries the visitor to the facts and then gets out of the way.
   heaviest promises things (the chance, the cap, the giving share). DM Sans carries
   everything else. No monospace. The gold is a highlighter for promises: the call to
   action, the mark under a promise, the founding friend sticker.
-- Two registers. Loud once, in the hero: the chance, the cap, the email field. The house
+- Two registers. Loud once, in the hero: the chance, the cap, the signup form. The house
   everywhere else: moderate serif headings, small sentence case labels, hairlines, plain
   text links, photographs as plates with captions beneath. Trust is the rules of the draw
   ("How we keep it fair."). No badge, logo row or testimonial until it is real.

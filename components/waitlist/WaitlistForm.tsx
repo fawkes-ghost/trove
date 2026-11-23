@@ -7,21 +7,28 @@ import { ShareButton } from '@/components/share/ShareButton';
 import { trackEvent } from '@/lib/analytics';
 import { FoundingSticker } from './FoundingSticker';
 
-type Status = 'idle' | 'sending' | 'ok' | 'duplicate' | 'invalid' | 'error' | 'challenge';
+type Status = 'idle' | 'sending' | 'ok' | 'duplicate' | 'name' | 'invalid' | 'error' | 'challenge';
 
 const messages: Record<Exclude<Status, 'idle' | 'sending'>, string> = {
   ok: 'Check your email.',
   duplicate: 'You’re already on the list.',
+  name: 'Please add your first name and surname.',
   invalid: 'That doesn’t look like an email address.',
   error: 'Something went wrong at our end. Please try again in a moment.',
   challenge: 'We couldn’t check that you’re a person. Please try again.',
 };
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const NAME_MAX = 80;
 
-// A single email field and a button. Calls the existing waitlist-signup edge function
-// directly so the visitor's own address reaches it. The function and table are not
-// changed from this repo. The Resend confirmation is a stub in lib/email/resend.ts.
+// One field style for all three inputs.
+const FIELD = 'h-12 w-full min-w-0 border border-ink/40 bg-snow px-4 text-base text-ink placeholder:text-ink/50 focus:border-ink focus:outline-none';
+
+// First name, surname, email address and a button: the names side by side on one row, the
+// email and the button on the next, both rows the same width. Calls the existing
+// waitlist-signup edge function directly so the visitor's own details reach it; the function
+// already stores firstName and lastName, and it and the table are not changed from this
+// repo. The Resend confirmation is a stub in lib/email/resend.ts.
 //
 // Protection: a Cloudflare Turnstile token goes to the function as turnstile_token, and a
 // honeypot field named for bots to fill refuses the submit client-side when it has a
@@ -36,6 +43,8 @@ const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 export function WaitlistForm({ sourceChannel = 'trove-home', share, idPrefix = 'waitlist', wordmarkSvg }: { sourceChannel?: string; share?: { title: string; text: string; url: string }; idPrefix?: string; wordmarkSvg?: string } = {}) {
   const [status, setStatus] = useState<Status>('idle');
   const [token, setToken] = useState<string | null>(null);
+  // Which name field was left empty on the last submit, so only that one is marked invalid.
+  const [nameGaps, setNameGaps] = useState({ first: false, last: false });
   const [resetSignal, setResetSignal] = useState(0);
   const protectedByTurnstile = TURNSTILE_SITE_KEY.length > 0;
 
@@ -53,9 +62,17 @@ export function WaitlistForm({ sourceChannel = 'trove-home', share, idPrefix = '
     // Honeypot: people never see this field, so a value means a script filled it.
     if (String(data.get('website') ?? '').length > 0) return;
 
+    const firstName = String(data.get('firstName') ?? '').trim().slice(0, NAME_MAX);
+    const lastName = String(data.get('lastName') ?? '').trim().slice(0, NAME_MAX);
     const email = String(data.get('email') ?? '')
       .trim()
       .toLowerCase();
+
+    if (!firstName || !lastName) {
+      setNameGaps({ first: !firstName, last: !lastName });
+      setStatus('name');
+      return;
+    }
 
     if (!EMAIL.test(email)) {
       setStatus('invalid');
@@ -81,7 +98,7 @@ export function WaitlistForm({ sourceChannel = 'trove-home', share, idPrefix = '
         method: 'POST',
         headers: { 'Content-Type': 'application/json', apikey: key, Authorization: `Bearer ${key}` },
         // Attribution held in sessionStorage since the first page of the visit; sent only now.
-        body: JSON.stringify({ email, source_channel: sourceChannel, turnstile_token: token, ...readAttribution() }),
+        body: JSON.stringify({ firstName, lastName, email, source_channel: sourceChannel, turnstile_token: token, ...readAttribution() }),
       });
       const result: { success?: boolean; message?: string; error?: string } = await response.json().catch(() => ({}));
 
@@ -117,6 +134,10 @@ export function WaitlistForm({ sourceChannel = 'trove-home', share, idPrefix = '
     }
   }
 
+  const clearStatus = () => {
+    if (status !== 'idle') setStatus('idle');
+  };
+
   const message = status === 'idle' || status === 'sending' ? null : messages[status];
   const done = status === 'ok' || status === 'duplicate';
 
@@ -125,30 +146,74 @@ export function WaitlistForm({ sourceChannel = 'trove-home', share, idPrefix = '
       {done ? <FoundingSticker celebrate={status === 'ok'} wordmarkSvg={wordmarkSvg} /> : null}
       {!done ? (
         <>
-          <div className="flex flex-col gap-3 md:flex-row">
-            <label htmlFor={`${idPrefix}-email`} className="sr-only">
-              Email address
-            </label>
-            <input
-              id={`${idPrefix}-email`}
-              name="email"
-              type="email"
-              autoComplete="email"
-              inputMode="email"
-              placeholder="Your email address"
-              required
-              aria-invalid={status === 'invalid' || undefined}
-              aria-describedby={`${idPrefix}-status`}
-              onChange={() => status !== 'idle' && setStatus('idle')}
-              className="h-12 w-full border border-ink/40 bg-snow px-4 text-base text-ink placeholder:text-ink/50 focus:border-ink focus:outline-none md:max-w-sm"
-            />
-            <button
-              type="submit"
-              disabled={status === 'sending'}
-              className="btn h-12 shrink-0 bg-accent px-6 text-base font-medium text-ink disabled:opacity-60"
-            >
-              {status === 'sending' ? 'Securing' : 'Secure your place'}
-            </button>
+          <div className="flex max-w-[34rem] flex-col gap-3" data-waitlist-fields>
+            <div className="grid grid-cols-2 gap-3" data-waitlist-names>
+              <div>
+                <label htmlFor={`${idPrefix}-first-name`} className="sr-only">
+                  First name
+                </label>
+                <input
+                  id={`${idPrefix}-first-name`}
+                  name="firstName"
+                  type="text"
+                  autoComplete="given-name"
+                  autoCapitalize="words"
+                  spellCheck={false}
+                  maxLength={NAME_MAX}
+                  placeholder="First name"
+                  required
+                  aria-invalid={(status === 'name' && nameGaps.first) || undefined}
+                  aria-describedby={`${idPrefix}-status`}
+                  onChange={clearStatus}
+                  className={FIELD}
+                />
+              </div>
+              <div>
+                <label htmlFor={`${idPrefix}-last-name`} className="sr-only">
+                  Surname
+                </label>
+                <input
+                  id={`${idPrefix}-last-name`}
+                  name="lastName"
+                  type="text"
+                  autoComplete="family-name"
+                  autoCapitalize="words"
+                  spellCheck={false}
+                  maxLength={NAME_MAX}
+                  placeholder="Surname"
+                  required
+                  aria-invalid={(status === 'name' && nameGaps.last) || undefined}
+                  aria-describedby={`${idPrefix}-status`}
+                  onChange={clearStatus}
+                  className={FIELD}
+                />
+              </div>
+            </div>
+            <div className="flex flex-col gap-3 md:flex-row" data-waitlist-email-row>
+              <label htmlFor={`${idPrefix}-email`} className="sr-only">
+                Email address
+              </label>
+              <input
+                id={`${idPrefix}-email`}
+                name="email"
+                type="email"
+                autoComplete="email"
+                inputMode="email"
+                placeholder="Email address"
+                required
+                aria-invalid={status === 'invalid' || undefined}
+                aria-describedby={`${idPrefix}-status`}
+                onChange={clearStatus}
+                className={`${FIELD} md:flex-1`}
+              />
+              <button
+                type="submit"
+                disabled={status === 'sending'}
+                className="btn h-12 shrink-0 bg-accent px-6 text-base font-medium text-ink disabled:opacity-60"
+              >
+                {status === 'sending' ? 'Securing' : 'Secure your place'}
+              </button>
+            </div>
           </div>
 
           {/* Honeypot. Off screen for people, present for scripts. Not display:none. */}
