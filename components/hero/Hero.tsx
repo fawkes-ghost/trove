@@ -10,8 +10,8 @@ import { PromiseRibbon } from './PromiseRibbon';
 // The hero, in two voices. One giant idea first: the chance, set as wide as the screen in
 // the logo's heavy sans, because it is the one figure no other draw prints. Under it the
 // twist line (what other draws leave open, struck out, then what this one fixes), the prize
-// in one sentence in the serif, the email field, and the key terms. Five things, over the
-// film. The words sit in the flow at the foot of a film that is at least one screen tall
+// in one sentence in the serif, the email field with one line on what signing up brings,
+// and the key terms, over the film. The rail of promises runs beneath it. The words sit in the flow at the foot of a film that is at least one screen tall
 // and taller when they need it, so on a short window the film grows rather than the words
 // sliding under the header. From 900px the lower half is two level columns.
 //
@@ -57,6 +57,9 @@ export function Hero({ escape = hampshire, lead, sourceChannel = 'trove-hero' }:
               <div className="hero-form">
                 <WaitlistForm sourceChannel={sourceChannel} idPrefix="hero-waitlist" wordmarkSvg={wordmarkSource()} />
               </div>
+              {escape.status === 'open' ? null : (
+                <p className="hero-note">We’ll send you one email when entries open. No payment is taken on this site yet.</p>
+              )}
               {/* The key terms sit directly under the call to action, so they are on screen
                   whenever it is. */}
               <ComplianceStrip className="max-w-[34rem] text-snow/80" />

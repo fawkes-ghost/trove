@@ -14,7 +14,7 @@ export function WhatYouWin({ escape }: { escape: Escape }) {
   const [still] = reelStills(escape);
   return (
     <section id="what-you-win" className="rule-t section">
-      <h2 data-reveal="item" className="display text-balance text-[2.5rem] leading-[1] md:text-[4rem]">What you win.</h2>
+      <h2 data-reveal="item" className="display text-balance heading-section">What you win.</h2>
       <p className="mt-6 max-w-[40rem] text-lg" data-answer>
         A {gbp(prize.value)} prize: the stay, and cash on top.
       </p>

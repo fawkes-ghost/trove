@@ -1,6 +1,6 @@
 import type { Escape } from '@/config/prize';
 import { gbp, numberWord } from '@/lib/format';
-import { reelStills, venueLine } from '@/lib/escapes';
+import { countyProse, reelStills, venueLine } from '@/lib/escapes';
 import { Panels } from '@/components/media/Panels';
 
 // The destination in prose, then the pictures as full-bleed panels beneath, sitting on the
@@ -14,17 +14,14 @@ export function Destination({ escape }: { escape: Escape }) {
     <section id="destination" className="rule-t">
       <div className="section">
         <div className="max-w-[40rem]" data-reveal="item">
-          <h2 className="display text-balance text-[2.5rem] leading-[1] md:text-[4rem]">{escape.destination}.</h2>
+          <h2 className="display text-balance heading-section">{escape.destination}.</h2>
           <p className="mt-6 text-lg" data-answer>
             This escape is {numberWord(escape.nights)} nights in {escape.destination}, at {venueLine(escape)}.
           </p>
           <div className="mt-6 flex flex-col gap-5 text-lg">
-            <p>
-              {escape.destination} in winter means chalk streams and short days. The Test and the Itchen run clear and cold through the water meadows, and from the downs above you can see for miles.
-            </p>
-            <p>
-              The villages still have their pubs and their fires, and lunch can take all afternoon.
-            </p>
+            {countyProse(escape).map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
             <p>
               You get {numberWord(escape.nights)} nights at {venueLine(escape)}, breakfast every morning, and {gbp(escape.prize.cash)} in cash to spend however you like.
               {named ? null : ' We’ll name the house as soon as it gives us permission.'}
