@@ -124,10 +124,10 @@ MERCH = [
   f'''<g transform="rotate(-6 200 150)"><rect x="76" y="96" width="248" height="78" rx="8" fill="{SUN}"/>
 <text x="200" y="146" text-anchor="middle" font-family="'DM Sans',Arial,sans-serif" font-weight="800" font-size="30" letter-spacing="-0.8" fill="{INK}">Founding friend.</text>
 <rect x="196" y="162" width="128" height="44" rx="6" fill="{INK}"/>{wm(216, 173, 88, SNOW, SUN)}</g>'''),
- ('Enamel pins', '25mm hard enamel. The icon as a round pin, and the X on its own.',
+ ('Enamel pins', '25mm hard enamel. The icon as a round pin, on ink or on snow. Never the X alone.',
   f'''<ellipse cx="128" cy="232" rx="54" ry="7" fill="rgba(20,37,32,.1)"/><ellipse cx="276" cy="232" rx="54" ry="7" fill="rgba(20,37,32,.1)"/>
 <circle cx="128" cy="150" r="64" fill="{SUN}"/><circle cx="128" cy="150" r="58" fill="{TILE}"/><g transform="translate(74 97) scale(1.06)" style="--l:{WHITE};--x:{SUN}"><use href="#ig"/></g>
-<circle cx="276" cy="150" r="64" fill="{INK}"/><circle cx="276" cy="150" r="58" fill="{SNOW}"/>{xm(236, 110, 80, SUN)}'''),
+<circle cx="276" cy="150" r="64" fill="{INK}"/><circle cx="276" cy="150" r="58" fill="{SNOW}"/><g transform="translate(222 97) scale(1.06)" style="--l:{INK};--x:{SUN}"><use href="#ig"/></g>'''),
  ('Notebook', 'Blind deboss, one colour, 60mm wide. Bottom right of the cover.',
   f'''<rect x="118" y="34" width="172" height="232" rx="8" fill="{LOCH}"/><rect x="118" y="34" width="16" height="232" rx="6" fill="#17302A"/>
 <rect x="262" y="34" width="6" height="232" fill="#152B26"/>{wm(180, 228, 68, '#34564D', '#34564D')}'''),
@@ -208,7 +208,7 @@ def misuse():
      ('Don’t type it in a font.', '<text x="200" y="132" text-anchor="middle" font-family="Georgia,serif" font-size="62" fill="var(--fg)">Trove</text>'),
      ('Don’t drop the X from a colour version.', f'<svg x="95" y="80" width="210" height="57" viewBox="14 -680 2270 691" style="--l:var(--fg);--x:none"><use href="#wm"/></svg>'),
      ('Don’t crowd it.', wm(120, 86, 160, 'var(--fg)', SUN) + '<text x="200" y="76" text-anchor="middle" font-family="\'DM Sans\',Arial,sans-serif" font-weight="800" font-size="22" fill="var(--fg)">LUXURY ESCAPES</text><text x="200" y="164" text-anchor="middle" font-family="\'DM Sans\',Arial,sans-serif" font-size="18" fill="var(--fg)">prize draw</text>'),
-     ('Don’t use the X as decoration.', ''.join(xm(70 + i*58, 92, 34, SUN) for i in range(5))),
+     ('Don’t use the X on its own, or as decoration.', ''.join(xm(70 + i*58, 92, 34, SUN) for i in range(5))),
     ]
     return '\n'.join(f'<figure class="spec no"><div class="tile"><svg viewBox="0 0 400 220" role="img" aria-label="{t}">{d}</svg></div><figcaption><b>{t}</b></figcaption></figure>' for t, d in items)
 
@@ -328,7 +328,7 @@ def build():
 <header class="cover"><div class="wrap">
 {wm_svg('var(--fg)', SUN)}
 <p class="lede">The wordmark, the icon, the colours and how to use them, from a favicon to a tote bag.</p>
-<p class="meta">Brand book, version 1. 23 November 2026. Built from the live site and the marks in <code>public/brand</code>.</p>
+<p class="meta">Brand book, version 1.1. 23 November 2026. Built from the live site and the marks in <code>public/brand</code>.</p>
 <nav class="toc" aria-label="Sections"><a href="#brand">The brand</a><a href="#voice">Voice</a><a href="#logo">The logo</a><a href="#colourways">Colourways</a><a href="#colour">Colour</a><a href="#type">Type</a><a href="#misuse">Misuse</a><a href="#platforms">Platforms</a><a href="#merchandise">Merchandise</a><a href="#kit">The kit</a><a href="#decide">To decide</a></nav>
 </div></header>
 
@@ -379,20 +379,19 @@ def build():
 <section id="logo"><div class="wrap">
 <p class="label">The logo</p>
 <h2>The name, and an X.</h2>
-<p class="lead">The wordmark is trove in lower case with a gold X after it. The X is part of the name. The marks are drawings, kept exactly as drawn: never retyped, redrawn or re-angled.</p>
+<p class="lead">The wordmark is trove in bold lower case, with a gold X as its full stop. The X is part of the name. The marks are drawings, kept exactly as drawn: never retyped, redrawn or re-angled.</p>
 <div class="grid">
 <figure class="spec"><div class="tile" style="background:{SNOW}">{wm_svg(INK, SUN)}</div><figcaption><b>The wordmark</b><span>The logo. Use it wherever there is room for it.</span></figcaption></figure>
 <figure class="spec"><div class="tile" style="background:{SNOW}">{icon_svg(TILE, WHITE, SUN, w='30%')}</div><figcaption><b>The icon</b><span>The t and the X on a dark tile, for anything square: app icons, profile pictures.</span></figcaption></figure>
 <figure class="spec"><div class="tile" style="background:{SNOW}">{icon_svg(TILE, WHITE, SUN, small=True, w='12%')}</div><figcaption><b>The small cut</b><span>A heavier drawing of the icon for 32 pixels and under: favicons, browser tabs.</span></figcaption></figure>
-<figure class="spec"><div class="tile" style="background:{SNOW}"><svg style="width:22%;--x:{SUN}" viewBox="2300 -285 270 270" role="img" aria-label="The X"><use href="#xm"/></svg></div><figcaption><b>The X alone</b><span>Proposed. Only where the wordmark has already been seen and will not fit: a pin, the side of a cap, a seal.</span></figcaption></figure>
 </div>
 <h3>Clear space.</h3>
 <p>Leave one X of clear space on every side. Nothing comes inside it: no text, no edge, no other logo.</p>
 {clearspace()}
 <h3>Smallest sizes.</h3>
 {sizes()}
-<h3>The X belongs to the logo.</h3>
-<p>It is not a bullet, a pattern, a close button, confetti or a multiplication sign. On the site the separators are discs and the confetti is paper, for this reason.</p>
+<h3>The X never stands alone.</h3>
+<p>On its own it reads as the X (Twitter) logo, so it is never an icon, a profile picture, a pin or a seal. Where the wordmark will not fit, use the icon, which keeps the t beside it. It is not a bullet, a pattern, a close button, confetti or a multiplication sign either: on the site the separators are discs and the confetti is paper.</p>
 </div></section>
 
 <section id="colourways" class="band"><div class="wrap">
@@ -457,13 +456,12 @@ def build():
 <section id="kit" class="band"><div class="wrap">
 <p class="label">The kit</p>
 <h2>The files, by folder.</h2>
-<p class="lead">116 files in <code>trove-brand-kit</code>. SVG for print and anything that scales, PNG for uploads. Every file is made from the two drawings on the site, with only the colours and sizes changed.</p>
+<p class="lead">108 files in <code>brand/kit</code>. SVG for print and anything that scales, PNG for uploads. Every file is made from the two drawings on the site, with only the colours and sizes changed.</p>
 <div class="scroll"><table><thead><tr><th scope="col">Folder</th><th scope="col">What is in it</th></tr></thead><tbody>
 <tr><th scope="row"><code>wordmark/svg</code></th><td>Seven colourways: colour, reversed, white-gold, ink, snow, black, white.</td></tr>
 <tr><th scope="row"><code>wordmark/png</code></th><td>The same seven on a clear background, 2400 and 600 pixels wide.</td></tr>
 <tr><th scope="row"><code>wordmark/on-ground</code></th><td>Nine ready-made plates with clear space: on snow, white, cloud, ink, loch, black and gold, plus black on white and white on black.</td></tr>
 <tr><th scope="row"><code>icon/svg</code>, <code>icon/png</code></th><td>Six tiles (ink, loch, snow, gold, black, white) at 1024, 512, 192 and 180 pixels, and the small cut at 48, 32 and 16.</td></tr>
-<tr><th scope="row"><code>x/svg</code>, <code>x/png</code></th><td>The X alone in gold, ink, black and white. Proposed use only.</td></tr>
 <tr><th scope="row"><code>social/profile</code></th><td>Square profile pictures at 1080 and 400 pixels: ink, snow and gold.</td></tr>
 <tr><th scope="row"><code>social/covers</code></th><td>LinkedIn company and personal, X, Facebook, YouTube, the share image, an Instagram post and a story, each on loch and on snow.</td></tr>
 <tr><th scope="row"><code>email</code></th><td>The wordmark at 480 pixels wide, colour and reversed.</td></tr>
@@ -472,13 +470,11 @@ def build():
 
 <section id="decide"><div class="wrap">
 <p class="label">To decide</p>
-<h2>Five things that need a yes or a no.</h2>
+<h2>Three things that need a yes or a no.</h2>
 <ul class="plain">
-<li><b>The X alone.</b> Shown here as a short mark for a pin, a cap side or a seal. It is not used that way anywhere today. Say yes, or it comes out of the kit.</li>
 <li><b>Two near-blacks.</b> The icon’s tile is drawn in {TILE}, a shade deeper than the ink ({INK}) used for text and the wordmark. The kit keeps the icon as drawn. The alternative is to redraw the tile in ink.</li>
 <li><b>No line under the logo.</b> Covers and merchandise carry the logo only. A strapline would need writing, and any line that promotes the draw needs the key terms one click away.</li>
 <li><b>Print matches.</b> Pantone and thread references are not chosen here. Pick them against a printed proof with the first supplier, then add them to this page.</li>
-<li><b>The older design system.</b> The Trove design system page from October still shows linen, obsidian and two proposed marks. It no longer matches the site and should be updated or retired.</li>
 </ul>
 </div></section>
 <footer><div class="wrap">Trove brand book. Colours, type and rules follow <code>CLAUDE.md</code> and <code>docs/site-spec.md</code> in the site’s repository, which stay the source of truth.</div></footer>
