@@ -1,9 +1,8 @@
-import { escape } from '@/config/prize';
 import { organisation, sameAsLinks } from '@/config/organisation';
 import { contactEmail, siteUrl } from '@/lib/site';
 
-// The Organization block, on every page. Name, url, the logo PNG from public/brand, the giving
-// line as the description, the one contact address, and the sameAs links as each goes live.
+// The Organization block, on every page. Name, url, the logo PNG from public/brand, a
+// figure-free description, the one contact address, and the sameAs links as each goes live.
 // Legal name and address render only once set in config.
 export function OrganisationJsonLd() {
   const data = {
@@ -13,7 +12,8 @@ export function OrganisationJsonLd() {
     name: organisation.name,
     url: siteUrl,
     logo: { '@type': 'ImageObject', url: `${siteUrl}/brand/trove-logo.png`, width: 1600, height: 433 },
-    description: escape.charity.localityStatement,
+    // No figure here: it is on every page, the holding page included, and the share is under review.
+    description: 'A UK prize draw for escapes, with a fixed cap on entries, odds published before you enter, and a share of every paid entry for causes where the escape is.',
     contactPoint: [{ '@type': 'ContactPoint', email: contactEmail, contactType: 'customer service', areaServed: 'GB', availableLanguage: 'en' }],
     sameAs: sameAsLinks(),
     ...(organisation.legalName ? { legalName: organisation.legalName } : {}),

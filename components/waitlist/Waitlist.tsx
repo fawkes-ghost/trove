@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { WaitlistForm } from './WaitlistForm';
 import { iconSource } from '@/components/brand/Marks';
 import { Kicker } from '@/components/site/Kicker';
+import { escape } from '@/config/prize';
+import { shareCopy } from '@/lib/share';
 
 // The founding friend section. The only call to action until entries open.
 export function Waitlist() {
@@ -14,7 +16,7 @@ export function Waitlist() {
           Founding friends are told the day entries open and can enter before the public. We send one email when that happens.
         </p>
         <div className="mt-8">
-          <WaitlistForm iconSvg={iconSource()} />
+          <WaitlistForm iconSvg={iconSource()} share={shareCopy(escape)} />
         </div>
         <p className="mt-4 text-sm text-ink/70">
           You can unsubscribe at any time.{' '}

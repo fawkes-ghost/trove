@@ -5,6 +5,7 @@ import gsap from 'gsap';
 import { prefersReducedMotion } from '@/lib/reduced-motion';
 import { Turnstile, TURNSTILE_SITE_KEY } from './Turnstile';
 import { readAttribution } from '@/lib/attribution';
+import { ShareButton } from '@/components/share/ShareButton';
 import { trackEvent } from '@/lib/analytics';
 
 type Status = 'idle' | 'sending' | 'ok' | 'duplicate' | 'invalid' | 'error' | 'challenge';
@@ -31,7 +32,7 @@ const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 // On success the disc rises inside the button (iconSvg is the brand icon's source, read on
 // the server), and only then does "Check your email." appear. Under reduced motion the disc
 // is already up and the message is immediate.
-export function WaitlistForm({ sourceChannel = 'trove-home', iconSvg }: { sourceChannel?: string; iconSvg?: string } = {}) {
+export function WaitlistForm({ sourceChannel = 'trove-home', iconSvg, share }: { sourceChannel?: string; iconSvg?: string; share?: { title: string; text: string; url: string } } = {}) {
   const [status, setStatus] = useState<Status>('idle');
   const [settled, setSettled] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -46,7 +47,7 @@ export function WaitlistForm({ sourceChannel = 'trove-home', iconSvg }: { source
       setSettled(true);
       return;
     }
-    const tween = gsap.fromTo(disc, { attr: { cy: 82 } }, { attr: { cy: 36 }, duration: 0.6, ease: 'power3.out', onComplete: () => setSettled(true) });
+    const tween = gsap.fromTo(disc, { attr: { cy: 56 } }, { attr: { cy: 28.8 }, duration: 0.6, ease: 'power3.out', onComplete: () => setSettled(true) });
     return () => {
       tween.kill();
     };
@@ -139,7 +140,7 @@ export function WaitlistForm({ sourceChannel = 'trove-home', iconSvg }: { source
       {rising ? (
         <div className="flex">
           <button ref={buttonRef} type="button" disabled aria-label="Your place is secured" className="flex h-12 w-12 items-center justify-center bg-accent text-ink" data-waitlist-disc>
-            <span className="brand-mark brand-icon block h-7" dangerouslySetInnerHTML={{ __html: prefersReducedMotion() ? iconSvg! : iconSvg!.replace('cy="36"', 'cy="82"') }} />
+            <span className="brand-mark brand-icon block h-7" dangerouslySetInnerHTML={{ __html: prefersReducedMotion() ? iconSvg! : iconSvg!.replace('cy="28.8"', 'cy="56"') }} />
           </button>
         </div>
       ) : null}
@@ -192,6 +193,13 @@ export function WaitlistForm({ sourceChannel = 'trove-home', iconSvg }: { source
       <p id="waitlist-status" role="status" aria-live="polite" data-waitlist-status className={`min-h-6 text-base ${done ? 'font-medium' : ''}`}>
         {message}
       </p>
+      {/* Once someone is on the list, the next useful thing is the person they would take. */}
+      {done && share && message ? (
+        <div className="flex flex-col items-start gap-3 rule-t pt-4" data-waitlist-share>
+          <p className="text-base">The escape is for two. Send it to the person you would take.</p>
+          <ShareButton {...share} placement="waitlist-done" className="border border-ink/25 px-5 py-3 text-base font-medium hover:border-ink" />
+        </div>
+      ) : null}
     </form>
   );
 }

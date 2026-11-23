@@ -31,7 +31,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       title: `The ${item.destination} escape`,
       description,
       url: `/escapes/${item.slug}`,
-      ...(item.media.poster ? { images: [{ url: item.media.poster }] } : {}),
     },
   };
 }
@@ -47,7 +46,7 @@ export default async function EscapePage({ params }: { params: Promise<{ slug: s
   return (
     <main>
       <FaqJsonLd escape={item} />
-      <Hero escape={item} moment={false} headline={`${item.destination}.`} />
+      <Hero escape={item} headline={`${item.destination}.`} path={`/escapes/${item.slug}`} />
       <PrizeStrip escape={item} />
       <WhatYouWin escape={item} />
       <Destination escape={item} />

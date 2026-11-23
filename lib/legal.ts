@@ -5,10 +5,19 @@ import { count, gbp, numberWord, sentenceCase } from '@/lib/format';
 import { signposting } from '@/lib/routes';
 import { slug } from '@/lib/slug';
 import { contactEmail } from '@/lib/site';
+import { organisation } from '@/config/organisation';
 
 // Every figure the legal documents state, read from config. The MDX files import this and
 // never type a number.
 const pence = Math.round(economics.charityShareOfGross * 100);
+
+// The promoter as the legal documents name it, built from config/organisation.ts so the
+// company's details are written in one place.
+function promoterLine(): string {
+  const { legalName, companyNumber, address } = organisation;
+  if (!legalName || !companyNumber || !address) return 'Trove [promoter details to follow]';
+  return `${legalName}, trading as Trove, a company registered in England and Wales with company number ${companyNumber}, whose registered office is at ${address.streetAddress}, ${address.addressLocality} ${address.postalCode}`;
+}
 
 export const t = {
   destination: escape.destination,
@@ -37,12 +46,12 @@ export const t = {
   beneficiary: escape.charity.beneficiary ?? 'a partner named once the agreement is signed',
   // The giving line in the pence form the legal documents keep; the site reads localityStatement.
   givingLine: `${sentenceCase(numberWord(pence))} pence in every pound of entry sales goes to local charities protecting the ${escape.destination} countryside.`,
-  postalAddress: compliance.freePostalRoute.address ?? 'the free entry address published on the free entry by post page once the registered office exists',
+  postalAddress: compliance.freePostalRoute.address ?? 'the free entry address published on the free entry by post page before entries open',
   creditCardMonthlyCap: gbp(compliance.dcmsVoluntaryCode.creditCardMonthlyCap),
   gamCare: signposting.GamCare,
   gambleAware: signposting.GambleAware,
   contactEmail,
-  promoter: 'Trove [promoter details to follow incorporation: company name, number and registered office]',
+  promoter: promoterLine(),
   significantConditionsPath: compliance.significantConditionsPath,
 };
 

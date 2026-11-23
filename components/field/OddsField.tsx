@@ -51,7 +51,7 @@ export function OddsField({ entries, cap, lit, steps, maxLit, sold = 0, tone = '
     return (
       <svg viewBox={`0 0 ${width} ${height}`} className={`${visibility} h-auto w-full`} aria-hidden="true" data-field-svg>
         <defs>
-          <pattern id={pattern} width={CELL} height={CELL} patternUnits="userSpaceOnUse">
+          <pattern id={pattern} width={CELL} height={CELL} patternUnits="userSpaceOnUse" className="text-mist">
             <circle cx={CELL / 2} cy={CELL / 2} r={CELL * 0.18} fill="currentColor" />
           </pattern>
           <clipPath id={`${pattern}-cells`}>
@@ -64,7 +64,7 @@ export function OddsField({ entries, cap, lit, steps, maxLit, sold = 0, tone = '
         </defs>
         <g clipPath={`url(#${pattern}-reveal)`}>
           <g clipPath={`url(#${pattern}-cells)`}>
-            <rect x="0" y="0" width={width} height={height} fill={`url(#${pattern})`} className="text-ink/25" data-field-base />
+            <rect x="0" y="0" width={width} height={height} fill={`url(#${pattern})`} data-field-base />
             {sold > 0 ? (
               <g className="text-ink" data-field-sold>
                 {soldRows > 0 ? <rect x="0" y="0" width={width} height={soldRows * CELL} fill={`url(#${pattern})`} /> : null}
