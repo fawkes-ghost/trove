@@ -32,7 +32,7 @@ export function Hero({ escape = hampshire, headline, path = '/' }: { escape?: Es
   const sunLine = `${percent(escape.charity.shareOfGross)} of every paid entry goes to causes in ${escape.destination}.`;
 
   const overlay = (
-    <div className="absolute inset-x-0 bottom-0 z-20 px-6 pb-[3.25rem] text-snow md:px-10 md:pb-24" data-hero-copy>
+    <div className="relative z-20 px-6 pb-[3.25rem] text-snow md:px-10 md:pb-24" data-hero-copy>
       <div className="flex max-w-[56rem] flex-col items-start gap-4 md:gap-6">
         <p className="text-sm font-medium text-snow/85 md:text-base">{kicker}</p>
         <h1 className="display max-w-[16ch] text-balance text-[2.75rem] leading-[0.96] md:text-[5rem] min-[1200px]:text-[6.25rem]">{headline ?? venueLine}</h1>
