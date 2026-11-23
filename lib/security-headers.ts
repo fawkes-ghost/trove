@@ -32,6 +32,13 @@ function supabaseOrigin(): string | null {
 
 const dev = process.env.NODE_ENV !== 'production';
 
+// Vercel's toolbar and preview comments load on preview deployments only, from the origins
+// Vercel publishes for this purpose. A preview allows them so the review tools keep working
+// and its console stays clean. Production never carries them.
+const preview = process.env.VERCEL_ENV === 'preview';
+const VERCEL_LIVE = 'https://vercel.live';
+const onPreview = (...sources: string[]): string[] => (preview ? sources : []);
+
 export function contentSecurityPolicy(): string {
   // next dev evaluates code for fast refresh and holds a websocket open for it, so the
   // policy is looser there by those two entries and no more.
@@ -39,15 +46,15 @@ export function contentSecurityPolicy(): string {
 
   const directives: Record<string, (string | null | false)[]> = {
     'default-src': ["'self'"],
-    'script-src': ["'self'", "'unsafe-inline'", dev && "'unsafe-eval'", TURNSTILE, TAG_MANAGER],
+    'script-src': ["'self'", "'unsafe-inline'", dev && "'unsafe-eval'", TURNSTILE, TAG_MANAGER, ...onPreview(VERCEL_LIVE)],
     // React writes style attributes into the markup (the image blur, the sticker's confetti).
-    'style-src': ["'self'", "'unsafe-inline'"],
+    'style-src': ["'self'", "'unsafe-inline'", ...onPreview(VERCEL_LIVE)],
     // data: is the blurred placeholder under each photograph.
-    'img-src': ["'self'", 'data:', ...GA_COLLECT, TAG_MANAGER],
-    'font-src': ["'self'"],
+    'img-src': ["'self'", 'data:', ...GA_COLLECT, TAG_MANAGER, ...onPreview(VERCEL_LIVE, 'https://vercel.com', 'blob:')],
+    'font-src': ["'self'", ...onPreview(VERCEL_LIVE, 'https://assets.vercel.com')],
     'media-src': ["'self'"],
-    'connect-src': ["'self'", supabase, ...GA_COLLECT, TAG_MANAGER, dev && 'ws:'],
-    'frame-src': [TURNSTILE],
+    'connect-src': ["'self'", supabase, ...GA_COLLECT, TAG_MANAGER, dev && 'ws:', ...onPreview(VERCEL_LIVE, 'wss://ws-us3.pusher.com')],
+    'frame-src': [TURNSTILE, ...onPreview(VERCEL_LIVE)],
     'object-src': ["'none'"],
     'base-uri': ["'self'"],
     'form-action': ["'self'"],

@@ -389,3 +389,7 @@ strict policy is wanted later it goes in `proxy.ts`, and ships as
 Under `next dev` the policy also allows `'unsafe-eval'` and websockets, which fast refresh
 needs, and `nosniff` is left off because the dev error page loads a manifest served as JSON.
 The production build has neither exception.
+
+On Vercel preview deployments only (`VERCEL_ENV` is `preview`) the policy also allows
+Vercel's toolbar and preview comments, from the origins Vercel publishes for them.
+Production never carries those.
