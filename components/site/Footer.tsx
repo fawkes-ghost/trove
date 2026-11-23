@@ -28,6 +28,13 @@ export function Footer() {
     launch.imageryLicensed ? null : 'The film and photographs are AI-generated stand-ins for mood. They do not show the house, and licensed photography replaces them before entries open.',
   ].filter((line): line is string => Boolean(line));
 
+  // A social or review slot shows only once its link exists: a platform's name with nothing
+  // behind it reads as an unfinished site.
+  const social = organisation.social.flatMap((slot) => {
+    const url = organisation.sameAs[slot.key];
+    return url ? [{ network: slot.network, handle: slot.handle, url }] : [];
+  });
+
   const { legalName, companyNumber, address } = organisation;
   const companyLine =
     legalName && companyNumber && address
@@ -67,22 +74,17 @@ export function Footer() {
             </a>
             .
           </p>
-          <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-snow/80" aria-label="Social and reviews">
-            {organisation.social.map((slot) => {
-              const url = organisation.sameAs[slot.key];
-              return (
+          {social.length ? (
+            <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-snow/80" aria-label="Social and reviews">
+              {social.map((slot) => (
                 <li key={slot.network}>
-                  {slot.handle && url ? (
-                    <a href={url} rel="noopener" className="hover:text-snow">
-                      {slot.handle}
-                    </a>
-                  ) : (
-                    slot.network
-                  )}
+                  <a href={slot.url} rel="noopener" className="hover:text-snow">
+                    {slot.handle ?? slot.network}
+                  </a>
                 </li>
-              );
-            })}
-          </ul>
+              ))}
+            </ul>
+          ) : null}
         </div>
 
         {status.length ? (
