@@ -1,22 +1,20 @@
 import type { Metadata } from 'next';
+import Document from '@/content/legal/privacy.mdx';
+import { LegalDocument } from '@/components/legal/LegalDocument';
+import { headingsOf } from '@/lib/legal';
+import { draftLabel, launch } from '@/config/launch';
 
 export const metadata: Metadata = {
   title: 'Privacy',
-  description: 'How Trove handles personal data.',
+  description: 'How Trove collects, uses and protects personal data, and your rights.',
   alternates: { canonical: '/legal/privacy' },
 };
 
-import { RoutePlaceholder } from '@/components/RoutePlaceholder';
-
+// The document lives in content/legal/privacy.mdx. Draft until the terms are signed off.
 export default function Page() {
   return (
-    <>
-      <RoutePlaceholder route="/legal/privacy" />
-      <section className="page-body">
-        <p className="max-w-[40rem] text-base">
-          When you join the waitlist we record how you arrived at the site: the campaign tags in the link you followed, the page that referred you and the page you landed on. Nothing is recorded until you submit the form.
-        </p>
-      </section>
-    </>
+    <LegalDocument title="Privacy." updated={launch.termsInForce ? undefined : draftLabel} headings={headingsOf('privacy.mdx')}>
+      <Document />
+    </LegalDocument>
   );
 }
