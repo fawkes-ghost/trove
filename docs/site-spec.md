@@ -365,6 +365,27 @@ Licensed footage and photography only. AI-generated imagery may be used for mood
 or anything that could be taken as the actual prize. No venue footage until licensed.
 Film grade: warm winter, poster frame for first paint, scrim as a CSS layer.
 
+Where things stand (23 Nov 2026). The photographs are real photographs of the Hampshire
+countryside under open licences: the Itchen at Shawford, the South Downs at Morestead and
+Micheldever Wood. None shows the house or anything on its estate, and none may until the
+house has given written permission. The hero film and its poster frame are still an
+AI-generated stand-in; no openly licensed footage was found that was good enough to
+replace it, so it stays until licensed film exists, and the footer says so.
+
+Rules for a photograph Trove did not take:
+
+- The licence must clearly allow commercial use (CC0, public domain, CC BY, CC BY-SA, the
+  Unsplash or Pexels licence). Record the title, photographer, source page, licence, the
+  date it was retrieved and every change made, in `docs/media-credits.md`, in the same
+  commit as the file.
+- The caption and alt text must be true of the photograph. If the caption names a place,
+  the source must say the photograph was taken there.
+- Where the licence asks for attribution, the credit sits beneath the photograph: the
+  photographer linked to the source, the licence linked to its text, and a word on what was
+  changed. `config/prize.ts` holds it on the still (`credit`) and `PlateCaption` renders it.
+- A share-alike licence (CC BY-SA) covers Trove's edited copy of that photograph too.
+- No people as the subject, no logos, no private house as the subject, and never the venue.
+
 Delivery: every file this app shows lives in `public/media` and is served by this app.
 Nothing under `media/` comes from Supabase or any other origin, so a page never waits on a
 second connection. `next.config.ts` gives `/media/*` a year, `immutable`: a new cut is a new

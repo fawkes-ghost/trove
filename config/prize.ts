@@ -47,13 +47,23 @@ export const compliance = {
 // The escape. One hero escape at a time. Named by destination, never numbered.
 // ---------------------------------------------------------------------------
 export type EntryBundle = { entries: number; price: Money };
+// Who took a photograph and the licence it is used under. Shown beneath the photograph,
+// because the licences ask for it; the full record is docs/media-credits.md.
+export type StillCredit = {
+  by: string;                     // the photographer, as they are credited at the source
+  source: string;                 // the page the photograph came from
+  licence: string;                // the licence's short name
+  licenceUrl: string;
+  note: string | null;            // what was changed, if anything beyond a resize
+};
 export type Still = {
   src: string;
   alt: string;
   venue: boolean;
-  title: string | null;           // over the lower third of the reel, once the founder writes it
-  caption: string | null;         // one sentence beneath the title
+  title: string | null;           // beneath the photograph
+  caption: string | null;         // one sentence beneath the title, true of the photograph it sits under
   blur?: string;                  // a 16px copy of the still as a data URI, shown while the real one loads on a slow connection
+  credit?: StillCredit;           // required for anything that is not Trove's own photograph
 };
 
 export type Escape = {
@@ -154,39 +164,45 @@ export const escape: Escape = {
   },
   theme: { accent: '#C2410C' },     // rust, Hampshire in winter; provisional until the founder confirms
   media: {
-    // Every asset here is an AI-generated placeholder: mood only, no venue depicted, to be
-    // replaced by licensed footage before launch. Everything is served from public/media by
-    // this app, on an immutable year-long cache (see next.config.ts): nothing under media/
-    // comes from Supabase, so first paint never waits on another origin.
+    // The film and its poster are an AI-generated placeholder: mood only, no venue depicted,
+    // to be replaced by licensed footage before entries open. The stills are real photographs
+    // of the Hampshire countryside under open licences, none of them of the house; each one's
+    // source, licence and changes are recorded in docs/media-credits.md. Everything is served
+    // from public/media by this app, on an immutable year-long cache (see next.config.ts):
+    // nothing under media/ comes from Supabase, so first paint never waits on another origin.
     poster: '/media/hero-poster-hampshire-placeholder.jpg', // the loop's own first frame, so first paint matches frame zero
     posterAlt: 'Mist over a wooded valley at sunrise, bare winter trees under a low sun. An AI-generated placeholder, not a real place, until the Hampshire film is licensed.',
     loop: '/media/hero-hampshire-placeholder-v1.mp4', // 1600x900, 17.4s, silent, seamless, 5.3MB
     loopSmall: '/media/hero-hampshire-placeholder-v1-960.mp4', // the same film at 960x540, CRF 30, 2.5MB
-    // AI-generated placeholder stills for the reel, mood only. None depicts a venue.
+    // Real photographs, openly licensed, in the order the pages show them: the first runs
+    // edge to edge on the escape page. None depicts the venue or anything on its estate.
     stills: [
       {
-        src: '/media/still-01-downland.jpg',
-        alt: 'Frosted chalk downland at sunrise',
+        src: '/media/hampshire-itchen-mist-85fa7bcb.jpg',
+        alt: 'Bare trees in early morning mist beside the River Itchen at Shawford, Hampshire',
+        venue: false,
+        title: 'The river.',
+        caption: 'Early mist along the Itchen at Shawford, south of Winchester.',
+        blur: 'data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAQIEBf/EAB4QAAICAgIDAAAAAAAAAAAAAAERAgMABCFREiJB/8QAFAEBAAAAAAAAAAAAAAAAAAAAAv/EABURAQEAAAAAAAAAAAAAAAAAAAAR/9oADAMBAAIRAxEAPwB5bdDXnz8HeSVbNll0i1AFI5mj3Rkie1hMiOQVhpR//9k=',
+        credit: { by: 'Forbes Johnston', source: 'https://commons.wikimedia.org/wiki/File:2025_(challenge_No._1-_old_unpublished_pics)_-_Day_338_-_early_morning_mist,_River_Itchen,_Shawford,_Hampshire_2022_-_Flickr_-_ambabheg.jpg', licence: 'CC BY 4.0', licenceUrl: 'https://creativecommons.org/licenses/by/4.0/', note: null },
+      },
+      {
+        src: '/media/hampshire-morestead-downs-c4d64cef.jpg',
+        alt: 'Sunrise over fields and hedgerows on the South Downs at Morestead, Hampshire',
         venue: false,
         title: 'The downs.',
-        caption: 'Chalk grassland, frost until ten, and a track that goes on for miles.',
-        blur: 'data:image/jpeg;base64,/9j/2wBDABIMDRANCxIQDhAUExIVGywdGxgYGzYnKSAsQDlEQz85Pj1HUGZXR0thTT0+WXlaYWltcnNyRVV9hnxvhWZwcm7/2wBDARMUFBsXGzQdHTRuST5Jbm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm7/wAARCAAJABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAUG/8QAIxAAAQQBAQkAAAAAAAAAAAAAAQACAxIEQQUGERMyNHJz0f/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/8QAGBEAAwEBAAAAAAAAAAAAAAAAAAExESH/2gAMAwEAAhEDEQA/ABM23k3BhkdXUuA+KtibxS0bzHjidagBZaLtB7CkwdEPglXSYlD/2Q==',
+        caption: 'Sunrise over the South Downs at Morestead.',
+        blur: 'data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAMEBf/EAB0QAAICAwADAAAAAAAAAAAAAAECAAMEESExUZH/xAAUAQEAAAAAAAAAAAAAAAAAAAAD/8QAGBEAAgMAAAAAAAAAAAAAAAAAABEBUWH/2gAMAwEAAhEDEQA/AJKmxjrd6LHWNSoJTIpA9l+/JhjkGYjwYUux3h//2Q==',
+        credit: { by: 'Forbes Johnston', source: 'https://commons.wikimedia.org/wiki/File:South_Downs_-_Morestead,_Hampshire,_England_2020.jpg', licence: 'CC BY 4.0', licenceUrl: 'https://creativecommons.org/licenses/by/4.0/', note: 'Colour adjusted.' },
       },
       {
-        src: '/media/still-02-chalk-stream.jpg',
-        alt: 'A clear chalk stream in low winter sun',
-        venue: false,
-        title: 'The water.',
-        caption: 'Clear, cold and fast. The county’s rivers rise from the chalk.',
-        blur: 'data:image/jpeg;base64,/9j/2wBDABIMDRANCxIQDhAUExIVGywdGxgYGzYnKSAsQDlEQz85Pj1HUGZXR0thTT0+WXlaYWltcnNyRVV9hnxvhWZwcm7/2wBDARMUFBsXGzQdHTRuST5Jbm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm7/wAARCAAJABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAUG/8QAIRAAAQMEAQUAAAAAAAAAAAAAAQIDBAAFESGBEjIzQbH/xAAVAQEBAAAAAAAAAAAAAAAAAAABAv/EABgRAAMBAQAAAAAAAAAAAAAAAAABAhEh/9oADAMBAAIRAxEAPwAdsuCQ+tbjcRKlqB6g2RgADQAOqoXW6yGRmM9HKCc7BJPPusrH8/I+UyX2Uyt6TTw//9k=',
-      },
-      {
-        src: '/media/still-03-woodland-mist.jpg',
-        alt: 'Mist in a wooded valley at first light',
+        src: '/media/hampshire-micheldever-wood-e30ef912.jpg',
+        alt: 'Tall beech trees casting long shadows across fallen leaves in Micheldever Wood, Hampshire',
         venue: false,
         title: 'The woods.',
-        caption: 'Beech hangers hold the last of the light until four.',
-        blur: 'data:image/jpeg;base64,/9j/2wBDABIMDRANCxIQDhAUExIVGywdGxgYGzYnKSAsQDlEQz85Pj1HUGZXR0thTT0+WXlaYWltcnNyRVV9hnxvhWZwcm7/2wBDARMUFBsXGzQdHTRuST5Jbm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm7/wAARCAAJABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABQIE/8QAIxAAAQQABAcAAAAAAAAAAAAAAQACAwQFBhJBEyEyUoGRof/EABUBAQEAAAAAAAAAAAAAAAAAAAEC/8QAGBEAAwEBAAAAAAAAAAAAAAAAAAEREjH/2gAMAwEAAhEDEQA/AIbmm4GaJXCQb8y0+wj7OJW5HHhXrLR2mUn6EfY28rTT6ApuVUPT/9k=',
+        caption: 'Beech trees in low winter sun in Micheldever Wood.',
+        blur: 'data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAgEE/8QAHBAAAwACAwEAAAAAAAAAAAAAAQIRAAMSITET/8QAFAEBAAAAAAAAAAAAAAAAAAAAA//EABYRAAMAAAAAAAAAAAAAAAAAAAABEf/aAAwDAQACEQMRAD8AAi/Q0E0+nKlcEMlitD3mB3ZUZge7h1b9pDNzNHmBGLEf/9k=',
+        credit: { by: 'Mr Ignavy', source: 'https://commons.wikimedia.org/wiki/File:Footpath_through_Micheldever_Wood_-_geograph.org.uk_-_7737382.jpg', licence: 'CC BY-SA 2.0', licenceUrl: 'https://creativecommons.org/licenses/by-sa/2.0/', note: 'Cropped, colour adjusted.' },
       },
     ],
   },
