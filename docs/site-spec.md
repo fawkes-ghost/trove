@@ -135,7 +135,7 @@ Film, daylight, cloud, daylight, daylight, loch, daylight, daylight, loch:
    what is included as a ruled list: the stay, the cash, when it is taken, the cash
    alternative, the prize in all. One tall photograph beside the words and a pair beneath,
    each a plate with its title and one line under it. No carousel and nothing that moves by
-   itself; the full-bleed panels live on the escape page. Venue unnamed until permitted; no
+   itself; the one edge-to-edge photograph lives on the escape page. Venue unnamed until permitted; no
    venue still until `venue.footageLicensed`.
 3. **The draw, in writing** (a sheet of paper on cloud). The company's wordmark as a
    letterhead, the heading, then the undertakings as ruled rows: on the left the promise in
@@ -257,23 +257,37 @@ The escape page sells the escape; the home page sells the proposition. Identical
 for every escape so the template is the product:
 
 1. The hero, as on the home page, with the escape’s name leading the kicker (“The Hampshire
-   escape. Your chance of winning is at least”), then the rail.
-2. The prize strip: one row, ink on snow, a rule above and below, nights, guests,
-   cash and prize value from config, two by two at 390. No icons.
-3. What you win: the stay and the cash side by side with a vertical rule between, one
-   still slot each, the cash as the single accent figure, "A cash alternative is
-   available. Terms."
-4. The destination in prose, then the captioned gallery: the reel, full-bleed on the
-   rules. Each still may carry a title and one sentence from config over its lower third on
-   a scrim; both are null until the founder writes them. Venue unnamed until permitted; no
-   venue still until `venue.footageLicensed`.
-5. Your odds (`#odds`): the field, "Not unlimited.", the ladder and the calculator as one.
-6. Where the money goes, moss.
-7. Enter: the bundles as plain options and the accent call to action. No countdown, no
-   deadline, no "Enter now", no pills.
-8. Free entry by post: one paragraph and the link.
+   escape. Your chance of winning is at least”), then the rail. The one loud screen.
+2. What you win (daylight). No prize strip: the rail already runs under the hero, and two
+   bands of facts in a row was one too many. The two parts of the prize stand side by side
+   with a vertical rule between, the stay in words and the cash as a figure in the serif,
+   then a ruled list: when the stay is taken, the cash alternative with its amount and a
+   link to the terms, the prize in all. No cards and no picture.
+3. The place (daylight). The destination’s name and one sentence on the left, the county in
+   prose on the right. Then the photographs: one edge to edge between the rules, drifting
+   slowly in its frame as it passes, with its title and one line beneath it; the others as a
+   pair of plates. Nothing is set over a picture. Venue unnamed until permitted; no venue
+   still until `venue.footageLicensed`.
+4. Your chances (`#odds`). Two rows of the same two columns: the words beside the field,
+   then the cap (the ledger figure, marked in gold at the size of a subheading) beside the
+   ladder and the calculator.
+5. Where the money goes (loch). The heading and the locality statement on the left; the
+   share on the right, in the heavy sans and in gold.
+6. Enter (a sheet of paper on cloud, as the draw in writing is on the home page). The
+   wordmark as a letterhead, the answer sentence, then the choice as ruled rows: a gold disc
+   marks the one chosen, the label, the worst-case chance, the price in the serif. The free
+   postal route is the last row, in the same type and the same columns. One call to action
+   beneath, with what goes to the destination for that choice. Signed with the registered
+   company name and number, the key terms and the Companies House record. No countdown, no
+   deadline, no “Enter now”, no default to a bundle.
+7. Free entry by post: one paragraph and the link.
+8. Founding friends, while the escape is not open.
 9. Questions.
 10. The compliance strip.
+
+Sections two to five share one layout on a wide screen (`split`): the heading and one
+sentence in a narrow column on the left, the matter on the right. Below 900px they are one
+column in the same order.
 
 ### Rules
 One hairline (`--hairline`) in one colour (`--rule`, `--rule-on-ink`), through `rule-t`,

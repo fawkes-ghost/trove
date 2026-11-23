@@ -3,6 +3,7 @@ import { escape as hampshire, type Escape } from '@/config/prize';
 import { gbp, numberWord, sentenceCase } from '@/lib/format';
 import { countyProse, reelStills, venueLine } from '@/lib/escapes';
 import { Kicker } from '@/components/site/Kicker';
+import { Plate } from '@/components/media/Plate';
 
 // The escape, in the house register: what it is, where it is, and exactly what is included,
 // set the way a hotel sets a letter. Words in a narrow column on the left, one tall
@@ -48,37 +49,15 @@ export function EscapeIntro({ escape = hampshire }: { escape?: Escape }) {
             </Link>
           </p>
         </div>
-        {lead ? (
-          <figure className="m-0 min-[900px]:mt-20">
-            <div className="plate aspect-[4/5]">
-              <img src={lead.src} alt={lead.alt} className="h-full w-full object-cover" loading="lazy" decoding="async" />
-            </div>
-            <Caption title={lead.title} caption={lead.caption} />
-          </figure>
-        ) : null}
+        {lead ? <Plate still={lead} ratio="aspect-[4/5]" className="min-[900px]:mt-20" /> : null}
       </div>
       {rest.length ? (
         <div className="mt-12 grid gap-12 min-[900px]:mt-24 min-[900px]:grid-cols-[minmax(0,4fr)_minmax(0,5fr)] min-[900px]:gap-[clamp(3rem,7vw,7rem)]">
           {rest.slice(0, 2).map((still, index) => (
-            <figure key={still.src} className={`m-0 ${index === 1 ? 'min-[900px]:mt-24' : ''}`}>
-              <div className={`plate ${index === 0 ? 'aspect-[4/5]' : 'aspect-[3/2]'}`}>
-                <img src={still.src} alt={still.alt} className="h-full w-full object-cover" loading="lazy" decoding="async" />
-              </div>
-              <Caption title={still.title} caption={still.caption} />
-            </figure>
+            <Plate key={still.src} still={still} ratio={index === 0 ? 'aspect-[4/5]' : 'aspect-[3/2]'} className={index === 1 ? 'min-[900px]:mt-24' : ''} />
           ))}
         </div>
       ) : null}
     </section>
-  );
-}
-
-function Caption({ title, caption }: { title: string | null; caption: string | null }) {
-  if (!title && !caption) return null;
-  return (
-    <figcaption className="mt-4 max-w-[30rem]">
-      {title ? <p className="display text-[1.375rem] leading-tight">{title}</p> : null}
-      {caption ? <p className="mt-1 text-sm text-ink/70">{caption}</p> : null}
-    </figcaption>
   );
 }

@@ -5,27 +5,30 @@ import { Ledger } from '@/components/ledger/Ledger';
 import { OddsField } from '@/components/field/OddsField';
 import { FieldMotion } from '@/components/field/FieldMotion';
 
-// The field first, one mark per entry with one lit, then the cap, then the ladder and the
-// calculator as one: hover or tap a tier, or type a number, and the cost, the odds, the
-// giving and the lit marks follow. Every figure comes from config or is computed from it.
+// The chances, in two rows of the same two columns. First the words beside the field, one
+// mark per entry with one lit. Then the cap beside the ladder and the calculator: hover or
+// tap a tier, or type a number, and the cost, the odds, the giving and the lit marks follow.
+// Every figure comes from config or is computed from it.
 export function OddsLadder({ escape }: { escape: Escape }) {
   return (
     <section id="odds" className="rule-t section">
-      <div className="max-w-[52rem]">
-        <h2 data-reveal="item" className="display text-balance heading-section">Your chances.</h2>
-        <p className="mt-6 max-w-[40rem] text-lg" data-answer>
-          At least {worstCaseOdds(escape)} with one entry{escape.entry.bundles.filter((b) => b.entries > 1).map((b) => `, ${oddsForEntries(b.entries, escape)} with ${numberWord(b.entries)}`).join('')}.
-        </p>
-        <p className="mt-4 max-w-[40rem] text-lg">
-          Those are your chances if all {count(escape.cap)} entries sell. If fewer sell, everyone’s chance is better.
-        </p>
-        <FieldMotion steps={[1]} className="mt-12 max-w-[40rem]">
+      <div className="split">
+        <div data-reveal="group">
+          <h2 className="display heading-section text-balance">Your chances.</h2>
+          <p className="mt-6 max-w-[26rem] text-lg" data-answer>
+            At least {worstCaseOdds(escape)} with one entry{escape.entry.bundles.filter((b) => b.entries > 1).map((b) => `, ${oddsForEntries(b.entries, escape)} with ${numberWord(b.entries)}`).join('')}.
+          </p>
+          <p className="mt-4 max-w-[26rem] text-base text-ink/80">
+            Those are your chances if all {count(escape.cap)} entries sell. If fewer sell, everyone’s chance is better.
+          </p>
+        </div>
+        <FieldMotion steps={[1]} className="max-w-[44rem]">
           <OddsField id="odds-field" entries={escape.cap} cap={escape.cap} lit={1} maxLit={escape.entry.maxPerPerson} />
         </FieldMotion>
-        <div className="mt-12">
-          <Ledger escape={escape} />
-        </div>
-        <div className="mt-12">
+      </div>
+      <div className="split mt-16 md:mt-24">
+        <Ledger escape={escape} />
+        <div className="max-w-[52rem]">
           <OddsCalculator
             cap={escape.cap}
             maxPerPerson={escape.entry.maxPerPerson}
