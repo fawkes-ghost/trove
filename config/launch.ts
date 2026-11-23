@@ -6,8 +6,10 @@ export const launch = {
   // The terms, key terms and playing responsibly pages carry "Draft for solicitor review.
   // Not yet in force." until this is true. Stefan sets it once he has signed the terms off.
   termsInForce: false,
-  // The film and stills are AI-generated stand-ins for mood, not the escape itself. Set true
-  // once every one is replaced with licensed photography and film.
+  // The film (and its poster frame) is an AI-generated stand-in for mood. The photographs are
+  // real, openly licensed photographs of the Hampshire countryside, not of the house (see
+  // docs/media-credits.md). Set true once the film is replaced and the house's own licensed
+  // film and photography are in: the footer's line about imagery then goes.
   imageryLicensed: false,
   // The entry flow (choose, details, pay) is built but off. Off, its routes do not exist on
   // the live site; previews show it so it can be reviewed. Turn on only once the terms are in
