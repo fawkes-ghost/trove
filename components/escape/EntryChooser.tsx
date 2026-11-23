@@ -16,6 +16,9 @@ type Props = {
   options: EntryOption[];
   open: boolean;
   postal: { href: string; line: string };
+  // The entry flow, when it exists on this deployment. Open and live, the main button goes
+  // there; on a preview a quiet link to it sits under the chooser.
+  flow: { href: string; preview: boolean } | null;
 };
 
 // The entry choice as one decision: pick how many entries, see the price, the worst-case
@@ -24,7 +27,7 @@ type Props = {
 // The free postal route sits beside the paid options with the same weight, as the CAP code
 // and the ASA expect. While the escape is not open the action is the waitlist, and the
 // page says so. Values only: every string is built on the server from config.
-export function EntryChooser({ options, open, postal }: Props) {
+export function EntryChooser({ options, open, postal, flow }: Props) {
   const [selected, setSelected] = useState(0);
   const choice = options[selected];
 
@@ -44,7 +47,7 @@ export function EntryChooser({ options, open, postal }: Props) {
                 <input type="radio" name="entries" value={option.entries} checked={active} onChange={() => setSelected(index)} className="sr-only" />
                 <span className="text-base font-medium">{option.label}</span>
                 <span className="display text-[1.75rem] leading-none">{option.price}</span>
-                <span className="text-sm text-ink/70">Worst case {option.odds}</span>
+                <span className="text-sm text-ink/70">At least {option.odds}</span>
                 {active ? <span aria-hidden="true" className="absolute top-3.5 right-3.5 h-3 w-3 rounded-full bg-sun" /> : null}
               </label>
             );
@@ -53,9 +56,13 @@ export function EntryChooser({ options, open, postal }: Props) {
 
         <div className="mt-5 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <p className="text-base" aria-live="polite" data-entry-summary>
-            {choice.label} for {choice.price}. Worst-case odds {choice.odds}. {choice.causes}.
+            {choice.label} for {choice.price}. Your chance is at least {choice.odds}. {choice.causes}.
           </p>
-          {open ? (
+          {open && flow && !flow.preview ? (
+            <Link href={`${flow.href}?entries=${choice.entries}`} className="btn inline-flex h-12 shrink-0 items-center justify-center bg-sun px-7 text-base font-medium text-ink">
+              Enter
+            </Link>
+          ) : open ? (
             <button type="button" disabled className="btn h-12 shrink-0 bg-sun px-7 text-base font-medium text-ink disabled:opacity-60">
               Enter
             </button>
@@ -64,6 +71,14 @@ export function EntryChooser({ options, open, postal }: Props) {
           )}
         </div>
         {!open ? <p className="mt-3 text-sm text-ink/70">Entries are not open yet. Founding friends hear first, and enter before the public.</p> : null}
+        {flow?.preview ? (
+          <p className="mt-2 text-sm" data-flow-preview-link>
+            <Link href={`${flow.href}?entries=${choice.entries}`} className="underline underline-offset-4">
+              Preview the entry flow
+            </Link>{' '}
+            <span className="text-ink/70">(preview deployments only, no payment taken)</span>
+          </p>
+        ) : null}
       </fieldset>
 
       <div className="flex flex-col justify-between gap-4 rounded-3xl border border-ink/15 p-4 md:p-6" data-entry-postal>

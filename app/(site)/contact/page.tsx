@@ -5,7 +5,7 @@ import { ComplianceStrip } from '@/components/site/ComplianceStrip';
 
 export const metadata: Metadata = {
   title: 'Contact',
-  description: 'How to reach Trove: email, postal address and response time.',
+  description: 'How to get in touch with Trove by email or post, and how quickly we reply.',
   alternates: { canonical: '/contact' },
 };
 
@@ -41,7 +41,7 @@ export default function ContactPage() {
             <div className="rule-t py-6">
               <dt className="text-sm font-medium text-ink/70">Response time</dt>
               <dd className="mt-2 text-lg" data-placeholder="copy">
-                To be confirmed by the founder before launch.
+                We reply within two working days.
               </dd>
             </div>
           </dl>

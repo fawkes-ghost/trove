@@ -12,12 +12,12 @@ export function OddsLadder({ escape }: { escape: Escape }) {
   return (
     <section id="odds" className="rule-t section">
       <div className="max-w-[52rem]">
-        <h2 data-reveal="item" className="display text-balance text-[2rem] md:text-[2.75rem]">Your odds.</h2>
+        <h2 data-reveal="item" className="display text-balance text-[2.5rem] leading-[1] md:text-[4rem]">Your chances.</h2>
         <p className="mt-6 max-w-[40rem] text-lg" data-answer>
-          Worst-case odds are {worstCaseOdds(escape)} with one entry{escape.entry.bundles.filter((b) => b.entries > 1).map((b) => `, ${oddsForEntries(b.entries, escape)} with ${numberWord(b.entries)}`).join('')}.
+          At least {worstCaseOdds(escape)} with one entry{escape.entry.bundles.filter((b) => b.entries > 1).map((b) => `, ${oddsForEntries(b.entries, escape)} with ${numberWord(b.entries)}`).join('')}.
         </p>
         <p className="mt-4 max-w-[40rem] text-lg">
-          Worst-case odds assume every one of the {count(escape.cap)} entries in the cap is taken. Fewer entries sold means better odds for everyone in the draw.
+          Those are your chances if all {count(escape.cap)} entries sell. If fewer sell, everyone’s chance is better.
         </p>
         <FieldMotion steps={[1]} className="mt-12 max-w-[40rem]">
           <OddsField id="odds-field" entries={escape.cap} cap={escape.cap} lit={1} maxLit={escape.entry.maxPerPerson} />

@@ -9,17 +9,17 @@ import { Kicker } from '@/components/site/Kicker';
 // line under a rule, not as a fourth figure. Everything from config.
 export function OddsBand({ escape = hampshire }: { escape?: Escape }) {
   const figures = [
-    { figure: count(escape.cap), caption: 'entries in the cap, never more.' },
-    { figure: worstCaseOdds(escape), caption: 'worst-case odds with one entry.' },
-    { figure: percent(escape.charity.shareOfGross), caption: `of every paid entry to ${escape.destination} causes.` },
+    { figure: count(escape.cap), caption: 'entries, and never more.' },
+    { figure: worstCaseOdds(escape), caption: 'your chance with one entry, at least.' },
+    { figure: percent(escape.charity.shareOfGross), caption: `of every paid entry goes to causes in ${escape.destination}.` },
   ];
   return (
     <section id="odds-band" className="section-half bg-cloud text-ink">
-      <Kicker>Your odds of winning.</Kicker>
+      <Kicker>Your chances.</Kicker>
       <div className="mt-8 grid gap-8 min-[900px]:grid-cols-3">
         {figures.map((item) => (
           <div key={item.figure} data-odds-unit>
-            <p className="font-mono text-[2rem] leading-none whitespace-nowrap">{item.figure}</p>
+            <p className="display text-[3.5rem] leading-none whitespace-nowrap tabular-nums md:text-[5rem]">{item.figure}</p>
             <p className="mt-3 text-base text-ink/70">{item.caption}</p>
           </div>
         ))}

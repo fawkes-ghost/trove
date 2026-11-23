@@ -15,10 +15,10 @@ const primary = [
 ];
 
 // The header, on the server: reads the marks and config and hands the client shell strings
-// and route lists only. The centre's second state carries the worst-case odds until entries
+// and route lists only. The centre's second state carries the odds with one entry until entries
 // open, then the entries taken against the cap (static until the ledger is live).
 export function Header({ escape = hampshire, entriesTaken = 0 }: { escape?: Escape; entriesTaken?: number }) {
-  const odds = escape.status === 'open' ? `${count(entriesTaken)} of ${count(escape.cap)} entries taken.` : `${worstCaseOdds(escape)} worst case.`;
+  const odds = escape.status === 'open' ? `${count(entriesTaken)} of ${count(escape.cap)} entries taken.` : `At least ${worstCaseOdds(escape)}.`;
   return (
     <HeaderShell
       wordmarkSvg={wordmarkSource()}

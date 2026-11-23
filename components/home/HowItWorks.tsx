@@ -17,7 +17,7 @@ export function HowItWorks({ escape = hampshire }: { escape?: Escape }) {
           <Link href={freePostalRoute} className="underline underline-offset-4">
             enter free by post
           </Link>
-          . Same odds, same cap of {count(escape.cap)}.
+          . Same chance either way.
         </>
       ),
     },
@@ -25,7 +25,7 @@ export function HowItWorks({ escape = hampshire }: { escape?: Escape }) {
       title: 'We draw one winner.',
       body: (
         <>
-          When the cap is reached or at the longstop date, whichever comes first, one entry is drawn at random and the result is published.
+          When all {count(escape.cap)} entries have gone, or on the closing date, we pick one at random and publish the result.
           {compliance.noRollover ? ' One winner is guaranteed.' : ''}
         </>
       ),
@@ -34,7 +34,7 @@ export function HowItWorks({ escape = hampshire }: { escape?: Escape }) {
   ];
   return (
     <section id="how-it-works" className="section">
-      <h2 data-reveal="item" className="display text-balance text-[2rem] md:text-[2.75rem]">How it works.</h2>
+      <h2 data-reveal="item" className="display text-balance text-[2.5rem] leading-[1] md:text-[4rem]">How it works.</h2>
       <ol className="mt-10 grid gap-4 md:grid-cols-3 md:gap-6">
         {steps.map((step, index) => (
           <li key={step.title} className="flex flex-col gap-3 rounded-3xl bg-cloud p-6 md:p-8">

@@ -127,10 +127,30 @@ body {
   height: 100%;
   width: auto;
 }
-/* The header sits on the page, never over the film: deep loch marks on daylight. Once the
-   hero has gone it frosts over the content beneath it. */
+/* The header: deep loch marks on daylight. On a page that opens with the film it sits over
+   the film in snow until the hero has gone. Once scrolled it frosts over the content
+   beneath it. */
 .site-header {
   color: var(--ink);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+body:has([data-hero-film]) .site-header[data-header="top"] {
+  color: var(--snow);
+}
+/* The film's scrim: a little shade under the header at the top, and a deeper one rising
+   from the foot under the words. A CSS layer, never baked into the footage. */
+.hero-scrim {
+  background:
+    linear-gradient(180deg, rgb(20 37 32 / 0.45) 0%, rgb(20 37 32 / 0) 18%),
+    linear-gradient(180deg, rgb(20 37 32 / 0) 22%, rgb(20 37 32 / 0.5) 48%, rgb(20 37 32 / 0.85) 100%);
+}
+@media (min-width: 900px) {
+  .hero-scrim {
+    background:
+      linear-gradient(180deg, rgb(20 37 32 / 0.45) 0%, rgb(20 37 32 / 0) 18%),
+      linear-gradient(90deg, rgb(20 37 32 / 0.6) 0%, rgb(20 37 32 / 0.25) 45%, rgb(20 37 32 / 0) 65%),
+      linear-gradient(180deg, rgb(20 37 32 / 0) 40%, rgb(20 37 32 / 0.55) 100%);
+  }
 }
 .site-header[data-header="scrolled"] {
   background: color-mix(in srgb, var(--snow) 90%, transparent);
@@ -277,25 +297,25 @@ html[data-reveal="on"] [data-reveal="group"] > *:not([data-reveal-state]) {
   }
 }
 
-/* trove X: the sun-disc logo moment has no disc to raise in the new icon, so its tile
-   curtain is not shown and the page opens in its still version. */
-.curtain {
-  display: none !important;
+/* The full-bleed picture panels: a scrim rising from the foot for the words, and a slow
+   drift of the picture inside its frame as the panel passes, driven by the scroll itself.
+   Only where the browser supports scroll-driven animation and motion is allowed. */
+.panel-scrim {
+  background: linear-gradient(180deg, rgb(20 37 32 / 0) 0%, rgb(20 37 32 / 0.5) 55%, rgb(20 37 32 / 0.78) 100%);
 }
-
-/* The reel's story segment: fills left to right while a still is shown. */
-@keyframes trove-reel-fill {
+@keyframes trove-panel-drift {
   from {
-    transform: scaleX(0);
+    transform: scale(1.14) translateY(-4%);
   }
   to {
-    transform: scaleX(1);
+    transform: scale(1.02) translateY(4%);
   }
 }
-.reel-fill {
-  animation-name: trove-reel-fill;
-  animation-timing-function: linear;
-  animation-fill-mode: forwards;
+@supports (animation-timeline: view()) {
+  html[data-motion="full"] .panel-media {
+    animation: trove-panel-drift linear both;
+    animation-timeline: view();
+  }
 }
 
 /* The join bar steps aside while the cookie banner holds the foot of the screen. */
@@ -350,11 +370,32 @@ html[data-motion="full"] .sun-line {
   animation: trove-sun-line 0.4s ease 0.4s both;
 }
 
-/* The footer wordmark fills the width at every size. */
+/* The footer wordmark runs edge to edge at every size and sits on the foot of the page. */
 .footer-wordmark {
   height: auto !important;
 }
 .footer-wordmark > svg {
   width: 100%;
   height: auto;
+}
+
+/* Entry flow inputs: 16px text so phones do not zoom, a clear border, ink focus ring. */
+.field-input {
+  height: 3rem;
+  width: 100%;
+  min-width: 0;
+  border: 1.5px solid var(--mist);
+  border-radius: 0.75rem;
+  background: #fff;
+  padding: 0 0.75rem;
+  font: inherit;
+  font-size: 16px;
+  color: var(--ink);
+}
+.field-input:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 1px;
+}
+.field-input[aria-invalid="true"] {
+  border-color: #9A3412;
 }

@@ -24,7 +24,7 @@ export function Footer() {
     escape.status === 'open' ? null : 'Entries are not open yet, and no payment is taken on this site.',
     launch.termsInForce ? null : 'The terms, key terms and policies are drafts for solicitor review and are not yet in force.',
     escape.venue.permissionGranted ? null : 'The house is named once it has given its written permission.',
-    escape.charity.beneficiary ? null : 'The causes that receive the share are named once our agreement with them is signed.',
+    escape.charity.beneficiary ? null : 'The charities we give to are named once our agreement with them is signed.',
     launch.imageryLicensed ? null : 'The film and photographs are AI-generated stand-ins for mood. They do not show the house, and licensed photography replaces them before entries open.',
   ].filter((line): line is string => Boolean(line));
 
@@ -107,8 +107,9 @@ export function Footer() {
           </p>
         ) : null}
       </div>
-      {/* The wordmark set large, the sun in its own colour on the loch. */}
-      <div className="overflow-hidden px-6 pb-6 md:px-10" aria-hidden="true">
+      {/* The wordmark as big as the page allows: edge to edge, sitting on the foot of the
+          page, the sun in its own colour on the loch. */}
+      <div className="overflow-hidden px-1 pt-6 md:px-2" aria-hidden="true">
         <Wordmark height={180} className="footer-wordmark block w-full text-snow" />
       </div>
     </footer>

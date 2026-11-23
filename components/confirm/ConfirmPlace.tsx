@@ -119,8 +119,8 @@ export function ConfirmPlace({ iconSvg }: { iconSvg?: string }) {
 
       {status === 'invalid' ? (
         <>
-          <h1 className="display text-balance text-[2.5rem] md:text-[3.5rem]">This link is not valid.</h1>
-          <p className="mt-6 text-lg">Check the link in your email, or join the waitlist again and we will send a new one. {back}.</p>
+          <h1 className="display text-balance text-[2.5rem] md:text-[3.5rem]">This link doesn’t work.</h1>
+          <p className="mt-6 text-lg">Check the link in your email, or sign up again and we’ll send you a new one. {back}.</p>
         </>
       ) : null}
     </div>
