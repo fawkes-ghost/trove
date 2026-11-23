@@ -28,8 +28,8 @@ type Props = {
 // Below 900px the same two states run without the call to action: the wordmark
 // at the top, the tile alone once scrolled. One line either way, so the band never changes
 // height. The nav trigger is in the top right at every width, so the full route list is one
-// tap away even where the nav links are shown. Nothing is ever fixed to the foot of the
-// screen.
+// tap away even where the nav links are shown. On phones the call to action lives in the
+// join bar at the foot of the screen instead (components/site/JoinBar.tsx).
 export function HeaderShell({ iconSvg, wordmarkSvg, primary, groups, prize, prizeValue, odds }: Props) {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
