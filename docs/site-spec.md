@@ -1,4 +1,4 @@
-# Trove site specification (v1, 2 Sep 2026)
+# Trove site specification (v2, 23 Nov 2026)
 
 Read with CLAUDE.md and config/prize.ts. This is the design plan and page standard.
 Nothing here is a figure; every figure comes from config.
@@ -36,82 +36,90 @@ Fun and high end at once, Rhode's ease and warmth, colour done professionally, w
 escape as the thing a lucky founding friend gets to live and post. The film sells the
 escape; the words say exactly what it is and where the money goes.
 
-### Palette (base tokens; the accent is per escape, from config)
+### Palette
 
 | Token | Value | Use |
 | --- | --- | --- |
-| `--snow` | `#F2F3EF` | Page background. Cool, not cream |
-| `--ink` | `#101214` | Text, the icon tile, primary button |
-| `--moss` | `#3F5A3A` | Secondary surfaces, the charity section, footer |
-| `--accent` | from `escape.theme.accent` | The ledger figure, the lit marks, and every "Secure your place" fill with ink text, the hero included. The header's stays outlined. Hampshire winter: rosehip `#D9455F` |
+| `--snow` | `#F7F8F5` | Page background. Cool daylight, not cream |
+| `--cloud` | `#EEF0EA` | The alternate band |
+| `--ink` | `#142520` | Text. Deep loch, never pure black |
+| `--loch` | `#1F3A33` | The few dark blocks, the footer |
+| `--sun` | `#E9A23B` | The gold. A fill only, with ink on it, never gold text on a light ground |
 | `--film` | media only | Warm winter grade: low sun, long shadows, breath in the air, no midday blue |
 
-Rules: the accent appears at most three times per viewport and never in the hero, where
-the film carries all the colour and the text and button are snow. Colour lives in the
-accent and the film; surfaces stay snow, ink and moss. No gradient washes on chrome.
+The gold is the highlighter. It marks what Trove promises and nothing else: the call to
+action, the box behind the cap in the hero, the line drawn under a figure, the ribbon, the
+founding friend sticker. Surfaces stay snow, cloud, ink and loch. No gradient washes on
+chrome.
 
-### Type (provisional until the founder's references are in)
+### Type: two voices
 
-| Role | Face | Notes |
+| Voice | Face | Notes |
 | --- | --- | --- |
-| Display | Fraunces (variable, soft optical axis) | Headlines, the prize line. Playful without being cute |
-| Body and UI | Geist Sans | Two weights, 400 and 500 |
-| Ledger | Geist Mono | The entries ledger and the compliance strip only |
+| What the site says | Newsreader 400, optical size following the font size | Headlines, the prize sentence, pull lines. Class `display` |
+| What the site promises | DM Sans 800 | The numbers the draw stands on: the chance, the cap, the giving share, the ledger figure. Class `figure`; `figure-marked` draws the gold line under it, `mark-box` sets it ink on gold |
+| Everything else | DM Sans 400, 500 and 700 | Body, navigation, forms, kickers, the compliance strip, the ribbon |
 
-Numerals in body and UI are tabular. Headlines ragged left. No word-level emphasis inside
-a headline; italic is a whole clause or nothing. Measure under 70 characters.
+There is no monospace anywhere. A number in running text takes the face around it;
+numerals are tabular. Only a figure the draw stands on takes the heavy sans, and only where
+it is the point of the block, so a page never shouts twice in one screen. Headlines ragged
+left. No word-level emphasis inside a headline; italic is a whole clause or nothing.
+Measure under 70 characters.
 
 ### The one memorable moment
-The logo. On first paint the page is snow with the ink icon tile centred; the disc rises
-through the ridgeline over ~900ms as the film fades in behind and the tile drifts to the
-top left header position. Then the five hero lines settle in order, and the ledger types
-its figures. Nothing else on the page animates on load. Reduced motion: film poster and
-final positions, no sequence.
+The number. The chance of winning is the largest thing on the page, as wide as the screen,
+in the heavy sans over the film: the one thing no other prize draw can put in its hero,
+because theirs has no cap. Beneath it, once, on arrival, “Unlimited entries.” is struck out
+in gold and gives way to the cap. Then the prize sentence and the email field, so the first
+screen is the whole proposition and the whole action. Nothing else on the page competes
+with it. Reduced motion: the promise is in place from first paint and the struck line
+never shows.
 
-### Hero wireframe (desktop; mobile stacks the same order)
+### Hero wireframe (desktop; below 900px the lower half is one column, in the same order)
 
 ```
 +------------------------------------------------------------------+
-| [icon][Trove]                                            [ menu ] |
+| [trove x]          nav                  [Secure your place] [menu] |
 |                                                                    |
-|   FILM (full bleed, silent, seamless loop, heavy scrim so snow     |
-|   text reads over any frame; poster on first paint)                |
+|   FILM (full bleed, silent, seamless loop; scrim from the foot     |
+|   and the left so snow reads over any frame; poster first)         |
 |                                                                    |
-|              Win an escape to one of England’s       display, snow |
-|                 finest country houses.               centred       |
-|   Three nights for you and your plus one, and £1,600 in cash.     |
-|   A £6,500 prize.                                     sans, snow   |
-|         [ One guaranteed winner. 3,000 entries, never more. ]      |
-|                     [ Join the waitlist ]            snow fill,    |
-|                                                      ink text      |
-|        Founding friends enter first, before the public.  sans 14   |
-|                                                                    |
-|                        ( scroll )            the scroll button     |
-|  18+. UK residents. Free postal entry, identical odds, same cap.   |
-|  Key terms.                                  mono 11, strip        |
+|  Your chance of winning is at least               sans 500, snow   |
+|  1 in 3,000.                                      sans 800, as     |
+|                                                   wide as the page |
+|  [3,000] entries. Never more.       [ Your email address        ]  |
+|  Win three nights at one of         [ Secure your place         ]  |
+|  England’s finest country houses,   18+. UK residents. Free entry  |
+|  and £1,600 in cash.                by post. Key terms.            |
+|   serif, the page’s h1               the form and the strip        |
 +------------------------------------------------------------------+
+|/ 3,000 entries. Never more. • One winner guaranteed. • Free entry /|
++------------------------------------------------------------------+
+        the ribbon: gold, tilted, looping, ink discs between
 ```
 
-One centred column, in this order: kicker, headline, sweetener with the cash line, trust
-chip, button, the charity line beneath the button. Everything in snow over the film under
-a heavy scrim. The accent does not appear in the hero.
+In order: the kicker, the number, the twist line with the cap in a gold box, the prize
+sentence (the page’s one `h1`), the email field and its button, the compliance strip, then
+the ribbon across the foot of the film. The words sit in the flow of the hero, not over it,
+so on a short window the film grows with them and nothing slides under the header. The
+number’s size answers to the window’s height as well as its width, so the email field
+stays on the first screen.
 
 Every figure in that wireframe is illustrative and is rendered from config. The venue is
-not named until `venue.permissionGranted` is true; until then "one of England's finest
-country houses". The scroll button from the previous site is carried over: a single
-ink disc with a downward chevron, centred at the base of the hero, which scrolls to the
-next section on click.
+not named until `venue.permissionGranted` is true; until then “one of England’s finest
+country houses”. The ribbon’s “One winner guaranteed.” is shown only while
+`compliance.noRollover` is true. The escape page uses the same hero with the escape’s name
+leading the kicker.
 
 ### The rhythm, in order
 Ink, ink, snow, film, snow, snow, snow, film, moss:
-1. **Hero** (ink over film). The mono kicker "Coming {month}." appears above the headline
-   only once `cadence.announced` is set. The call to action fills with the escape's accent
-   and ink text.
-2. **Your odds of winning** (ink band). Three figures, the cap, the worst-case odds and the
-   giving share as a percentage, each with its one-line caption directly beneath it. A figure
-   and its caption are one unit and are never separated: three across from 900px, one above
-   the other below it. "Read the key terms." has its own line beneath the units, under a
-   rule, never a fourth figure.
+1. **Hero** (snow over film), then the ribbon. As in the wireframe above.
+2. **Your odds of winning** (ink band). Three figures in the heavy sans, the cap, the
+   worst-case odds and the giving share as a percentage, each marked in gold and each with
+   its one-line caption directly beneath it. A figure and its caption are one unit and are
+   never separated: three across from 900px, one above the other below it, and the figures
+   scale with the window so they never touch. “Read the key terms.” has its own line
+   beneath the units, under a rule, never a fourth figure.
 3. **The destination** (snow). Kicker and headline; the venue unnamed until permitted.
 4. **The reel** (film). Full-bleed licensed stills from `media.stills`, sixteen by nine from
    768px and four by five below it so a caption sits in the lower third clear of the arrows,
@@ -129,9 +137,8 @@ Ink, ink, snow, film, snow, snow, snow, film, moss:
 8. **Footer** (moss). Nothing sits between the founding friends form and the footer; the
    reel appears only where it belongs to a section.
 
-Mono kickers sitewide are sentence case with a full stop, never caps. Nothing fades in on
-scroll; the field draws in and that is all. Buttons: hover darkens, a press darkens more,
-nothing fades. No pills, no arrows in buttons, no dashes.
+Kickers sitewide are sentence case with a full stop, never caps. Buttons are pills: hover
+darkens, a press darkens more, nothing fades. No arrows in buttons, no dashes.
 
 ### The motion, as built
 
@@ -140,19 +147,15 @@ document's inline gate: `data-motion="full"` is set before first paint unless th
 asks for reduced motion, and without it every act stands in its final, server-rendered
 state.
 
-- **The logo moment.** Home page, fresh session, motion allowed: the gate sets
-  `data-moment="play"` before first paint and the moment runs in CSS from that paint, over
-  900ms, needing no script and no film. The page opens as snow with the ink tile centred
-  and the disc below the ridgeline. The disc rises through the first half; the poster
-  brightens behind from the 15% mark; the hero lines rise from 50%; the header fades in
-  from 60%; the tile clears from 70%. When the component hydrates it switches the attribute
-  to `js`, keeps the start states, and GSAP continues from the same elapsed time, adding the
-  one thing CSS cannot do: the tile docks to the header icon's measured seat and takes the
-  inverse colours. Any scroll, wheel, touch, pointer or key before the dock completes the
-  moment at once. A page that loads already scrolled, or hydrates after the 900ms, shows the
-  still at once. It plays once per session; on a return visit in the same session the gate
-  leaves `data-moment` unset and the page is the still from first paint, header, poster and
-  lines all in place. Reduced motion: the same still, and the loop never mounts.
+- **The hero.** The number, the prize sentence and the form are server rendered and still.
+  One thing moves on arrival, in CSS, needing no script: “Unlimited entries.” shows, a gold
+  line strikes through it from 750ms, it lifts away, and from 2.15s the cap line pops into
+  the same place. The two lines share one grid cell, so nothing shifts. The struck line is
+  hidden from assistive technology; the promise is what is read. Reduced motion: the
+  promise from first paint, the struck line never shown.
+- **The ribbon.** The promises, written twice end to end and moved half their length over
+  38 seconds, so the loop has no seam. Tilted, wider than the page so its ends never show,
+  ink discs between the lines. Reduced motion: still.
 - **The film.** The poster is preloaded from the head and is the first paint layer; the loop
   mounts above it once the poster has arrived and fades in over 700ms once it is *playing*,
   never merely once it could play; the scrim sits above both. Neither cut carries an audio
@@ -186,8 +189,14 @@ state.
   touch, and pauses while hovered or focused. A still with a title or a caption shows them
   over its lower third on a scrim; a bare still is bare. Reduced motion: no timer and no
   crossfade; the still changes only on an arrow, a dot or a swipe.
-- **The form.** On success the disc rises inside the submit button over 600ms, then "Check
-  your email." The same on the confirm page. Reduced motion: straight to the finished state.
+- **The form.** On success the field gives way to the founding friend sticker, tilted, which
+  pops in over 550ms, and twenty-six pieces of paper confetti in gold, ink and snow fall
+  once and are removed after 3.2 seconds. Then “Check your email.” Someone already on the
+  list gets the sticker without the confetti. The confirm page gives the same sticker and
+  confetti when the place is confirmed. The sticker carries no number: the signup function
+  does not return one, and it never shows a number that is not the person’s real place. The
+  confetti is discs and slips of paper, never the X. Reduced motion: the sticker, still,
+  and no confetti.
 - **The header.** Exactly one fixed bar, one element throughout, with two states, switched
   by an IntersectionObserver on the hero (or, on a page without one, the first heading). At
   the top: logo and wordmark, the nav in the centre, the outlined call to action. Once the
@@ -226,8 +235,9 @@ state.
 The escape page sells the escape; the home page sells the proposition. Identical structure
 for every escape so the template is the product:
 
-1. Hero film. The headline is the destination ("Hampshire.") with the prize line beneath.
-2. The prize strip: one mono row, ink on snow, a rule above and below, nights, guests,
+1. The hero, as on the home page, with the escape’s name leading the kicker (“The Hampshire
+   escape. Your chance of winning is at least”), then the ribbon.
+2. The prize strip: one row, ink on snow, a rule above and below, nights, guests,
    cash and prize value from config, two by two at 390. No icons.
 3. What you win: the stay and the cash side by side with a vertical rule between, one
    still slot each, the cash as the single accent figure, "A cash alternative is
@@ -253,7 +263,7 @@ columns a vertical rule stands between them; full-bleed images butt against the 
 Exactly one fixed bar on the page, with two states. At the top: logo and wordmark left,
 the nav in the centre, "Secure your place" outlined on the right. Once the hero (or the
 page heading) has left the viewport: ink, the logo tile alone, the short prize line and
-the worst-case odds in mono in the centre (entries taken against the cap once entries
+the worst-case odds in the centre (entries taken against the cap once entries
 open), the same call to action filled with the accent. A grid with fixed columns, so
 nothing overlaps at any width: the odds drop first when the centre is tight, then the
 prize line shortens to the value alone. The nav trigger sits in the top right at every

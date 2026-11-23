@@ -19,7 +19,7 @@ export function OddsSection({ escape = hampshire }: { escape?: Escape }) {
           <h2 className="display text-balance text-[2.5rem] leading-[1] md:text-[4rem]">
             {count(escape.cap)} entries at most. One of them could be yours.
           </h2>
-          <p className="mt-8 flex flex-col gap-2 font-mono text-base">
+          <p className="mt-8 flex flex-col gap-2 text-base">
             {bundles.map((bundle, index) => (
               <span key={bundle.entries} data-ladder-step={index + 1} className="transition-colors duration-300">
                 {oddsForEntries(bundle.entries, escape)} with {numberWord(bundle.entries)} {bundle.entries === 1 ? 'entry' : 'entries'}.

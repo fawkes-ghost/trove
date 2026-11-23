@@ -33,7 +33,7 @@ export function LegalDocument({ title, updated, headings, children }: { title: s
         </aside>
         <article className="legal">
           <h1 className="display text-balance text-[2.5rem] md:text-[3.5rem]">{title}</h1>
-          {updated ? <p className="mt-4 font-mono text-[11px] text-ink/60">{updated}</p> : null}
+          {updated ? <p className="mt-4 text-[11px] text-ink/60">{updated}</p> : null}
           {children}
         </article>
       </div>

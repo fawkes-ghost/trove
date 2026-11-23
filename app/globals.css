@@ -39,9 +39,8 @@
   --color-mist: var(--mist);
   --color-loch: var(--loch);
   --color-sun: var(--sun);
-  --font-serif: var(--font-fraunces), Georgia, serif;
-  --font-sans: var(--font-instrument-sans), system-ui, sans-serif;
-  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+  --font-serif: var(--font-display), Georgia, serif;
+  --font-sans: var(--font-text), system-ui, sans-serif;
 }
 
 html {
@@ -108,13 +107,41 @@ body {
   filter: brightness(0.82);
 }
 
-/* Display type: Fraunces on the soft optical axis. Headlines ragged left, tight leading. */
+/* Display type: Newsreader, for what the site says. Its optical size follows the font size,
+   so a card title gets sturdier strokes than an 80px headline. Ragged left, tight leading. */
 .display {
   font-family: var(--font-serif);
   font-weight: 400;
-  font-variation-settings: "SOFT" 100, "opsz" 144;
-  letter-spacing: -0.015em;
-  line-height: 1.02;
+  font-optical-sizing: auto;
+  letter-spacing: -0.022em;
+  line-height: 1;
+}
+
+/* Figures: the heavy sans, for what the site promises. The numbers the site stands on (the
+   cap, the chance, the share that is given) speak in the logo's voice, not the headline's. */
+.figure {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.055em;
+  line-height: 1;
+}
+/* The highlighter under a figure: the gold drawn like a marker along its foot. */
+.figure-marked {
+  width: max-content;
+  max-width: 100%;
+  padding: 0 0.07em;
+  background: linear-gradient(180deg, transparent 60%, var(--sun) 60%, var(--sun) 93%, transparent 93%);
+}
+/* The highlighter as a box behind a figure, ink on gold, for a figure over the film. */
+.mark-box {
+  display: inline-block;
+  padding: 0 0.16em;
+  margin-right: 0.04em;
+  border-radius: 0.12em;
+  background: var(--sun);
+  color: var(--ink);
+  transform: rotate(-1.5deg);
 }
 
 /* Inline brand marks size to their wrapper; see components/brand/Marks.tsx. */
@@ -142,7 +169,7 @@ body:has([data-hero-film]) .site-header[data-header="top"] {
 .hero-scrim {
   background:
     linear-gradient(180deg, rgb(20 37 32 / 0.45) 0%, rgb(20 37 32 / 0) 18%),
-    linear-gradient(180deg, rgb(20 37 32 / 0) 22%, rgb(20 37 32 / 0.5) 48%, rgb(20 37 32 / 0.85) 100%);
+    linear-gradient(180deg, rgb(20 37 32 / 0) 12%, rgb(20 37 32 / 0.58) 36%, rgb(20 37 32 / 0.88) 100%);
 }
 @media (min-width: 900px) {
   .hero-scrim {
@@ -164,36 +191,274 @@ body:has([data-hero-film]) .site-header[data-header="top"] {
   border-radius: 999px;
 }
 
-/* The hero moment: the horizon draws across the screen and the sun rises onto it, half
-   set, like the o in the wordmark. CSS only, from first paint, about a second, on every
-   visit; nothing is hidden, so the headline paints at once. The gate in app/layout.tsx sets
-   data-motion="full" before first paint unless the visitor asks for reduced motion, and
-   without it the page is the final state. */
-.hero-sun {
-  transform: translate(-50%, 50%);
+/* The hero's words. The kicker and the number are the one giant idea: the chance, as wide
+   as the screen, but never so tall that a short window loses the email field below the
+   fold, so the size answers to the window's height as well as its width. */
+.hero-kicker {
+  font-weight: 500;
+  font-size: clamp(0.95rem, 1.5vw, 1.25rem);
+  line-height: 1.2;
+  color: var(--snow);
+  /* The smallest words sit highest on the film, where the scrim is thinnest and the sky
+     is brightest, so they carry their own shade. */
+  text-shadow: 0 1px 14px rgb(20 37 32 / 0.6);
 }
-@keyframes trove-sunrise {
-  from {
-    transform: translate(-50%, 110%);
+.hero-number {
+  margin: 0.06em 0 0 -0.045em;
+  font-weight: 800;
+  font-size: clamp(3.7rem, min(17.6vw, 27svh), 17rem);
+  line-height: 0.86;
+  letter-spacing: -0.058em;
+  white-space: nowrap;
+}
+/* The twist line: what other draws leave open is struck out in gold, then gives way to
+   what this one fixes. The two lines share one grid cell. Without motion the struck line
+   never shows, and the page opens on the promise itself. The gate in app/layout.tsx sets
+   data-motion="full" before first paint unless the visitor asks for reduced motion. */
+.hero-twist {
+  display: grid;
+  margin-top: 0.5em;
+  font-weight: 700;
+  font-size: clamp(1.4rem, 3.4vw, 2.9rem);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+}
+.hero-twist > span {
+  grid-area: 1 / 1;
+  width: max-content;
+  max-width: 100%;
+}
+.hero-twist-out {
+  position: relative;
+  opacity: 0;
+}
+.hero-twist-out::after {
+  content: '';
+  position: absolute;
+  left: -2%;
+  top: 54%;
+  width: 104%;
+  height: 0.13em;
+  border-radius: 999px;
+  background: var(--sun);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+html[data-motion="full"] .hero-twist-out {
+  animation: trove-twist-out 2.3s ease both;
+}
+html[data-motion="full"] .hero-twist-out::after {
+  animation: trove-strike 0.45s ease-out 0.75s both;
+}
+html[data-motion="full"] .hero-twist-in {
+  animation: trove-twist-in 0.5s cubic-bezier(0.2, 1.4, 0.4, 1) 2.15s both;
+}
+@keyframes trove-twist-out {
+  0%,
+  78% {
+    opacity: 1;
+    transform: none;
   }
-  to {
-    transform: translate(-50%, 50%);
+  100% {
+    opacity: 0;
+    transform: translateY(-45%) rotate(-3deg);
   }
 }
-@keyframes trove-horizon {
-  from {
-    transform: scaleX(0);
-  }
+@keyframes trove-strike {
   to {
     transform: scaleX(1);
   }
 }
-html[data-motion="full"] .hero-horizon {
-  transform-origin: left center;
-  animation: trove-horizon 0.7s cubic-bezier(0.6, 0, 0.2, 1) both;
+@keyframes trove-twist-in {
+  from {
+    opacity: 0;
+    transform: translateY(45%) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
-html[data-motion="full"] .hero-sun {
-  animation: trove-sunrise 1.1s cubic-bezier(0.2, 0.7, 0.2, 1) 0.35s both;
+.hero-prize {
+  max-width: min(100%, 34ch);
+  margin-top: 0.7em;
+  font-size: clamp(1.45rem, 2.5vw, 2.25rem);
+  line-height: 1.12;
+  text-wrap: balance;
+}
+.hero-form {
+  max-width: 34rem;
+  min-height: 3rem;
+  margin: 1.25rem 0 0.25rem;
+}
+/* The form was drawn for the light page; over the film its words are snow. */
+.hero-form [data-waitlist-status] {
+  color: var(--snow);
+}
+/* From 900px the lower half sits in two columns, the promise on the left and the email
+   field on the right, level at the top, so the whole hero fits a laptop's first screen.
+   Below that it is one column, and on the shortest phones the film grows a little. */
+@media (min-width: 900px) {
+  .hero-lower {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    column-gap: clamp(2rem, 5vw, 5rem);
+    align-items: start;
+    margin-top: 1.6rem;
+  }
+  .hero-lower .hero-twist,
+  .hero-lower .hero-form {
+    margin-top: 0;
+  }
+}
+
+/* The ribbon: the promises, tilted across the film's foot and wider than the page so its
+   ends never show. The separators are ink discs, a shape, never the X. Still without motion. */
+.ribbon {
+  position: relative;
+  z-index: 25;
+  margin-top: -1.35rem;
+  padding: 0.6rem 0 2.2rem;
+  overflow: clip;
+}
+.ribbon-band {
+  width: 106%;
+  margin-left: -3%;
+  padding: 0.7rem 0 0.75rem;
+  background: var(--sun);
+  color: var(--ink);
+  transform: rotate(-1.6deg);
+  font-weight: 700;
+  font-size: clamp(1.05rem, 1.9vw, 1.6rem);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  white-space: nowrap;
+}
+.ribbon-track {
+  display: flex;
+  width: max-content;
+}
+.ribbon-track p {
+  display: flex;
+}
+.ribbon-track span {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.4rem;
+  padding-left: 1.4rem;
+}
+.ribbon-track span::after {
+  content: '';
+  width: 0.38em;
+  height: 0.38em;
+  border-radius: 999px;
+  background: var(--ink);
+}
+html[data-motion="full"] .ribbon-track {
+  animation: trove-ribbon 38s linear infinite;
+}
+@keyframes trove-ribbon {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* The sticker a new founding friend gets, and the confetti that falls with it. Paper
+   shapes in the brand's gold, ink and snow. Without motion: the sticker, still, no confetti. */
+.sticker {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: max-content;
+  max-width: 100%;
+  margin: 0.4rem 0 1.1rem 0.3rem;
+  transform: rotate(-4deg);
+}
+.sticker-word {
+  padding: 0.3em 0.75em 0.38em;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--snow);
+  box-shadow: 0 0 0 3px var(--snow), 0 12px 32px rgb(0 0 0 / 0.28);
+  font-weight: 800;
+  font-size: clamp(1.6rem, 5.4vw, 2.5rem);
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+.sticker-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  margin: -0.28em 0 0 1.4em;
+  padding: 0.38em 0.85em 0.42em;
+  border-radius: 999px;
+  background: var(--sun);
+  color: var(--ink);
+  box-shadow: 0 0 0 2px var(--ink);
+  transform: rotate(3deg);
+  font-weight: 700;
+  font-size: 0.85rem;
+  line-height: 1;
+}
+.sticker-mark {
+  height: 0.95em;
+  color: var(--ink);
+}
+/* On the tab's gold the wordmark's own gold X would vanish, so it goes ink with the word. */
+.sticker-mark svg [fill="#E9A23B"] {
+  fill: var(--ink);
+}
+html[data-motion="full"] .sticker {
+  animation: trove-sticker-in 0.55s cubic-bezier(0.2, 1.5, 0.4, 1) both;
+}
+@keyframes trove-sticker-in {
+  from {
+    opacity: 0;
+    transform: rotate(-14deg) scale(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(-4deg) scale(1);
+  }
+}
+.confetti {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: none;
+  overflow: hidden;
+  pointer-events: none;
+}
+html[data-motion="full"] .confetti {
+  display: block;
+}
+.confetti-piece {
+  position: absolute;
+  top: -1.5rem;
+  width: 0.55rem;
+  height: 1.1rem;
+  border-radius: 2px;
+  background: var(--sun);
+  animation-name: trove-confetti;
+  animation-timing-function: cubic-bezier(0.3, 0.6, 0.5, 1);
+  animation-fill-mode: forwards;
+}
+.confetti-piece[data-shape="disc"] {
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 999px;
+}
+.confetti-piece[data-tone="ink"] {
+  background: var(--ink);
+}
+.confetti-piece[data-tone="snow"] {
+  background: var(--snow);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--ink) 25%, transparent);
+}
+@keyframes trove-confetti {
+  to {
+    transform: translate(var(--drift), 108vh) rotate(var(--spin));
+  }
 }
 
 /* While the consent banner is up the page reserves its height at the foot, so nothing it
@@ -341,33 +606,6 @@ html[data-consent="open"] .join-bar {
 }
 html[data-motion="full"] .field-halo {
   animation: trove-halo 2.4s ease-in-out infinite;
-}
-
-/* The sun seal: tap the sun and it dips below the horizon and rises again. Two keyframe
-   names alternate so every tap restarts the animation without remounting the button. */
-@keyframes trove-sun-dip-a {
-  0% { transform: translate(-50%, 50%); }
-  45% { transform: translate(-50%, 105%); }
-  100% { transform: translate(-50%, 50%); }
-}
-@keyframes trove-sun-dip-b {
-  0% { transform: translate(-50%, 50%); }
-  45% { transform: translate(-50%, 105%); }
-  100% { transform: translate(-50%, 50%); }
-}
-html[data-motion="full"] .sun-seal[data-turn="a"] {
-  animation: trove-sun-dip-a 0.9s cubic-bezier(0.5, 0, 0.2, 1) both;
-}
-html[data-motion="full"] .sun-seal[data-turn="b"] {
-  animation: trove-sun-dip-b 0.9s cubic-bezier(0.5, 0, 0.2, 1) both;
-}
-@keyframes trove-sun-line {
-  from { opacity: 0; transform: translateY(-4px); }
-  to { opacity: 1; transform: none; }
-}
-html[data-motion="full"] .sun-line {
-  display: inline-block;
-  animation: trove-sun-line 0.4s ease 0.4s both;
 }
 
 /* The footer wordmark runs edge to edge at every size and sits on the foot of the page. */

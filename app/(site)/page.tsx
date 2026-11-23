@@ -9,7 +9,8 @@ import { WebSiteJsonLd } from '@/components/site/WebSiteJsonLd';
 import { HowItWorks } from '@/components/home/HowItWorks';
 import { HomeQuestions } from '@/components/home/HomeQuestions';
 
-// The rhythm: the horizon hero (film above, daylight below), cloud (the odds band), daylight
+// The rhythm: the hero (the chance over the film, the ribbon of promises across its foot),
+// cloud (the odds band), daylight
 // (how it works, three cloud steps), daylight (the destination), film (the reel), daylight (the field), loch (the mission), daylight
 // (fair questions), daylight (founding friends), then the footer (loch).
 export default function Home() {

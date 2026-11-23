@@ -47,7 +47,7 @@ export default async function EscapePage({ params }: { params: Promise<{ slug: s
   return (
     <main>
       <FaqJsonLd escape={item} />
-      <Hero escape={item} headline={`${item.destination}.`} path={`/escapes/${item.slug}`} />
+      <Hero escape={item} lead={`The ${item.destination} escape.`} sourceChannel="trove-escape-hero" />
       <PrizeStrip escape={item} />
       <WhatYouWin escape={item} />
       <Destination escape={item} />

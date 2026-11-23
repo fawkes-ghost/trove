@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
-import { Fraunces, IBM_Plex_Mono, Instrument_Sans } from 'next/font/google';
+import { DM_Sans, Newsreader } from 'next/font/google';
 import { escape } from '@/config/prize';
 
 import { siteUrl } from '@/lib/site';
@@ -10,26 +10,22 @@ import { AttributionCapture } from '@/components/attribution/AttributionCapture'
 import { OrganisationJsonLd } from '@/components/site/OrganisationJsonLd';
 import './globals.css';
 
-const fraunces = Fraunces({
+// Two families, two voices. Newsreader, a serif drawn for news, for what the site says:
+// headlines and statements. DM Sans, the nearest open match to the logo, for everything
+// else: text, buttons and small print at ordinary weights, and at its heaviest for what the
+// site promises, the figures and the hero's number. Both are variable, so one file each
+// covers every weight, and Newsreader redraws itself for the size it is set at.
+const newsreader = Newsreader({
   subsets: ['latin'],
-  variable: '--font-fraunces',
-  axes: ['opsz', 'SOFT'],
+  variable: '--font-display',
+  axes: ['opsz'],
   display: 'swap',
 });
 
-// Low sun type: Fraunces for display, Instrument Sans for body and UI, Plex Mono for the
-// ledger and the compliance strip only.
-const instrumentSans = Instrument_Sans({
+const dmSans = DM_Sans({
   subsets: ['latin'],
-  variable: '--font-instrument-sans',
-  weight: ['400', '500'],
-  display: 'swap',
-});
-
-const plexMono = IBM_Plex_Mono({
-  subsets: ['latin'],
-  variable: '--font-plex-mono',
-  weight: ['400'],
+  variable: '--font-text',
+  axes: ['opsz'],
   display: 'swap',
 });
 
@@ -66,7 +62,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       lang="en-GB"
       // The gate script sets data-motion and data-reveal on <html> before hydration, by design.
       suppressHydrationWarning
-      className={`${fraunces.variable} ${instrumentSans.variable} ${plexMono.variable}`}
+      className={`${newsreader.variable} ${dmSans.variable}`}
     >
       <body>
         <OrganisationJsonLd />

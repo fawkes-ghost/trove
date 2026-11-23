@@ -47,8 +47,13 @@ library afterthought. Reference: spacetime.nl, where the motion is the site. Tro
 differs in one way: it must also deliver facts (prize, price, odds, where the money
 goes), so motion carries the visitor to the facts and then gets out of the way.
 
-- One memorable moment per page. On the home page it is the logo: the disc rises
-  through the ridgeline on first paint as the film brightens, then the ledger types in.
+- One memorable moment per page. On the home page it is the number: the worst-case
+  chance of winning, as wide as the screen over the film, with “Unlimited entries.”
+  struck out in gold once and replaced by the cap.
+- Two voices. Newsreader says things (headlines, the prize sentence). DM Sans at its
+  heaviest promises things (the chance, the cap, the giving share). DM Sans carries
+  everything else. No monospace. The gold is a highlighter for promises: the call to
+  action, the mark under a figure, the ribbon, the founding friend sticker.
 - Respect `prefers-reduced-motion` with a still version of every moment.
 - Photography and film do the selling. Licensed footage only. No AI-generated venue
   imagery, ever.

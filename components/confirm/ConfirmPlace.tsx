@@ -1,13 +1,12 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
-import { prefersReducedMotion } from '@/lib/reduced-motion';
+import { useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { FoundingSticker } from '@/components/waitlist/FoundingSticker';
 import { HeardAbout } from './HeardAbout';
 
-type Status = 'idle' | 'sending' | 'rising' | 'confirmed' | 'already' | 'expired' | 'invalid' | 'error';
+type Status = 'idle' | 'sending' | 'confirmed' | 'already' | 'expired' | 'invalid' | 'error';
 
 // The function's status strings, mapped to the page's states.
 const outcomes: Record<string, Status> = {
@@ -20,26 +19,12 @@ const outcomes: Record<string, Status> = {
 
 // One button. Nothing is sent until it is pressed. The token goes straight to the existing
 // waitlist-confirm edge function, which answers { ok, status }. The four outcomes are
-// written plainly; anything else is a retry. On a confirmation the disc rises inside the
-// button first (iconSvg is the brand icon's source, read on the server), then the page
-// says so; under reduced motion it says so at once.
-export function ConfirmPlace({ iconSvg }: { iconSvg?: string }) {
+// written plainly; anything else is a retry. A confirmation is the moment someone becomes a
+// founding friend, so it gets the sticker and the paper confetti (wordmarkSvg is the
+// wordmark's source, read on the server); under reduced motion the sticker is still.
+export function ConfirmPlace({ wordmarkSvg }: { wordmarkSvg?: string }) {
   const token = (useSearchParams().get('token') ?? '').trim();
   const [status, setStatus] = useState<Status>(token ? 'idle' : 'invalid');
-  const buttonRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    if (status !== 'rising') return;
-    const disc = buttonRef.current?.querySelector('circle');
-    if (!disc || prefersReducedMotion()) {
-      setStatus('confirmed');
-      return;
-    }
-    const tween = gsap.fromTo(disc, { attr: { cy: 56 } }, { attr: { cy: 28.8 }, duration: 0.6, ease: 'power3.out', onComplete: () => setStatus('confirmed') });
-    return () => {
-      tween.kill();
-    };
-  }, [status]);
 
   async function confirm() {
     const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -56,8 +41,7 @@ export function ConfirmPlace({ iconSvg }: { iconSvg?: string }) {
         body: JSON.stringify({ token }),
       });
       const data: { ok?: boolean; status?: string } = await response.json().catch(() => ({}));
-      const outcome = outcomes[data.status ?? ''] ?? 'error';
-      setStatus(outcome === 'confirmed' && iconSvg ? 'rising' : outcome);
+      setStatus(outcomes[data.status ?? ''] ?? 'error');
     } catch {
       setStatus('error');
     }
@@ -71,15 +55,10 @@ export function ConfirmPlace({ iconSvg }: { iconSvg?: string }) {
 
   return (
     <div className="max-w-[40rem]" data-confirm-status={status}>
-      {status === 'idle' || status === 'sending' || status === 'rising' || status === 'error' ? (
+      {status === 'idle' || status === 'sending' || status === 'error' ? (
         <>
           <h1 className="display text-balance text-[2.5rem] md:text-[3.5rem]">Confirm your place.</h1>
           <p className="mt-6 text-lg">One press and you are a founding friend.</p>
-          {status === 'rising' ? (
-            <button ref={buttonRef} type="button" disabled aria-label="Your place is confirmed" className="mt-8 flex h-12 w-12 items-center justify-center bg-accent text-ink" data-confirm-disc>
-              <span className="brand-mark brand-icon block h-7" dangerouslySetInnerHTML={{ __html: prefersReducedMotion() ? iconSvg! : iconSvg!.replace('cy="28.8"', 'cy="56"') }} />
-            </button>
-          ) : (
           <button
             type="button"
             onClick={confirm}
@@ -88,7 +67,6 @@ export function ConfirmPlace({ iconSvg }: { iconSvg?: string }) {
           >
             {status === 'sending' ? 'Confirming' : 'Confirm my place'}
           </button>
-          )}
           <p role="status" aria-live="polite" className="mt-4 min-h-6 text-base">
             {status === 'error' ? 'We could not confirm your place. Please try again in a moment.' : null}
           </p>
@@ -98,7 +76,10 @@ export function ConfirmPlace({ iconSvg }: { iconSvg?: string }) {
       {status === 'confirmed' ? (
         <>
           <h1 className="display text-balance text-[2.5rem] md:text-[3.5rem]">You are a founding friend.</h1>
-          <p className="mt-6 text-lg">Your place is confirmed. You will hear from us first when entries open.</p>
+          <div className="mt-8">
+            <FoundingSticker celebrate wordmarkSvg={wordmarkSvg} line="Your place is confirmed." />
+          </div>
+          <p className="mt-8 text-lg">You will hear from us first when entries open.</p>
           <HeardAbout token={token} />
         </>
       ) : null}

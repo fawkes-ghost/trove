@@ -51,7 +51,7 @@ export function OddsCalculator({ cap, maxPerPerson, price, bundles, share, desti
               data-tier={bundle.entries}
               className={`grid w-full items-baseline gap-2 rule-t py-5 text-left md:grid-cols-[14rem_1fr] ${held === bundle.entries ? 'text-ink' : 'text-ink/70'}`}
             >
-              <span className="font-mono text-[1.75rem] leading-none md:text-[2rem]">{oddsForEntries(bundle.entries, { cap })}</span>
+              <span className="text-[1.75rem] leading-none md:text-[2rem]">{oddsForEntries(bundle.entries, { cap })}</span>
               <span className="text-base">
                 {sentenceCase(numberWord(bundle.entries))} {bundle.entries === 1 ? 'entry' : 'entries'} for {gbp(bundle.price)}.
               </span>
@@ -80,19 +80,19 @@ export function OddsCalculator({ cap, maxPerPerson, price, bundles, share, desti
         <dl className="grid gap-6 sm:grid-cols-3 md:rule-l md:pl-10" data-odds-figures>
           <div>
             <dt className="text-sm text-ink/70">{count(held)} {held === 1 ? 'entry' : 'entries'} cost</dt>
-            <dd className="mt-2 font-mono text-[1.75rem] leading-none md:text-[2rem]" data-odds-cost>
+            <dd className="mt-2 text-[1.75rem] leading-none md:text-[2rem]" data-odds-cost>
               {gbp(cost)}
             </dd>
           </div>
           <div>
             <dt className="text-sm text-ink/70">Your chance, at least</dt>
-            <dd className="mt-2 font-mono text-[1.75rem] leading-none md:text-[2rem]" data-odds-result>
+            <dd className="mt-2 text-[1.75rem] leading-none md:text-[2rem]" data-odds-result>
               {oddsForEntries(held, { cap })}
             </dd>
           </div>
           <div>
             <dt className="text-sm text-ink/70">To {destination} causes</dt>
-            <dd className="mt-2 font-mono text-[1.75rem] leading-none md:text-[2rem]" data-odds-giving>
+            <dd className="mt-2 text-[1.75rem] leading-none md:text-[2rem]" data-odds-giving>
               {gbpPence(giving)}
             </dd>
           </div>
