@@ -276,7 +276,12 @@ Two-column layout above 900px: a sticky contents column on the left generated fr
 page's headings, the document on the right with a measure of 70 characters. Below 900px
 the contents collapse to a "Contents" disclosure at the top. Documents live as MDX in
 `content/legal/`. Terms carry over from drawtravel.com and are updated for Trove, the
-config figures, the claim window and cash alternative, and the DCMS controls. Playing
+config figures, the claim window and cash alternative, and the DCMS controls. The stay's
+dates are a choice from dates we offer, never an open choice: once the winner has replied
+we send a set number of dates (`prize.datesOffered`), and one clock (`prize.claimWindowDays`,
+from the day the dates are sent) covers both picking a date and taking the cash alternative.
+Choosing neither means the cash alternative, so the cost is fixed either way and nothing
+stays open. The stay is booked only after that choice, never ahead of it. Playing
 responsibly covers the £250 monthly credit card cap, self-set limits, account suspension
 and closure, and signposts GamCare and GambleAware.
 

@@ -32,7 +32,7 @@ export function questionsFor(escape: Escape): Question[] {
     },
     {
       question: 'What if I would rather have the cash?',
-      answer: `You can take ${gbp(prize.cashAlternative)} in cash instead of the escape. You have ${prize.claimWindowDays} days after the draw to decide. If you take the escape, you have ${prize.stayValidMonths} months to go, subject to availability.`,
+      answer: `You can take ${gbp(prize.cashAlternative)} in cash instead of the escape. Once you have replied to our email we send you at least ${numberWord(prize.datesOffered)} sets of dates, and you have ${prize.claimWindowDays} days to pick one or take the cash. If you choose neither, you get the cash. The stay is taken within ${prize.stayValidMonths} months, on the dates you picked.`,
     },
     {
       question: 'When is the draw?',

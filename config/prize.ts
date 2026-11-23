@@ -68,15 +68,16 @@ export type Escape = {
   party: number;
   prize: {
     value: Money;                   // the figure published as the prize value
-    stayBudget: Money;              // booked stay, bought as a voucher at close
+    stayBudget: Money;              // the stay, booked only once the winner has chosen it and a date; never bought ahead of that choice
     transport: Money;               // booked chauffeur transfers, not exchangeable for cash
     cash: Money;                    // paid to the winner in cash, to spend as they choose
     contingency: Money;             // seasonality and rate movement
-    cashAlternative: Money;         // if the winner declines the stay; below value, published in terms
+    cashAlternative: Money;         // if the winner declines the stay, or chooses nothing in the claim window; below value, published in terms
     winnerResponseDays: number;     // days to answer the winner notification before the entry is redrawn
-    claimWindowDays: number;        // winner must confirm stay or cash within this window
+    claimWindowDays: number;        // days from the day we send the dates on offer to choose one of them or the cash alternative; choosing neither means the cash alternative
+    datesOffered: number;           // the fewest sets of dates we offer the winner to choose from
     stayValidMonths: number;        // from claim, subject to availability and stated blackout dates
-    stayWindow: string;             // the season the stay is valid in, stated in terms
+    stayWindow: string;             // the season the stay is valid in and how its dates are fixed, stated in terms
     description: string[];          // factual components in order: the stay, then the cash; no adjectives, every figure derived
   };
   theme: {
@@ -133,15 +134,16 @@ export const escape: Escape = {
   party: hampshireParty,
   prize: {
     value: 6500,
-    stayBudget: 4550,               // 3 nights Chamber Room, Fri to Mon, priced at a Feb peak weekend incl breakfast, VAT and 10% service
+    stayBudget: 4550,               // 3 nights Chamber Room, priced at a Feb peak weekend (Fri to Mon) incl breakfast, VAT and 10% service; we offer only dates the venue will host inside this plus the contingency. The venue's rates across the window are still to be confirmed in writing
     transport: 0,                   // no transfers in this escape; the winner travels as they choose
     cash: hampshireCash,            // paid to the winner in cash, to spend on the escape or not
     contingency: 350,
     cashAlternative: 4500,
     winnerResponseDays: 14,
-    claimWindowDays: 90,
+    claimWindowDays: 14,
+    datesOffered: 3,
     stayValidMonths: 12,
-    stayWindow: 'Friday to Monday between November and March, excluding 20 December to 3 January, subject to availability',
+    stayWindow: 'on consecutive nights between November and March, excluding 20 December to 3 January, on dates the winner chooses from those we offer',
     description: [
       `${sentenceCase(numberWord(hampshireNights))} nights for you and your plus one, breakfast included`,
       `${gbp(hampshireCash)} in cash`,
@@ -265,6 +267,8 @@ export function assertEscape(e: Escape = escape): void {
   if (ratio < economics.entryPriceOfPrizeValue.min || ratio > economics.entryPriceOfPrizeValue.max) problems.push(`entry price is ${(ratio * 100).toFixed(2)}% of prize value`);
   if (e.prize.stayBudget + e.prize.transport + e.prize.cash + e.prize.contingency !== e.prize.value) problems.push('prize components must sum exactly to the published prize value');
   if (e.prize.cashAlternative >= e.prize.value) problems.push('cash alternative must be below the published prize value');
+  if (e.prize.datesOffered < 2) problems.push('the winner must be offered at least two sets of dates, or it is not a choice');
+  if (e.prize.claimWindowDays < 7) problems.push('the winner needs at least a week to choose between the dates on offer and the cash alternative');
   if (e.prize.cashAlternative < economics.cashAlternativeFloor * e.prize.value) problems.push(`cash alternative is below the floor of ${Math.round(economics.cashAlternativeFloor * 100)}% of the prize value`);
   if (e.venue.name && !e.venue.permissionGranted) problems.push('venue named without written permission');
   if (e.charity.beneficiary) problems.push('charity named before counsel cleared the commercial participator agreement');
