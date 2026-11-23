@@ -41,7 +41,7 @@ export function Destination({ escape }: { escape: Escape }) {
           <div className="rule-t rule-b relative h-[56svh] min-h-[20rem] overflow-clip bg-loch md:h-[78svh]">
             <Image src={lead.src} alt={lead.alt} fill sizes="100vw" className="panel-media object-cover" placeholder={lead.blur ? 'blur' : 'empty'} blurDataURL={lead.blur} draggable={false} />
           </div>
-          <PlateCaption title={lead.title} caption={lead.caption} className="px-[var(--gutter)]" />
+          <PlateCaption title={lead.title} caption={lead.caption} credit={lead.credit} className="px-[var(--gutter)]" />
         </figure>
       ) : null}
       {rest.length ? (

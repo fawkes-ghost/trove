@@ -1,4 +1,4 @@
-import { escape, type Escape } from '@/config/prize';
+import { escape, type Escape, type StillCredit } from '@/config/prize';
 import { gbp, numberWord, sentenceCase } from '@/lib/format';
 
 // Every escape the site knows about. One hero escape at a time; the list grows with the
@@ -37,10 +37,10 @@ export function venueLine(e: Escape): string {
   return e.venue.name && e.venue.permissionGranted ? e.venue.name : 'one of England’s finest country houses';
 }
 
-// The stills the reel may show: every licensed still, but no venue still until the venue's
-// footage is licensed. Returns values only, for the client-side reel.
-export function reelStills(e: Escape): { src: string; alt: string; title: string | null; caption: string | null; blur?: string }[] {
-  return e.media.stills.filter((still) => !still.venue || e.venue.footageLicensed).map(({ src, alt, title, caption, blur }) => ({ src, alt, title, caption, blur }));
+// The stills the pages may show: every licensed still, but no venue still until the venue's
+// footage is licensed. Returns values only, each with its credit where it has one.
+export function reelStills(e: Escape): { src: string; alt: string; title: string | null; caption: string | null; blur?: string; credit: StillCredit | null }[] {
+  return e.media.stills.filter((still) => !still.venue || e.venue.footageLicensed).map(({ src, alt, title, caption, blur, credit }) => ({ src, alt, title, caption, blur, credit: credit ?? null }));
 }
 
 // The county in two short paragraphs, for the escape page and the home page's escape
