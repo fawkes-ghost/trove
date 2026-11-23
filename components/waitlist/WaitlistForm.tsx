@@ -28,7 +28,7 @@ const FIELD = 'h-12 w-full min-w-0 border border-ink/40 bg-snow px-4 text-base t
 // email and the button on the next, both rows the same width. Calls the existing
 // waitlist-signup edge function directly so the visitor's own details reach it; the function
 // already stores firstName and lastName, and it and the table are not changed from this
-// repo. The Resend confirmation is a stub in lib/email/resend.ts.
+// repo. That function sends the confirmation email; nothing in this repo sends mail.
 //
 // Protection: a Cloudflare Turnstile token goes to the function as turnstile_token, and a
 // honeypot field named for bots to fill refuses the submit client-side when it has a
@@ -122,7 +122,7 @@ export function WaitlistForm({ sourceChannel = 'trove-home', share, idPrefix = '
         setStatus('duplicate');
         return;
       }
-      // Resend confirmation goes here once the domain exists. See lib/email/resend.ts.
+      // The edge function has sent the confirmation email by the time it answers.
       setStatus('ok');
       form.reset();
       trackEvent('waitlist_signup', { source_channel: sourceChannel });

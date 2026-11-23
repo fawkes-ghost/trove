@@ -37,7 +37,8 @@ PR so the other is updated the same day.
 4. **The logo is trove X** (chosen 21 November 2026): bold lowercase "trove" with a gold
    X as the full stop. Masters are in the project's `brand-round-seven/trove-x-logo-kit/`.
    Wordmark and icon SVGs live in `public/brand/` and are used as inline SVG. Do not
-   redraw them. Never use the X on its own as an icon or avatar: alone it reads as the
+   redraw them. Every colourway and platform size is in `brand/kit`, rebuilt from those
+   two drawings by the scripts in `brand/build`; `brand/README.md` links the brand book. Never use the X on its own as an icon or avatar: alone it reads as the
    X (Twitter) logo.
 5. **Client components receive values, never the config object.** A client component
    that takes `escape` serialises every config field into the page payload, including
@@ -76,8 +77,14 @@ goes), so motion carries the visitor to the facts and then gets out of the way.
   genuinely needs WebGL; justify it in the PR.
 - Supabase project `uvnhwgbqmwzzdvxxdgzm` is the backend. The waitlist table, auth,
   `waitlist-signup` edge function and media bucket are not modified from this repo.
-- Resend for transactional email. GA4 `G-D22MTTKX1B`, consent-gated, no tag before
-  consent.
+- Resend for email, sent only by the Supabase edge functions in the `trove-backend`
+  repository: the confirmation email (`waitlist-signup`) and the one email on the day
+  entries open (`waitlist-entries-open`, which needs a send approved by hand and refuses
+  to send until the entry page is live). This repo sends no mail. The confirm and
+  unsubscribe pages here POST to those functions. GA4 `G-D22MTTKX1B`, consent-gated, no
+  tag before consent.
+- The site has been public since 23 November 2026. Anything merged to `main` is live
+  within a minute. `main` needs a branch to be up to date before it merges.
 - Payments: Stripe in test mode until the company and processor onboarding exist.
 
 ## Workflow
