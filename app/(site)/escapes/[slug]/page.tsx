@@ -11,6 +11,7 @@ import { Enter } from '@/components/escape/Enter';
 import { PostalEntry } from '@/components/escape/PostalEntry';
 import { Questions } from '@/components/escape/Questions';
 import { FaqJsonLd } from '@/components/escape/FaqJsonLd';
+import { Waitlist } from '@/components/waitlist/Waitlist';
 import { ComplianceStrip } from '@/components/site/ComplianceStrip';
 
 
@@ -54,6 +55,7 @@ export default async function EscapePage({ params }: { params: Promise<{ slug: s
       <WhereTheMoneyGoes escape={item} />
       <Enter escape={item} />
       <PostalEntry escape={item} />
+      {item.status !== 'open' ? <Waitlist /> : null}
       <Questions escape={item} />
       <section className="rule-t section-strip">
         <ComplianceStrip className="text-ink/75" />

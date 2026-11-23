@@ -1,3 +1,4 @@
+import { draftLabel, launch } from '@/config/launch';
 import type { Metadata } from 'next';
 import Document from '@/content/legal/playing-responsibly.mdx';
 import { LegalDocument } from '@/components/legal/LegalDocument';
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
 // The document lives in content/legal/playing-responsibly.mdx and every figure in it comes from config.
 export default function Page() {
   return (
-    <LegalDocument title="Playing responsibly." updated="Draft for solicitor review. Not yet in force." headings={headingsOf('playing-responsibly.mdx')}>
+    <LegalDocument title="Playing responsibly." updated={launch.termsInForce ? undefined : draftLabel} headings={headingsOf('playing-responsibly.mdx')}>
       <Document />
     </LegalDocument>
   );

@@ -1,34 +1,40 @@
 import Link from 'next/link';
 import type { Escape } from '@/config/prize';
 import { gbp } from '@/lib/format';
+import { reelStills } from '@/lib/escapes';
 
-// The two parts of the prize side by side: the stay and the cash. Each has a still slot,
-// labelled with the poster's alt until the licensed stills land. The cash is the one accent
-// figure on the page and appears once. The cash alternative is a single sentence linking to
-// the terms, where the amount lives.
+// The two parts of the prize side by side: the stay and the cash. The stay carries the
+// first still the escape may show (never a venue still until the footage is licensed); the
+// cash is a figure on cloud, because a picture of money says nothing. The cash alternative
+// is a single sentence linking to the terms, where the amount lives.
 export function WhatYouWin({ escape }: { escape: Escape }) {
-  const { prize, media } = escape;
-  // config orders the description as the stay, then the cash; the stay renders as a line
-  // and the cash as the figure.
+  const { prize } = escape;
+  // config orders the description as the stay, then the cash.
   const [stay] = prize.description;
+  const [still] = reelStills(escape);
   return (
     <section id="what-you-win" className="rule-t section">
       <h2 data-reveal="item" className="display text-balance text-[2rem] md:text-[2.75rem]">What you win.</h2>
       <p className="mt-6 max-w-[40rem] text-lg" data-answer>
         A {gbp(prize.value)} prize in two parts: the stay and the cash.
       </p>
-      <ul className="mt-12 grid max-w-[46rem] gap-10 md:grid-cols-2 md:gap-0">
-        <li className="flex flex-col md:pr-8">
-          <StillSlot label={media.posterAlt} />
-          <p className="mt-6 text-lg">{stay}.</p>
+      <ul className="mt-10 grid max-w-[64rem] gap-4 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] md:gap-6">
+        <li className="relative flex min-h-[22rem] flex-col justify-end overflow-hidden rounded-3xl bg-loch text-snow">
+          {still ? <img src={still.src} alt={still.alt} className="absolute inset-0 h-full w-full object-cover" loading="lazy" decoding="async" /> : null}
+          <div className="relative bg-[linear-gradient(180deg,#14252000_0%,#142520CC_70%)] p-6 pt-20 md:p-8 md:pt-24">
+            <p className="text-sm font-medium text-snow/80">The stay</p>
+            <p className="display mt-2 text-balance text-[1.75rem] leading-tight md:text-[2.25rem]">{stay}.</p>
+          </div>
         </li>
-        <li className="flex flex-col md:rule-l md:pl-8">
-          <StillSlot label={media.posterAlt} />
-          <p className="mt-6 font-mono text-[2.25rem] leading-none text-accent md:text-[2.75rem]">{gbp(prize.cash)}</p>
-          <p className="mt-2 text-lg">Paid to the winner in cash, to spend on the escape or not.</p>
+        <li className="flex min-h-[16rem] flex-col justify-between rounded-3xl bg-cloud p-6 md:p-8">
+          <p className="text-sm font-medium text-ink/70">The cash</p>
+          <div>
+            <p className="display text-[3.5rem] leading-none md:text-[4.5rem]">{gbp(prize.cash)}</p>
+            <p className="mt-3 text-lg">Paid to the winner in cash, to spend on the escape or not.</p>
+          </div>
         </li>
       </ul>
-      <p className="mt-12 text-base">
+      <p className="mt-8 text-base">
         A cash alternative is available.{' '}
         <Link href="/legal/terms" className="underline underline-offset-4">
           Terms
@@ -36,14 +42,5 @@ export function WhatYouWin({ escape }: { escape: Escape }) {
         .
       </p>
     </section>
-  );
-}
-
-// A 4:5 frame waiting for the licensed still; the label says what stands in for it.
-function StillSlot({ label }: { label: string }) {
-  return (
-    <div className="flex aspect-[4/5] w-full items-end border border-ink/20 bg-ink/5 p-4" data-placeholder="image" role="img" aria-label={label}>
-      <p className="font-mono text-[11px] text-ink/60">{label}</p>
-    </div>
   );
 }

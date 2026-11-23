@@ -20,15 +20,15 @@ type Props = {
 // The one fixed bar on the page, with two states. At the top of the page: the logo and
 // wordmark on the left, the nav in the centre, the call to action on the right, over the
 // film or on snow. Once the hero (or, on a page without one, the heading) has left the
-// viewport: ink, the logo tile alone on the left, the prize line and the odds in the
+// viewport: ink, the wordmark on the left, the prize line and the odds in the
 // centre, and the same call to action on the right, the same element throughout. The
 // centre is a grid column that owns its width: the odds drop first when it is tight,
 // then the prize line shortens to the value alone, and nothing ever runs under the logo.
-// Below 900px the same two states run without the call to action: the tile and the wordmark
-// at the top, the tile alone once scrolled. One line either way, so the band never changes
+// Below 900px the same header runs without the call to action: the wordmark
+// alone, at the top and once scrolled. One line either way, so the band never changes
 // height. The nav trigger is in the top right at every width, so the full route list is one
-// tap away even where the nav links are shown. Nothing is ever fixed to the foot of the
-// screen.
+// tap away even where the nav links are shown. On phones the call to action lives in the
+// join bar at the foot of the screen instead (components/site/JoinBar.tsx).
 export function HeaderShell({ wordmarkSvg, primary, groups, prize, prizeValue, odds }: Props) {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();

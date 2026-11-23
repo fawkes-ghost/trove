@@ -1,47 +1,35 @@
-import Link from 'next/link';
 import { oddsForEntries, type Escape } from '@/config/prize';
-import { gbp, numberWord, sentenceCase } from '@/lib/format';
+import { count, gbp, gbpPence, numberWord, sentenceCase } from '@/lib/format';
+import { freePostalRoute } from '@/lib/routes';
+import { EntryChooser } from './EntryChooser';
 
-// The bundles as three plain options. No strikethrough, no badge. While the escape is not
-// open the action is the waitlist, so each option carries the waitlist link instead of a
-// purchase and says so.
+// The entry decision. The answer sentence stays as plain text for search and answer
+// engines; the choice itself is the chooser beneath it, with the free postal route given
+// the same weight as the paid options. No strikethrough, no badge, no default to a bundle.
 export function Enter({ escape }: { escape: Escape }) {
   const open = escape.status === 'open';
+  const options = escape.entry.bundles.map((bundle) => ({
+    entries: bundle.entries,
+    label: `${sentenceCase(numberWord(bundle.entries))} ${bundle.entries === 1 ? 'entry' : 'entries'}`,
+    price: gbp(bundle.price),
+    odds: oddsForEntries(bundle.entries, escape),
+    causes: `${gbpPence(bundle.price * escape.charity.shareOfGross)} to ${escape.destination} causes`,
+  }));
   return (
     <section id="enter" className="rule-t section">
-      <div className="max-w-[52rem]">
+      <div className="max-w-[64rem]">
         <h2 data-reveal="item" className="display text-balance text-[2rem] md:text-[2.75rem]">Enter.</h2>
         <p className="mt-6 max-w-[40rem] text-lg" data-answer>
           A single entry is {gbp(escape.entry.price)}, and bundles are {escape.entry.bundles.filter((b) => b.entries > 1).map((b) => `${numberWord(b.entries)} for ${gbp(b.price)}`).join(' and ')}, paid online or free by post.
         </p>
-        {!open ? (
-          <p className="mt-4 max-w-[40rem] text-lg">Entries are not open yet. Founding friends hear first when they are.</p>
-        ) : null}
-        <ul className="mt-10 flex flex-col">
-          {escape.entry.bundles.map((bundle) => (
-            <li key={bundle.entries} className="grid items-center gap-4 rule-t py-6 md:grid-cols-[1fr_auto]">
-              <div>
-                <p className="text-lg">
-                  {sentenceCase(numberWord(bundle.entries))} {bundle.entries === 1 ? 'entry' : 'entries'} for {gbp(bundle.price)}.
-                </p>
-                <p className="mt-1 font-mono text-sm text-ink/70">Worst-case odds of {oddsForEntries(bundle.entries, escape)}.</p>
-              </div>
-              {open ? (
-                <button type="button" className="btn h-12 bg-accent px-6 text-base font-medium text-ink" disabled>
-                  Enter
-                </button>
-              ) : (
-                <Link
-                  href="/#waitlist"
-                  data-entry="waitlist"
-                  className="btn inline-flex h-12 items-center justify-center border border-ink/40 px-6 text-base font-medium text-ink/70"
-                >
-                  Secure your place
-                </Link>
-              )}
-            </li>
-          ))}
-        </ul>
+        <EntryChooser
+          options={options}
+          open={open}
+          postal={{
+            href: freePostalRoute,
+            line: `Send a postcard. Identical odds, inside the same cap of ${count(escape.cap)}.`,
+          }}
+        />
       </div>
     </section>
   );
