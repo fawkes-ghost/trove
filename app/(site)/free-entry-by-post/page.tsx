@@ -41,9 +41,14 @@ export default function FreeEntryByPostPage() {
 
           <Block title="Where to send it.">
             {address ? (
-              <p className="whitespace-pre-line">{address}</p>
+              <>
+                <p className="whitespace-pre-line">{address}</p>
+                {escape.status !== 'open' ? (
+                  <p className="mt-3">The postal route opens on the same day as paid entries. A postcard that arrives before then is not entered, so please wait until entries open to send it.</p>
+                ) : null}
+              </>
             ) : (
-              <p data-placeholder="address">The address is published here as soon as the registered office exists. Until then the postal route is not yet open, and no postcard sent elsewhere counts.</p>
+              <p data-placeholder="address">The address is published here before entries open. Until then the postal route is not yet open, and no postcard sent elsewhere counts.</p>
             )}
           </Block>
 

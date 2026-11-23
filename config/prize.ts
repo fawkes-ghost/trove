@@ -30,7 +30,7 @@ export const compliance = {
   freePostalRoute: {
     identicalOdds: true,
     insideSameCap: true,
-    address: null as string | null, // set when the registered office exists
+    address: 'Trove Wild Limited\nFree entry\nSuite 54, 101 Clapham High Street\nLondon\nSW4 7TB' as string | null, // the registered office, also the free entry address
   },
   noRollover: true,                 // "One winner is guaranteed" is only sayable while this is true
   closeRule: 'cap-or-longstop' as const, // never publish a closing date and then extend it
@@ -196,7 +196,7 @@ export const escape: Escape = {
   charity: {
     shareOfGross: economics.charityShareOfGross,
     beneficiary: null,
-    localityStatement: `${percent(economics.charityShareOfGross)} of every entry goes to local charities protecting the Hampshire countryside.`,
+    localityStatement: `${percent(economics.charityShareOfGross)} of every paid entry goes to local charities protecting the Hampshire countryside.`,
   },
   status: 'planning',
 };
