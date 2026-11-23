@@ -54,7 +54,7 @@ export default function HowItWorksPage() {
 
       <section id="odds" className="rule-t section">
         <div className="max-w-[40rem]">
-          <h2 className="display text-balance text-[2rem] md:text-[2.75rem]">Your chances.</h2>
+          <h2 className="display text-balance text-[2.5rem] leading-[1] md:text-[4rem]">Your chances.</h2>
           <p className="mt-6 text-lg" data-answer>
             There are never more than {count(escape.cap)} entries, so one entry gives you at least a {worstCaseOdds(escape)} chance.
           </p>

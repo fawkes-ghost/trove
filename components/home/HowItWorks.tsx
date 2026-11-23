@@ -34,7 +34,7 @@ export function HowItWorks({ escape = hampshire }: { escape?: Escape }) {
   ];
   return (
     <section id="how-it-works" className="section">
-      <h2 data-reveal="item" className="display text-balance text-[2rem] md:text-[2.75rem]">How it works.</h2>
+      <h2 data-reveal="item" className="display text-balance text-[2.5rem] leading-[1] md:text-[4rem]">How it works.</h2>
       <ol className="mt-10 grid gap-4 md:grid-cols-3 md:gap-6">
         {steps.map((step, index) => (
           <li key={step.title} className="flex flex-col gap-3 rounded-3xl bg-cloud p-6 md:p-8">
