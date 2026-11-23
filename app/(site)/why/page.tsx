@@ -34,7 +34,7 @@ export default function WhyPage() {
             <img src={founder.portrait} alt={`${founder.name}, founder of Trove`} className="aspect-[4/5] w-full max-w-[64vh] object-cover" loading="lazy" decoding="async" />
           ) : (
             <div className="flex aspect-[4/5] w-full max-w-[64vh] items-end border border-ink/20 bg-ink/5 p-4" role="img" aria-label="Portrait of the founder, licensed photograph" data-placeholder="image">
-              <p className="font-mono text-[11px] text-ink/60">Portrait, licensed photograph. Drop it at public{founder.portrait}.</p>
+              <p className="text-[11px] text-ink/60">Portrait, licensed photograph. Drop it at public{founder.portrait}.</p>
             </div>
           )}
         </aside>

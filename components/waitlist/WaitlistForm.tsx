@@ -1,12 +1,11 @@
 'use client';
 
-import { useEffect, useRef, useState, type FormEvent } from 'react';
-import gsap from 'gsap';
-import { prefersReducedMotion } from '@/lib/reduced-motion';
+import { useEffect, useState, type FormEvent } from 'react';
 import { Turnstile, TURNSTILE_SITE_KEY } from './Turnstile';
 import { readAttribution } from '@/lib/attribution';
 import { ShareButton } from '@/components/share/ShareButton';
 import { trackEvent } from '@/lib/analytics';
+import { FoundingSticker } from './FoundingSticker';
 
 type Status = 'idle' | 'sending' | 'ok' | 'duplicate' | 'invalid' | 'error' | 'challenge';
 
@@ -29,29 +28,16 @@ const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 // value. Without a site key configured the widget is skipped and the honeypot still holds.
 // sourceChannel names the surface the form sits on and is stored against the signup.
 //
-// On success the disc rises inside the button (iconSvg is the brand icon's source, read on
-// the server), and only then does "Check your email." appear. Under reduced motion the disc
-// is already up and the message is immediate.
-export function WaitlistForm({ sourceChannel = 'trove-home', iconSvg, share }: { sourceChannel?: string; iconSvg?: string; share?: { title: string; text: string; url: string } } = {}) {
+// On success the form gives way to the founding friend sticker, with a fall of confetti for
+// a new signup and none for someone already on the list (FoundingSticker), then the message.
+// wordmarkSvg is the wordmark's source, read on the server, for the sticker's tab. A page
+// can carry more than one form (the hero and the section at the foot), so the field ids take
+// a prefix.
+export function WaitlistForm({ sourceChannel = 'trove-home', share, idPrefix = 'waitlist', wordmarkSvg }: { sourceChannel?: string; share?: { title: string; text: string; url: string }; idPrefix?: string; wordmarkSvg?: string } = {}) {
   const [status, setStatus] = useState<Status>('idle');
-  const [settled, setSettled] = useState(false);
-  const buttonRef = useRef<HTMLButtonElement>(null);
   const [token, setToken] = useState<string | null>(null);
   const [resetSignal, setResetSignal] = useState(0);
   const protectedByTurnstile = TURNSTILE_SITE_KEY.length > 0;
-
-  useEffect(() => {
-    if (status !== 'ok') return;
-    const disc = buttonRef.current?.querySelector('circle');
-    if (!disc || !iconSvg || prefersReducedMotion()) {
-      setSettled(true);
-      return;
-    }
-    const tween = gsap.fromTo(disc, { attr: { cy: 56 } }, { attr: { cy: 28.8 }, duration: 0.6, ease: 'power3.out', onComplete: () => setSettled(true) });
-    return () => {
-      tween.kill();
-    };
-  }, [status, iconSvg]);
 
   useEffect(() => {
     if (!protectedByTurnstile) {
@@ -131,27 +117,20 @@ export function WaitlistForm({ sourceChannel = 'trove-home', iconSvg, share }: {
     }
   }
 
-  const message = status === 'idle' || status === 'sending' || (status === 'ok' && !settled) ? null : messages[status];
+  const message = status === 'idle' || status === 'sending' ? null : messages[status];
   const done = status === 'ok' || status === 'duplicate';
-  const rising = status === 'ok' && Boolean(iconSvg);
 
   return (
     <form onSubmit={onSubmit} noValidate className="relative flex flex-col gap-3" data-waitlist-form data-turnstile-key={protectedByTurnstile ? "set" : "missing"}>
-      {rising ? (
-        <div className="flex">
-          <button ref={buttonRef} type="button" disabled aria-label="Your place is secured" className="flex h-12 w-12 items-center justify-center bg-accent text-ink" data-waitlist-disc>
-            <span className="brand-mark brand-icon block h-7" dangerouslySetInnerHTML={{ __html: prefersReducedMotion() ? iconSvg! : iconSvg!.replace('cy="28.8"', 'cy="56"') }} />
-          </button>
-        </div>
-      ) : null}
+      {done ? <FoundingSticker celebrate={status === 'ok'} wordmarkSvg={wordmarkSvg} /> : null}
       {!done ? (
         <>
           <div className="flex flex-col gap-3 md:flex-row">
-            <label htmlFor="waitlist-email" className="sr-only">
+            <label htmlFor={`${idPrefix}-email`} className="sr-only">
               Email address
             </label>
             <input
-              id="waitlist-email"
+              id={`${idPrefix}-email`}
               name="email"
               type="email"
               autoComplete="email"
@@ -159,7 +138,7 @@ export function WaitlistForm({ sourceChannel = 'trove-home', iconSvg, share }: {
               placeholder="Your email address"
               required
               aria-invalid={status === 'invalid' || undefined}
-              aria-describedby="waitlist-status"
+              aria-describedby={`${idPrefix}-status`}
               onChange={() => status !== 'idle' && setStatus('idle')}
               className="h-12 w-full border border-ink/40 bg-snow px-4 text-base text-ink placeholder:text-ink/50 focus:border-ink focus:outline-none md:max-w-sm"
             />
@@ -174,8 +153,8 @@ export function WaitlistForm({ sourceChannel = 'trove-home', iconSvg, share }: {
 
           {/* Honeypot. Off screen for people, present for scripts. Not display:none. */}
           <div className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
-            <label htmlFor="waitlist-website">Website</label>
-            <input id="waitlist-website" name="website" type="text" tabIndex={-1} autoComplete="off" defaultValue="" />
+            <label htmlFor={`${idPrefix}-website`}>Website</label>
+            <input id={`${idPrefix}-website`} name="website" type="text" tabIndex={-1} autoComplete="off" defaultValue="" />
           </div>
 
           {protectedByTurnstile ? (
@@ -190,7 +169,7 @@ export function WaitlistForm({ sourceChannel = 'trove-home', iconSvg, share }: {
           ) : null}
         </>
       ) : null}
-      <p id="waitlist-status" role="status" aria-live="polite" data-waitlist-status className={`min-h-6 text-base ${done ? 'font-medium' : ''}`}>
+      <p id={`${idPrefix}-status`} role="status" aria-live="polite" data-waitlist-status className={`min-h-6 text-base ${done ? 'font-medium' : ''}`}>
         {message}
       </p>
       {/* Once someone is on the list, the next useful thing is the person they would take. */}

@@ -29,7 +29,7 @@ export function WhatYouWin({ escape }: { escape: Escape }) {
         <li className="flex min-h-[16rem] flex-col justify-between rounded-3xl bg-cloud p-6 md:p-8">
           <p className="text-sm font-medium text-ink/70">The cash</p>
           <div>
-            <p className="display text-[3.5rem] leading-none md:text-[4.5rem]">{gbp(prize.cash)}</p>
+            <p className="display whitespace-nowrap text-[3.5rem] leading-none md:text-[clamp(3.25rem,6.6vw,4.5rem)]">{gbp(prize.cash)}</p>
             <p className="mt-3 text-lg">Yours to spend on the trip, or on anything else.</p>
           </div>
         </li>

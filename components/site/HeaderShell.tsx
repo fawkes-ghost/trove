@@ -11,7 +11,7 @@ type Props = {
   wordmarkSvg: string;
   primary: Route[];
   groups: { escapes: Route[]; information: Route[]; legal: Route[] };
-  // The prize in short form, the prize value alone for narrow centres, and the odds in mono.
+  // The prize in short form, the prize value alone for narrow centres, and the odds, set smaller.
   prize: string;
   prizeValue: string;
   odds: string;
@@ -73,7 +73,7 @@ export function HeaderShell({ wordmarkSvg, primary, groups, prize, prizeValue, o
           <p className="flex min-w-0 items-baseline gap-6 whitespace-nowrap text-sm" data-header-centre="prize">
             <span className="hidden @[24rem]:inline">{prize}</span>
             <span className="@[24rem]:hidden">{prizeValue}</span>
-            <span className="hidden font-mono text-[13px] text-ink/70 @[38rem]:inline" data-header-odds>
+            <span className="hidden text-[13px] text-ink/70 @[38rem]:inline" data-header-odds>
               {odds}
             </span>
           </p>

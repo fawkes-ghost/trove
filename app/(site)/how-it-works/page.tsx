@@ -58,7 +58,7 @@ export default function HowItWorksPage() {
           <p className="mt-6 text-lg" data-answer>
             There are never more than {count(escape.cap)} entries, so one entry gives you at least a {worstCaseOdds(escape)} chance.
           </p>
-          <div className="mt-10 flex flex-col gap-10 font-mono">
+          <div className="mt-10 flex flex-col gap-10">
             <div>
               <p className="text-[2.75rem] leading-none text-accent md:text-[4rem]">{count(escape.cap)}</p>
               <p className="mt-3 font-sans text-base text-ink/70">entries in the {escape.destination} draw, at most. Paid and postal together.</p>
@@ -92,7 +92,7 @@ export default function HowItWorksPage() {
 function Step({ number, title, children }: { number: number; title: string; children: React.ReactNode }) {
   return (
     <li className="grid gap-2 rule-t py-8 md:grid-cols-[3rem_1fr]">
-      <p className="font-mono text-sm text-ink/60">{number}</p>
+      <p className="text-sm text-ink/60">{number}</p>
       <div>
         <h2 className="display text-[1.75rem] leading-tight md:text-[2.25rem]">{title}</h2>
         <div className="mt-3 text-lg">{children}</div>
