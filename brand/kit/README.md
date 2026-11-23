@@ -11,7 +11,6 @@ and then `brand/build/raster.cjs` from the repository root.
 | `wordmark/png` | The same seven on a clear background, 2400 and 600 pixels wide |
 | `wordmark/on-ground` | Nine ready-made plates with clear space, 2000 by 1000 |
 | `icon/svg`, `icon/png` | Six tiles at 1024, 512, 192 and 180, and the small cut at 48, 32 and 16 |
-| `x/svg`, `x/png` | The X alone in gold, ink, black and white. Proposed use only, not yet agreed |
 | `social/profile` | Square profile pictures at 1080 and 400: ink, snow and gold |
 | `social/covers` | LinkedIn, X, Facebook, YouTube, share image, Instagram post and story, on loch and on snow |
 | `email` | The wordmark at 480 pixels wide, colour and reversed |
@@ -28,5 +27,5 @@ and then `brand/build/raster.cjs` from the repository root.
 
 - One X of clear space on every side of the wordmark.
 - No smaller than 64 pixels wide on screen, 18mm in print, 40mm in thread.
-- Do not stretch, tilt, recolour, retype or crowd the logo. The X is not decoration.
+- Do not stretch, tilt, recolour, retype or crowd the logo. The X is never used on its own and is not decoration: where the wordmark will not fit, use the icon.
 - Colours: snow #F7F8F5, cloud #EEF0EA, mist #B9C7C1, sun #E9A23B, loch #1F3A33, ink #142520, icon tile #101614.

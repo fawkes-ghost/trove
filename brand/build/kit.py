@@ -39,12 +39,8 @@ def icon(tile, t, x, w=None, small=False, bleed=False):
     size = f' width="{w}" height="{w}"' if w else ''
     return f'<svg xmlns="http://www.w3.org/2000/svg"{size} viewBox="0 0 100 100" role="img" aria-label="trove"><title>trove</title><rect width="100" height="100" rx="{rx}" fill="{tile}"/><path fill="{t}" d="{T}"/><path fill="{x}" d="{X}"/></svg>'
 
-def xmark(fill, w=None):
-    size = f' width="{w}" height="{w}"' if w else ''
-    return f'<svg xmlns="http://www.w3.org/2000/svg"{size} viewBox="2285 -300 300 300" role="img" aria-label="trove X"><title>trove X</title><path fill="{fill}" d="{WM_X}"/></svg>'
-
 KIT = os.path.join(ROOT, 'brand', 'kit')
-for sub in ('wordmark', 'icon', 'x', 'social', 'email'):
+for sub in ('wordmark', 'icon', 'x', 'social', 'email'):  # 'x' is cleared if an older kit left it
     shutil.rmtree(os.path.join(KIT, sub), ignore_errors=True)
 jobs = []  # (svg string sized in px, png path)
 def save(rel, svg):
@@ -75,8 +71,7 @@ for n, (tile, t, x) in ICONS.items():
     for w in (1024, 512, 192, 180): png(f'icon/png/trove-icon-{n}-{w}.png', icon(tile, t, x, w=w))
     save(f'icon/svg/trove-icon-{n}-small.svg', icon(tile, t, x, small=True))
     for w in (48, 32, 16): png(f'icon/png/trove-icon-{n}-small-{w}.png', icon(tile, t, x, w=w, small=True))
-for n, f in {'gold': C['sun'], 'ink': C['ink'], 'black': C['black'], 'white': C['white']}.items():
-    save(f'x/svg/trove-x-{n}.svg', xmark(f)); png(f'x/png/trove-x-{n}-512.png', xmark(f, w=512))
+# No X-alone files: CLAUDE.md rule 4, the X is never used on its own.
 # social: full-bleed squares (the platform crops the circle) and wordmark-only covers
 for n in ('ink', 'snow', 'gold'):
     tile, t, x = ICONS[n]
