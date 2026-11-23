@@ -14,14 +14,14 @@ export function Enter({ escape }: { escape: Escape }) {
     label: `${sentenceCase(numberWord(bundle.entries))} ${bundle.entries === 1 ? 'entry' : 'entries'}`,
     price: gbp(bundle.price),
     odds: oddsForEntries(bundle.entries, escape),
-    causes: `${gbpPence(bundle.price * escape.charity.shareOfGross)} to ${escape.destination} causes`,
+    causes: `${gbpPence(bundle.price * escape.charity.shareOfGross)} goes to charities in ${escape.destination}`,
   }));
   return (
     <section id="enter" className="rule-t section">
       <div className="max-w-[64rem]">
         <h2 data-reveal="item" className="display text-balance text-[2rem] md:text-[2.75rem]">Enter.</h2>
         <p className="mt-6 max-w-[40rem] text-lg" data-answer>
-          A single entry is {gbp(escape.entry.price)}, and bundles are {escape.entry.bundles.filter((b) => b.entries > 1).map((b) => `${numberWord(b.entries)} for ${gbp(b.price)}`).join(' and ')}, paid online or free by post.
+          One entry is {gbp(escape.entry.price)}, or {escape.entry.bundles.filter((b) => b.entries > 1).map((b) => `${numberWord(b.entries)} for ${gbp(b.price)}`).join(' or ')}. Or enter free by post.
         </p>
         <EntryChooser
           options={options}
@@ -29,7 +29,7 @@ export function Enter({ escape }: { escape: Escape }) {
           flow={entryFlowAvailable() ? { href: `/escapes/${escape.slug}/enter`, preview: entryFlowIsPreview() } : null}
           postal={{
             href: freePostalRoute,
-            line: `Send a postcard. Identical odds, inside the same cap of ${count(escape.cap)}.`,
+            line: `Send us a postcard. Same chance of winning as a paid entry, and part of the same ${count(escape.cap)}.`,
           }}
         />
       </div>

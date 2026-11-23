@@ -6,7 +6,7 @@ import { escape } from '@/config/prize';
 // not something to send search engines or visitors to.
 export const metadata: Metadata = {
   title: 'Journal',
-  description: 'Destinations, results and where the money went.',
+  description: 'Stories from each escape, every draw’s result, and where the money went.',
   alternates: { canonical: '/journal' },
   robots: { index: false, follow: true },
 };

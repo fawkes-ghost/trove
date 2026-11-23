@@ -45,8 +45,8 @@ async function googleFont(family: string, text: string): Promise<ArrayBuffer | n
 export async function shareCard(e: Escape): Promise<ImageResponse> {
   const headline = `${e.destination}.`;
   const prize = prizeLine(e);
-  const odds = `Worst-case odds ${worstCaseOdds(e)}. Entries capped at ${count(e.cap)}.`;
-  const strip = `${compliance.minimumAge}+. ${compliance.residency} residents. Free postal entry, identical odds. Key terms at trovewild.com.`;
+  const odds = `At least ${worstCaseOdds(e)} with one entry. Never more than ${count(e.cap)} entries.`;
+  const strip = `${compliance.minimumAge}+. ${compliance.residency} residents. Free entry by post, same chance. Key terms at trovewild.com.`;
 
   const [display, sans, mono] = await Promise.all([
     googleFont('Fraunces:opsz,wght@144,400', headline),

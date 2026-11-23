@@ -1,22 +1,18 @@
-import { escape } from '@/config/prize';
-import { numberWord } from '@/lib/format';
+import { compliance, economics, escape } from '@/config/prize';
+import { numberWord, percent } from '@/lib/format';
 
-// Why Trove exists, in the founder's words, verbatim. The nights and the destination render
-// from config and read exactly as written. "Fifteen per cent" is the founder's prose and is
-// left as prose on purpose: check:figures exemption, the share lives in
-// economics.charityShareOfGross and every figure surface reads it from there. The Amazon,
-// the Serengeti and Antarctica are ambition, not named prizes.
+// Why Trove exists, in the founder's voice, made plainer at his request (21 November 2026).
+// The nights and the destination render from config. The Amazon, the Serengeti and
+// Antarctica are ambition, not named prizes.
 export const whyHeading = 'Why Trove exists.';
 
 export function whyParagraphs(): string[] {
   return [
-    'The world’s most extraordinary destinations, from hidden estates deep in the English countryside to the wildest frontiers beyond, remain out of reach for most people. They are the secluded houses tucked away in private valleys. They are the canvas camps on the edge of the savannah, where lions soundtrack the dark. These are real places where luxury and raw wilderness intersect, and they are kept apart by exclusivity and cost.',
-    'They are also under pressure. Chalk streams run low and are fouled by what we let into them. Woodland thins. Further away, the reefs and forests that make a wild place wild are fighting to survive, and the people who live beside them are usually the ones holding the line.',
-    'We think both problems have one answer. Open the places up, one person at a time, and make every escape pay something back to the ground it stands on: the community that lives there and the land it protects.',
-    'That is Trove. Each draw offers one escape to one winner, guaranteed. Fifteen per cent of every pound entered goes directly, in cash, to a local charity partner at the destination, and after every draw we publish what was given. The winner arrives knowing the place they are standing in has already been helped by their being there.',
-    `We begin in ${escape.destination}, with ${numberWord(escape.nights)} nights at one of England’s finest country houses. As we grow, we want the escapes to go wilder and further: a lodge in the Amazon, a camp in the Serengeti, and one day the wildest place of all, Antarctica. The larger the escape, the more we can give to the ground beneath it.`,
-    'Before we offer any escape, we find a charity partner rooted in that destination, one where our money goes furthest in protecting the land and the people who depend on it.',
-    'One escape, one winner, and a place left better than we found it.',
+    'The best places to stay in the world, from country houses hidden in English valleys to safari camps in Africa, are out of reach for most people. They cost too much, and most of us never hear about them.',
+    'Many of these places are also under pressure. Chalk streams run low and dirty. Woods are thinning. Further afield, reefs and forests are disappearing, and the people who live beside them do most of the work to protect them.',
+    `Trove tries to help with both. Each draw has one escape and one winner.${compliance.noRollover ? ' There is always a winner.' : ''} ${percent(economics.charityShareOfGross)} of every paid entry goes to local charities where the escape is, and after every draw we publish exactly what we gave.`,
+    `We’re starting in ${escape.destination}, with ${numberWord(escape.nights)} nights at one of England’s finest country houses. As we grow, we want to go further: a lodge in the Amazon, a camp in the Serengeti, and one day Antarctica. The bigger the escape, the more we can give.`,
+    'Before we offer any escape, we find a local charity there that will make the money count.',
   ];
 }
 

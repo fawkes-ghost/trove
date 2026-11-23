@@ -1,5 +1,5 @@
 import { compliance, oddsForEntries, spendCeiling, worstCaseOdds, type Escape } from '@/config/prize';
-import { count, gbp, numberWord, sentenceCase } from '@/lib/format';
+import { count, gbp, numberWord } from '@/lib/format';
 
 export type Question = { question: string; answer: string };
 
@@ -10,49 +10,49 @@ export function questionsFor(escape: Escape): Question[] {
   const { prize } = escape;
   const bundles = escape.entry.bundles.filter((bundle) => bundle.entries > 1);
   const bundleOdds = bundles
-    .map((bundle, index) => `${index === 0 ? sentenceCase(numberWord(bundle.entries)) : numberWord(bundle.entries)} entries give you ${oddsForEntries(bundle.entries, escape)}`)
-    .join(', and ');
+    .map((bundle) => `${numberWord(bundle.entries)} entries, ${oddsForEntries(bundle.entries, escape)}`)
+    .join('. ');
 
   return [
     {
       question: 'Who can enter?',
-      answer: `You need to be ${compliance.minimumAge} or over and resident in the ${compliance.residency}. People who work for Trove, and their households, cannot enter.`,
+      answer: `Anyone ${compliance.minimumAge} or over who lives in the ${compliance.residency}. People who work for Trove, and the people they live with, can’t enter.`,
     },
     {
       question: 'How do I enter?',
-      answer: 'Choose how many entries you would like and pay online, or enter for free by post. Every entry, paid or postal, goes into the same ledger with the same odds.',
+      answer: 'Buy entries online, or send us a postcard to enter free. Both kinds of entry have exactly the same chance of winning.',
     },
     {
       question: 'What are my odds?',
-      answer: `The worst-case odds are ${worstCaseOdds(escape)}. That is your chance with one entry if every entry in the cap is taken. Fewer entries taken means better odds. ${bundleOdds}.`,
+      answer: `With one entry, at least ${worstCaseOdds(escape)}. That’s if every entry sells. If fewer sell, your chance is better. With more entries: ${bundleOdds}.`,
     },
     {
       question: 'What exactly do I win?',
-      answer: `${prize.description.join('. ')}. The escape is for ${numberWord(escape.party)} people. The cash is paid to you to spend as you choose. The venue is named as soon as we have their written permission to do so.`,
+      answer: `${prize.description.join('. ')}. The escape is for ${numberWord(escape.party)}. The cash is yours to spend however you like. We’ll name the house as soon as it gives us written permission.`,
     },
     {
       question: 'What if I would rather have the cash?',
-      answer: `You can choose a cash alternative of ${gbp(prize.cashAlternative)} instead of the escape. You have ${prize.claimWindowDays} days from the draw to choose. The escape itself can be taken within ${prize.stayValidMonths} months, subject to availability.`,
+      answer: `You can take ${gbp(prize.cashAlternative)} in cash instead of the escape. You have ${prize.claimWindowDays} days after the draw to decide. If you take the escape, you have ${prize.stayValidMonths} months to go, subject to availability.`,
     },
     {
-      question: 'When does the draw close?',
-      answer: `Entries close when the cap of ${count(escape.cap)} is reached, or on the longstop date we publish when entries open, whichever comes first. We never extend a closing date.`,
+      question: 'When is the draw?',
+      answer: `As soon as all ${count(escape.cap)} entries have gone, or on the closing date we publish when entries open, whichever comes first. We never move the closing date.`,
     },
     {
       question: 'How is the winner chosen?',
-      answer: `One entry is drawn at random from every entry in the ledger, paid and postal together. We publish the winning entry number and how it was drawn on the result page.${compliance.noRollover ? ' One winner is guaranteed.' : ''}`,
+      answer: `We draw one entry at random from all the entries, paid and postal. Then we publish the winning entry number and how it was drawn.${compliance.noRollover ? ' There is always a winner.' : ''}`,
     },
     {
       question: 'Where does the money go?',
-      answer: `${escape.charity.localityStatement} We name the partner as soon as the agreement is signed, and we publish what was given after every draw.`,
+      answer: `${escape.charity.localityStatement} We’ll name the charities once our agreement with them is signed, and after every draw we publish exactly how much we gave.`,
     },
     {
-      question: 'Is there a limit on entries?',
-      answer: `Yes. The most any one person can hold in a draw is ${count(escape.entry.maxPerPerson)} entries, paid and postal together. At the single entry price that is a ceiling of ${gbp(spendCeiling(escape))} in a draw.`,
+      question: 'Is there a limit on how many entries I can have?',
+      answer: `Yes. Each person can have up to ${count(escape.entry.maxPerPerson)} entries in a draw, paid and postal together. That’s ${gbp(spendCeiling(escape))} at the single entry price.`,
     },
     {
       question: 'Can I enter for free?',
-      answer: 'Yes. Send a postcard as described on the free entry by post page. Each postcard is one entry, counted inside the same cap with identical odds to a paid entry.',
+      answer: 'Yes. Send us a postcard: the free entry by post page says what to write. Each postcard is one entry, with the same chance of winning as a paid one.',
     },
   ];
 }

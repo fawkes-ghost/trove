@@ -5,7 +5,7 @@ import { escapes, prizeLine, statusLabel } from '@/lib/escapes';
 
 export const metadata: Metadata = {
   title: 'Escapes',
-  description: `Every Trove escape: open, coming and drawn. One prize per draw and a cap on entries. ${escape.charity.localityStatement}`,
+  description: `Every Trove escape, past and coming up. One prize per draw and a fixed number of entries. ${escape.charity.localityStatement}`,
   alternates: { canonical: '/escapes' },
 };
 
@@ -30,7 +30,7 @@ export default function EscapesPage() {
                 <h2 className="display text-[2rem] md:text-[2.5rem]">{item.destination}.</h2>
                 <p className="font-mono text-[11px] text-ink/60">{statusLabel(item.status)}</p>
                 <p className="text-lg">{prizeLine(item)}</p>
-                <p className="font-mono text-base">Worst-case odds are {worstCaseOdds(item)} with one entry.</p>
+                <p className="font-mono text-base">Your chance with one entry: at least {worstCaseOdds(item)}.</p>
                 <p className="text-base text-ink/70">{item.charity.localityStatement}</p>
               </div>
             </Link>

@@ -57,7 +57,7 @@ export function ConsentBanner() {
     >
       <div className="mx-auto flex max-w-[80rem] flex-col gap-3 md:flex-row md:items-center md:justify-between md:gap-10">
         <p className="text-[13px] leading-snug md:text-sm md:leading-relaxed">
-          We would like to set one analytics cookie to see how the site is used. Nothing is set until you choose.{' '}
+          Can we use analytics cookies to see how people use the site? Nothing is set unless you say yes.{' '}
           <Link href="/legal/cookies" className="underline underline-offset-4">
             Cookies
           </Link>
