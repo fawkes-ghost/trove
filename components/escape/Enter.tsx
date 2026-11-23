@@ -2,6 +2,7 @@ import { oddsForEntries, type Escape } from '@/config/prize';
 import { count, gbp, gbpPence, numberWord, sentenceCase } from '@/lib/format';
 import { freePostalRoute } from '@/lib/routes';
 import { EntryChooser } from './EntryChooser';
+import { entryFlowAvailable, entryFlowIsPreview } from '@/lib/entry-flow';
 
 // The entry decision. The answer sentence stays as plain text for search and answer
 // engines; the choice itself is the chooser beneath it, with the free postal route given
@@ -25,6 +26,7 @@ export function Enter({ escape }: { escape: Escape }) {
         <EntryChooser
           options={options}
           open={open}
+          flow={entryFlowAvailable() ? { href: `/escapes/${escape.slug}/enter`, preview: entryFlowIsPreview() } : null}
           postal={{
             href: freePostalRoute,
             line: `Send a postcard. Identical odds, inside the same cap of ${count(escape.cap)}.`,
