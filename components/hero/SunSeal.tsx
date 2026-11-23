@@ -14,7 +14,10 @@ export function SunSeal({ line, children, overlay }: { line: string; children: R
   const open = turn > 0;
   return (
     <>
-      <div className="hero-sky relative h-[calc(100svh-2.75rem)] min-h-[36rem] overflow-clip bg-loch">
+      {/* At least the first screen tall, and taller when the words need it: the words sit in
+          the flow at the foot, so on a short window the film grows rather than the headline
+          sliding up under the header. The top padding keeps them clear of the fixed header. */}
+      <div className="hero-sky relative flex min-h-[max(36rem,calc(100svh-2.75rem))] flex-col justify-end overflow-clip bg-loch pt-24">
         {children}
         <div aria-hidden="true" className="hero-scrim pointer-events-none absolute inset-0 z-10" />
         {overlay}
