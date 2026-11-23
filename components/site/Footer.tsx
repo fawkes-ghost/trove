@@ -77,7 +77,7 @@ export function Footer() {
             <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-snow/80" aria-label="Social and reviews">
               {social.map((slot) => (
                 <li key={slot.network}>
-                  <a href={slot.url} rel="noopener" className="hover:text-snow">
+                  <a href={slot.url} rel="noopener" className="-my-2 inline-block py-2 hover:text-snow">
                     {slot.handle ?? slot.network}
                   </a>
                 </li>
