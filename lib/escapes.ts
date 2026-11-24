@@ -1,4 +1,4 @@
-import { escape, type Escape, type StillCredit } from '@/config/prize';
+import { escape, type Escape } from '@/config/prize';
 import { gbp, numberWord, sentenceCase } from '@/lib/format';
 
 // Every escape the site knows about. One hero escape at a time; the list grows with the
@@ -41,13 +41,6 @@ export function venueLine(e: Escape): string {
 // footage is licensed. Returns values only.
 export function reelStills(e: Escape): { src: string; alt: string; title: string | null; caption: string | null; blur?: string }[] {
   return e.media.stills.filter((still) => !still.venue || e.venue.footageLicensed).map(({ src, alt, title, caption, blur }) => ({ src, alt, title, caption, blur }));
-}
-
-// Every photograph the site shows that someone else took, with who took it and the licence it
-// is used under, for the photo credits page. The same stills the pages show, no others.
-export const photoCreditsRoute = '/photo-credits';
-export function photoCredits(): { src: string; alt: string; title: string | null; blur?: string; credit: StillCredit }[] {
-  return escapes.flatMap((e) => e.media.stills.filter((still) => !still.venue || e.venue.footageLicensed)).flatMap(({ src, alt, title, blur, credit }) => (credit ? [{ src, alt, title, blur, credit }] : []));
 }
 
 // The county in two short paragraphs, for the escape page and the home page's escape

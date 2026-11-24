@@ -47,9 +47,9 @@ export const compliance = {
 // The escape. One hero escape at a time. Named by destination, never numbered.
 // ---------------------------------------------------------------------------
 export type EntryBundle = { entries: number; price: Money };
-// Who took a photograph and the licence it is used under. Shown on the photo credits page,
-// which the footer links from every page, because the licences ask for a credit; the full
-// record is docs/media-credits.md.
+// Who took a photograph and the licence it came under. A record only: the site shows no
+// credit, by the founder's decision of 24 November 2026. The full record is
+// docs/media-credits.md.
 export type StillCredit = {
   work: string | null;            // the photograph's title at the source, where the licence asks for it (CC 2.0 does)
   by: string;                     // the photographer, as they are credited at the source

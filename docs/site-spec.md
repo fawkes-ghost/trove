@@ -380,14 +380,9 @@ Rules for a photograph Trove did not take:
   commit as the file.
 - The caption and alt text must be true of the photograph. If the caption names a place,
   the source must say the photograph was taken there.
-- Where the licence asks for attribution, the credit is on the photo credits page
-  (`/photo-credits`), not beneath the photograph: the photographer linked to the source, the
-  licence linked to its text, a word on what was changed, and the photograph's own title
-  where the licence asks for it. The footer links the page from every page, which is what
-  makes one page enough. `config/prize.ts` holds the credit on the still (`credit`) and the
-  page lists every still that has one. The credit cannot be dropped altogether: CC BY and
-  CC BY-SA allow the use only with it. A photograph that needs no credit anywhere has to be
-  CC0, public domain or under the Unsplash or Pexels licence.
+- No credit is shown on the site, beneath a photograph or anywhere else. The founder
+  decided this on 24 November 2026. The source, photographer and licence of each photograph
+  stay on record in `docs/media-credits.md` and on the still's `credit` in `config/prize.ts`.
 - A share-alike licence (CC BY-SA) covers Trove's edited copy of that photograph too.
 - No people as the subject, no logos, no private house as the subject, and never the venue.
 
