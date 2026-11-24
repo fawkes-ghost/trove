@@ -20,7 +20,7 @@ Nothing here is a figure; every figure comes from config.
 | `/legal/privacy`, `/legal/cookies`, `/legal/complaints` | | Left contents column |
 | `/contact` | Email, postal address, response time | |
 | `/unsubscribe` | Where the unsubscribe link in an email lands: one heading, one button | Not indexed, not in the sitemap, open while the gate is up. See below |
-| `/journal` | Editorial: destinations, winners, where the money went | Later; SEO |
+| `/journal`, `/journal/[slug]` | Editorial: destinations, winners, where the money went. Pieces are written in `lib/journal.ts`. Each ends with the first escape and the founding friends form, stored against the piece's own channel. A piece about places that are not prizes says so in its first lines | Photographs lead; SEO |
 
 Unsubscribing: the link in an email goes to the `handle-email-unsubscribe` edge function, which
 sends a plain visit on to `/unsubscribe`. Nothing happens until the person presses the button,

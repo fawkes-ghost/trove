@@ -1,37 +1,39 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
-import { escape } from '@/config/prize';
+import { journal, journalPath } from '@/lib/journal';
 
-// Not indexed and not in the menu until the first piece is written: an empty journal is
-// not something to send search engines or visitors to.
 export const metadata: Metadata = {
   title: 'Journal',
-  description: 'Stories from each escape, every draw’s result, and where the money went.',
+  description: 'Places worth the journey, and in time each draw’s result and where the money went.',
   alternates: { canonical: '/journal' },
-  robots: { index: false, follow: true },
 };
 
+// A list, newest first: each piece is its first photograph, its title and one line. Results
+// and where the money went join it after the first draw.
 export default function Page() {
   return (
     <main>
       <section className="page">
         <div className="max-w-[40rem]">
           <h1 className="display text-balance text-[2.5rem] md:text-[3.5rem]">Journal.</h1>
-          <p className="mt-6 text-lg">
-            The journal starts with the first draw. We’ll write about each destination, publish every result and show where the money went.
-          </p>
-          <p className="rule-t mt-8 pt-6 text-base">
-            Until then, read about{' '}
-            <Link href={`/escapes/${escape.slug}`} className="underline underline-offset-4">
-              the {escape.destination} escape
-            </Link>{' '}
-            or{' '}
-            <Link href="/how-it-works" className="underline underline-offset-4">
-              how it works
-            </Link>
-            .
-          </p>
+          <p className="mt-6 text-lg">Places worth the journey. After the first draw we’ll publish every result here, and where the money went.</p>
         </div>
+        <ul className="mt-12 flex flex-col">
+          {journal.map((piece) => (
+            <li key={piece.slug} className="rule-t py-8">
+              <Link href={journalPath(piece)} className="grid items-center gap-6 sm:grid-cols-[12rem_minmax(0,34rem)] sm:gap-10">
+                <div className="plate aspect-[4/5] w-full max-w-[12rem]">
+                  <Image src={piece.places[0].still.src} alt={piece.places[0].still.alt} fill sizes="12rem" className="object-cover" placeholder="blur" blurDataURL={piece.places[0].still.blur} />
+                </div>
+                <div>
+                  <h2 className="display text-[1.75rem] leading-tight underline-offset-4 hover:underline md:text-[2.25rem]">{piece.title}</h2>
+                  <p className="mt-3 text-base text-ink/70">{piece.description}</p>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </section>
     </main>
   );

@@ -69,4 +69,6 @@ is the site's one loud moment, so it was not swapped for something weaker.
 
 ## Not listed here
 
-`founder.jpg` is the founder's own portrait. The logo files are Trove's own.
+`founder.jpg` is the founder's own portrait. The `journal-*.jpg` photographs are the founder's
+own, taken on his own trips and exported from his library without their location data. The
+logo files are Trove's own.
