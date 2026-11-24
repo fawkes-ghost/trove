@@ -17,8 +17,7 @@ export function Plate({ still, ratio, sizes, className = '' }: { still: Still; r
   );
 }
 
-// Title and one line. Who took the photograph and the licence it is used under are on the
-// photo credits page, which the footer links from every page.
+// Title and one line, nothing else: no credit is shown on the site.
 export function PlateCaption({ title, caption, className = '' }: { title?: string | null; caption?: string | null; className?: string }) {
   if (!title && !caption) return null;
   return (
