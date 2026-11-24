@@ -18,10 +18,21 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return { title: piece.title.replace(/\.$/, ''), description: piece.description, alternates: { canonical: journalPath(piece) } };
 }
 
-// A journal piece: a heading, two lines, then the places one after another, each a tall
-// photograph with its name, a few sentences and when to go. The photographs are the page;
-// nothing moves except their fade as they arrive. It ends where Trove begins, with the first
-// escape and the founding friends form, whose signups are stored against this piece.
+// A journal piece: a heading, two lines and a list of the places, then each place in turn. A
+// place is one tall photograph that stays in view on a wide screen while its guide scrolls
+// beside it (why go, what to do, what to eat, where to base yourself, when, how to get there,
+// what most people miss), then two more photographs side by side. The photographs are the
+// page; nothing moves but their fade as they arrive. It ends where Trove begins, with the
+// first escape and the founding friends form, whose signups are stored against this piece.
+function Part({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="rule-t pt-5">
+      <h3 className="text-sm font-medium text-ink/70">{label}</h3>
+      <div className="mt-2 text-base leading-relaxed">{children}</div>
+    </div>
+  );
+}
+
 export default async function JournalPiecePage({ params }: { params: Promise<{ slug: string }> }) {
   const piece = journalPiece((await params).slug);
   if (!piece) notFound();
@@ -41,22 +52,66 @@ export default async function JournalPiecePage({ params }: { params: Promise<{ s
                 <p key={line.slice(0, 24)}>{line}</p>
               ))}
             </div>
+            <nav aria-label="In this guide" className="mt-8">
+              <ul className="flex flex-wrap gap-x-5 gap-y-2 text-base">
+                {piece.places.map((place) => (
+                  <li key={place.id}>
+                    <a href={`#${place.id}`} className="underline underline-offset-4">
+                      {place.name.replace(/\.$/, '')}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
         </header>
-        <ol className="page-body flex flex-col gap-16 md:gap-24" data-journal-places>
+        <div className="page-body flex flex-col gap-20 md:gap-28" data-journal-places>
           {piece.places.map((place, index) => (
-            <li key={place.name} className="grid items-end gap-6 md:grid-cols-[minmax(0,34rem)_minmax(0,26rem)] md:gap-14">
-              <div className="plate aspect-[4/5]">
-                <Image src={place.still.src} alt={place.still.alt} fill sizes="(min-width: 768px) 34rem, 100vw" className="object-cover" placeholder="blur" blurDataURL={place.still.blur} priority={index === 0} />
+            <section key={place.id} id={place.id} className="scroll-mt-24" data-journal-place>
+              <div className="grid items-start gap-8 md:grid-cols-[minmax(0,30rem)_minmax(0,34rem)] md:gap-14">
+                <div className="plate aspect-[4/5] md:sticky md:top-24">
+                  <Image src={place.still.src} alt={place.still.alt} fill sizes="(min-width: 768px) 30rem, 100vw" className="object-cover" placeholder="blur" blurDataURL={place.still.blur} priority={index === 0} />
+                </div>
+                <div>
+                  <h2 className="display text-[2rem] leading-tight md:text-[2.75rem]">{place.name}</h2>
+                  <p className="display mt-3 text-[1.375rem] leading-snug text-ink/80">{place.standfirst}</p>
+                  <div className="mt-6 flex flex-col gap-4 text-lg">
+                    {place.why.map((line) => (
+                      <p key={line.slice(0, 24)}>{line}</p>
+                    ))}
+                  </div>
+                  <div className="mt-8 flex flex-col gap-5">
+                    <Part label="What to do">
+                      <dl className="flex flex-col gap-4">
+                        {place.do.map(([what, detail]) => (
+                          <div key={what}>
+                            <dt className="font-medium">{what}</dt>
+                            <dd className="mt-1">{detail}</dd>
+                          </div>
+                        ))}
+                      </dl>
+                    </Part>
+                    <Part label="What to eat">{place.eat}</Part>
+                    <Part label="Where to base yourself">{place.base}</Part>
+                    <Part label="When to go">{place.when}</Part>
+                    <Part label="Getting there">{place.how}</Part>
+                    <Part label="What most people miss">{place.tip}</Part>
+                  </div>
+                </div>
               </div>
-              <div className="md:pb-2">
-                <h2 className="display text-[2rem] leading-tight md:text-[2.5rem]">{place.name}</h2>
-                <p className="mt-4 text-lg">{place.text}</p>
-                <p className="mt-3 text-base text-ink/70">{place.when}</p>
+              <div className="mt-10 grid max-w-[66rem] grid-cols-2 gap-4 md:mt-14 md:gap-6">
+                {place.more.map((still) => (
+                  <figure key={still.src} className="m-0">
+                    <div className="plate aspect-[4/5]">
+                      <Image src={still.src} alt={still.alt} fill sizes="(min-width: 768px) 33rem, 50vw" className="object-cover" placeholder="blur" blurDataURL={still.blur} />
+                    </div>
+                    {still.caption ? <figcaption className="mt-2 text-sm text-ink/70">{still.caption}</figcaption> : null}
+                  </figure>
+                ))}
               </div>
-            </li>
+            </section>
           ))}
-        </ol>
+        </div>
       </article>
       <section id="waitlist" className="scroll-mt-24 rule-t section">
         <div className="max-w-[40rem]">
