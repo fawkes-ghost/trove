@@ -424,7 +424,7 @@ html[data-motion="full"] .hero-twist-in {
   }
   .hero-form [data-waitlist-fields] {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.6fr) auto;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr) auto;
   }
   .hero-form [data-waitlist-names],
   .hero-form [data-waitlist-email-row] {

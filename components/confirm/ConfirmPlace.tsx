@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { FoundingSticker } from '@/components/waitlist/FoundingSticker';
 import { HeardAbout } from './HeardAbout';
+import { trackEvent } from '@/lib/analytics';
 
 type Status = 'idle' | 'sending' | 'confirmed' | 'already' | 'expired' | 'invalid' | 'error';
 
@@ -41,7 +42,11 @@ export function ConfirmPlace({ wordmarkSvg }: { wordmarkSvg?: string }) {
         body: JSON.stringify({ token }),
       });
       const data: { ok?: boolean; status?: string } = await response.json().catch(() => ({}));
-      setStatus(outcomes[data.status ?? ''] ?? 'error');
+      const outcome = outcomes[data.status ?? ''] ?? 'error';
+      setStatus(outcome);
+      // The signup that counts: someone who opened the email and tapped confirm. Sent only
+      // with consent, like every event (lib/analytics.ts).
+      if (outcome === 'confirmed') trackEvent('waitlist_confirm');
     } catch {
       setStatus('error');
     }
