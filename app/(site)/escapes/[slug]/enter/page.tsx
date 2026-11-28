@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { compliance, oddsForEntries } from '@/config/prize';
 import { count, gbp, gbpPence, numberWord, percent, sentenceCase } from '@/lib/format';
-import { getEscape } from '@/lib/escapes';
+import { escapeName, escapeTitle, getEscape } from '@/lib/escapes';
 import { freePostalRoute, signposting } from '@/lib/routes';
 import { entryFlowAvailable, entryFlowIsPreview } from '@/lib/entry-flow';
 import { EntryFlow, type FlowOption } from '@/components/entry/EntryFlow';
@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const item = getEscape(slug);
   return {
-    title: item ? `Enter the ${item.destination} draw` : 'Enter',
+    title: item ? `Enter ${escapeName(item)}` : 'Enter',
     robots: { index: false, follow: false },
   };
 }
@@ -45,7 +45,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
     <EntryFlow
       preview={entryFlowIsPreview()}
       escapeHref={`/escapes/${item.slug}`}
-      destination={item.destination}
+      destination={escapeTitle(item)}
       options={options}
       start={start}
       facts={{

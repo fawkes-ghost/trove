@@ -1,12 +1,13 @@
 import { compliance, escape } from '@/config/prize';
+import { escapeTitle } from '@/lib/escapes';
 
 export type Route = { label: string; href: string };
 
-// Route labels and paths used by the menu and the footer. Draws are named by destination.
+// Route labels and paths used by the menu and the footer. Draws are named by destination, or by their public name until the place is announced.
 export const routes = {
   escapes: [
     { label: 'All escapes', href: '/escapes' },
-    { label: escape.destination, href: `/escapes/${escape.slug}` },
+    { label: escapeTitle(escape), href: `/escapes/${escape.slug}` },
   ] satisfies Route[],
   information: [
     { label: 'How it works', href: '/how-it-works' },

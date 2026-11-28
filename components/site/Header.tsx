@@ -1,6 +1,6 @@
 import { escape as hampshire, worstCaseOdds, type Escape } from '@/config/prize';
 import { count, gbp } from '@/lib/format';
-import { prizeLineShort } from '@/lib/escapes';
+import { prizeLineShort, teaserLine } from '@/lib/escapes';
 import { routes, freePostalRoute } from '@/lib/routes';
 import { wordmarkSource } from '@/components/brand/Marks';
 import { HeaderShell } from './HeaderShell';
@@ -24,7 +24,7 @@ export function Header({ escape = hampshire, entriesTaken = 0 }: { escape?: Esca
       wordmarkSvg={wordmarkSource()}
       primary={primary}
       groups={routes}
-      prize={prizeLineShort(escape)}
+      prize={escape.destinationPublic ? prizeLineShort(escape) : teaserLine(escape)}
       prizeValue={`A ${gbp(escape.prize.value)} prize.`}
       odds={odds}
     />

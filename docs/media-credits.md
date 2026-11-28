@@ -15,9 +15,9 @@ its estate.
 
 | File in `public/media` | What it shows | Photographer | Licence | Where it sits |
 | --- | --- | --- | --- | --- |
-| `hampshire-itchen-mist-85fa7bcb.jpg` | Early morning mist by the River Itchen at Shawford, Hampshire | Forbes Johnston | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) | First photograph: home page escape section (large), the Hampshire page (edge to edge), the escapes list |
-| `hampshire-morestead-downs-c4d64cef.jpg` | Sunrise over the South Downs at Morestead, Hampshire | Forbes Johnston | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) | Second photograph: home page escape section, the Hampshire page |
-| `hampshire-micheldever-wood-e30ef912.jpg` | Beech trees in low winter sun, Micheldever Wood, Hampshire | Mr Ignavy | [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/) | Third photograph: home page escape section, the Hampshire page |
+| `countryside-river-mist-85fa7bcb.jpg` | Early morning mist by the River Itchen at Shawford, Hampshire | Forbes Johnston | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) | First photograph: home page escape section (large), the Hampshire page (edge to edge), the escapes list |
+| `countryside-downs-sunrise-c4d64cef.jpg` | Sunrise over the South Downs at Morestead, Hampshire | Forbes Johnston | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) | Second photograph: home page escape section, the Hampshire page |
+| `countryside-beech-wood-e30ef912.jpg` | Beech trees in low winter sun, Micheldever Wood, Hampshire | Mr Ignavy | [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/) | Third photograph: home page escape section, the Hampshire page |
 
 ### The river
 
@@ -56,7 +56,7 @@ its estate.
 
 ## Film
 
-`hero-hampshire-placeholder-v1.mp4`, its 960-wide rendition and `hero-poster-hampshire-placeholder.jpg`
+`hero-countryside-placeholder-v1.mp4`, its 960-wide rendition and `hero-poster-countryside-placeholder.jpg`
 are an AI-generated stand-in: mood only, not a real place and not the venue. The footer says
 so on every page.
 

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { escapes, getEscape, prizeLine } from '@/lib/escapes';
+import { escapeTitle, escapes, getEscape, prizeLine } from '@/lib/escapes';
 import { Hero } from '@/components/hero/Hero';
 import { WhatYouWin } from '@/components/escape/WhatYouWin';
 import { Destination } from '@/components/escape/Destination';
@@ -24,11 +24,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!item) return {};
   const description = `${prizeLine(item)} ${item.charity.localityStatement}`;
   return {
-    title: `The ${item.destination} escape`,
+    title: escapeTitle(item),
     description,
     alternates: { canonical: `/escapes/${item.slug}` },
     openGraph: {
-      title: `The ${item.destination} escape`,
+      title: escapeTitle(item),
       description,
       url: `/escapes/${item.slug}`,
     },
@@ -47,7 +47,7 @@ export default async function EscapePage({ params }: { params: Promise<{ slug: s
   return (
     <main>
       <FaqJsonLd escape={item} />
-      <Hero escape={item} lead={`The ${item.destination} escape.`} sourceChannel="trove-escape-hero" />
+      <Hero escape={item} lead={`${escapeTitle(item)}.`} sourceChannel="trove-escape-hero" />
       <WhatYouWin escape={item} />
       <Destination escape={item} />
       <OddsLadder escape={item} />

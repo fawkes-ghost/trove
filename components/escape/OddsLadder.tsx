@@ -4,6 +4,7 @@ import { OddsCalculator } from './OddsCalculator';
 import { Ledger } from '@/components/ledger/Ledger';
 import { OddsField } from '@/components/field/OddsField';
 import { FieldMotion } from '@/components/field/FieldMotion';
+import { localCauses } from '@/lib/escapes';
 
 // The chances, in two rows of the same two columns. First the words beside the field, one
 // mark per entry with one lit. Then the cap beside the ladder and the calculator: hover or
@@ -35,7 +36,7 @@ export function OddsLadder({ escape }: { escape: Escape }) {
             price={escape.entry.price}
             bundles={escape.entry.bundles.map(({ entries, price }) => ({ entries, price }))}
             share={escape.charity.shareOfGross}
-            destination={escape.destination}
+            destination={localCauses(escape)}
             fieldId="odds-field"
           />
         </div>

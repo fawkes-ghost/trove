@@ -358,6 +358,14 @@ html[data-motion="full"] .hero-twist-in {
   line-height: 1.1;
   text-wrap: balance;
 }
+.hero-first {
+  max-width: 36rem;
+  margin-top: 0.6rem;
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  line-height: 1.4;
+  text-wrap: pretty;
+  color: color-mix(in srgb, var(--snow) 92%, transparent);
+}
 .hero-form {
   max-width: 34rem;
   min-height: 3rem;

@@ -1,6 +1,6 @@
 import type { NextConfig } from 'next';
 import createMDX from '@next/mdx';
-import { assertEscape, unpublishedVenueTerms } from './config/prize';
+import { assertEscape, escape, unannouncedPlaceTerms, unpublishedVenueTerms } from './config/prize';
 import { assertVenueUnpublished } from './lib/venue-guard';
 import { securityHeaders } from './lib/security-headers';
 
@@ -8,6 +8,8 @@ import { securityHeaders } from './lib/security-headers';
 // the venue's name has leaked out of config before permission exists.
 assertEscape();
 assertVenueUnpublished(unpublishedVenueTerms, ['app', 'components', 'lib', 'content']);
+// While the first escape's place is unannounced, the same guard keeps it off every page.
+if (!escape.destinationPublic) assertVenueUnpublished(unannouncedPlaceTerms, ['app', 'components', 'lib', 'content']);
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
@@ -23,6 +25,11 @@ const nextConfig: NextConfig = {
   // Everything under public/media is content-addressed by its filename: a new cut is a new
   // name, never a new body at the same path, so it can be cached for a year and never
   // revalidated.
+  // The first escape's page lived at /escapes/hampshire until 28 November 2026. Links already
+  // shared keep working and land on the page under its public name.
+  async redirects() {
+    return [{ source: '/escapes/hampshire/:path*', destination: `/escapes/${escape.slug}/:path*`, permanent: true }];
+  },
   async headers() {
     return [
       { source: '/:path*', headers: securityHeaders() },

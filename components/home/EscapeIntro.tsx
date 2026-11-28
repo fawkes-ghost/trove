@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { escape as hampshire, type Escape } from '@/config/prize';
+import { escape as hampshire, worstCaseOdds, type Escape } from '@/config/prize';
 import { gbp, numberWord, sentenceCase } from '@/lib/format';
-import { countyProse, reelStills } from '@/lib/escapes';
+import { countyProse, escapeName, reelStills } from '@/lib/escapes';
 import { Kicker } from '@/components/site/Kicker';
 import { Plate } from '@/components/media/Plate';
 
@@ -15,24 +15,37 @@ export function EscapeIntro({ escape = hampshire }: { escape?: Escape }) {
   const named = Boolean(escape.venue.name && escape.venue.permissionGranted);
   const [lead, ...rest] = reelStills(escape);
   const [stay] = prize.description;
-  const included = [
-    { term: 'The stay', detail: `${stay}.` },
-    { term: 'The cash', detail: `${gbp(prize.cash)} to spend however you like.` },
-    { term: 'When', detail: prize.stayWhen },
-    { term: 'Prize value', detail: `${gbp(prize.value)}.` },
-  ];
+  // While the place is unannounced the home page is a teaser, written for a stranger with a
+  // minute to spare: what it is worth, who it is for, when, and the chance, then the one thing
+  // to do. The escape page and the key terms keep the full prize, one click away.
+  const teasing = !escape.destinationPublic;
+  const included = teasing
+    ? [
+        { term: 'Worth', detail: `${gbp(prize.value)}.` },
+        { term: 'For', detail: `You and your plus one.` },
+        { term: 'When', detail: `${prize.stayWhen.split(',')[0]}.` }, // the season only; the full window is on the escape page
+        { term: 'Your chance', detail: `At least ${worstCaseOdds(escape)}.` },
+      ]
+    : [
+        { term: 'The stay', detail: `${stay}.` },
+        { term: 'The cash', detail: `${gbp(prize.cash)} to spend however you like.` },
+        { term: 'When', detail: prize.stayWhen },
+        { term: 'Prize value', detail: `${gbp(prize.value)}.` },
+      ];
 
   return (
     <section id="destination" className="section">
       <div className="grid gap-12 min-[900px]:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] min-[900px]:items-start min-[900px]:gap-[clamp(2.5rem,5vw,5rem)]">
         <div data-reveal="group">
-          <Kicker>The escape.</Kicker>
+          <Kicker>{teasing ? 'The first escape.' : 'The escape.'}</Kicker>
           <h2 className="display heading-section mt-6 text-balance">
-            {sentenceCase(numberWord(escape.nights))} nights away, for {numberWord(escape.party)}.
+            {teasing ? 'Close to home. Announced at launch.' : `${sentenceCase(numberWord(escape.nights))} nights away, for ${numberWord(escape.party)}.`}
           </h2>
           <p className="mt-8 max-w-[34rem] text-lg" data-answer>
-            {countyProse(escape)[0]}
-            {named ? null : ' We’ll name the house as soon as it gives us permission.'}
+            {teasing
+              ? `Somewhere quiet and beautiful, here in the UK. Join the list and we’ll email you once, on the day we reveal it and entries open.`
+              : countyProse()[0]}
+            {teasing || named ? null : ' We’ll name the hotel as soon as it gives us permission.'}
           </p>
           <dl className="mt-10 max-w-[34rem]">
             {included.map((row) => (
@@ -42,9 +55,14 @@ export function EscapeIntro({ escape = hampshire }: { escape?: Escape }) {
               </div>
             ))}
           </dl>
-          <p className="rule-t max-w-[34rem] pt-6 text-base">
+          <p className="rule-t flex max-w-[34rem] flex-wrap gap-x-8 gap-y-3 pt-6 text-base">
+            {teasing ? (
+              <Link href="#waitlist" className="link-quiet font-medium">
+                Secure your place.
+              </Link>
+            ) : null}
             <Link href={`/escapes/${escape.slug}`} className="link-quiet">
-              See the {escape.destination} escape.
+              {teasing ? 'What we can say so far.' : `See ${escapeName(escape)}.`}
             </Link>
           </p>
         </div>

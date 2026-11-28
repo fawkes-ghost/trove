@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { escape as hampshire, type Escape } from '@/config/prize';
 import { questionsFor } from '@/lib/questions';
+import { escapeName } from '@/lib/escapes';
 
 // The four questions that stop someone from joining, answered where they decide: is it
 // real, can I enter free, what are my odds, where does the money go. Native disclosure
@@ -37,7 +38,7 @@ export function HomeQuestions({ escape = hampshire }: { escape?: Escape }) {
         </div>
         <p className="mt-6 text-base">
           <Link href={`/escapes/${escape.slug}#questions`} className="underline underline-offset-4">
-            All questions about the {escape.destination} escape
+            All questions about {escapeName(escape)}
           </Link>
           .
         </p>
