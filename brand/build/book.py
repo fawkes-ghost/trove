@@ -322,13 +322,13 @@ def build():
 </defs></svg>'''
     return f'''<title>Trove Brand Book</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,800&family=Newsreader:opsz,wght@6..72,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,800&family=Newsreader:opsz,wght@6..72,300;6..72,400&display=swap">
 <style>{CSS}</style>
 {defs}
 <header class="cover"><div class="wrap">
 {wm_svg('var(--fg)', SUN)}
 <p class="lede">The wordmark, the icon, the colours and how to use them, from a favicon to a tote bag.</p>
-<p class="meta">Brand book, version 1.1. 23 November 2026. Built from the live site and the marks in <code>public/brand</code>.</p>
+<p class="meta">Brand book, version 1.2. 28 November 2026. Built from the live site and the marks in <code>public/brand</code>.</p>
 <nav class="toc" aria-label="Sections"><a href="#brand">The brand</a><a href="#voice">Voice</a><a href="#logo">The logo</a><a href="#colourways">Colourways</a><a href="#colour">Colour</a><a href="#type">Type</a><a href="#misuse">Misuse</a><a href="#platforms">Platforms</a><a href="#merchandise">Merchandise</a><a href="#kit">The kit</a><a href="#decide">To decide</a></nav>
 </div></header>
 
