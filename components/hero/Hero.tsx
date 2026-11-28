@@ -58,7 +58,7 @@ export function Hero({ escape = hampshire, lead, sourceChannel = 'trove-hero', f
               <p className="hero-twist">
                 <span className="hero-twist-out" aria-hidden="true" />
                 <span className="hero-twist-in">
-                  <span className="mark-box">{count(escape.cap)}</span> entries. Never more.
+                  {count(escape.cap)} entries. Never more.
                 </span>
               </p>
               {/* The escape page keeps the prize as its headline here, because that page is
@@ -71,7 +71,7 @@ export function Hero({ escape = hampshire, lead, sourceChannel = 'trove-hero', f
             </div>
             <div>
               <div className="hero-form">
-                <WaitlistForm sourceChannel={sourceChannel} idPrefix="hero-waitlist" wordmarkSvg={wordmarkSource()} share={shareCopy(escape, lead ? `/escapes/${escape.slug}` : '/')} />
+                <WaitlistForm sourceChannel={sourceChannel} idPrefix="hero-waitlist" namesAfter wordmarkSvg={wordmarkSource()} share={shareCopy(escape, lead ? `/escapes/${escape.slug}` : '/')} />
               </div>
               {escape.status === 'open' ? null : (
                 <p className="hero-note">We’ll write to you once, on the morning entries open. There is nothing to pay today.</p>

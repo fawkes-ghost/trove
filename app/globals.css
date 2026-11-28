@@ -268,24 +268,26 @@ body:has([data-hero-film]) .site-header[data-header="top"] {
   border-radius: 999px;
 }
 
-/* The hero's words. The kicker and the number are the one giant idea: the chance, as wide
-   as the screen, but never so tall that a short window loses the signup form below the
-   fold, so the size answers to the window's height as well as its width. */
+/* The hero's words. The chance is said, not shouted (28 November 2026): the serif at a light
+   weight, about a third of the old screen-wide size, the kicker a small label above it. The
+   size still answers to the window's height so a short window keeps the form on screen. */
 .hero-kicker {
   font-weight: 500;
-  font-size: clamp(0.95rem, 1.5vw, 1.25rem);
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
   line-height: 1.2;
-  color: var(--snow);
+  color: color-mix(in srgb, var(--snow) 88%, transparent);
   /* The smallest words sit highest on the film, where the scrim is thinnest and the sky
      is brightest, so they carry their own shade. */
   text-shadow: 0 1px 14px rgb(20 37 32 / 0.6);
 }
 .hero-number {
-  margin: 0.06em 0 0 -0.045em;
-  font-weight: 800;
-  font-size: clamp(3.7rem, min(16vw, 24svh), 15rem);
-  line-height: 0.86;
-  letter-spacing: -0.058em;
+  margin: 0.2em 0 0 -0.02em;
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(2.4rem, min(6.2vw, 9svh), 5.25rem);
+  line-height: 1;
+  letter-spacing: -0.025em;
   white-space: nowrap;
 }
 /* The twist line: what other draws leave open is struck out in gold, then gives way to
@@ -295,10 +297,11 @@ body:has([data-hero-film]) .site-header[data-header="top"] {
 .hero-twist {
   display: grid;
   margin-top: 0.5em;
-  font-weight: 700;
-  font-size: clamp(1.4rem, 3.4vw, 2.9rem);
-  line-height: 1.1;
-  letter-spacing: -0.035em;
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(1.25rem, 1.9vw, 1.75rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
 }
 .hero-twist > span {
   grid-area: 1 / 1;
@@ -319,7 +322,7 @@ body:has([data-hero-film]) .site-header[data-header="top"] {
   left: -2%;
   top: 54%;
   width: 104%;
-  height: 0.13em;
+  height: 0.08em;
   border-radius: 999px;
   background: var(--sun);
   transform: scaleX(0);
@@ -391,6 +394,25 @@ html[data-motion="full"] .hero-twist-in {
 .hero-form [data-waitlist-status] {
   color: var(--snow);
 }
+/* Over the film the fields are glass, not white boxes: a hairline of snow on a faint wash,
+   so the form reads as part of the picture. The gold button stays the one call to action. */
+.hero-form input:not([type="hidden"]) {
+  border-color: color-mix(in srgb, var(--snow) 55%, transparent);
+  background: rgb(20 37 32 / 0.28);
+  color: var(--snow);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.hero-form input::placeholder {
+  color: color-mix(in srgb, var(--snow) 72%, transparent);
+}
+.hero-form input:focus {
+  border-color: var(--snow);
+}
+.hero-form input:-webkit-autofill {
+  -webkit-text-fill-color: var(--snow);
+  box-shadow: 0 0 0 100px rgb(20 37 32 / 0.9) inset;
+}
 /* What signing up costs and brings, said once, under the button. */
 .hero-note {
   max-width: 34rem;
@@ -404,7 +426,7 @@ html[data-motion="full"] .hero-twist-in {
    first screen. */
 @media (max-width: 340px) {
   .hero-twist {
-    font-size: 1.28rem;
+    font-size: 1.15rem;
   }
 }
 @media (max-height: 430px) {
@@ -414,7 +436,7 @@ html[data-motion="full"] .hero-twist-in {
     min-height: 0;
   }
   .hero-twist {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
   .hero-prize {
     margin-top: 0.5em;
