@@ -1,12 +1,13 @@
 import Link from 'next/link';
-import { compliance, escape as hampshire, worstCaseOdds, type Escape } from '@/config/prize';
+import { compliance, escape as hampshire, type Escape } from '@/config/prize';
 import { count, percent } from '@/lib/format';
 import { freePostalRoute, significantConditions } from '@/lib/routes';
 import { localCauses } from '@/lib/escapes';
 
 // How the draw is kept fair: the trust section. Trove has no awards or memberships to show
 // yet, and what makes the draw fair is a short list of rules, so those are the credentials.
-// Each row is a rule in the heavy sans, marked in gold, with what it means beside it. Every
+// Each row is a rule in the heavy sans, marked in gold, with what it means beside it. Proof
+// only: the odds and their working live in the field (OddsSection), not here. Every
 // figure is read from config, and the guarantee shows only while there is no rollover. The
 // company's details are in the footer, not here.
 export function FairDraw({ escape = hampshire }: { escape?: Escape }) {
@@ -14,10 +15,6 @@ export function FairDraw({ escape = hampshire }: { escape?: Escape }) {
     {
       promise: count(escape.cap),
       meaning: 'entries, and never more. The draw closes when they’re gone, or on the closing date we publish when entries open, whichever comes first. We never move that date.',
-    },
-    {
-      promise: worstCaseOdds(escape),
-      meaning: 'is your chance with one entry if every entry sells. If fewer sell, your chance is better.',
     },
     ...(compliance.noRollover
       ? [

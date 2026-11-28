@@ -54,7 +54,7 @@ export function ConfirmPlace({ wordmarkSvg }: { wordmarkSvg?: string }) {
 
   const back = (
     <Link href="/#waitlist" className="underline underline-offset-4">
-      Secure your place
+      Join the list
     </Link>
   );
 
@@ -99,7 +99,7 @@ export function ConfirmPlace({ wordmarkSvg }: { wordmarkSvg?: string }) {
       {status === 'expired' ? (
         <>
           <h1 className="display text-balance text-[2.5rem] md:text-[3.5rem]">This link has expired.</h1>
-          <p className="mt-6 text-lg">Secure your place again and we’ll send you a new one. {back}.</p>
+          <p className="mt-6 text-lg">Join the list again and we’ll send you a new link. {back}.</p>
         </>
       ) : null}
 

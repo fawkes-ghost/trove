@@ -46,7 +46,7 @@ export function JoinBar({ line, terms, termsHref }: { line: string; terms: strin
             {terms}
           </Link>
         </div>
-        <WaitlistLink className="btn inline-flex h-11 shrink-0 items-center bg-sun px-4 text-sm font-medium text-ink">Secure your place</WaitlistLink>
+        <WaitlistLink className="btn inline-flex h-11 shrink-0 items-center bg-sun px-4 text-sm font-medium text-ink">Join the list</WaitlistLink>
       </div>
     </div>
   );

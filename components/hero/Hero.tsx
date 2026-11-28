@@ -9,8 +9,10 @@ import { HeroFilm } from './HeroFilm';
 import { shareCopy } from '@/lib/share';
 import { PromiseRibbon } from './PromiseRibbon';
 
-// The hero, in two voices. One giant idea first: the chance, set as wide as the screen in
-// the logo's heavy sans, because it is the one figure no other draw prints. Under it the
+// The hero, in two voices. On the home page the want comes first (28 November 2026): Trove's
+// line in the serif and the first escape, still a mystery. Then the one giant idea: the
+// chance, set as wide as the screen in the logo's heavy sans, because it is the one figure no
+// other draw prints. Under it the
 // twist line (what other draws leave open, struck out, then what this one fixes), on the home
 // page Trove's tagline in the serif with the first escape's value under it, and no more (the
 // founder wants suspense for the waitlist, 28 November 2026) (on the escape
@@ -37,6 +39,18 @@ export function Hero({ escape = hampshire, lead, sourceChannel = 'trove-hero', f
         <HeroFilm media={film ?? escape.media} />
         <div aria-hidden="true" className="hero-scrim pointer-events-none absolute inset-0 z-10" />
         <div className="relative z-20 px-6 pb-8 text-snow md:px-10 md:pb-14" data-hero-copy>
+          {/* On the home page the want comes first: Trove's line and the first escape, kept a
+              mystery until launch. Then the chance and the cap, as the reason to act now. */}
+          {lead ? null : (
+            <div className="hero-desire">
+              <h1 className="display hero-prize">{organisation.tagline}</h1>
+              <p className="hero-first">
+                {escape.destinationPublic
+                  ? `The first is in ${escape.destination}: a ${gbp(escape.prize.value)} escape.`
+                  : `Our first escape, a ${gbp(escape.prize.value)} prize close to home, is announced at launch.`}
+              </p>
+            </div>
+          )}
           <p className="hero-kicker" aria-hidden="true">
             {lead ? `${lead} ` : null}Your chance of winning is at least
           </p>
@@ -56,23 +70,13 @@ export function Hero({ escape = hampshire, lead, sourceChannel = 'trove-hero', f
                   <span className="mark-box">{count(escape.cap)}</span> entries. Never more.
                 </span>
               </p>
-              {/* On the home page the headline is Trove's own line, and the first escape follows
-                  it as the first of many, close to home and unnamed. The escape page keeps the
-                  prize as its headline, because that page is about one escape. */}
+              {/* The escape page keeps the prize as its headline here, because that page is
+                  about one escape. The home page's headline sits above the chance. */}
               {lead ? (
                 <h1 className="display hero-prize">
                   Win {numberWord(escape.nights)} nights at {venueLine(escape)}, and {gbp(escape.prize.cash)} in cash.
                 </h1>
-              ) : (
-                <>
-                  <h1 className="display hero-prize">{organisation.tagline}</h1>
-                  <p className="hero-first">
-                    {escape.destinationPublic
-                      ? `The first is in ${escape.destination}: a ${gbp(escape.prize.value)} escape.`
-                      : `Our first escape, a ${gbp(escape.prize.value)} prize close to home, is announced at launch.`}
-                  </p>
-                </>
-              )}
+              ) : null}
             </div>
             <div>
               <div className="hero-form">

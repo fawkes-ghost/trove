@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { escape as hampshire, worstCaseOdds, type Escape } from '@/config/prize';
+import { escape as hampshire, type Escape } from '@/config/prize';
 import { gbp, numberWord, sentenceCase } from '@/lib/format';
 import { countyProse, escapeName, reelStills } from '@/lib/escapes';
 import { Kicker } from '@/components/site/Kicker';
@@ -16,15 +16,14 @@ export function EscapeIntro({ escape = hampshire }: { escape?: Escape }) {
   const [lead, ...rest] = reelStills(escape);
   const [stay] = prize.description;
   // While the place is unannounced the home page is a teaser, written for a stranger with a
-  // minute to spare: what it is worth, who it is for, when, and the chance, then the one thing
-  // to do. The escape page and the key terms keep the full prize, one click away.
+  // minute to spare: what it is worth, who it is for and when, then the one thing to do. The
+  // chance is in the hero and its working in the field below, so it is not repeated here. The escape page and the key terms keep the full prize, one click away.
   const teasing = !escape.destinationPublic;
   const included = teasing
     ? [
         { term: 'Worth', detail: `${gbp(prize.value)}.` },
-        { term: 'For', detail: `You and your plus one.` },
+        { term: 'For', detail: `${sentenceCase(numberWord(escape.party))}.` },
         { term: 'When', detail: `${prize.stayWhen.split(',')[0]}.` }, // the season only; the full window is on the escape page
-        { term: 'Your chance', detail: `At least ${worstCaseOdds(escape)}.` },
       ]
     : [
         { term: 'The stay', detail: `${stay}.` },
@@ -45,7 +44,7 @@ export function EscapeIntro({ escape = hampshire }: { escape?: Escape }) {
             {teasing
               ? `Somewhere quiet and beautiful, here in the UK. Join the list and we’ll email you once, on the day we reveal it and entries open.`
               : countyProse()[0]}
-            {teasing || named ? null : ' We’ll name the hotel as soon as it gives us permission.'}
+            {teasing || named ? null : ' Named when entries open.'}
           </p>
           <dl className="mt-10 max-w-[34rem]">
             {included.map((row) => (
@@ -58,7 +57,7 @@ export function EscapeIntro({ escape = hampshire }: { escape?: Escape }) {
           <p className="rule-t flex max-w-[34rem] flex-wrap gap-x-8 gap-y-3 pt-6 text-base">
             {teasing ? (
               <Link href="#waitlist" className="link-quiet font-medium">
-                Secure your place.
+                Join the list.
               </Link>
             ) : null}
             <Link href={`/escapes/${escape.slug}`} className="link-quiet">

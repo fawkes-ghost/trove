@@ -89,7 +89,7 @@ export function HeaderShell({ wordmarkSvg, primary, groups, prize, prizeValue, o
       </div>
       <div className="col-start-3 flex items-center gap-5">
         <WaitlistLink className={`btn hidden h-10 items-center px-4 text-sm font-medium min-[900px]:inline-flex ${scrolled ? 'bg-sun text-ink' : 'border border-current'}`} data-header-cta>
-          Secure your place
+          Join the list
         </WaitlistLink>
         <Menu groups={groups} />
       </div>
