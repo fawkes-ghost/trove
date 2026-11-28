@@ -11,7 +11,8 @@ import { PromiseRibbon } from './PromiseRibbon';
 // The hero, in two voices. One giant idea first: the chance, set as wide as the screen in
 // the logo's heavy sans, because it is the one figure no other draw prints. Under it the
 // twist line (what other draws leave open, struck out, then what this one fixes), on the home
-// page Trove's tagline in the serif with the first escape in one line under it (on the escape
+// page Trove's tagline in the serif with the first escape's value under it, and no more (the
+// founder wants suspense for the waitlist, 28 November 2026) (on the escape
 // page the prize in one sentence), the signup form with one line on what signing up brings,
 // and the key terms, over the film. The rail of promises runs beneath it. The words sit in the flow at the foot of a film that is at least one screen tall
 // and taller when they need it, so on a short window the film grows rather than the words
@@ -64,7 +65,9 @@ export function Hero({ escape = hampshire, lead, sourceChannel = 'trove-hero' }:
                 <>
                   <h1 className="display hero-prize">{organisation.tagline}</h1>
                   <p className="hero-first">
-                    {escape.destinationPublic ? `The first is in ${escape.destination}` : 'The first is close to home'}: {numberWord(escape.nights)} nights at {venueLine(escape)}, and {gbp(escape.prize.cash)} in cash.
+                    {escape.destinationPublic
+                      ? `The first is in ${escape.destination}: a ${gbp(escape.prize.value)} escape.`
+                      : `The first is close to home: a ${gbp(escape.prize.value)} escape. Where is still a secret.`}
                   </p>
                 </>
               )}
