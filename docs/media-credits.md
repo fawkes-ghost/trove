@@ -56,9 +56,21 @@ its estate.
 
 ## Film
 
-`hero-countryside-placeholder-v1.mp4`, its 960-wide rendition and `hero-poster-countryside-placeholder.jpg`
-are an AI-generated stand-in: mood only, not a real place and not the venue. The footer says
-so on every page.
+Every film on the site is an AI-generated stand-in: mood only, not a real place and not the
+venue. The footer says so on every page.
+
+| File in `public/media` | What it is | Where it sits |
+| --- | --- | --- |
+| `hero-countryside-placeholder-v2.mp4` and `-960` | The countryside film, cut on 28 November 2026 from v1 with the country house and the fireplace interior taken out (both read as the venue). Seamless loop, 11.1s | Escape page hero |
+| `hero-sequence-placeholder-v1.mp4` and `-960` | The home film: countryside (v1, 0 to 8s), lions, countryside (v1, 13.5s to the end, which runs into the first frame). Fades of 0.8s. 18.3s | Home page hero only |
+| `hero-poster-countryside-placeholder.jpg` | First frame of both films | Both heroes, before the film plays and under reduced motion |
+
+The lions clip was supplied by the founder as `HERO-lions-charity-4k.mp4`. Its C2PA content
+credentials say "Created by Google Generative AI" (Google Veo), digital source type
+`trainedAlgorithmicMedia`. Real footage was considered (Artgrid, Pexels) and set aside on
+28 November 2026 on cost and quality; swap it for licensed footage when there is budget.
+Because the home film shows places that are not the first prize, it is used only on the home
+page, where the line under the tagline says the first escape is close to home.
 
 Looked for a replacement on 23 November 2026 and kept the stand-in. Pexels was searched for
 English countryside in mist, at sunrise and in winter from the air, and for Hampshire. The
