@@ -20,7 +20,7 @@ export function WhatYouWin({ escape }: { escape: Escape }) {
         <div data-reveal="group">
           <h2 className="display heading-section text-balance">What you win.</h2>
           <p className="mt-6 max-w-[26rem] text-lg" data-answer>
-            A {gbp(prize.value)} prize: the stay, and cash on top.
+            A {gbp(prize.value)} prize: the escape itself, and cash besides.
           </p>
         </div>
         <div className="max-w-[52rem]">
@@ -32,7 +32,7 @@ export function WhatYouWin({ escape }: { escape: Escape }) {
             <div className="rule-t py-8 md:rule-t-0 md:rule-l md:pl-10">
               <p className="text-sm font-medium text-ink/60">The cash</p>
               <p className="display mt-4 whitespace-nowrap text-[3rem] md:text-[3.5rem]">{gbp(prize.cash)}</p>
-              <p className="mt-3 text-base text-ink/80">Yours to spend on the trip, or on anything else.</p>
+              <p className="mt-3 text-base text-ink/80">Spend it on the journey, or on something else entirely.</p>
             </div>
           </div>
           <dl className="rule-b">
@@ -44,7 +44,7 @@ export function WhatYouWin({ escape }: { escape: Escape }) {
             ))}
           </dl>
           <p className="mt-6 text-base">
-            Rather have cash instead of the stay? You can.{' '}
+            If you would rather have cash than the escape, you can.{' '}
             <Link href="/legal/terms" className="link-quiet">
               See the terms
             </Link>

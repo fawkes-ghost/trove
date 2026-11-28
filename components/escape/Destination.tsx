@@ -1,5 +1,5 @@
 import type { Escape } from '@/config/prize';
-import { gbp, numberWord } from '@/lib/format';
+import { gbp, numberWord, sentenceCase } from '@/lib/format';
 import { countyProse, escapeTitle, reelStills, venueLine } from '@/lib/escapes';
 import Image from 'next/image';
 import { Plate, PlateCaption } from '@/components/media/Plate';
@@ -21,7 +21,7 @@ export function Destination({ escape }: { escape: Escape }) {
         <div data-reveal="group">
           <h2 className="display heading-section text-balance">{escapeTitle(escape)}.</h2>
           <p className="mt-6 max-w-[26rem] text-lg" data-answer>
-            This escape is {numberWord(escape.nights)} nights at {venueLine(escape)}{escape.destinationPublic ? `, in ${escape.destination}` : ', close to home'}.
+            {sentenceCase(numberWord(escape.nights))} nights at {venueLine(escape)}{escape.destinationPublic ? `, in ${escape.destination}` : null}, in winter.
           </p>
         </div>
         <div className="flex max-w-[38rem] flex-col gap-5 text-lg">
@@ -29,7 +29,7 @@ export function Destination({ escape }: { escape: Escape }) {
             <p key={paragraph}>{paragraph}</p>
           ))}
           <p>
-            You get {numberWord(escape.nights)} nights at {venueLine(escape)}, breakfast every morning, and {gbp(escape.prize.cash)} in cash to spend however you like.
+            It comes with breakfast each morning and {gbp(escape.prize.cash)} in cash to spend as you please.
             {named ? null : ' Named when entries open.'}
           </p>
           {named && escape.venue.description ? <p>{escape.venue.description}</p> : null}

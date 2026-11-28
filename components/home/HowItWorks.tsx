@@ -28,7 +28,7 @@ export function HowItWorks() {
         </>
       ),
     },
-    { title: 'You escape.', body: <>We offer you dates, you choose, and you go.</> },
+    { title: 'You escape.', body: <>We send you dates to choose from, and the rest is yours.</> },
   ];
   return (
     <section id="how-it-works" className="section">
