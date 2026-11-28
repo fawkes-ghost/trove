@@ -2,7 +2,7 @@
 
 import { useEffect, useState, type FormEvent } from 'react';
 import { Turnstile, TURNSTILE_SITE_KEY } from './Turnstile';
-import { readAttribution } from '@/lib/attribution';
+import { readAttribution, withShareCode } from '@/lib/attribution';
 import { ShareButton } from '@/components/share/ShareButton';
 import { trackEvent } from '@/lib/analytics';
 import { FoundingSticker } from './FoundingSticker';
@@ -46,6 +46,8 @@ export function WaitlistForm({ sourceChannel = 'trove-home', share, idPrefix = '
   // Which name field was left empty on the last submit, so only that one is marked invalid.
   const [nameGaps, setNameGaps] = useState({ first: false, last: false });
   const [resetSignal, setResetSignal] = useState(0);
+  // This person's own share code, from the function's answer, so the link they send is theirs.
+  const [shareCode, setShareCode] = useState<string | null>(null);
   const protectedByTurnstile = TURNSTILE_SITE_KEY.length > 0;
 
   useEffect(() => {
@@ -100,7 +102,7 @@ export function WaitlistForm({ sourceChannel = 'trove-home', share, idPrefix = '
         // Attribution held in sessionStorage since the first page of the visit; sent only now.
         body: JSON.stringify({ firstName, lastName, email, source_channel: sourceChannel, turnstile_token: token, ...readAttribution() }),
       });
-      const result: { success?: boolean; message?: string; error?: string } = await response.json().catch(() => ({}));
+      const result: { success?: boolean; message?: string; error?: string; referralCode?: string | null } = await response.json().catch(() => ({}));
 
       // The function answers 400 for a failed token check and for a bad email, and names
       // which. The address was already checked here, so a 400 is the email only when the
@@ -118,6 +120,7 @@ export function WaitlistForm({ sourceChannel = 'trove-home', share, idPrefix = '
         setStatus('error');
         return;
       }
+      setShareCode(result.referralCode ?? null);
       if (result.message === 'Already registered') {
         setStatus('duplicate');
         return;
@@ -241,7 +244,7 @@ export function WaitlistForm({ sourceChannel = 'trove-home', share, idPrefix = '
       {done && share && message ? (
         <div className="flex flex-col items-start gap-3 rule-t pt-4" data-waitlist-share>
           <p className="text-base">The escape is for two. Send it to the person you would take.</p>
-          <ShareButton {...share} placement="waitlist-done" className="border border-ink/25 px-5 py-3 text-base font-medium hover:border-ink" />
+          <ShareButton {...share} url={withShareCode(share.url, shareCode)} placement="waitlist-done" className="border border-ink/25 px-5 py-3 text-base font-medium hover:border-ink" />
         </div>
       ) : null}
     </form>
