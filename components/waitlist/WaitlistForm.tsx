@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { Turnstile, TURNSTILE_SITE_KEY } from './Turnstile';
 import { readAttribution, withShareCode } from '@/lib/attribution';
 import { ShareButton } from '@/components/share/ShareButton';
@@ -40,8 +40,18 @@ const FIELD = 'h-12 w-full min-w-0 border border-ink/40 bg-snow px-4 text-base t
 // wordmarkSvg is the wordmark's source, read on the server, for the sticker's tab. A page
 // can carry more than one form (the hero and the section at the foot), so the field ids take
 // a prefix.
-export function WaitlistForm({ sourceChannel = 'trove-home', share, idPrefix = 'waitlist', wordmarkSvg }: { sourceChannel?: string; share?: { title: string; text: string; url: string }; idPrefix?: string; wordmarkSvg?: string } = {}) {
+//
+// namesAfter (the hero, 28 November 2026): the form opens as the email address and the button
+// only. A valid address brings the two name fields in beneath it, and the same button then
+// sends all three in the one call, so the function and the table are unchanged.
+export function WaitlistForm({ sourceChannel = 'trove-home', share, idPrefix = 'waitlist', wordmarkSvg, namesAfter = false }: { sourceChannel?: string; share?: { title: string; text: string; url: string }; idPrefix?: string; wordmarkSvg?: string; namesAfter?: boolean } = {}) {
   const [status, setStatus] = useState<Status>('idle');
+  // With namesAfter, the names stay out of the way until a valid email address is in.
+  const [askNames, setAskNames] = useState(!namesAfter);
+  const firstNameRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    if (namesAfter && askNames) firstNameRef.current?.focus();
+  }, [namesAfter, askNames]);
   const [token, setToken] = useState<string | null>(null);
   // Which name field was left empty on the last submit, so only that one is marked invalid.
   const [nameGaps, setNameGaps] = useState({ first: false, last: false });
@@ -69,6 +79,17 @@ export function WaitlistForm({ sourceChannel = 'trove-home', share, idPrefix = '
     const email = String(data.get('email') ?? '')
       .trim()
       .toLowerCase();
+
+    // First step of the hero form: the address alone, then the names.
+    if (!askNames) {
+      if (!EMAIL.test(email)) {
+        setStatus('invalid');
+        return;
+      }
+      setStatus('idle');
+      setAskNames(true);
+      return;
+    }
 
     if (!firstName || !lastName) {
       setNameGaps({ first: !firstName, last: !lastName });
@@ -128,6 +149,7 @@ export function WaitlistForm({ sourceChannel = 'trove-home', share, idPrefix = '
       // The edge function has sent the confirmation email by the time it answers.
       setStatus('ok');
       form.reset();
+      if (namesAfter) setAskNames(false);
       trackEvent('waitlist_signup', { source_channel: sourceChannel });
     } catch {
       setStatus('error');
@@ -149,13 +171,17 @@ export function WaitlistForm({ sourceChannel = 'trove-home', share, idPrefix = '
       {done ? <FoundingSticker celebrate={status === 'ok'} wordmarkSvg={wordmarkSvg} /> : null}
       {!done ? (
         <>
-          <div className="flex max-w-[34rem] flex-col gap-3" data-waitlist-fields>
+          <div className="flex max-w-[34rem] flex-col gap-3" data-waitlist-fields data-waitlist-step={askNames ? 'names' : 'email'}>
+            {/* With namesAfter the names arrive once the address is in, above it, so the
+                button stays where the visitor's eye already is. */}
+            {askNames ? (
             <div className="grid grid-cols-2 gap-3" data-waitlist-names>
               <div>
                 <label htmlFor={`${idPrefix}-first-name`} className="sr-only">
                   First name
                 </label>
                 <input
+                  ref={firstNameRef}
                   id={`${idPrefix}-first-name`}
                   name="firstName"
                   type="text"
@@ -192,6 +218,7 @@ export function WaitlistForm({ sourceChannel = 'trove-home', share, idPrefix = '
                 />
               </div>
             </div>
+            ) : null}
             <div className="flex flex-col gap-3 md:flex-row" data-waitlist-email-row>
               <label htmlFor={`${idPrefix}-email`} className="sr-only">
                 Email address
