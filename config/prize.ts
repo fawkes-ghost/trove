@@ -252,8 +252,8 @@ export type Film = Pick<Escape['media'], 'poster' | 'posterAlt' | 'loop' | 'loop
 export const homeFilm: Film = {
   poster: escape.media.poster, // the sequence opens on the countryside film's first frame
   posterAlt: 'Mist over a wooded valley at sunrise, bare winter trees under a low sun. An AI-generated placeholder, not a real place.',
-  loop: '/media/hero-sequence-placeholder-v1.mp4', // 1600x900, 18.3s, silent, seamless: countryside, lions, countryside; 5.8MB
-  loopSmall: '/media/hero-sequence-placeholder-v1-960.mp4', // the same film at 960x540, CRF 30, 2.4MB
+  loop: '/media/hero-sequence-placeholder-v2.mp4', // 1600x900, 12.1s, silent: six hard cuts of about 2s (valley, river, frost, lions, cub, dawn fields); 4.3MB
+  loopSmall: '/media/hero-sequence-placeholder-v2-960.mp4', // the same film at 960x540, CRF 30, 1.6MB
 };
 
 export type Mini = Omit<Escape, 'nights' | 'party' | 'venue'> & { escapeSlug: string };
