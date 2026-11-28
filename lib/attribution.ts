@@ -5,11 +5,28 @@ export type Attribution = {
   utm_content: string | null;
   referrer: string | null;
   landing_path: string | null;
+  // The share code of the friend whose link brought this visitor, if any. Recorded so we can
+  // see how far one founding friend's link travels. Nothing is given for it.
+  ref: string | null;
 };
 
 export const ATTRIBUTION_KEY = 'trove:attribution';
 
-const empty: Attribution = { utm_source: null, utm_medium: null, utm_campaign: null, utm_content: null, referrer: null, landing_path: null };
+const empty: Attribution = { utm_source: null, utm_medium: null, utm_campaign: null, utm_content: null, referrer: null, landing_path: null, ref: null };
+
+// Share codes are eight letters and digits (made by the waitlist-signup function); anything
+// else is dropped rather than stored.
+function shareCode(value: string | null): string | null {
+  const code = (value ?? '').trim().toUpperCase();
+  return /^[A-Z0-9]{6,12}$/.test(code) ? code : null;
+}
+
+// Adds the visitor's own share code to a link they are about to send.
+export function withShareCode(url: string, code: string | null): string {
+  const valid = shareCode(code);
+  if (!valid) return url;
+  return `${url}${url.includes('?') ? '&' : '?'}ref=${valid}`;
+}
 
 function clean(value: string | null): string | null {
   const trimmed = (value ?? '').trim().slice(0, 200);
@@ -30,6 +47,7 @@ export function captureAttribution(): void {
       utm_content: clean(params.get('utm_content')),
       referrer: clean(document.referrer),
       landing_path: clean(window.location.pathname),
+      ref: shareCode(params.get('ref')),
     };
     window.sessionStorage.setItem(ATTRIBUTION_KEY, JSON.stringify(record));
   } catch {

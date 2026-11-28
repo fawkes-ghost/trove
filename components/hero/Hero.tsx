@@ -6,6 +6,7 @@ import { wordmarkSource } from '@/components/brand/Marks';
 import { ComplianceStrip } from '@/components/site/ComplianceStrip';
 import { WaitlistForm } from '@/components/waitlist/WaitlistForm';
 import { HeroFilm } from './HeroFilm';
+import { shareCopy } from '@/lib/share';
 import { PromiseRibbon } from './PromiseRibbon';
 
 // The hero, in two voices. One giant idea first: the chance, set as wide as the screen in
@@ -75,7 +76,7 @@ export function Hero({ escape = hampshire, lead, sourceChannel = 'trove-hero', f
             </div>
             <div>
               <div className="hero-form">
-                <WaitlistForm sourceChannel={sourceChannel} idPrefix="hero-waitlist" wordmarkSvg={wordmarkSource()} />
+                <WaitlistForm sourceChannel={sourceChannel} idPrefix="hero-waitlist" wordmarkSvg={wordmarkSource()} share={shareCopy(escape, lead ? `/escapes/${escape.slug}` : '/')} />
               </div>
               {escape.status === 'open' ? null : (
                 <p className="hero-note">We’ll email you once, on the day entries open. Nothing to pay today.</p>
