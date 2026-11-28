@@ -71,7 +71,7 @@ export function Hero({ escape = hampshire, lead, sourceChannel = 'trove-hero', f
             </div>
             <div>
               <div className="hero-form">
-                <WaitlistForm sourceChannel={sourceChannel} idPrefix="hero-waitlist" namesAfter wordmarkSvg={wordmarkSource()} share={shareCopy(escape, lead ? `/escapes/${escape.slug}` : '/')} />
+                <WaitlistForm sourceChannel={sourceChannel} idPrefix="hero-waitlist" theme="dark" wordmarkSvg={wordmarkSource()} share={shareCopy(escape, lead ? `/escapes/${escape.slug}` : '/')} />
               </div>
               {escape.status === 'open' ? null : (
                 <p className="hero-note">We’ll write to you once, on the morning entries open. There is nothing to pay today.</p>
