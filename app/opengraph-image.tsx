@@ -11,6 +11,8 @@ export const alt = gated ? 'Trove' : `Trove. ${escapeTitle(escape)}. The escape,
 export const size = shareCardSize;
 export const contentType = 'image/png';
 
+// Card design of 28 November 2026 (quiet register). Editing this file changes the image's
+// URL hash, which makes WhatsApp and other apps fetch the new card instead of a cached one.
 // Open: the home page shares the open escape's card, because on a social feed the prize is the point.
 export default function Image() {
   return gated ? logoCard() : shareCard(escape);
