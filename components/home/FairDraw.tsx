@@ -45,12 +45,12 @@ export function FairDraw({ escape = hampshire }: { escape?: Escape }) {
   return (
     <section id="fair-draw" className="section bg-cloud">
       <div className="sheet" data-reveal="item">
-        <h2 className="display heading-section text-balance">How we keep it fair.</h2>
+        <h2 className="display heading-section text-balance">Every entry has the same chance, and we show you how.</h2>
         <dl className="sheet-rows mt-10">
           {rows.map((row) => (
             <div key={row.promise}>
               <dt>
-                <span className="figure figure-marked inline-block whitespace-nowrap">{row.promise}</span>
+                <span className="display inline-block whitespace-nowrap">{row.promise}</span>
               </dt>
               <dd className="max-w-[36rem] text-base text-ink/80">{row.meaning}</dd>
             </div>

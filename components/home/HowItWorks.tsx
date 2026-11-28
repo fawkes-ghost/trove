@@ -9,7 +9,7 @@ import { freePostalRoute } from '@/lib/routes';
 export function HowItWorks() {
   const steps = [
     {
-      title: 'Choose your entries.',
+      title: 'You choose how many entries.',
       body: (
         <>
           Pay online, or{' '}
@@ -21,14 +21,14 @@ export function HowItWorks() {
       ),
     },
     {
-      title: 'We draw one winner.',
+      title: 'We draw one winner at random.',
       body: (
         <>
-          When the entries are gone, or on the closing date, we pick one at random.
+          When the entries are gone, or on the closing date, whichever comes first.
         </>
       ),
     },
-    { title: 'You escape.', body: <>We send you dates to choose from, and the rest is yours.</> },
+    { title: 'The winner goes away.', body: <>We send you dates to choose from, and the rest is yours.</> },
   ];
   return (
     <section id="how-it-works" className="section">

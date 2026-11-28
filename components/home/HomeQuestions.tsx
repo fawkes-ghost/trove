@@ -21,7 +21,7 @@ export function HomeQuestions({ escape = hampshire }: { escape?: Escape }) {
     <section id="questions" className="rule-t section">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />
       <div className="max-w-[44rem]">
-        <h2 data-reveal="item" className="display text-balance heading-section">Fair questions.</h2>
+        <h2 data-reveal="item" className="display text-balance heading-section">Questions people ask us.</h2>
         <div className="mt-8 flex flex-col">
           {picked.map(({ question, answer }) => (
             <details key={question} className="group rule-t py-5">
