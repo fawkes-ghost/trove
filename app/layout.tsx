@@ -4,6 +4,7 @@ import { DM_Sans, Newsreader } from 'next/font/google';
 import { escape } from '@/config/prize';
 
 import { siteUrl } from '@/lib/site';
+import { organisation } from '@/config/organisation';
 import { ConsentBanner } from '@/components/consent/ConsentBanner';
 import { Analytics } from '@/components/consent/Analytics';
 import { AttributionCapture } from '@/components/attribution/AttributionCapture';
@@ -31,8 +32,8 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: { default: 'Trove', template: '%s · Trove' },
-  description: 'Win a luxury escape in the UK. One winner per draw, a fixed number of entries so you know your chances before you enter, and free entry by post.',
+  title: { default: `Trove · ${organisation.tagline.replace(/\.$/, '')}`, template: '%s · Trove' },
+  description: `${organisation.tagline} Luxury UK escapes, one winner per draw, a fixed number of entries so you know your chances before you enter, and free entry by post.`,
   alternates: { canonical: '/' },
   openGraph: { siteName: 'Trove', type: 'website', locale: 'en_GB' },
   twitter: { card: 'summary_large_image' },

@@ -3,6 +3,9 @@
 // lives in lib/site.ts and is read from there.
 export const organisation = {
   name: 'Trove',
+  // The brand line (chosen 28 November 2026). It says nothing about the giving, so wherever it
+  // shows, the charity share sits beside it.
+  tagline: 'Win wild escapes.',
   legalName: 'Trove Wild Limited' as string | null, // the registered company name
   companyNumber: '17524782' as string | null,     // Companies House, England and Wales
   address: {                                 // the registered office, as filed at Companies House
