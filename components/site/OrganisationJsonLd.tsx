@@ -10,6 +10,7 @@ export function OrganisationJsonLd() {
     '@type': 'Organization',
     '@id': `${siteUrl}/#organization`,
     name: organisation.name,
+    slogan: organisation.tagline,
     url: siteUrl,
     logo: { '@type': 'ImageObject', url: `${siteUrl}/brand/trove-logo.png`, width: 1600, height: 433 },
     // No figure here: it is on every page, the holding page included, and the share is under review.

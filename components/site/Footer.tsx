@@ -4,6 +4,7 @@ import { organisation } from '@/config/organisation';
 import { launch } from '@/config/launch';
 import { routes, freePostalRoute, signposting, type Route } from '@/lib/routes';
 import { Wordmark } from '@/components/brand/Marks';
+import { percent } from '@/lib/format';
 import { ComplianceStrip } from './ComplianceStrip';
 
 // Loch block. Four groups of links, the signposting and the key terms, then a plain account
@@ -107,6 +108,13 @@ export function Footer() {
             ) : null}
           </p>
         ) : null}
+      </div>
+      {/* The brand line, sitting on the wordmark it belongs to. It says nothing about the
+          giving, so the giving share is the line straight under it. It names no place: the
+          waitlist speaks for Trove as a whole, not one escape. */}
+      <div className="flex flex-col gap-2 px-[var(--gutter)]" data-tagline>
+        <p className="font-serif text-[clamp(2rem,6vw,3.5rem)] leading-[1.05] tracking-[-0.02em]">{organisation.tagline}</p>
+        <p className="max-w-[36rem] text-base text-snow/85">{percent(escape.charity.shareOfGross)} of every paid entry goes to local causes where the escape is.</p>
       </div>
       {/* The wordmark as big as the page allows: edge to edge, sitting on the foot of the
           page, the sun in its own colour on the loch. */}
