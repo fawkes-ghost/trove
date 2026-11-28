@@ -335,15 +335,15 @@ def build():
 <section id="brand"><div class="wrap">
 <p class="label">The brand</p>
 <h2>A prize draw you can check.</h2>
-<p class="lead">Trove is a UK prize draw for luxury escapes. Each draw has one escape, one winner and a fixed number of entries. Fifteen per cent of entry sales goes to community and countryside causes where the escape is. That share is why Trove exists.</p>
+<p class="lead">Trove is a UK prize draw for luxury escapes. Each draw has one escape, one winner and a fixed number of entries. Fifteen per cent of every paid entry goes to community and countryside causes where the escape is. That share is why Trove exists.</p>
 <div class="cols">
 <div><b class="t">Fair.</b><p>Entries are capped, so the worst chance of winning is published before anyone pays. Entry by post is free and has the same chance. Every draw has a winner.</p></div>
-<div><b class="t">Generous.</b><p>Fifteen pence of every pound goes to causes at the destination. We say where it went after each draw.</p></div>
-<div><b class="t">Worth winning.</b><p>A suite in a country house, not the basic room. The film and photographs do the selling. The words say exactly what the prize is.</p></div>
+<div><b class="t">Generous.</b><p>Fifteen pence of every pound paid to enter goes to causes at the destination. We say where it went after each draw.</p></div>
+<div><b class="t">Worth winning.</b><p>Places most of us would never book for ourselves. The film and photographs do the selling. The words say exactly what the prize is.</p></div>
 </div>
 <div class="cols two">
 <div><b class="t">Who it is for.</b><p>Adults in the UK who would love the escape and want to know their chances before they enter. Always 18 and over.</p></div>
-<div><b class="t">How it should feel.</b><p>Fun and high end at once. Warm, plain and exact. Closer to a good travel magazine than to a competition site.</p></div>
+<div><b class="t">How it should feel.</b><p>Calm and high end, warm in the prose and exact in the facts. Closer to a good travel magazine than to a competition site.</p></div>
 </div>
 <h3>What Trove never does.</h3>
 <ul class="plain">
@@ -476,7 +476,7 @@ def build():
 <h2>Three things that need a yes or a no.</h2>
 <ul class="plain">
 <li><b>Two near-blacks.</b> The icon’s tile is drawn in {TILE}, a shade deeper than the ink ({INK}) used for text and the wordmark. The kit keeps the icon as drawn. The alternative is to redraw the tile in ink.</li>
-<li><b>No line under the logo.</b> Covers and merchandise carry the logo only. A strapline would need writing, and any line that promotes the draw needs the key terms one click away.</li>
+<li><b>The tagline under the logo.</b> The tagline is “Win wild escapes.” Covers and merchandise carry the logo only for now. Whether the tagline sits under the logo on covers is open, and any line that promotes the draw needs the key terms one click away.</li>
 <li><b>Print matches.</b> Pantone and thread references are not chosen here. Pick them against a printed proof with the first supplier, then add them to this page.</li>
 </ul>
 </div></section>
