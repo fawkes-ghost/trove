@@ -1,3 +1,4 @@
+// Card design of 28 November 2026 (quiet register); a change here gives the image a new URL.
 import { escapes, getEscape } from '@/lib/escapes';
 import { escape as fallback } from '@/config/prize';
 import { shareCard, shareCardSize } from '@/lib/share-card';
