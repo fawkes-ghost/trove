@@ -26,6 +26,7 @@ export function OddsSection({ escape = hampshire }: { escape?: Escape }) {
               </span>
             ))}
           </p>
+          <p className="mt-6 max-w-[28rem] text-base text-ink/70">That’s if every entry sells. If fewer sell, your chance is better.</p>
         </div>
       </FieldMotion>
     </section>

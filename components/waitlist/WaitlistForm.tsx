@@ -214,7 +214,7 @@ export function WaitlistForm({ sourceChannel = 'trove-home', share, idPrefix = '
                 disabled={status === 'sending'}
                 className="btn h-12 shrink-0 bg-accent px-6 text-base font-medium text-ink disabled:opacity-60"
               >
-                {status === 'sending' ? 'Securing' : 'Secure your place'}
+                {status === 'sending' ? 'Joining' : 'Join the list'}
               </button>
             </div>
           </div>

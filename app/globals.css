@@ -358,6 +358,13 @@ html[data-motion="full"] .hero-twist-in {
   line-height: 1.1;
   text-wrap: balance;
 }
+/* The home page's headline and first escape, above the chance. */
+.hero-desire {
+  margin-bottom: clamp(1rem, 3.5svh, 2.25rem);
+}
+.hero-desire .hero-prize {
+  margin-top: 0;
+}
 .hero-first {
   max-width: 36rem;
   margin-top: 0.6rem;

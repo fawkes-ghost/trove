@@ -83,7 +83,7 @@ export function EntryChooser({ options, open, postal, flow }: Props) {
             Enter
           </button>
         ) : (
-          <WaitlistLink className="btn inline-flex h-12 shrink-0 items-center justify-center bg-sun px-7 text-base font-medium text-ink">Secure your place</WaitlistLink>
+          <WaitlistLink className="btn inline-flex h-12 shrink-0 items-center justify-center bg-sun px-7 text-base font-medium text-ink">Join the list</WaitlistLink>
         )}
       </div>
       {!open ? <p className="mt-4 text-sm text-ink/70">Entries aren’t open yet. Founding friends hear first, and enter before the public.</p> : null}

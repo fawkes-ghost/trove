@@ -30,7 +30,7 @@ export function Destination({ escape }: { escape: Escape }) {
           ))}
           <p>
             You get {numberWord(escape.nights)} nights at {venueLine(escape)}, breakfast every morning, and {gbp(escape.prize.cash)} in cash to spend however you like.
-            {named ? null : ' We’ll name the hotel as soon as it gives us permission.'}
+            {named ? null : ' Named when entries open.'}
           </p>
           {named && escape.venue.description ? <p>{escape.venue.description}</p> : null}
           <p>Bring boots and someone you like.</p>
