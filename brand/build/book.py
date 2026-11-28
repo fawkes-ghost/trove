@@ -322,28 +322,28 @@ def build():
 </defs></svg>'''
     return f'''<title>Trove Brand Book</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,800&family=Newsreader:opsz,wght@6..72,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,800&family=Newsreader:opsz,wght@6..72,300;6..72,400&display=swap">
 <style>{CSS}</style>
 {defs}
 <header class="cover"><div class="wrap">
 {wm_svg('var(--fg)', SUN)}
 <p class="lede">The wordmark, the icon, the colours and how to use them, from a favicon to a tote bag.</p>
-<p class="meta">Brand book, version 1.1. 23 November 2026. Built from the live site and the marks in <code>public/brand</code>.</p>
+<p class="meta">Brand book, version 1.2. 28 November 2026. Built from the live site and the marks in <code>public/brand</code>.</p>
 <nav class="toc" aria-label="Sections"><a href="#brand">The brand</a><a href="#voice">Voice</a><a href="#logo">The logo</a><a href="#colourways">Colourways</a><a href="#colour">Colour</a><a href="#type">Type</a><a href="#misuse">Misuse</a><a href="#platforms">Platforms</a><a href="#merchandise">Merchandise</a><a href="#kit">The kit</a><a href="#decide">To decide</a></nav>
 </div></header>
 
 <section id="brand"><div class="wrap">
 <p class="label">The brand</p>
 <h2>A prize draw you can check.</h2>
-<p class="lead">Trove is a UK prize draw for luxury escapes. Each draw has one escape, one winner and a fixed number of entries. Fifteen per cent of entry sales goes to community and countryside causes where the escape is. That share is why Trove exists.</p>
+<p class="lead">Trove is a UK prize draw for luxury escapes. Each draw has one escape, one winner and a fixed number of entries. Fifteen per cent of every paid entry goes to community and countryside causes where the escape is. That share is why Trove exists.</p>
 <div class="cols">
 <div><b class="t">Fair.</b><p>Entries are capped, so the worst chance of winning is published before anyone pays. Entry by post is free and has the same chance. Every draw has a winner.</p></div>
-<div><b class="t">Generous.</b><p>Fifteen pence of every pound goes to causes at the destination. We say where it went after each draw.</p></div>
-<div><b class="t">Worth winning.</b><p>A suite in a country house, not the basic room. The film and photographs do the selling. The words say exactly what the prize is.</p></div>
+<div><b class="t">Generous.</b><p>Fifteen pence of every pound paid to enter goes to causes at the destination. We say where it went after each draw.</p></div>
+<div><b class="t">Worth winning.</b><p>Places most of us would never book for ourselves. The film and photographs do the selling. The words say exactly what the prize is.</p></div>
 </div>
 <div class="cols two">
 <div><b class="t">Who it is for.</b><p>Adults in the UK who would love the escape and want to know their chances before they enter. Always 18 and over.</p></div>
-<div><b class="t">How it should feel.</b><p>Fun and high end at once. Warm, plain and exact. Closer to a good travel magazine than to a competition site.</p></div>
+<div><b class="t">How it should feel.</b><p>Calm and high end, warm in the prose and exact in the facts. Closer to a good travel magazine than to a competition site.</p></div>
 </div>
 <h3>What Trove never does.</h3>
 <ul class="plain">
@@ -357,9 +357,12 @@ def build():
 
 <section id="voice" class="band"><div class="wrap">
 <p class="label">Voice</p>
-<h2>Say it the way you would to a customer.</h2>
-<p class="lead">Lead with the fact or the benefit. Short sentences. The pictures carry the longing, the words carry the facts.</p>
+<h2>Luxury prose, plain facts.</h2>
+<p class="lead">The escape and the brand are written the way a good travel editor writes: warm, unhurried full sentences, the place or the season first, one true detail, a long line then a short one. The figures, the chance, the cap, the age limit, free entry by post and the key terms stay plain and exact. Luxury is what you win, not how you are spoken to.</p>
 <ul class="plain">
+<li>Write in full sentences, with “we” and “you”. Invite, never urge.</li>
+<li>No stacked fragments, no lists of three, no “not just X”. Leave out quiet, beautiful, nestled, curated, sanctuary and remarkable.</li>
+<li>Never describe a feature of the prize that the terms do not promise.</li>
 <li>Sentence case everywhere, buttons included. Full stops on headlines.</li>
 <li>No exclamation marks and no dashes. Use commas, colons and full stops.</li>
 <li>Entries, not tickets. Escape, not holiday or stay. Founding friends, not members.</li>
@@ -371,7 +374,7 @@ def build():
 <div><span class="h">Trove says</span><span class="h">Trove does not say</span></div>
 <div><span class="yes">Become a founding friend.</span><span class="not">Join our exclusive members’ club!</span></div>
 <div><span class="yes">How we keep it fair.</span><span class="not">Our commitment to transparency</span></div>
-<div><span class="yes">Three nights away, for two.</span><span class="not">An unforgettable luxury getaway</span></div>
+<div><span class="yes">We’re beginning in the English countryside, in winter.</span><span class="not">An unforgettable luxury getaway</span></div>
 <div><span class="yes">Confirm your place.</span><span class="not">Click here to verify your email address</span></div>
 </div>
 </div></section>
@@ -414,10 +417,10 @@ def build():
 <section id="type" class="band"><div class="wrap">
 <p class="label">Type</p>
 <h2>Two faces, two voices.</h2>
-<p class="lead">Newsreader says things. DM Sans does everything else, and at its heaviest it makes the promises. In email, where web fonts do not load, Georgia and Arial stand in.</p>
+<p class="lead">Newsreader says things: the headlines at 400, and the chance in the hero at a lighter 300, stated once and calmly. DM Sans carries everything else at ordinary weights. In email, where web fonts do not load, Georgia and Arial stand in.</p>
 <div class="type">
-<div><p class="big serif">Three nights away, for two.</p><p>Newsreader 400. Headlines and statements, in sentence case with a full stop.</p></div>
-<div><p class="big heavy">15%</p><p>DM Sans 800. The chance, the cap and the share that is given. Figures only.</p></div>
+<div><p class="big serif">How we keep it fair.</p><p>Newsreader 400. Headlines and statements, in sentence case with a full stop.</p></div>
+<div><p class="big serif" style="font-weight:300">1 in the cap.</p><p>Newsreader 300. The chance in the hero, said once, never shouted. Figures come from the draw’s settings.</p></div>
 <div><p class="big" style="font-size:1.25rem;line-height:1.5;letter-spacing:0">We’ll email you once, on the day entries open. Nothing to pay today.</p><p>DM Sans 400 and 500. Text, buttons, labels and small print.</p></div>
 </div>
 </div></section>
@@ -473,7 +476,7 @@ def build():
 <h2>Three things that need a yes or a no.</h2>
 <ul class="plain">
 <li><b>Two near-blacks.</b> The icon’s tile is drawn in {TILE}, a shade deeper than the ink ({INK}) used for text and the wordmark. The kit keeps the icon as drawn. The alternative is to redraw the tile in ink.</li>
-<li><b>No line under the logo.</b> Covers and merchandise carry the logo only. A strapline would need writing, and any line that promotes the draw needs the key terms one click away.</li>
+<li><b>The tagline under the logo.</b> The tagline is “Win wild escapes.” Covers and merchandise carry the logo only for now. Whether the tagline sits under the logo on covers is open, and any line that promotes the draw needs the key terms one click away.</li>
 <li><b>Print matches.</b> Pantone and thread references are not chosen here. Pick them against a printed proof with the first supplier, then add them to this page.</li>
 </ul>
 </div></section>
