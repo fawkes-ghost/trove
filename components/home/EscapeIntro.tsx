@@ -3,7 +3,8 @@ import { escape as hampshire, type Escape } from '@/config/prize';
 import { gbp, numberWord, sentenceCase } from '@/lib/format';
 import { countyProse, escapeName, reelStills } from '@/lib/escapes';
 import { Kicker } from '@/components/site/Kicker';
-import { Plate } from '@/components/media/Plate';
+import Image from 'next/image';
+import { Plate, PlateCaption } from '@/components/media/Plate';
 
 // The escape: what it is, where it is and what is included, beside its photographs. Words in
 // a narrow column on the left; on the right one wide photograph with the other two side by
@@ -32,21 +33,26 @@ export function EscapeIntro({ escape = hampshire }: { escape?: Escape }) {
         { term: 'Prize value', detail: `${gbp(prize.value)}.` },
       ];
 
+  // More room (28 November 2026): the words come first in the split, heading and sentence on
+  // the left and the facts on the right, then the lead photograph runs the full width of the
+  // window, with the other two side by side beneath it, as on the escape page.
   return (
-    <section id="destination" className="section">
-      <div className="grid gap-12 min-[900px]:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] min-[900px]:items-start min-[900px]:gap-[clamp(2.5rem,5vw,5rem)]">
+    <section id="destination">
+      <div className="section split">
         <div data-reveal="group">
           <Kicker>{teasing ? 'The first escape.' : 'The escape.'}</Kicker>
           <h2 className="display heading-section mt-6 text-balance">
             {teasing ? 'We’re beginning in the English countryside, in winter.' : `${sentenceCase(numberWord(escape.nights))} nights away, for ${numberWord(escape.party)}.`}
           </h2>
-          <p className="mt-8 max-w-[34rem] text-lg" data-answer>
+        </div>
+        <div className="max-w-[36rem]">
+          <p className="text-lg" data-answer>
             {teasing
               ? `A country hotel in England, for you and someone you’d like to take, at the time of year when it is good to be somewhere warm with nowhere to be. We’ll name it on the morning entries open, and write to you then, once.`
               : countyProse()[0]}
             {teasing || named ? null : ' Named when entries open.'}
           </p>
-          <dl className="mt-10 max-w-[34rem]">
+          <dl className="mt-10">
             {included.map((row) => (
               <div key={row.term} className="rule-t grid grid-cols-[6.5rem_minmax(0,1fr)] gap-4 py-4 text-base">
                 <dt className="text-ink/60">{row.term}</dt>
@@ -54,7 +60,7 @@ export function EscapeIntro({ escape = hampshire }: { escape?: Escape }) {
               </div>
             ))}
           </dl>
-          <p className="rule-t flex max-w-[34rem] flex-wrap gap-x-8 gap-y-3 pt-6 text-base">
+          <p className="rule-t flex flex-wrap gap-x-8 gap-y-3 pt-6 text-base">
             {teasing ? (
               <Link href="#waitlist" className="link-quiet font-medium">
                 Join the list.
@@ -65,19 +71,22 @@ export function EscapeIntro({ escape = hampshire }: { escape?: Escape }) {
             </Link>
           </p>
         </div>
-        {lead ? (
-          <div className="grid gap-6">
-            <Plate still={lead} ratio="aspect-[3/2]" sizes="(min-width: 900px) 56vw, 100vw" />
-            {rest.length ? (
-              <div className="grid gap-6 sm:grid-cols-2">
-                {rest.slice(0, 2).map((still) => (
-                  <Plate key={still.src} still={still} ratio="aspect-[3/2]" sizes="(min-width: 900px) 28vw, (min-width: 640px) 50vw, 100vw" />
-                ))}
-              </div>
-            ) : null}
-          </div>
-        ) : null}
       </div>
+      {lead ? (
+        <figure className="m-0" data-photograph>
+          <div className="relative h-[56svh] min-h-[20rem] overflow-clip bg-loch md:h-[82svh]">
+            <Image src={lead.src} alt={lead.alt} fill sizes="100vw" className="panel-media object-cover" placeholder={lead.blur ? 'blur' : 'empty'} blurDataURL={lead.blur} draggable={false} />
+          </div>
+          <PlateCaption title={lead.title} caption={lead.caption} className="px-[var(--gutter)]" />
+        </figure>
+      ) : null}
+      {rest.length ? (
+        <div className="grid gap-6 px-[var(--gutter)] pt-10 sm:grid-cols-2 md:gap-10 md:pt-16">
+          {rest.slice(0, 2).map((still) => (
+            <Plate key={still.src} still={still} ratio="aspect-[4/5]" sizes="(min-width: 640px) 50vw, 100vw" />
+          ))}
+        </div>
+      ) : null}
     </section>
   );
 }

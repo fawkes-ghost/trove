@@ -19,14 +19,17 @@
   /* The spacing scale. Every section, page head and strip sits on these and nothing else. */
   --gutter: 1.5rem;
   --space-strip: 1.5rem;
-  --space-section: 4rem;
-  --space-page-top: 7rem;
+  --space-section: 6rem;
+  --space-page-top: 8rem;
 }
+/* More room (28 November 2026, the founder's pick): sections sit about half as far apart
+   again as before, and the side margins grow with the window, so each idea has a page to
+   itself, the way a hotel brochure or a good magazine spreads out. */
 @media (min-width: 768px) {
   :root {
-    --gutter: 2.5rem;
-    --space-section: 8rem;
-    --space-page-top: 9rem;
+    --gutter: clamp(2.5rem, 5vw, 5rem);
+    --space-section: clamp(9rem, 13vw, 13rem);
+    --space-page-top: 11rem;
   }
 }
 
@@ -148,8 +151,15 @@ body {
    moderate size with air around them, the way a good hotel's stationery does, so the one
    loud thing on a page (the chance, in the hero) stays the only loud thing. */
 .heading-section {
-  font-size: clamp(2rem, 3.4vw, 3rem);
-  line-height: 1.04;
+  font-size: clamp(2.25rem, 4.4vw, 4.25rem);
+  font-weight: 300;
+  line-height: 1.06;
+  letter-spacing: -0.026em;
+}
+/* Prose in the house register reads slowly: a generous line height on the larger text. */
+.section p.text-lg,
+.section dd {
+  line-height: 1.65;
 }
 /* A link that is not a call to action: its own line under it, nothing else. */
 .link-quiet {
