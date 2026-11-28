@@ -3,7 +3,7 @@ import path from 'node:path';
 import { ImageResponse } from 'next/og';
 import { compliance, worstCaseOdds, type Escape } from '@/config/prize';
 import { count } from '@/lib/format';
-import { escapeTitle, prizeLine } from '@/lib/escapes';
+import { escapeTitle, teaserLine } from '@/lib/escapes';
 
 export const shareCardSize = { width: 1200, height: 630 };
 
@@ -46,7 +46,7 @@ async function googleFont(family: string, text: string): Promise<ArrayBuffer | n
 export async function shareCard(e: Escape): Promise<ImageResponse> {
   const kicker = `${escapeTitle(e)}. Your chance of winning is at least`;
   const number = `${worstCaseOdds(e)}.`;
-  const prize = prizeLine(e);
+  const prize = teaserLine(e);
   const cap = `${count(e.cap)} entries. Never more.`;
   const strip = `${compliance.minimumAge}+. ${compliance.residency} residents. Free entry by post, same chance. Key terms at trovewild.com.`;
 

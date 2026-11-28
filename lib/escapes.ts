@@ -28,6 +28,14 @@ export function prizeLineShort(e: Escape): string {
   return `${sentenceCase(numberWord(e.nights))} nights and ${gbp(e.prize.cash)} in cash. A ${gbp(e.prize.value)} prize.`;
 }
 
+// The prize as a teaser, for the surfaces a stranger meets first (the header bar, the home
+// page, share previews) while the place is unannounced: the value and who it is for, and no
+// more. The founder's call (28 November 2026): build suspense for the waitlist. The escape
+// page and the key terms still give the full prize, one click away.
+export function teaserLine(e: Escape): string {
+  return e.destinationPublic ? prizeLine(e) : `A ${gbp(e.prize.value)} escape for ${numberWord(e.party)}, announced at launch.`;
+}
+
 // The prize in one line, for the hero, the escape card and the holding page.
 export function prizeLine(e: Escape): string {
   return `${sentenceCase(numberWord(e.nights))} nights for you and your plus one, and ${gbp(e.prize.cash)} in cash. A ${gbp(e.prize.value)} prize.`;
