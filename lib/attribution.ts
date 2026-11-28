@@ -45,3 +45,28 @@ export function readAttribution(): Attribution {
     return empty;
   }
 }
+
+// GA4 config fields that restore the session's campaign when the tag loads on a page that
+// no longer carries it. Empty when the current address still has its own tags (GA reads
+// those itself) or when nothing was captured. Returned as JSON safe to place inside an
+// inline script: every < is escaped, so no value can close the script element.
+export function campaignConfig(): string {
+  try {
+    if (new URLSearchParams(window.location.search).get('utm_source')) return '{}';
+    const a = readAttribution();
+    const fields: Record<string, string> = {};
+    if (a.utm_source) {
+      fields.campaign_source = a.utm_source;
+      if (a.utm_medium) fields.campaign_medium = a.utm_medium;
+      if (a.utm_campaign) fields.campaign_name = a.utm_campaign;
+      if (a.utm_content) fields.campaign_content = a.utm_content;
+    }
+    if (a.referrer) {
+      const external = new URL(a.referrer).origin !== window.location.origin;
+      if (external) fields.page_referrer = a.referrer;
+    }
+    return JSON.stringify(fields).replace(/</g, '\\u003c');
+  } catch {
+    return '{}';
+  }
+}
