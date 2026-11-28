@@ -25,8 +25,8 @@ export function Footer() {
   const status = [
     escape.status === 'open' ? null : 'Entries are not open yet, and no payment is taken on this site.',
     launch.termsInForce ? null : 'The terms, key terms and policies are drafts for solicitor review and are not yet in force.',
-    escape.venue.permissionGranted ? null : 'The house is named once it has given its written permission.',
-    launch.imageryLicensed ? null : 'The film is an AI-generated stand-in for mood. The photographs are real photographs of the English countryside. None of them shows the house, and licensed film and photography of it replace them before entries open.',
+    escape.venue.permissionGranted ? null : 'The hotel is named once it has given its written permission.',
+    launch.imageryLicensed ? null : 'The film is an AI-generated stand-in for mood. The photographs are real photographs of the English countryside. None of them shows the hotel, and licensed film and photography of it replace them before entries open.',
   ].filter((line): line is string => Boolean(line));
 
   // A social or review slot shows only once its link exists: a platform's name with nothing

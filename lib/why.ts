@@ -11,7 +11,7 @@ export function whyParagraphs(): string[] {
     'The best places to stay in the world, from country houses hidden in English valleys to safari camps in Africa, are out of reach for most people. They cost too much, and most of us never hear about them.',
     'Many of these places are also under pressure. Chalk streams run low and dirty. Woods are thinning. Further afield, reefs and forests are disappearing, and the people who live beside them do most of the work to protect them.',
     `Trove tries to help with both. Each draw has one escape and one winner.${compliance.noRollover ? ' There is always a winner.' : ''} ${percent(economics.charityShareOfGross)} of every paid entry goes to local charities where the escape is, and after every draw we publish exactly what we gave.`,
-    `We’re starting close to home, with ${numberWord(escape.nights)} nights at one of England’s finest country houses. As we grow, we want to go further: a lodge in the Amazon, a camp in the Serengeti, and one day Antarctica. The bigger the escape, the more we can give.`,
+    `We’re starting close to home, with ${numberWord(escape.nights)} nights at one of England’s finest country hotels. As we grow, we want to go further: a lodge in the Amazon, a camp in the Serengeti, and one day Antarctica. The bigger the escape, the more we can give.`,
     'Before we offer any escape, we find a local charity there that will make the money count.',
   ];
 }

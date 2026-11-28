@@ -61,7 +61,7 @@ export function localCharities(e: Escape): string {
 }
 
 export function venueLine(e: Escape): string {
-  return e.venue.name && e.venue.permissionGranted ? e.venue.name : 'one of England’s finest country houses';
+  return e.venue.name && e.venue.permissionGranted ? e.venue.name : 'one of England’s finest country hotels';
 }
 
 // The stills the pages may show: every licensed still, but no venue still until the venue's

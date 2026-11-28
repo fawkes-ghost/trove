@@ -312,5 +312,5 @@ export const journalPath = (piece: JournalPiece) => `/journal/${piece.slug}`;
 
 // Where Trove itself begins, said the same way at the foot of every piece.
 export function closerToHome(): string {
-  return `Trove’s first escape is closer to home: ${numberWord(escape.nights)} nights at one of England’s finest country houses. ${escape.charity.localityStatement}`;
+  return `Trove’s first escape is closer to home: ${numberWord(escape.nights)} nights at one of England’s finest country hotels. ${escape.charity.localityStatement}`;
 }

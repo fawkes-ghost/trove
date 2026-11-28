@@ -32,7 +32,7 @@ export function EscapeIntro({ escape = hampshire }: { escape?: Escape }) {
           </h2>
           <p className="mt-8 max-w-[34rem] text-lg" data-answer>
             {countyProse()[0]}
-            {named ? null : ' We’ll name the house as soon as it gives us permission.'}
+            {named ? null : ' We’ll name the hotel as soon as it gives us permission.'}
           </p>
           <dl className="mt-10 max-w-[34rem]">
             {included.map((row) => (
