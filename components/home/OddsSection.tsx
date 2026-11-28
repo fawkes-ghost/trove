@@ -17,7 +17,7 @@ export function OddsSection({ escape = hampshire }: { escape?: Escape }) {
         <OddsField entries={escape.cap} cap={escape.cap} lit={1} maxLit={steps[steps.length - 1]} steps={steps} />
         <div className="md:rule-l md:sticky md:top-28 md:pl-16">
           <h2 className="display text-balance heading-section">
-            {count(escape.cap)} entries at most. One of them could be yours.
+            There will never be more than {count(escape.cap)} entries, and one of them could be yours.
           </h2>
           <p className="mt-8 flex flex-col gap-2 text-base">
             {bundles.map((bundle, index) => (

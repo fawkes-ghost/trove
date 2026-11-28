@@ -1,13 +1,12 @@
-import { compliance, escape as hampshire, worstCaseOdds, type Escape, type Film } from '@/config/prize';
-import { count, gbp, numberWord, percent } from '@/lib/format';
-import { localCauses, venueLine } from '@/lib/escapes';
+import { escape as hampshire, worstCaseOdds, type Escape, type Film } from '@/config/prize';
+import { count, gbp, numberWord } from '@/lib/format';
+import { venueLine } from '@/lib/escapes';
 import { organisation } from '@/config/organisation';
 import { wordmarkSource } from '@/components/brand/Marks';
 import { ComplianceStrip } from '@/components/site/ComplianceStrip';
 import { WaitlistForm } from '@/components/waitlist/WaitlistForm';
 import { HeroFilm } from './HeroFilm';
 import { shareCopy } from '@/lib/share';
-import { PromiseRibbon } from './PromiseRibbon';
 
 // The hero, in two voices. On the home page the want comes first (28 November 2026): Trove's
 // line in the serif and the first escape, still a mystery. Then the one giant idea: the
@@ -25,17 +24,9 @@ import { PromiseRibbon } from './PromiseRibbon';
 // escape page passes a lead ("The country hotel escape.") and its own signup channel.
 // `film` replaces the escape's own film; only the home page passes one (config homeFilm).
 export function Hero({ escape = hampshire, lead, sourceChannel = 'trove-hero', film }: { escape?: Escape; lead?: string; sourceChannel?: string; film?: Film }) {
-  const promises = [
-    `${count(escape.cap)} entries. Never more.`,
-    compliance.noRollover ? 'One winner guaranteed.' : null,
-    'Free entry by post.',
-    `${percent(escape.charity.shareOfGross)} to ${localCauses(escape)}.`,
-    `${gbp(escape.entry.price)} an entry.`,
-  ].filter((line): line is string => Boolean(line));
-
   return (
     <section data-hero data-hero-film className="relative">
-      <div className="hero-sky relative flex min-h-[max(36rem,calc(100svh-2.75rem))] flex-col justify-end overflow-clip bg-loch pt-24">
+      <div className="hero-sky relative flex min-h-[max(36rem,calc(100svh-var(--consent-h,0px)))] flex-col justify-end overflow-clip bg-loch pt-24">
         <HeroFilm media={film ?? escape.media} />
         <div aria-hidden="true" className="hero-scrim pointer-events-none absolute inset-0 z-10" />
         <div className="relative z-20 px-6 pb-8 text-snow md:px-10 md:pb-14" data-hero-copy>
@@ -92,7 +83,6 @@ export function Hero({ escape = hampshire, lead, sourceChannel = 'trove-hero', f
           </div>
         </div>
       </div>
-      <PromiseRibbon lines={promises} />
     </section>
   );
 }

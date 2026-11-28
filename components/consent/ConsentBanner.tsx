@@ -53,21 +53,21 @@ export function ConsentBanner() {
       role="region"
       aria-label="Cookies"
       data-consent-banner
-      className="fixed inset-x-0 bottom-0 z-40 bg-ink px-6 py-4 text-snow md:px-10 md:py-5"
+      className="fixed inset-x-3 bottom-3 z-40 rounded-[3px] bg-ink/95 p-4 text-snow shadow-lg md:inset-x-auto md:right-6 md:bottom-6 md:w-[22rem] md:p-5"
     >
-      <div className="mx-auto flex max-w-[80rem] flex-col gap-3 md:flex-row md:items-center md:justify-between md:gap-10">
-        <p className="text-[13px] leading-snug md:text-sm md:leading-relaxed">
+      <div className="flex flex-col gap-3">
+        <p className="text-[13px] leading-snug">
           Can we use analytics cookies to see how people use the site? Nothing is set unless you say yes.{' '}
           <Link href="/legal/cookies" className="underline underline-offset-4">
             Cookies
           </Link>
           .
         </p>
-        <div className="flex gap-3 md:shrink-0">
-          <button type="button" onClick={() => choose('accepted')} className="btn h-10 flex-1 bg-snow px-4 text-sm font-medium text-ink md:h-11 md:w-32 md:flex-none">
+        <div className="flex gap-3">
+          <button type="button" onClick={() => choose('accepted')} className="btn h-9 flex-1 bg-snow px-4 text-sm font-medium text-ink">
             Accept
           </button>
-          <button type="button" onClick={() => choose('declined')} className="btn h-10 flex-1 border border-snow/60 px-4 text-sm font-medium text-snow md:h-11 md:w-32 md:flex-none">
+          <button type="button" onClick={() => choose('declined')} className="btn h-9 flex-1 border border-snow/60 px-4 text-sm font-medium text-snow">
             Decline
           </button>
         </div>
