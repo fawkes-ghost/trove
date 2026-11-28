@@ -38,11 +38,11 @@ export function EscapeIntro({ escape = hampshire }: { escape?: Escape }) {
         <div data-reveal="group">
           <Kicker>{teasing ? 'The first escape.' : 'The escape.'}</Kicker>
           <h2 className="display heading-section mt-6 text-balance">
-            {teasing ? 'Close to home. Announced at launch.' : `${sentenceCase(numberWord(escape.nights))} nights away, for ${numberWord(escape.party)}.`}
+            {teasing ? 'We’re beginning in the English countryside, in winter.' : `${sentenceCase(numberWord(escape.nights))} nights away, for ${numberWord(escape.party)}.`}
           </h2>
           <p className="mt-8 max-w-[34rem] text-lg" data-answer>
             {teasing
-              ? `Somewhere quiet and beautiful, here in the UK. Join the list and we’ll email you once, on the day we reveal it and entries open.`
+              ? `A country hotel in England, for you and someone you’d like to take, at the time of year when it is good to be somewhere warm with nowhere to be. We’ll name it on the morning entries open, and write to you then, once.`
               : countyProse()[0]}
             {teasing || named ? null : ' Named when entries open.'}
           </p>
@@ -61,7 +61,7 @@ export function EscapeIntro({ escape = hampshire }: { escape?: Escape }) {
               </Link>
             ) : null}
             <Link href={`/escapes/${escape.slug}`} className="link-quiet">
-              {teasing ? 'What we can say so far.' : `See ${escapeName(escape)}.`}
+              {teasing ? 'Read what we can share so far.' : `See ${escapeName(escape)}.`}
             </Link>
           </p>
         </div>

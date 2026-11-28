@@ -168,8 +168,12 @@ export const escape: Escape = {
     claimWindowDays: 14,
     datesOffered: 3,
     stayValidMonths: 12,
-    stayWindow: 'on consecutive nights between November and March, excluding 20 December to 3 January, on dates the winner chooses from those we offer',
-    stayWhen: 'Between November and March, on dates you choose from the ones we offer. Not 20 December to 3 January.',
+    // Compliance change, 28 November 2026 (founder's choice): the window is "winter" in public
+    // copy, and the exact first and last dates are written into the terms before entries open,
+    // once the venue confirms its rates in writing. They are set once and never moved after
+    // entries open. The festive exclusion stays.
+    stayWindow: 'on consecutive nights in winter, between dates we will set out in these terms before entries open, excluding 20 December to 3 January, on dates the winner chooses from those we offer',
+    stayWhen: 'In winter, on dates you choose from the ones we offer. The exact window is set in the terms before entries open.',
     description: [
       `${sentenceCase(numberWord(hampshireNights))} nights for you and your plus one, breakfast included`,
       `${gbp(hampshireCash)} in cash`,

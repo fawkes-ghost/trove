@@ -47,7 +47,7 @@ export function Hero({ escape = hampshire, lead, sourceChannel = 'trove-hero', f
               <p className="hero-first">
                 {escape.destinationPublic
                   ? `The first is in ${escape.destination}: a ${gbp(escape.prize.value)} escape.`
-                  : `Our first escape, a ${gbp(escape.prize.value)} prize close to home, is announced at launch.`}
+                  : `We begin with a winter escape for ${numberWord(escape.party)} at a country hotel in England, worth ${gbp(escape.prize.value)}. We’ll name it on the morning entries open.`}
               </p>
             </div>
           )}
@@ -83,7 +83,7 @@ export function Hero({ escape = hampshire, lead, sourceChannel = 'trove-hero', f
                 <WaitlistForm sourceChannel={sourceChannel} idPrefix="hero-waitlist" wordmarkSvg={wordmarkSource()} share={shareCopy(escape, lead ? `/escapes/${escape.slug}` : '/')} />
               </div>
               {escape.status === 'open' ? null : (
-                <p className="hero-note">We’ll email you once, on the day entries open. Nothing to pay today.</p>
+                <p className="hero-note">We’ll write to you once, on the morning entries open. There is nothing to pay today.</p>
               )}
               {/* The key terms sit directly under the call to action, so they are on screen
                   whenever it is. */}
