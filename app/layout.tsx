@@ -33,7 +33,7 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: { default: `Trove · ${organisation.tagline.replace(/\.$/, '')}`, template: '%s · Trove' },
-  description: `${organisation.tagline} Luxury wild escapes, one winner per draw, a fixed number of entries so you know your chances before you enter, and free entry by post.`,
+  description: 'Luxury escapes to win, with one winner per draw and a fixed number of entries, so you know your chance before you enter. Free entry by post.',
   alternates: { canonical: '/' },
   openGraph: { siteName: 'Trove', type: 'website', locale: 'en_GB' },
   twitter: { card: 'summary_large_image' },
