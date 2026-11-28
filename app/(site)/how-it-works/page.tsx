@@ -4,6 +4,7 @@ import { compliance, escape, oddsForEntries, worstCaseOdds } from '@/config/priz
 import { count, gbp, numberWord } from '@/lib/format';
 import { freePostalRoute } from '@/lib/routes';
 import { ComplianceStrip } from '@/components/site/ComplianceStrip';
+import { escapeName } from '@/lib/escapes';
 
 export const metadata: Metadata = {
   title: 'How it works',
@@ -61,7 +62,7 @@ export default function HowItWorksPage() {
           <div className="mt-10 flex flex-col gap-10">
             <div>
               <p className="text-[2.75rem] leading-none text-accent md:text-[4rem]">{count(escape.cap)}</p>
-              <p className="mt-3 font-sans text-base text-ink/70">entries in the {escape.destination} draw, at most. Paid and postal together.</p>
+              <p className="mt-3 font-sans text-base text-ink/70">entries in this draw, at most. Paid and postal together.</p>
             </div>
             <div>
               <p className="text-[2rem] leading-none md:text-[2.75rem]">{worstCaseOdds(escape)}</p>
@@ -75,7 +76,7 @@ export default function HowItWorksPage() {
           <p className="mt-10 text-base">
             Work out your chances for any number of entries on{' '}
             <Link href={`/escapes/${escape.slug}#odds`} className="underline underline-offset-4">
-              the {escape.destination} escape page
+              {escapeName(escape)} page
             </Link>
             .
           </p>

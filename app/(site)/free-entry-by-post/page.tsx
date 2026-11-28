@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { compliance, escape, worstCaseOdds } from '@/config/prize';
 import { count } from '@/lib/format';
 import { ComplianceStrip } from '@/components/site/ComplianceStrip';
+import { escapeName } from '@/lib/escapes';
 
 export const metadata: Metadata = {
   title: 'Free entry by post',
@@ -34,7 +35,7 @@ export default function FreeEntryByPostPage() {
               <li>your full name,</li>
               <li>your email address,</li>
               <li>your date of birth,</li>
-              <li>the name of the escape: the {escape.destination} escape.</li>
+              <li>the name of the escape: {escapeName(escape)}.</li>
             </ul>
             <p className="mt-3">Send one postcard per envelope. If any of the four is missing, the postcard can’t be entered and we won’t be able to tell you.</p>
           </Block>
@@ -77,7 +78,7 @@ export default function FreeEntryByPostPage() {
               </Link>{' '}
               explain postal entry in full, and the{' '}
               <Link href={`/escapes/${escape.slug}`} className="underline underline-offset-4">
-                {escape.destination} escape page
+                {escapeName(escape)} page
               </Link>{' '}
               works out your chances. For anything else, get in touch through the{' '}
               <Link href="/contact" className="underline underline-offset-4">

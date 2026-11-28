@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { compliance, escape as hampshire, worstCaseOdds, type Escape } from '@/config/prize';
 import { count, percent } from '@/lib/format';
 import { freePostalRoute, significantConditions } from '@/lib/routes';
+import { localCauses } from '@/lib/escapes';
 
 // How the draw is kept fair: the trust section. Trove has no awards or memberships to show
 // yet, and what makes the draw fair is a short list of rules, so those are the credentials.
@@ -40,7 +41,7 @@ export function FairDraw({ escape = hampshire }: { escape?: Escape }) {
     },
     {
       promise: percent(escape.charity.shareOfGross),
-      meaning: `of every paid entry goes to causes in ${escape.destination}. After every draw we publish exactly how much we gave.`,
+      meaning: `of every paid entry goes to ${localCauses(escape)}. After every draw we publish exactly how much we gave.`,
     },
   ];
 

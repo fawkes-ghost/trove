@@ -1,6 +1,6 @@
 import { compliance, escape, oddsForEntries, spendCeiling, worstCaseOdds } from '@/config/prize';
 import { count, gbp, numberWord } from '@/lib/format';
-import { venueLine } from '@/lib/escapes';
+import { escapeName, escapeTitle, venueLine } from '@/lib/escapes';
 import { gatePassphrase } from '@/lib/gate';
 import { contactEmail, siteUrl } from '@/lib/site';
 import { organisation } from '@/config/organisation';
@@ -21,7 +21,7 @@ export function GET() {
     ``,
     `Trove runs one escape at a time. Entries are capped and the cap is published and never raised. Every entry, paid or free by post, has identical odds. The draw closes when the cap is reached or on a longstop date set once when entries open, whichever comes first, and it is never extended.${compliance.noRollover ? ' One winner is guaranteed; there is no rollover.' : ''} ${e.charity.localityStatement} What was given is published after every draw.`,
     ``,
-    `## The current escape: ${e.destination}`,
+    `## The current escape: ${escapeName(e)}`,
     ``,
     `- Prize: ${e.prize.description.join('; ')}. Published value ${gbp(e.prize.value)}, of which ${gbp(e.prize.cash)} is cash.`,
     `- Stay: ${numberWord(e.nights)} nights for ${numberWord(e.party)} at ${venueLine(e)}. The venue is named once written permission exists.`,
@@ -48,7 +48,7 @@ export function GET() {
     `## Pages`,
     ``,
     `- [Home](${siteUrl}/)`,
-    `- [The ${e.destination} escape](${siteUrl}/escapes/${e.slug})`,
+    `- [${escapeTitle(e)}](${siteUrl}/escapes/${e.slug})`,
     `- [How it works](${siteUrl}/how-it-works)`,
     `- [Free entry by post](${siteUrl}/free-entry-by-post)`,
     `- [Why Trove exists](${siteUrl}/why)`,

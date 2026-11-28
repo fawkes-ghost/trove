@@ -28,13 +28,48 @@ export function prizeLineShort(e: Escape): string {
   return `${sentenceCase(numberWord(e.nights))} nights and ${gbp(e.prize.cash)} in cash. A ${gbp(e.prize.value)} prize.`;
 }
 
+// The prize as a teaser, for the surfaces a stranger meets first (the header bar, the home
+// page, share previews) while the place is unannounced: the value and who it is for, and no
+// more. The founder's call (28 November 2026): build suspense for the waitlist. The escape
+// page and the key terms still give the full prize, one click away.
+export function teaserLine(e: Escape): string {
+  return e.destinationPublic ? prizeLine(e) : `A ${gbp(e.prize.value)} escape for ${numberWord(e.party)}, announced at launch.`;
+}
+
 // The prize in one line, for the hero, the escape card and the holding page.
 export function prizeLine(e: Escape): string {
   return `${sentenceCase(numberWord(e.nights))} nights for you and your plus one, and ${gbp(e.prize.cash)} in cash. A ${gbp(e.prize.value)} prize.`;
 }
 
+// What the pages call an escape. While its place is unannounced (destinationPublic false) the
+// site says "the country hotel escape" and never names where it is; once the founder makes
+// the place public the same calls name the place. Every page reads these, so
+// the switch is one line in config.
+export function placeName(e: Escape): string {
+  return e.destinationPublic ? e.destination : e.publicName;
+}
+
+// "The country hotel escape", capitalised for a heading or the start of a sentence.
+export function escapeTitle(e: Escape): string {
+  return `The ${placeName(e)} escape`;
+}
+
+// "the country hotel escape", for the middle of a sentence.
+export function escapeName(e: Escape): string {
+  return `the ${placeName(e)} escape`;
+}
+
+// Where the giving goes, in a few words: "local causes" until the place is public.
+export function localCauses(e: Escape): string {
+  return e.destinationPublic ? `causes in ${e.destination}` : 'local causes';
+}
+
+export function localCharities(e: Escape): string {
+  return e.destinationPublic ? `charities in ${e.destination}` : 'local charities';
+}
+
 export function venueLine(e: Escape): string {
-  return e.venue.name && e.venue.permissionGranted ? e.venue.name : 'one of England’s finest country houses';
+  return e.venue.name && e.venue.permissionGranted ? e.venue.name : 'one of England’s finest country hotels';
 }
 
 // The stills the pages may show: every licensed still, but no venue still until the venue's
@@ -43,11 +78,12 @@ export function reelStills(e: Escape): { src: string; alt: string; title: string
   return e.media.stills.filter((still) => !still.venue || e.venue.footageLicensed).map(({ src, alt, title, caption, blur }) => ({ src, alt, title, caption, blur }));
 }
 
-// The county in two short paragraphs, for the escape page and the home page's escape
-// section, so the words are written once.
-export function countyProse(e: Escape): string[] {
+// The place in two short paragraphs, for the escape page and the home page's escape
+// section, so the words are written once. They describe the countryside, not the county:
+// the place stays unnamed until escape.destinationPublic is true.
+export function countyProse(): string[] {
   return [
-    `${e.destination} in winter means chalk streams and short days. The Test and the Itchen run clear and cold through the water meadows, and from the downs above you can see for miles.`,
+    'Our first escape is close to home. Winter there means chalk streams and short days: clear, cold rivers through the water meadows, and downs where you can see for miles.',
     'The villages still have their pubs and their fires, and lunch can take all afternoon.',
   ];
 }

@@ -33,7 +33,7 @@ export function questionsFor(escape: Escape): Question[] {
     },
     {
       question: 'What exactly do I win?',
-      answer: `${prize.description.join('. ')}. The escape is for ${numberWord(escape.party)}. The cash is yours to spend however you like. We’ll name the house as soon as it gives us written permission.`,
+      answer: `${prize.description.join('. ')}. The escape is for ${numberWord(escape.party)}. The cash is yours to spend however you like. We’ll name the hotel as soon as it gives us written permission.`,
     },
     {
       question: 'Can I take cash instead?',

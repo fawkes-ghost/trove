@@ -1,6 +1,6 @@
 import type { Escape } from '@/config/prize';
 import { gbp, numberWord } from '@/lib/format';
-import { countyProse, reelStills, venueLine } from '@/lib/escapes';
+import { countyProse, escapeTitle, reelStills, venueLine } from '@/lib/escapes';
 import Image from 'next/image';
 import { Plate, PlateCaption } from '@/components/media/Plate';
 
@@ -19,18 +19,18 @@ export function Destination({ escape }: { escape: Escape }) {
     <section id="destination" className="rule-t">
       <div className="section split">
         <div data-reveal="group">
-          <h2 className="display heading-section text-balance">{escape.destination}.</h2>
+          <h2 className="display heading-section text-balance">{escapeTitle(escape)}.</h2>
           <p className="mt-6 max-w-[26rem] text-lg" data-answer>
-            This escape is {numberWord(escape.nights)} nights in {escape.destination}, at {venueLine(escape)}.
+            This escape is {numberWord(escape.nights)} nights at {venueLine(escape)}{escape.destinationPublic ? `, in ${escape.destination}` : ', close to home'}.
           </p>
         </div>
         <div className="flex max-w-[38rem] flex-col gap-5 text-lg">
-          {countyProse(escape).map((paragraph) => (
+          {countyProse().map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}
           <p>
             You get {numberWord(escape.nights)} nights at {venueLine(escape)}, breakfast every morning, and {gbp(escape.prize.cash)} in cash to spend however you like.
-            {named ? null : ' We’ll name the house as soon as it gives us permission.'}
+            {named ? null : ' We’ll name the hotel as soon as it gives us permission.'}
           </p>
           {named && escape.venue.description ? <p>{escape.venue.description}</p> : null}
           <p>Bring boots and someone you like.</p>

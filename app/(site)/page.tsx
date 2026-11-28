@@ -1,4 +1,5 @@
 import { Hero } from '@/components/hero/Hero';
+import { homeFilm } from '@/config/prize';
 import { EscapeIntro } from '@/components/home/EscapeIntro';
 import { FairDraw } from '@/components/home/FairDraw';
 import { OddsSection } from '@/components/home/OddsSection';
@@ -17,7 +18,7 @@ export default function Home() {
   return (
     <main>
       <WebSiteJsonLd />
-      <Hero />
+      <Hero film={homeFilm} />
       <EscapeIntro />
       <FairDraw />
       <HowItWorks />

@@ -70,8 +70,10 @@ export type Still = {
 };
 
 export type Escape = {
-  slug: string;                     // route segment, destination only
-  destination: string;              // what the draw is called
+  slug: string;                     // route segment: the destination once public, the public name until then
+  destination: string;              // where the escape is; shown on the site only once destinationPublic is true
+  destinationPublic: boolean;       // false keeps the place off every page: the site uses publicName instead
+  publicName: string;               // what the pages call the escape while its place is unannounced, as in "the country hotel escape"
   venue: {
     name: string | null;            // null until written permission from the venue exists
     description: string | null;     // the house in a paragraph; stored here, rendered only when permissionGranted
@@ -129,14 +131,22 @@ export type Escape = {
 // if any appears outside this file.
 export const unpublishedVenueTerms = ['Heckfield'] as const;
 
+// Words that identify where the first escape is, held back while escape.destinationPublic is
+// false (the founder's call, 28 November 2026: the waitlist speaks for Trove as a whole and
+// the first escape is "somewhere close to home"). The same guard fails the build if any
+// appears in the pages.
+export const unannouncedPlaceTerms = ['Hampshire', 'Itchen', 'Winchester', 'Shawford', 'Morestead', 'Micheldever'] as const;
+
 // Named once here so the description strings can restate them without a second literal.
 const hampshireNights = 3;
 const hampshireParty = 2;
 const hampshireCash: Money = 1600;
 
 export const escape: Escape = {
-  slug: 'hampshire',
+  slug: 'country-hotel',
   destination: 'Hampshire',
+  destinationPublic: false,
+  publicName: 'country hotel',
   venue: {
     name: null,
     // Held here until permission; the build fails if the house's name appears anywhere but this file.
@@ -173,37 +183,37 @@ export const escape: Escape = {
     // source, licence and changes are recorded in docs/media-credits.md. Everything is served
     // from public/media by this app, on an immutable year-long cache (see next.config.ts):
     // nothing under media/ comes from Supabase, so first paint never waits on another origin.
-    poster: '/media/hero-poster-hampshire-placeholder.jpg', // the loop's own first frame, so first paint matches frame zero
-    posterAlt: 'Mist over a wooded valley at sunrise, bare winter trees under a low sun. An AI-generated placeholder, not a real place, until the Hampshire film is licensed.',
-    loop: '/media/hero-hampshire-placeholder-v1.mp4', // 1600x900, 17.4s, silent, seamless, 5.3MB
-    loopSmall: '/media/hero-hampshire-placeholder-v1-960.mp4', // the same film at 960x540, CRF 30, 2.5MB
+    poster: '/media/hero-poster-countryside-placeholder.jpg', // the loop's own first frame, so first paint matches frame zero
+    posterAlt: 'Mist over a wooded valley at sunrise, bare winter trees under a low sun. An AI-generated placeholder, not a real place, until the film of the escape is licensed.',
+    loop: '/media/hero-countryside-placeholder-v2.mp4', // 1600x900, 11.1s, silent, seamless, 4.9MB; no house and no interior
+    loopSmall: '/media/hero-countryside-placeholder-v2-960.mp4', // the same film at 960x540, CRF 30, 2.0MB
     // Real photographs, openly licensed, in the order the pages show them: the first runs
     // edge to edge on the escape page. None depicts the venue or anything on its estate.
     stills: [
       {
-        src: '/media/hampshire-itchen-mist-85fa7bcb.jpg',
-        alt: 'Bare trees in early morning mist beside the River Itchen at Shawford, Hampshire',
+        src: '/media/countryside-river-mist-85fa7bcb.jpg',
+        alt: 'Bare trees in early morning mist beside a chalk stream',
         venue: false,
         title: 'The river.',
-        caption: 'Early mist along the Itchen at Shawford, south of Winchester.',
+        caption: 'Early mist along a chalk stream.',
         blur: 'data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAQIEBf/EAB4QAAICAgIDAAAAAAAAAAAAAAERAgMABCFREiJB/8QAFAEBAAAAAAAAAAAAAAAAAAAAAv/EABURAQEAAAAAAAAAAAAAAAAAAAAR/9oADAMBAAIRAxEAPwB5bdDXnz8HeSVbNll0i1AFI5mj3Rkie1hMiOQVhpR//9k=',
         credit: { work: null, by: 'Forbes Johnston', source: 'https://commons.wikimedia.org/wiki/File:2025_(challenge_No._1-_old_unpublished_pics)_-_Day_338_-_early_morning_mist,_River_Itchen,_Shawford,_Hampshire_2022_-_Flickr_-_ambabheg.jpg', licence: 'CC BY 4.0', licenceUrl: 'https://creativecommons.org/licenses/by/4.0/', note: null, shareAlike: false },
       },
       {
-        src: '/media/hampshire-morestead-downs-c4d64cef.jpg',
-        alt: 'Sunrise over fields and hedgerows on the South Downs at Morestead, Hampshire',
+        src: '/media/countryside-downs-sunrise-c4d64cef.jpg',
+        alt: 'Sunrise over fields and hedgerows on the South Downs',
         venue: false,
         title: 'The downs.',
-        caption: 'Sunrise over the South Downs at Morestead.',
+        caption: 'Sunrise over the South Downs.',
         blur: 'data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAMEBf/EAB0QAAICAwADAAAAAAAAAAAAAAECAAMEESExUZH/xAAUAQEAAAAAAAAAAAAAAAAAAAAD/8QAGBEAAgMAAAAAAAAAAAAAAAAAABEBUWH/2gAMAwEAAhEDEQA/AJKmxjrd6LHWNSoJTIpA9l+/JhjkGYjwYUux3h//2Q==',
         credit: { work: null, by: 'Forbes Johnston', source: 'https://commons.wikimedia.org/wiki/File:South_Downs_-_Morestead,_Hampshire,_England_2020.jpg', licence: 'CC BY 4.0', licenceUrl: 'https://creativecommons.org/licenses/by/4.0/', note: 'Colour adjusted.', shareAlike: false },
       },
       {
-        src: '/media/hampshire-micheldever-wood-e30ef912.jpg',
-        alt: 'Tall beech trees casting long shadows across fallen leaves in Micheldever Wood, Hampshire',
+        src: '/media/countryside-beech-wood-e30ef912.jpg',
+        alt: 'Tall beech trees casting long shadows across fallen leaves in a wood',
         venue: false,
         title: 'The woods.',
-        caption: 'Beech trees in low winter sun in Micheldever Wood.',
+        caption: 'Beech trees in low winter sun.',
         blur: 'data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAgEE/8QAHBAAAwACAwEAAAAAAAAAAAAAAQIRAAMSITET/8QAFAEBAAAAAAAAAAAAAAAAAAAAA//EABYRAAMAAAAAAAAAAAAAAAAAAAABEf/aAAwDAQACEQMRAD8AAi/Q0E0+nKlcEMlitD3mB3ZUZge7h1b9pDNzNHmBGLEf/9k=',
         credit: { work: 'Footpath through Micheldever Wood', by: 'Mr Ignavy', source: 'https://commons.wikimedia.org/wiki/File:Footpath_through_Micheldever_Wood_-_geograph.org.uk_-_7737382.jpg', licence: 'CC BY-SA 2.0', licenceUrl: 'https://creativecommons.org/licenses/by-sa/2.0/', note: 'Cropped, colour adjusted.', shareAlike: true },
       },
@@ -223,7 +233,7 @@ export const escape: Escape = {
   charity: {
     shareOfGross: economics.charityShareOfGross,
     beneficiary: null,
-    localityStatement: `${percent(economics.charityShareOfGross)} of every paid entry goes to local charities protecting the Hampshire countryside.`,
+    localityStatement: `${percent(economics.charityShareOfGross)} of every paid entry goes to local charities protecting the countryside around the escape.`,
   },
   status: 'planning',
 };
@@ -231,6 +241,21 @@ export const escape: Escape = {
 // ---------------------------------------------------------------------------
 // Minis. On brand, tied to the destination, drawn from the same ledger rules.
 // ---------------------------------------------------------------------------
+// The home page film speaks for Trove as a whole, not for one escape: the first escape's
+// countryside, then the wild places later escapes are meant to reach, then the countryside
+// again, so the loop opens and closes on the escape that is actually on offer. It is used
+// only by the home hero. An escape page always shows its own escape's film, so no escape
+// page ever shows a place that is not its prize. Every clip in it is an AI-generated
+// stand-in until licensed footage replaces it; docs/media-credits.md records each one.
+export type Film = Pick<Escape['media'], 'poster' | 'posterAlt' | 'loop' | 'loopSmall'>;
+
+export const homeFilm: Film = {
+  poster: escape.media.poster, // the sequence opens on the countryside film's first frame
+  posterAlt: 'Mist over a wooded valley at sunrise, bare winter trees under a low sun. An AI-generated placeholder, not a real place.',
+  loop: '/media/hero-sequence-placeholder-v2.mp4', // 1600x900, 12.1s, silent: six hard cuts of about 2s (valley, river, frost, lions, cub, dawn fields); 4.3MB
+  loopSmall: '/media/hero-sequence-placeholder-v2-960.mp4', // the same film at 960x540, CRF 30, 1.6MB
+};
+
 export type Mini = Omit<Escape, 'nights' | 'party' | 'venue'> & { escapeSlug: string };
 
 export const minis: Mini[] = [];    // populate when the first mini is costed; never AirPods

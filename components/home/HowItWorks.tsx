@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { compliance, escape as hampshire, type Escape } from '@/config/prize';
 import { count, numberWord, sentenceCase } from '@/lib/format';
-import { prizeLine } from '@/lib/escapes';
+import { teaserLine } from '@/lib/escapes';
 import { freePostalRoute } from '@/lib/routes';
 
 // Three steps, in order. The first thing a visitor from a social feed asks is "how does
@@ -31,7 +31,7 @@ export function HowItWorks({ escape = hampshire }: { escape?: Escape }) {
         </>
       ),
     },
-    { title: 'You escape.', body: <>{prizeLine(escape)}</> },
+    { title: 'You escape.', body: <>{teaserLine(escape)}</> },
   ];
   return (
     <section id="how-it-works" className="section">

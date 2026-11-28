@@ -15,9 +15,9 @@ its estate.
 
 | File in `public/media` | What it shows | Photographer | Licence | Where it sits |
 | --- | --- | --- | --- | --- |
-| `hampshire-itchen-mist-85fa7bcb.jpg` | Early morning mist by the River Itchen at Shawford, Hampshire | Forbes Johnston | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) | First photograph: home page escape section (large), the Hampshire page (edge to edge), the escapes list |
-| `hampshire-morestead-downs-c4d64cef.jpg` | Sunrise over the South Downs at Morestead, Hampshire | Forbes Johnston | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) | Second photograph: home page escape section, the Hampshire page |
-| `hampshire-micheldever-wood-e30ef912.jpg` | Beech trees in low winter sun, Micheldever Wood, Hampshire | Mr Ignavy | [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/) | Third photograph: home page escape section, the Hampshire page |
+| `countryside-river-mist-85fa7bcb.jpg` | Early morning mist by the River Itchen at Shawford, Hampshire | Forbes Johnston | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) | First photograph: home page escape section (large), the Hampshire page (edge to edge), the escapes list |
+| `countryside-downs-sunrise-c4d64cef.jpg` | Sunrise over the South Downs at Morestead, Hampshire | Forbes Johnston | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) | Second photograph: home page escape section, the Hampshire page |
+| `countryside-beech-wood-e30ef912.jpg` | Beech trees in low winter sun, Micheldever Wood, Hampshire | Mr Ignavy | [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/) | Third photograph: home page escape section, the Hampshire page |
 
 ### The river
 
@@ -56,9 +56,21 @@ its estate.
 
 ## Film
 
-`hero-hampshire-placeholder-v1.mp4`, its 960-wide rendition and `hero-poster-hampshire-placeholder.jpg`
-are an AI-generated stand-in: mood only, not a real place and not the venue. The footer says
-so on every page.
+Every film on the site is an AI-generated stand-in: mood only, not a real place and not the
+venue. The footer says so on every page.
+
+| File in `public/media` | What it is | Where it sits |
+| --- | --- | --- |
+| `hero-countryside-placeholder-v2.mp4` and `-960` | The countryside film, cut on 28 November 2026 from v1 with the country house and the fireplace interior taken out (both read as the venue). Seamless loop, 11.1s | Escape page hero |
+| `hero-sequence-placeholder-v2.mp4` and `-960` | The home film, cut to a quicker pace (Stefan, 28 Nov, after blacktomato.com): six hard cuts of about 2s. Valley mist, river, frosted track (countryside v1 at 0, 2.7 and 5.7s), lions wide, the cub (a crop of the lions clip), dawn fields (countryside v1 at 13.5s). No house or interior shots. 12.1s | Home page hero only |
+| `hero-poster-countryside-placeholder.jpg` | First frame of both films | Both heroes, before the film plays and under reduced motion |
+
+The lions clip was supplied by the founder as `HERO-lions-charity-4k.mp4`. Its C2PA content
+credentials say "Created by Google Generative AI" (Google Veo), digital source type
+`trainedAlgorithmicMedia`. Real footage was considered (Artgrid, Pexels) and set aside on
+28 November 2026 on cost and quality; swap it for licensed footage when there is budget.
+Because the home film shows places that are not the first prize, it is used only on the home
+page, where the line under the tagline says the first escape is close to home.
 
 Looked for a replacement on 23 November 2026 and kept the stand-in. Pexels was searched for
 English countryside in mist, at sunrise and in winter from the air, and for Hampshire. The
