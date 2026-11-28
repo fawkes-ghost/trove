@@ -13,7 +13,7 @@ export const dynamic = 'force-dynamic';
 
 // The description travels with every shared link to the holding page (Instagram, WhatsApp,
 // Messages), so it carries no figure: prize value, cap, odds and share are under review.
-const description = 'Win a luxury escape in the UK. A fixed number of entries so you know your chances before you enter, and free entry by post.';
+const description = 'Win luxury wild escapes. A fixed number of entries so you know your chances before you enter, and free entry by post.';
 
 export const metadata: Metadata = {
   title: 'Trove',
