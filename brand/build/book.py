@@ -357,9 +357,12 @@ def build():
 
 <section id="voice" class="band"><div class="wrap">
 <p class="label">Voice</p>
-<h2>Say it the way you would to a customer.</h2>
-<p class="lead">Lead with the fact or the benefit. Short sentences. The pictures carry the longing, the words carry the facts.</p>
+<h2>Luxury prose, plain facts.</h2>
+<p class="lead">The escape and the brand are written the way a good travel editor writes: warm, unhurried full sentences, the place or the season first, one true detail, a long line then a short one. The figures, the chance, the cap, the age limit, free entry by post and the key terms stay plain and exact. Luxury is what you win, not how you are spoken to.</p>
 <ul class="plain">
+<li>Write in full sentences, with “we” and “you”. Invite, never urge.</li>
+<li>No stacked fragments, no lists of three, no “not just X”. Leave out quiet, beautiful, nestled, curated, sanctuary and remarkable.</li>
+<li>Never describe a feature of the prize that the terms do not promise.</li>
 <li>Sentence case everywhere, buttons included. Full stops on headlines.</li>
 <li>No exclamation marks and no dashes. Use commas, colons and full stops.</li>
 <li>Entries, not tickets. Escape, not holiday or stay. Founding friends, not members.</li>
@@ -371,7 +374,7 @@ def build():
 <div><span class="h">Trove says</span><span class="h">Trove does not say</span></div>
 <div><span class="yes">Become a founding friend.</span><span class="not">Join our exclusive members’ club!</span></div>
 <div><span class="yes">How we keep it fair.</span><span class="not">Our commitment to transparency</span></div>
-<div><span class="yes">Three nights away, for two.</span><span class="not">An unforgettable luxury getaway</span></div>
+<div><span class="yes">We’re beginning in the English countryside, in winter.</span><span class="not">An unforgettable luxury getaway</span></div>
 <div><span class="yes">Confirm your place.</span><span class="not">Click here to verify your email address</span></div>
 </div>
 </div></section>
@@ -414,10 +417,10 @@ def build():
 <section id="type" class="band"><div class="wrap">
 <p class="label">Type</p>
 <h2>Two faces, two voices.</h2>
-<p class="lead">Newsreader says things. DM Sans does everything else, and at its heaviest it makes the promises. In email, where web fonts do not load, Georgia and Arial stand in.</p>
+<p class="lead">Newsreader says things: the headlines at 400, and the chance in the hero at a lighter 300, stated once and calmly. DM Sans carries everything else at ordinary weights. In email, where web fonts do not load, Georgia and Arial stand in.</p>
 <div class="type">
-<div><p class="big serif">Three nights away, for two.</p><p>Newsreader 400. Headlines and statements, in sentence case with a full stop.</p></div>
-<div><p class="big heavy">15%</p><p>DM Sans 800. The chance, the cap and the share that is given. Figures only.</p></div>
+<div><p class="big serif">How we keep it fair.</p><p>Newsreader 400. Headlines and statements, in sentence case with a full stop.</p></div>
+<div><p class="big serif" style="font-weight:300">1 in the cap.</p><p>Newsreader 300. The chance in the hero, said once, never shouted. Figures come from the draw’s settings.</p></div>
 <div><p class="big" style="font-size:1.25rem;line-height:1.5;letter-spacing:0">We’ll email you once, on the day entries open. Nothing to pay today.</p><p>DM Sans 400 and 500. Text, buttons, labels and small print.</p></div>
 </div>
 </div></section>

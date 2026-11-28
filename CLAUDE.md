@@ -51,17 +51,24 @@ library afterthought. Reference: spacetime.nl, where the motion is the site. Tro
 differs in one way: it must also deliver facts (prize, price, odds, where the money
 goes), so motion carries the visitor to the facts and then gets out of the way.
 
-- One memorable moment per page. On the home page it is the number: the worst-case
-  chance of winning, as wide as the screen over the film, with “Unlimited entries.”
-  struck out in gold once and replaced by the cap.
-- Two voices. Newsreader says things (headlines, the prize sentence). DM Sans at its
-  heaviest promises things (the chance, the cap, the giving share). DM Sans carries
-  everything else. No monospace. The gold is a highlighter for promises: the call to
-  action, the mark under a promise, the founding friend sticker.
-- Two registers. Loud once, in the hero: the chance, the cap, the signup form. The house
-  everywhere else: moderate serif headings, small sentence case labels, hairlines, plain
-  text links, photographs as plates with captions beneath. Trust is the rules of the draw
-  ("How we keep it fair."). No badge, logo row or testimonial until it is real.
+- Luxury, serif led and photo first since 28 November 2026 (PRs 89 to 95). The
+  references are Black Tomato, Aman, Four Seasons and Nihi: room, calm motion, the
+  photograph doing the selling.
+- One memorable moment per page. On the home page it is the chance of winning, said once
+  and calmly in Newsreader 300 under the tagline, with “Unlimited entries.” struck out in
+  gold once and replaced by the cap. It is not shouted: no screen-wide number, no gold box.
+- Two voices. Newsreader says things: headlines at 400, the chance at 300. DM Sans carries
+  everything else at ordinary weights. No monospace. The gold is a highlighter for
+  promises: the call to action pill, the strike through “Unlimited entries.”.
+- Words: luxury prose, plain facts. Brand and escape prose is warm, unhurried, editorial
+  full sentences (place or season first, one true detail, long then short); figures,
+  chance, cap, 18+, postal entry and key terms stay plain and exact. No stacked fragments,
+  no triads, no “not just X”, none of quiet, beautiful, nestled, curated, sanctuary,
+  remarkable. Never describe a prize feature the terms don’t promise. The tone guide is
+  the Claude Doc “Trove voice: luxury prose, plain facts”.
+- The house everywhere: moderate serif headings, small sentence case labels, hairlines,
+  plain text links, photographs as plates with captions beneath. Trust is the rules of the
+  draw ("How we keep it fair."). No badge, logo row or testimonial until it is real.
 - Respect `prefers-reduced-motion` with a still version of every moment.
 - Photography and film do the selling. Licensed footage only. No AI-generated venue
   imagery, ever.

@@ -39,6 +39,8 @@ line with GamCare and GambleAware, social slots, review slot, legal links.
 
 ## 2. Design plan for the home page and hero
 
+> **Superseded in part, 28 November 2026.** The site moved to a luxury, serif-led, photo-first register (PRs 89 to 95). The hero chance is now Newsreader 300 at about a third of the old size, with no gold box; the promise rail is gone; headings follow the luxury voice. Where this section says “heavy sans”, “as wide as the screen” or “the rail”, `CLAUDE.md` and the code win.
+
 ### The brief in one line
 Fun and high end at once, Rhode's ease and warmth, colour done professionally, with the
 escape as the thing a lucky founding friend gets to live and post. The film sells the
