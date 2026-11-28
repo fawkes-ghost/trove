@@ -91,7 +91,7 @@ export function OddsCalculator({ cap, maxPerPerson, price, bundles, share, desti
             </dd>
           </div>
           <div>
-            <dt className="text-sm text-ink/70">To {destination} causes</dt>
+            <dt className="text-sm text-ink/70">To {destination}</dt>
             <dd className="mt-2 text-[1.75rem] leading-none md:text-[2rem]" data-odds-giving>
               {gbpPence(giving)}
             </dd>

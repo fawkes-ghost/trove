@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { freePostalRoute, significantConditions } from '@/lib/routes';
 import { EntryChooser } from './EntryChooser';
 import { entryFlowAvailable, entryFlowIsPreview } from '@/lib/entry-flow';
+import { localCharities } from '@/lib/escapes';
 
 // The entry decision, on a panel of its own: the choice as ruled rows, one button, and a link
 // to the key terms. The answer sentence stays as text for search and answer engines. The
@@ -16,7 +17,7 @@ export function Enter({ escape }: { escape: Escape }) {
     label: `${sentenceCase(numberWord(bundle.entries))} ${bundle.entries === 1 ? 'entry' : 'entries'}`,
     price: gbp(bundle.price),
     odds: oddsForEntries(bundle.entries, escape),
-    causes: `${gbpPence(bundle.price * escape.charity.shareOfGross)} goes to charities in ${escape.destination}`,
+    causes: `${gbpPence(bundle.price * escape.charity.shareOfGross)} goes to ${localCharities(escape)}`,
   }));
   return (
     <section id="enter" className="section bg-cloud">

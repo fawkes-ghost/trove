@@ -7,6 +7,7 @@ import { escape } from '@/config/prize';
 import { wordmarkSource } from '@/components/brand/Marks';
 import { WaitlistForm } from '@/components/waitlist/WaitlistForm';
 import { ComplianceStrip } from '@/components/site/ComplianceStrip';
+import { escapeName } from '@/lib/escapes';
 
 export function generateStaticParams() {
   return journal.map((piece) => ({ slug: piece.slug }));
@@ -119,7 +120,7 @@ export default async function JournalPiecePage({ params }: { params: Promise<{ s
           <p className="mt-6 text-lg">
             {closerToHome()}{' '}
             <Link href={`/escapes/${escape.slug}`} className="underline underline-offset-4">
-              See the {escape.destination} escape
+              See {escapeName(escape)}
             </Link>
             .
           </p>

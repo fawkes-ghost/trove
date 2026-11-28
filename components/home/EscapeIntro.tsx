@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { escape as hampshire, type Escape } from '@/config/prize';
 import { gbp, numberWord, sentenceCase } from '@/lib/format';
-import { countyProse, reelStills } from '@/lib/escapes';
+import { countyProse, escapeName, reelStills } from '@/lib/escapes';
 import { Kicker } from '@/components/site/Kicker';
 import { Plate } from '@/components/media/Plate';
 
@@ -31,7 +31,7 @@ export function EscapeIntro({ escape = hampshire }: { escape?: Escape }) {
             {sentenceCase(numberWord(escape.nights))} nights away, for {numberWord(escape.party)}.
           </h2>
           <p className="mt-8 max-w-[34rem] text-lg" data-answer>
-            {countyProse(escape)[0]}
+            {countyProse()[0]}
             {named ? null : ' We’ll name the house as soon as it gives us permission.'}
           </p>
           <dl className="mt-10 max-w-[34rem]">
@@ -44,7 +44,7 @@ export function EscapeIntro({ escape = hampshire }: { escape?: Escape }) {
           </dl>
           <p className="rule-t max-w-[34rem] pt-6 text-base">
             <Link href={`/escapes/${escape.slug}`} className="link-quiet">
-              See the {escape.destination} escape.
+              See {escapeName(escape)}.
             </Link>
           </p>
         </div>

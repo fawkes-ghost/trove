@@ -6,6 +6,7 @@ import { signposting } from '@/lib/routes';
 import { slug } from '@/lib/slug';
 import { contactEmail } from '@/lib/site';
 import { organisation } from '@/config/organisation';
+import { escapeName, placeName } from '@/lib/escapes';
 
 // Every figure the legal documents state, read from config. The MDX files import this and
 // never type a number.
@@ -18,8 +19,8 @@ function promoterLine(): string {
 }
 
 export const t = {
-  destination: escape.destination,
-  escapeName: `the ${escape.destination} escape`,
+  destination: placeName(escape),
+  escapeName: escapeName(escape),
   minimumAge: String(compliance.minimumAge),
   residency: compliance.residency,
   cap: count(escape.cap),
@@ -43,7 +44,7 @@ export const t = {
   charityShare: percent(economics.charityShareOfGross),
   beneficiary: escape.charity.beneficiary ?? 'a partner named once the agreement is signed',
   // The same giving line the site uses, so the terms and the pages never say it two ways.
-  givingLine: `${percent(economics.charityShareOfGross)} of every paid entry goes to local charities protecting the ${escape.destination} countryside.`,
+  givingLine: `${percent(economics.charityShareOfGross)} of every paid entry goes to local charities protecting the countryside around the escape.`,
   postalAddress: compliance.freePostalRoute.address ?? 'the free entry address published on the free entry by post page before entries open',
   creditCardMonthlyCap: gbp(compliance.dcmsVoluntaryCode.creditCardMonthlyCap),
   gamCare: signposting.GamCare,

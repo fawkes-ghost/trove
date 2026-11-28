@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { escapes, getEscape, statusLabel } from '@/lib/escapes';
+import { escapeName, escapeTitle, escapes, getEscape, statusLabel } from '@/lib/escapes';
 
 export function generateStaticParams() {
   return escapes.map((item) => ({ slug: item.slug }));
@@ -12,8 +12,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const item = getEscape(slug);
   if (!item) return {};
   return {
-    title: `${item.destination} result`,
-    description: `The published result of the ${item.destination} draw: the winning entry, how it was drawn and what was given.`,
+    title: `${escapeTitle(item)}: the result`,
+    description: `The published result of ${escapeName(item)}: the winning entry, how it was drawn and what was given.`,
     alternates: { canonical: `/escapes/${item.slug}/winner` },
   };
 }
@@ -30,14 +30,14 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
     'How it was drawn, with the record of the draw so anyone can check it.',
     'The winner’s first name and county.',
     'How many entries the draw held, paid and postal together.',
-    'What was given to causes in the destination, and to whom.',
+    'What was given to local causes, and to whom.',
   ];
 
   return (
     <main>
       <section className="page">
         <div className="max-w-[40rem]">
-          <p className="text-sm font-medium text-ink/70">{item.destination}. The result.</p>
+          <p className="text-sm font-medium text-ink/70">{escapeTitle(item)}. The result.</p>
           <h1 className="display mt-4 text-balance text-[2.5rem] md:text-[3.5rem]">
             {item.status === 'drawn' ? 'The result.' : 'Not drawn yet.'}
           </h1>
@@ -51,7 +51,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           </ul>
           <p className="rule-t mt-2 pt-6 text-base">
             <Link href={`/escapes/${item.slug}`} className="underline underline-offset-4">
-              Back to the {item.destination} escape
+              Back to {escapeName(item)}
             </Link>
             .
           </p>

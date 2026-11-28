@@ -1,6 +1,7 @@
 import { compliance, escape as hampshire, worstCaseOdds, type Escape } from '@/config/prize';
 import { count, gbp, numberWord, percent } from '@/lib/format';
-import { venueLine } from '@/lib/escapes';
+import { localCauses, venueLine } from '@/lib/escapes';
+import { organisation } from '@/config/organisation';
 import { wordmarkSource } from '@/components/brand/Marks';
 import { ComplianceStrip } from '@/components/site/ComplianceStrip';
 import { WaitlistForm } from '@/components/waitlist/WaitlistForm';
@@ -9,20 +10,21 @@ import { PromiseRibbon } from './PromiseRibbon';
 
 // The hero, in two voices. One giant idea first: the chance, set as wide as the screen in
 // the logo's heavy sans, because it is the one figure no other draw prints. Under it the
-// twist line (what other draws leave open, struck out, then what this one fixes), the prize
-// in one sentence in the serif, the signup form with one line on what signing up brings,
+// twist line (what other draws leave open, struck out, then what this one fixes), on the home
+// page Trove's tagline in the serif with the first escape in one line under it (on the escape
+// page the prize in one sentence), the signup form with one line on what signing up brings,
 // and the key terms, over the film. The rail of promises runs beneath it. The words sit in the flow at the foot of a film that is at least one screen tall
 // and taller when they need it, so on a short window the film grows rather than the words
 // sliding under the header. From 900px the lower half is two level columns.
 //
 // Every figure is read from config and the venue is unnamed until permission exists. The
-// escape page passes a lead ("The Hampshire escape.") and its own signup channel.
+// escape page passes a lead ("The country hotel escape.") and its own signup channel.
 export function Hero({ escape = hampshire, lead, sourceChannel = 'trove-hero' }: { escape?: Escape; lead?: string; sourceChannel?: string }) {
   const promises = [
     `${count(escape.cap)} entries. Never more.`,
     compliance.noRollover ? 'One winner guaranteed.' : null,
     'Free entry by post.',
-    `${percent(escape.charity.shareOfGross)} to causes in ${escape.destination}.`,
+    `${percent(escape.charity.shareOfGross)} to ${localCauses(escape)}.`,
     `${gbp(escape.entry.price)} an entry.`,
   ].filter((line): line is string => Boolean(line));
 
@@ -51,9 +53,21 @@ export function Hero({ escape = hampshire, lead, sourceChannel = 'trove-hero' }:
                   <span className="mark-box">{count(escape.cap)}</span> entries. Never more.
                 </span>
               </p>
-              <h1 className="display hero-prize">
-                Win {numberWord(escape.nights)} nights at {venueLine(escape)}, and {gbp(escape.prize.cash)} in cash.
-              </h1>
+              {/* On the home page the headline is Trove's own line, and the first escape follows
+                  it as the first of many, close to home and unnamed. The escape page keeps the
+                  prize as its headline, because that page is about one escape. */}
+              {lead ? (
+                <h1 className="display hero-prize">
+                  Win {numberWord(escape.nights)} nights at {venueLine(escape)}, and {gbp(escape.prize.cash)} in cash.
+                </h1>
+              ) : (
+                <>
+                  <h1 className="display hero-prize">{organisation.tagline}</h1>
+                  <p className="hero-first">
+                    {escape.destinationPublic ? `The first is in ${escape.destination}` : 'The first is close to home'}: {numberWord(escape.nights)} nights at {venueLine(escape)}, and {gbp(escape.prize.cash)} in cash.
+                  </p>
+                </>
+              )}
             </div>
             <div>
               <div className="hero-form">

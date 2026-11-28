@@ -146,7 +146,7 @@ export function EntryFlow({ preview, escapeHref, destination, options, start, fa
           <section className="mt-6 flex flex-col gap-5">
             <h1 className="display text-[2rem] leading-tight">Choose your entries.</h1>
             <p className="text-base text-ink/80">
-              There are never more than {facts.cap} entries in the {destination} draw. If fewer sell, your chance gets better.
+              There are never more than {facts.cap} entries in this draw. If fewer sell, your chance gets better.
             </p>
             <fieldset className="flex flex-col gap-2.5">
               <legend className="sr-only">Number of entries</legend>
@@ -169,7 +169,7 @@ export function EntryFlow({ preview, escapeHref, destination, options, start, fa
             </fieldset>
             <p className="text-xs leading-relaxed text-ink/70">Each person can have up to {facts.maxPerPerson} entries in this draw, online and by post together.</p>
             <p className="text-sm">
-              Prices include VAT. {facts.share} of what you pay goes to charities in {destination}: {choice.causes} for this choice.
+              Prices include VAT. {facts.share} of what you pay goes to local charities: {choice.causes} for this choice.
             </p>
             <button type="button" onClick={() => setStep('details')} className="btn min-h-[52px] bg-ink text-base font-semibold text-snow hover:bg-loch">
               Continue
@@ -275,7 +275,7 @@ export function EntryFlow({ preview, escapeHref, destination, options, start, fa
                 <dd>{choice.price}</dd>
               </div>
               <p className="text-[13px] text-ink/75">
-                {choice.causes} of this goes to charities in {destination}.
+                {choice.causes} of this goes to local charities.
               </p>
             </dl>
             <div className="flex flex-col gap-2" aria-label="Payment">
@@ -302,7 +302,7 @@ export function EntryFlow({ preview, escapeHref, destination, options, start, fa
               <span aria-hidden="true" className="absolute -top-12 -right-8 h-28 w-28 rounded-full bg-sun" />
               <h1 className="display relative text-[2rem] leading-tight">You’re in the draw.</h1>
               <p className="relative mt-3 text-[15px] text-snow/90">
-                {choice.label} in the {destination} draw. Your entry numbers appear here, and in your account, once payment clears.
+                {choice.label} in this draw. Your entry numbers appear here, and in your account, once payment clears.
               </p>
               <p className="relative mt-3 text-xs leading-relaxed text-snow/85">Your chance is at least {choice.odds}. We draw the winner when all the entries have gone or on the closing date, whichever comes first.</p>
             </div>

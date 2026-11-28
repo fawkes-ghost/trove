@@ -6,6 +6,7 @@ import { routes, freePostalRoute, signposting, type Route } from '@/lib/routes';
 import { Wordmark } from '@/components/brand/Marks';
 import { percent } from '@/lib/format';
 import { ComplianceStrip } from './ComplianceStrip';
+import { escapeTitle } from '@/lib/escapes';
 
 // Loch block. Four groups of links, the signposting and the key terms, then a plain account
 // of what is real today and what is still being finished, read from config/launch.ts and the
@@ -15,7 +16,7 @@ export function Footer() {
   const [first, second] = compliance.dcmsVoluntaryCode.signposting;
 
   const groups: { title: string; links: Route[] }[] = [
-    { title: 'Escapes', links: [{ label: escape.destination, href: `/escapes/${escape.slug}` }, { label: 'All escapes', href: '/escapes' }, { label: 'Results', href: `/escapes/${escape.slug}/winner` }] },
+    { title: 'Escapes', links: [{ label: escapeTitle(escape), href: `/escapes/${escape.slug}` }, { label: 'All escapes', href: '/escapes' }, { label: 'Results', href: `/escapes/${escape.slug}/winner` }] },
     { title: 'Help', links: [{ label: 'How it works', href: '/how-it-works' }, { label: 'Fair questions', href: '/#questions' }, { label: 'Free entry by post', href: freePostalRoute }, { label: 'Contact', href: '/contact' }, { label: 'Complaints', href: '/legal/complaints' }] },
     { title: 'Trove', links: [{ label: 'Why Trove', href: '/why' }, { label: 'Playing responsibly', href: '/legal/playing-responsibly' }] },
     { title: 'Legal', links: routes.legal.filter((route) => route.href !== '/legal/complaints' && route.href !== '/legal/playing-responsibly') },
@@ -25,7 +26,7 @@ export function Footer() {
     escape.status === 'open' ? null : 'Entries are not open yet, and no payment is taken on this site.',
     launch.termsInForce ? null : 'The terms, key terms and policies are drafts for solicitor review and are not yet in force.',
     escape.venue.permissionGranted ? null : 'The house is named once it has given its written permission.',
-    launch.imageryLicensed ? null : 'The film is an AI-generated stand-in for mood. The photographs are real photographs of the Hampshire countryside. None of them shows the house, and licensed film and photography of it replace them before entries open.',
+    launch.imageryLicensed ? null : 'The film is an AI-generated stand-in for mood. The photographs are real photographs of the English countryside. None of them shows the house, and licensed film and photography of it replace them before entries open.',
   ].filter((line): line is string => Boolean(line));
 
   // A social or review slot shows only once its link exists: a platform's name with nothing

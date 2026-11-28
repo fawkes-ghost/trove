@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { escape, worstCaseOdds } from '@/config/prize';
-import { escapes, prizeLine, reelStills, statusLabel } from '@/lib/escapes';
+import { escapeTitle, escapes, prizeLine, reelStills, statusLabel } from '@/lib/escapes';
 
 export const metadata: Metadata = {
   title: 'Escapes',
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   alternates: { canonical: '/escapes' },
 };
 
-// A vertical list, not a card grid. Each row: the escape's first photograph, destination,
+// A vertical list, not a card grid. Each row: the escape's first photograph, name,
 // nights, prize value, odds, status, one line of the locality statement. Without a photograph the row takes the film's poster, and without that
 // the gradient.
 export default function EscapesPage() {
@@ -33,7 +33,7 @@ export default function EscapesPage() {
                 )}
               </div>
               <div className="flex flex-col gap-3">
-                <h2 className="display text-[2rem] md:text-[2.5rem]">{item.destination}.</h2>
+                <h2 className="display text-[2rem] md:text-[2.5rem]">{escapeTitle(item)}.</h2>
                 <p className="text-[11px] text-ink/60">{statusLabel(item.status)}</p>
                 <p className="text-lg">{prizeLine(item)}</p>
                 <p className="text-base">Your chance with one entry: at least {worstCaseOdds(item)}.</p>
