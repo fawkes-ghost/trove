@@ -67,7 +67,7 @@ export function Hero({ escape = hampshire, lead, sourceChannel = 'trove-hero' }:
                   <p className="hero-first">
                     {escape.destinationPublic
                       ? `The first is in ${escape.destination}: a ${gbp(escape.prize.value)} escape.`
-                      : `The first is close to home: a ${gbp(escape.prize.value)} escape. Where is still a secret.`}
+                      : `Our first escape, a ${gbp(escape.prize.value)} prize close to home, is announced at launch.`}
                   </p>
                 </>
               )}
