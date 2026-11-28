@@ -185,8 +185,8 @@ export const escape: Escape = {
     // nothing under media/ comes from Supabase, so first paint never waits on another origin.
     poster: '/media/hero-poster-countryside-placeholder.jpg', // the loop's own first frame, so first paint matches frame zero
     posterAlt: 'Mist over a wooded valley at sunrise, bare winter trees under a low sun. An AI-generated placeholder, not a real place, until the film of the escape is licensed.',
-    loop: '/media/hero-countryside-placeholder-v1.mp4', // 1600x900, 17.4s, silent, seamless, 5.3MB
-    loopSmall: '/media/hero-countryside-placeholder-v1-960.mp4', // the same film at 960x540, CRF 30, 2.5MB
+    loop: '/media/hero-countryside-placeholder-v2.mp4', // 1600x900, 11.1s, silent, seamless, 4.9MB; no house and no interior
+    loopSmall: '/media/hero-countryside-placeholder-v2-960.mp4', // the same film at 960x540, CRF 30, 2.0MB
     // Real photographs, openly licensed, in the order the pages show them: the first runs
     // edge to edge on the escape page. None depicts the venue or anything on its estate.
     stills: [
@@ -241,6 +241,21 @@ export const escape: Escape = {
 // ---------------------------------------------------------------------------
 // Minis. On brand, tied to the destination, drawn from the same ledger rules.
 // ---------------------------------------------------------------------------
+// The home page film speaks for Trove as a whole, not for one escape: the first escape's
+// countryside, then the wild places later escapes are meant to reach, then the countryside
+// again, so the loop opens and closes on the escape that is actually on offer. It is used
+// only by the home hero. An escape page always shows its own escape's film, so no escape
+// page ever shows a place that is not its prize. Every clip in it is an AI-generated
+// stand-in until licensed footage replaces it; docs/media-credits.md records each one.
+export type Film = Pick<Escape['media'], 'poster' | 'posterAlt' | 'loop' | 'loopSmall'>;
+
+export const homeFilm: Film = {
+  poster: escape.media.poster, // the sequence opens on the countryside film's first frame
+  posterAlt: 'Mist over a wooded valley at sunrise, bare winter trees under a low sun. An AI-generated placeholder, not a real place.',
+  loop: '/media/hero-sequence-placeholder-v2.mp4', // 1600x900, 12.1s, silent: six hard cuts of about 2s (valley, river, frost, lions, cub, dawn fields); 4.3MB
+  loopSmall: '/media/hero-sequence-placeholder-v2-960.mp4', // the same film at 960x540, CRF 30, 1.6MB
+};
+
 export type Mini = Omit<Escape, 'nights' | 'party' | 'venue'> & { escapeSlug: string };
 
 export const minis: Mini[] = [];    // populate when the first mini is costed; never AirPods

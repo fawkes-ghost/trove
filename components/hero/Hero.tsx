@@ -1,4 +1,4 @@
-import { compliance, escape as hampshire, worstCaseOdds, type Escape } from '@/config/prize';
+import { compliance, escape as hampshire, worstCaseOdds, type Escape, type Film } from '@/config/prize';
 import { count, gbp, numberWord, percent } from '@/lib/format';
 import { localCauses, venueLine } from '@/lib/escapes';
 import { organisation } from '@/config/organisation';
@@ -20,7 +20,8 @@ import { PromiseRibbon } from './PromiseRibbon';
 //
 // Every figure is read from config and the venue is unnamed until permission exists. The
 // escape page passes a lead ("The country hotel escape.") and its own signup channel.
-export function Hero({ escape = hampshire, lead, sourceChannel = 'trove-hero' }: { escape?: Escape; lead?: string; sourceChannel?: string }) {
+// `film` replaces the escape's own film; only the home page passes one (config homeFilm).
+export function Hero({ escape = hampshire, lead, sourceChannel = 'trove-hero', film }: { escape?: Escape; lead?: string; sourceChannel?: string; film?: Film }) {
   const promises = [
     `${count(escape.cap)} entries. Never more.`,
     compliance.noRollover ? 'One winner guaranteed.' : null,
@@ -32,7 +33,7 @@ export function Hero({ escape = hampshire, lead, sourceChannel = 'trove-hero' }:
   return (
     <section data-hero data-hero-film className="relative">
       <div className="hero-sky relative flex min-h-[max(36rem,calc(100svh-2.75rem))] flex-col justify-end overflow-clip bg-loch pt-24">
-        <HeroFilm media={escape.media} />
+        <HeroFilm media={film ?? escape.media} />
         <div aria-hidden="true" className="hero-scrim pointer-events-none absolute inset-0 z-10" />
         <div className="relative z-20 px-6 pb-8 text-snow md:px-10 md:pb-14" data-hero-copy>
           <p className="hero-kicker" aria-hidden="true">
