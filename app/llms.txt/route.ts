@@ -17,7 +17,7 @@ export function GET() {
   const lines = [
     `# Trove`,
     ``,
-    `> ${organisation.tagline} Trove is a UK luxury travel prize draw. One prize per draw, called an escape. ${e.charity.localityStatement}`,
+    `> ${organisation.tagline} Trove is a UK prize draw for luxury wild escapes. One prize per draw, called an escape. ${e.charity.localityStatement}`,
     ``,
     `Trove runs one escape at a time. Entries are capped and the cap is published and never raised. Every entry, paid or free by post, has identical odds. The draw closes when the cap is reached or on a longstop date set once when entries open, whichever comes first, and it is never extended.${compliance.noRollover ? ' One winner is guaranteed; there is no rollover.' : ''} ${e.charity.localityStatement} What was given is published after every draw.`,
     ``,
