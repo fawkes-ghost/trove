@@ -12,7 +12,7 @@ type Status = 'idle' | 'sending' | 'ok' | 'duplicate' | 'name' | 'invalid' | 'er
 const messages: Record<Exclude<Status, 'idle' | 'sending'>, string> = {
   ok: 'Check your email.',
   duplicate: 'You’re already on the list.',
-  name: 'Please add your first name.',
+  name: 'Please add your first name and surname.',
   invalid: 'That doesn’t look like an email address.',
   error: 'Something went wrong at our end. Please try again in a moment.',
   challenge: 'We couldn’t check that you’re a person. Please try again.',
@@ -24,10 +24,8 @@ const NAME_MAX = 80;
 // One field style for all three inputs.
 const FIELD = 'h-12 w-full min-w-0 border border-ink/40 bg-snow px-4 text-base text-ink placeholder:text-ink/50 focus:border-ink focus:outline-none';
 
-// First name, email address and a button: the name on one row, the email and the button on
-// the next, both rows the same width. No surname: the list only needs a name to greet people
-// by, every extra box costs signups, and the function stores lastName as optional. The
-// surname is asked for when someone enters. Calls the existing
+// First name, surname, email address and a button: the names side by side on one row, the
+// email and the button on the next, both rows the same width. Calls the existing
 // waitlist-signup edge function directly so the visitor's own details reach it; the function
 // already stores firstName and lastName, and it and the table are not changed from this
 // repo. That function sends the confirmation email; nothing in this repo sends mail.
@@ -45,6 +43,8 @@ const FIELD = 'h-12 w-full min-w-0 border border-ink/40 bg-snow px-4 text-base t
 export function WaitlistForm({ sourceChannel = 'trove-home', share, idPrefix = 'waitlist', wordmarkSvg }: { sourceChannel?: string; share?: { title: string; text: string; url: string }; idPrefix?: string; wordmarkSvg?: string } = {}) {
   const [status, setStatus] = useState<Status>('idle');
   const [token, setToken] = useState<string | null>(null);
+  // Which name field was left empty on the last submit, so only that one is marked invalid.
+  const [nameGaps, setNameGaps] = useState({ first: false, last: false });
   const [resetSignal, setResetSignal] = useState(0);
   // This person's own share code, from the function's answer, so the link they send is theirs.
   const [shareCode, setShareCode] = useState<string | null>(null);
@@ -65,11 +65,13 @@ export function WaitlistForm({ sourceChannel = 'trove-home', share, idPrefix = '
     if (String(data.get('website') ?? '').length > 0) return;
 
     const firstName = String(data.get('firstName') ?? '').trim().slice(0, NAME_MAX);
+    const lastName = String(data.get('lastName') ?? '').trim().slice(0, NAME_MAX);
     const email = String(data.get('email') ?? '')
       .trim()
       .toLowerCase();
 
-    if (!firstName) {
+    if (!firstName || !lastName) {
+      setNameGaps({ first: !firstName, last: !lastName });
       setStatus('name');
       return;
     }
@@ -98,7 +100,7 @@ export function WaitlistForm({ sourceChannel = 'trove-home', share, idPrefix = '
         method: 'POST',
         headers: { 'Content-Type': 'application/json', apikey: key, Authorization: `Bearer ${key}` },
         // Attribution held in sessionStorage since the first page of the visit; sent only now.
-        body: JSON.stringify({ firstName, email, source_channel: sourceChannel, turnstile_token: token, ...readAttribution() }),
+        body: JSON.stringify({ firstName, lastName, email, source_channel: sourceChannel, turnstile_token: token, ...readAttribution() }),
       });
       const result: { success?: boolean; message?: string; error?: string; referralCode?: string | null } = await response.json().catch(() => ({}));
 
@@ -148,7 +150,7 @@ export function WaitlistForm({ sourceChannel = 'trove-home', share, idPrefix = '
       {!done ? (
         <>
           <div className="flex max-w-[34rem] flex-col gap-3" data-waitlist-fields>
-            <div data-waitlist-names>
+            <div className="grid grid-cols-2 gap-3" data-waitlist-names>
               <div>
                 <label htmlFor={`${idPrefix}-first-name`} className="sr-only">
                   First name
@@ -163,7 +165,27 @@ export function WaitlistForm({ sourceChannel = 'trove-home', share, idPrefix = '
                   maxLength={NAME_MAX}
                   placeholder="First name"
                   required
-                  aria-invalid={status === 'name' || undefined}
+                  aria-invalid={(status === 'name' && nameGaps.first) || undefined}
+                  aria-describedby={`${idPrefix}-status`}
+                  onChange={clearStatus}
+                  className={FIELD}
+                />
+              </div>
+              <div>
+                <label htmlFor={`${idPrefix}-last-name`} className="sr-only">
+                  Surname
+                </label>
+                <input
+                  id={`${idPrefix}-last-name`}
+                  name="lastName"
+                  type="text"
+                  autoComplete="family-name"
+                  autoCapitalize="words"
+                  spellCheck={false}
+                  maxLength={NAME_MAX}
+                  placeholder="Surname"
+                  required
+                  aria-invalid={(status === 'name' && nameGaps.last) || undefined}
                   aria-describedby={`${idPrefix}-status`}
                   onChange={clearStatus}
                   className={FIELD}
