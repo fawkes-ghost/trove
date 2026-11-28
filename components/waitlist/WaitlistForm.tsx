@@ -15,7 +15,7 @@ const messages: Record<Exclude<Status, 'idle' | 'sending'>, string> = {
   name: 'Please add your first name and surname.',
   invalid: 'That doesn’t look like an email address.',
   error: 'Something went wrong at our end. Please try again in a moment.',
-  challenge: 'We couldn’t check that you’re a person. Please try again.',
+  challenge: 'Please complete the check below, then join the list.',
 };
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -41,10 +41,10 @@ const FIELD = 'h-12 w-full min-w-0 border border-ink/40 bg-snow px-4 text-base t
 // can carry more than one form (the hero and the section at the foot), so the field ids take
 // a prefix.
 //
-// namesAfter (the hero, 28 November 2026): the form opens as the email address and the button
+// namesAfter (every form since 28 November 2026; off only if a page asks): the form opens as the email address and the button
 // only. A valid address brings the two name fields in beneath it, and the same button then
 // sends all three in the one call, so the function and the table are unchanged.
-export function WaitlistForm({ sourceChannel = 'trove-home', share, idPrefix = 'waitlist', wordmarkSvg, namesAfter = false }: { sourceChannel?: string; share?: { title: string; text: string; url: string }; idPrefix?: string; wordmarkSvg?: string; namesAfter?: boolean } = {}) {
+export function WaitlistForm({ sourceChannel = 'trove-home', share, idPrefix = 'waitlist', wordmarkSvg, namesAfter = true, theme = 'light' }: { sourceChannel?: string; share?: { title: string; text: string; url: string }; idPrefix?: string; wordmarkSvg?: string; namesAfter?: boolean; theme?: 'light' | 'dark' } = {}) {
   const [status, setStatus] = useState<Status>('idle');
   // With namesAfter, the names stay out of the way until a valid email address is in.
   const [askNames, setAskNames] = useState(!namesAfter);
@@ -52,7 +52,8 @@ export function WaitlistForm({ sourceChannel = 'trove-home', share, idPrefix = '
   useEffect(() => {
     if (namesAfter && askNames) firstNameRef.current?.focus();
   }, [namesAfter, askNames]);
-  const [token, setToken] = useState<string | null>(null);
+  // The Turnstile token, readable inside a submit that is waiting for the check to finish.
+  const tokenRef = useRef<string | null>(null);
   // Which name field was left empty on the last submit, so only that one is marked invalid.
   const [nameGaps, setNameGaps] = useState({ first: false, last: false });
   const [resetSignal, setResetSignal] = useState(0);
@@ -102,9 +103,19 @@ export function WaitlistForm({ sourceChannel = 'trove-home', share, idPrefix = '
       return;
     }
 
-    if (protectedByTurnstile && !token) {
-      setStatus('challenge');
-      return;
+    // The check started at the email step and usually finishes unseen while the names are
+    // typed. If it has not, wait a few seconds for it before asking the visitor to help.
+    let currentToken = tokenRef.current;
+    if (protectedByTurnstile && !currentToken) {
+      setStatus('sending');
+      for (let i = 0; i < 16 && !tokenRef.current; i += 1) {
+        await new Promise((resolve) => setTimeout(resolve, 250));
+      }
+      currentToken = tokenRef.current;
+      if (!currentToken) {
+        setStatus('challenge');
+        return;
+      }
     }
 
     const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -121,7 +132,7 @@ export function WaitlistForm({ sourceChannel = 'trove-home', share, idPrefix = '
         method: 'POST',
         headers: { 'Content-Type': 'application/json', apikey: key, Authorization: `Bearer ${key}` },
         // Attribution held in sessionStorage since the first page of the visit; sent only now.
-        body: JSON.stringify({ firstName, lastName, email, source_channel: sourceChannel, turnstile_token: token, ...readAttribution() }),
+        body: JSON.stringify({ firstName, lastName, email, source_channel: sourceChannel, turnstile_token: currentToken, ...readAttribution() }),
       });
       const result: { success?: boolean; message?: string; error?: string; referralCode?: string | null } = await response.json().catch(() => ({}));
 
@@ -254,8 +265,10 @@ export function WaitlistForm({ sourceChannel = 'trove-home', share, idPrefix = '
 
           {protectedByTurnstile ? (
             <Turnstile
+              run={askNames}
+              theme={theme}
               onToken={(value) => {
-                setToken(value);
+                tokenRef.current = value;
                 if (value && status === 'challenge') setStatus('idle');
               }}
               onError={() => setStatus('challenge')}
