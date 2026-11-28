@@ -33,7 +33,7 @@ export function prizeLineShort(e: Escape): string {
 // more. The founder's call (28 November 2026): build suspense for the waitlist. The escape
 // page and the key terms still give the full prize, one click away.
 export function teaserLine(e: Escape): string {
-  return e.destinationPublic ? prizeLine(e) : `A ${gbp(e.prize.value)} escape for ${numberWord(e.party)}, announced at launch.`;
+  return e.destinationPublic ? prizeLine(e) : `A ${gbp(e.prize.value)} winter escape for ${numberWord(e.party)}, named on the morning entries open.`;
 }
 
 // The prize in one line, for the hero, the escape card and the holding page.
@@ -83,7 +83,7 @@ export function reelStills(e: Escape): { src: string; alt: string; title: string
 // the place stays unnamed until escape.destinationPublic is true.
 export function countyProse(): string[] {
   return [
-    'Our first escape is close to home. Winter there means chalk streams and short days: clear, cold rivers through the water meadows, and downs where you can see for miles.',
-    'The villages still have their pubs and their fires, and lunch can take all afternoon.',
+    'Our first escape is in the English countryside, at the time of year it is at its best: clear, cold rivers through the water meadows, and downs where you can walk all morning and see for miles.',
+    'The villages still keep their pubs and their fires, and nobody minds if lunch takes the whole afternoon.',
   ];
 }

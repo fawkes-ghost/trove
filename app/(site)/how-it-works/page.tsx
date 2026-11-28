@@ -21,7 +21,7 @@ export default function HowItWorksPage() {
       <section className="page-head">
         <div className="max-w-[40rem]">
           <h1 className="display text-balance text-[2.5rem] md:text-[3.5rem]">How it works.</h1>
-          <p className="mt-6 text-lg">You enter, we draw one winner, the winner goes away.</p>
+          <p className="mt-6 text-lg">You enter, we draw one winner at random, and the winner packs a bag.</p>
         </div>
       </section>
 
